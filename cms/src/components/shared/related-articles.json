@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_shared_related_articles",
+  "info": {
+    "displayName": "RelatedArticles",
+    "icon": "file"
+  },
+  "options": {},
+  "attributes": {
+    "articles": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::article.article"
+    }
+  }
+}

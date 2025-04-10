@@ -6,7 +6,7 @@ export default () => ({
     config: {
       endpoint: "/graphql",
       shadowCRUD: true,
-      landingPage: false, // disable Sandbox everywhere
+      landingPage: true, // disable Sandbox everywhere
       depthLimit: 7,
       amountLimit: 100,
       apolloServer: {

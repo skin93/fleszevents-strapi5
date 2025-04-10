@@ -23,14 +23,32 @@ export interface SharedOpenGraph extends Struct.ComponentSchema {
   };
 }
 
+export interface SharedRelatedArticles extends Struct.ComponentSchema {
+  collectionName: 'components_shared_related_articles';
+  info: {
+    displayName: 'RelatedArticles';
+    icon: 'file';
+  };
+  attributes: {
+    articles: Schema.Attribute.Relation<'oneToMany', 'api::article.article'>;
+  };
+}
+
 export interface SharedSeo extends Struct.ComponentSchema {
   collectionName: 'components_shared_seos';
   info: {
+    description: '';
     displayName: 'seo';
     icon: 'search';
   };
   attributes: {
     canonicalURL: Schema.Attribute.String;
+    googleFollow: Schema.Attribute.Boolean &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<true>;
+    googleIndex: Schema.Attribute.Boolean &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<true>;
     keywords: Schema.Attribute.Text;
     metaDescription: Schema.Attribute.String &
       Schema.Attribute.Required &
@@ -47,7 +65,24 @@ export interface SharedSeo extends Struct.ComponentSchema {
       }>;
     metaViewport: Schema.Attribute.String;
     openGraph: Schema.Attribute.Component<'shared.open-graph', false>;
+    robotsFollow: Schema.Attribute.Boolean &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<true>;
+    robotsIndex: Schema.Attribute.Boolean &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<true>;
     structuredData: Schema.Attribute.JSON;
+  };
+}
+
+export interface SharedSmallGallery extends Struct.ComponentSchema {
+  collectionName: 'components_shared_small_galleries';
+  info: {
+    displayName: 'SmallGallery';
+    icon: 'picture';
+  };
+  attributes: {
+    images: Schema.Attribute.Media<'images', true> & Schema.Attribute.Required;
   };
 }
 
@@ -55,7 +90,9 @@ declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
       'shared.open-graph': SharedOpenGraph;
+      'shared.related-articles': SharedRelatedArticles;
       'shared.seo': SharedSeo;
+      'shared.small-gallery': SharedSmallGallery;
     }
   }
 }

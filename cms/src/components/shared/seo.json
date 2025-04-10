@@ -2,7 +2,8 @@
   "collectionName": "components_shared_seos",
   "info": {
     "displayName": "seo",
-    "icon": "search"
+    "icon": "search",
+    "description": ""
   },
   "options": {},
   "attributes": {
@@ -46,6 +47,26 @@
     },
     "structuredData": {
       "type": "json"
+    },
+    "robotsIndex": {
+      "type": "boolean",
+      "default": true,
+      "required": true
+    },
+    "robotsFollow": {
+      "type": "boolean",
+      "default": true,
+      "required": true
+    },
+    "googleIndex": {
+      "type": "boolean",
+      "default": true,
+      "required": true
+    },
+    "googleFollow": {
+      "type": "boolean",
+      "default": true,
+      "required": true
     }
   }
 }

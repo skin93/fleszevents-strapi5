@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "music_types",
+  "info": {
+    "singularName": "music-type",
+    "pluralName": "music-types",
+    "displayName": "MusicType"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "festivals": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::festival.festival",
+      "mappedBy": "music_types"
+    }
+  }
+}
