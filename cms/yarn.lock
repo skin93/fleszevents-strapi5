@@ -10978,6 +10978,11 @@ strapi-plugin-gen-types@^0.0.15:
     react-intl "^7.1.6"
     react-syntax-highlighter "^15.6.1"
 
+strapi-plugin-webp-converter@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/strapi-plugin-webp-converter/-/strapi-plugin-webp-converter-1.0.4.tgz#f97f5a9c66d175af7696ce65934288b5117e512a"
+  integrity sha512-Q0S6xJYDJizhlISbH4mp8xM7X3J5bE2Xee6jIQ8da0vdG9H0IUZKT6ER7tqgj79aGOcnaVFY3n3Ng42SCSw4gQ==
+
 stream-chain@2.2.5, stream-chain@^2.2.5:
   version "2.2.5"
   resolved "https://registry.yarnpkg.com/stream-chain/-/stream-chain-2.2.5.tgz#b30967e8f14ee033c5b9a19bbe8a2cba90ba0d09"
