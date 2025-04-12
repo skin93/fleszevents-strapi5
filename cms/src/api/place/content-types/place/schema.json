@@ -11,13 +11,13 @@
     "draftAndPublish": false
   },
   "attributes": {
-    "lattitude": {
+    "lat": {
       "type": "float",
-      "required": true
+      "required": false
     },
-    "longitude": {
+    "lng": {
       "type": "float",
-      "required": true
+      "required": false
     },
     "city": {
       "type": "string",
@@ -32,6 +32,16 @@
       "relation": "oneToMany",
       "target": "api::festival.festival",
       "mappedBy": "place"
+    },
+    "geolocation": {
+      "type": "customField",
+      "options": {
+        "info": true
+      },
+      "customField": "plugin::geodata.geojson"
+    },
+    "geohash": {
+      "type": "string"
     }
   }
 }
