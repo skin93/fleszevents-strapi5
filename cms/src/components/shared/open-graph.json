@@ -2,7 +2,8 @@
   "collectionName": "components_shared_open_graphs",
   "info": {
     "displayName": "openGraph",
-    "icon": "project-diagram"
+    "icon": "project-diagram",
+    "description": ""
   },
   "options": {},
   "attributes": {
@@ -17,19 +18,22 @@
       "required": true
     },
     "ogImage": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
       "allowedTypes": [
         "images"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
     },
     "ogUrl": {
       "type": "string",
-      "required": false
+      "required": true,
+      "default": "https://fleszevents.pl/"
     },
     "ogType": {
       "type": "string",
-      "required": false
+      "required": true,
+      "default": "Facebook"
     }
   }
 }

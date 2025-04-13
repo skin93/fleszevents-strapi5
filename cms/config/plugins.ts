@@ -1,4 +1,4 @@
-export default () => ({
+export default ({ env }) => ({
   seo: {
     enabled: true,
   },
@@ -26,7 +26,13 @@ export default () => ({
     config: {
       endpoint: "/graphql",
       shadowCRUD: true,
-      landingPage: true, // disable Sandbox everywhere
+      landingPage: (strapi) => {
+        if (env("NODE_ENV") !== "production") {
+          return true;
+        } else {
+          return false;
+        }
+      },
       depthLimit: 7,
       amountLimit: 100,
       apolloServer: {

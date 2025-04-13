@@ -3,9 +3,9 @@ export interface SharedOpenGraph {
   id?: number;
   ogTitle: string;
   ogDescription: string;
-  ogImage?: Media | null;
-  ogUrl?: string;
-  ogType?: string;
+  ogImage: Media | null;
+  ogUrl: string;
+  ogType: string;
 };
 
 export interface SharedRelatedArticles {
@@ -17,12 +17,12 @@ export interface SharedSeo {
   id?: number;
   metaTitle: string;
   metaDescription: string;
-  metaImage?: Media | null;
-  openGraph?: SharedOpenGraph | null;
-  keywords?: string;
+  metaImage: Media | null;
+  openGraph: SharedOpenGraph | null;
+  keywords: string;
   metaRobots?: string;
   metaViewport?: string;
-  canonicalURL?: string;
+  canonicalURL: string;
   structuredData?: Record<string, any>;
   robotsIndex: boolean;
   robotsFollow: boolean;

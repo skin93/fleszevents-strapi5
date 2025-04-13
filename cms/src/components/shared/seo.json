@@ -21,7 +21,7 @@
     "metaImage": {
       "type": "media",
       "multiple": false,
-      "required": false,
+      "required": true,
       "allowedTypes": [
         "images"
       ]
@@ -29,11 +29,13 @@
     "openGraph": {
       "type": "component",
       "repeatable": false,
-      "component": "shared.open-graph"
+      "component": "shared.open-graph",
+      "required": true
     },
     "keywords": {
       "type": "text",
-      "regex": "[^,]+"
+      "regex": "[^,]+",
+      "required": true
     },
     "metaRobots": {
       "type": "string",
@@ -43,7 +45,9 @@
       "type": "string"
     },
     "canonicalURL": {
-      "type": "string"
+      "type": "string",
+      "default": "https://fleszevents.pl/",
+      "required": true
     },
     "structuredData": {
       "type": "json"
