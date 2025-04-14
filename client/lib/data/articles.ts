@@ -1,9 +1,9 @@
 import { grafbase } from "@/lib/graphql";
 import { LATEST_ARTICLES_QUERY } from "@/lib/queries/articles/latestArticlesQuery";
-// import { SINGLE_ARTICLE_QUERY } from "@/lib/queries/articles/singleArticleQuery";
-// import { SINGLE_ARTICLE_META_QUERY } from "@/lib/queries/articles/singleArticleMetaQuery";
+import { SINGLE_ARTICLE_QUERY } from "@/lib/queries/articles/singleArticleQuery";
+import { SINGLE_ARTICLE_META_QUERY } from "@/lib/queries/articles/singleArticleMetaQuery";
 // import { ARTICLES_BY_TERM_QUERY } from "@/lib/queries/articles/articlesByTermQuery";
-import { LatestArticles } from "../interfaces";
+import { Articles, LatestArticles } from "../interfaces";
 // import { ARTICLES_SITEMAP_QUERY } from "@/lib/queries/articles/articlesSitemapQuery.ts";
 
 export async function getLatestArticles(start: number, limit: number) {
@@ -21,19 +21,19 @@ export async function getLatestArticles(start: number, limit: number) {
   };
 }
 
-// export async function getArticleBySlug(slug) {
-//   const res = await grafbase.request(SINGLE_ARTICLE_QUERY, {
-//     slug,
-//   });
-//   return { article: res.articles[0] };
-// }
+export async function getArticleBySlug(slug: string) {
+  const res = await grafbase.request<Articles>(SINGLE_ARTICLE_QUERY, {
+    slug,
+  });
+  return { article: res.articles[0] };
+}
 
-// export async function getArticleMeta(slug) {
-//   const res = await grafbase.request(SINGLE_ARTICLE_META_QUERY, {
-//     slug,
-//   });
-//   return { seo: res.articles[0] };
-// }
+export async function getArticleMeta(slug: string) {
+  const res = await grafbase.request<Articles>(SINGLE_ARTICLE_META_QUERY, {
+    slug,
+  });
+  return { seo: res.articles[0].seo };
+}
 
 // export async function getArticlesSitemap() {
 //   const res = await grafbase.request(ARTICLES_SITEMAP_QUERY);

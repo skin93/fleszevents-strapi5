@@ -50,6 +50,7 @@ export interface Article {
   authors?: Author[] | null;
   categories?: Category[] | null;
   tags?: Tag[] | null;
+  relatedArticles?: SharedRelatedArticles | null;
 };
 
 export interface Author {

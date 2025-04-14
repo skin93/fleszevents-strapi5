@@ -1,22 +1,21 @@
 import React from "react";
 import { Card, CardContent, CardTitle } from "../card";
 import Image from "next/image";
-// import { getMediaUrl } from "@/lib/getMediaUrl";
 import { Article } from "@/lib/interfaces";
+import { getMediaUrl } from "@/lib/getMediaUrl";
 
 type Props = {
   article: Article;
 };
 
 export default function BaseCard({ article }: Props) {
-  const domain = process.env.NEXT_PUBLIC_STRAPI;
   return (
     <Card className="group aspect-video w-full border-none relative">
       <Image
         loading="lazy"
-        width={article.cover?.width}
-        height={article.cover?.height}
-        src={`${domain}${article.cover?.url}`}
+        width={article.cover.width}
+        height={article.cover.height}
+        src={getMediaUrl(article.cover)}
         title={article.title}
         style={{ objectFit: "cover" }}
         alt={article.cover.alternativeText}
