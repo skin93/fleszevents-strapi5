@@ -4,11 +4,11 @@ import Promo from "@/components/homepage/promo";
 import CategoryBlock from "@/components/homepage/category-block";
 import { getLatestArticles } from "@/lib/data/articles";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 3600;
 
 export default async function HomePage() {
   const { concerts, festivals, premiers, news, promos } =
-    await getLatestArticles(0, 3);
+    await getLatestArticles(0, 6);
 
   if (!concerts || !festivals || !premiers || !news || !promos) {
     notFound();
