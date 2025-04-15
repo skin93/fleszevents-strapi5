@@ -26,7 +26,7 @@ import SearchDialog from "@/components/ui/custom/search-dialog";
 
 const navLinks1: Array<{ title: string; path: string }> = [
   { title: "newsy", path: "/categories/newsy" },
-  { title: "single", path: "/categories/single" },
+  { title: "premiery", path: "/categories/premiery" },
   { title: "festiwale", path: "/categories/festiwale" },
   { title: "koncerty", path: "/categories/koncerty" },
   { title: "relacje", path: "/categories/relacje" },
