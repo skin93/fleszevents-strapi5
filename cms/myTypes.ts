@@ -75,7 +75,7 @@ export interface Category {
   name: string;
   slug: string;
   articles?: Article[] | null;
-  seo?: SharedSeo | null;
+  seo: SharedSeo | null;
 };
 
 export interface Festival {
@@ -108,7 +108,7 @@ export interface Gallery {
   slug: string;
   photos: Media[] | null;
   cover: Media | null;
-  seo?: SharedSeo | null;
+  seo: SharedSeo | null;
   tags?: Tag[] | null;
 };
 
@@ -149,7 +149,7 @@ export interface Tag {
   name: string;
   slug: string;
   articles?: Article[] | null;
-  seo?: SharedSeo | null;
+  seo: SharedSeo | null;
   galleries?: Gallery[] | null;
 };
 

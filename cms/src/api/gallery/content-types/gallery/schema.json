@@ -4,7 +4,8 @@
   "info": {
     "singularName": "gallery",
     "pluralName": "galleries",
-    "displayName": "Gallery"
+    "displayName": "Gallery",
+    "description": ""
   },
   "options": {
     "draftAndPublish": false
@@ -24,25 +25,26 @@
       "required": true
     },
     "photos": {
-      "allowedTypes": [
-        "images"
-      ],
       "type": "media",
       "multiple": true,
-      "required": true
-    },
-    "cover": {
+      "required": true,
       "allowedTypes": [
         "images"
-      ],
+      ]
+    },
+    "cover": {
       "type": "media",
       "multiple": false,
-      "required": true
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
     },
     "seo": {
       "type": "component",
       "repeatable": false,
-      "component": "shared.seo"
+      "component": "shared.seo",
+      "required": true
     },
     "tags": {
       "type": "relation",
