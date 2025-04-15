@@ -32,7 +32,7 @@ export default async function SearchPage({ searchParams }: Props) {
   const { q, page } = await searchParams;
   const term = q || "";
   const currentPage = Number(page) || 1;
-  const { articles, pageInfo } = await getArticlesByTerm(term, currentPage, 1);
+  const { articles, pageInfo } = await getArticlesByTerm(term, currentPage, 12);
 
   if (!articles) {
     notFound();
