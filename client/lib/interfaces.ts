@@ -87,7 +87,11 @@ export interface Category {
   name: string;
   slug: string;
   articles?: Article[] | null;
-  seo?: SharedSeo | null;
+  seo: SharedSeo;
+}
+
+export interface Categories {
+  categories: Category[];
 }
 
 export interface Festival {
@@ -120,7 +124,7 @@ export interface Gallery {
   slug: string;
   photos: Media[] | null;
   cover: Media | null;
-  seo?: SharedSeo | null;
+  seo: SharedSeo | null;
   tags?: Tag[] | null;
 }
 
@@ -161,7 +165,7 @@ export interface Tag {
   name: string;
   slug: string;
   articles?: Article[] | null;
-  seo?: SharedSeo | null;
+  seo: SharedSeo;
   galleries?: Gallery[] | null;
 }
 
@@ -225,20 +229,28 @@ export interface Role {
 
 export interface FindOne<T> {
   data: T;
-  meta: {
-    pagination?: {
-      page: number;
-      pageSize: number;
-      pageCount: number;
-      total: number;
-    };
+  pageInfo?: {
+    page: number;
+    pageSize: number;
+    pageCount: number;
+    total: number;
   };
 }
 
 export interface FindMany<T> {
   data: T[];
-  meta: {
-    pagination?: {
+  pageInfo?: {
+    page: number;
+    pageSize: number;
+    pageCount: number;
+    total: number;
+  };
+}
+
+export interface ArticlesConnection {
+  articles_connection: {
+    nodes: Article[];
+    pageInfo: {
       page: number;
       pageSize: number;
       pageCount: number;
