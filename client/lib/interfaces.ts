@@ -262,3 +262,15 @@ export interface ArticlesConnection {
     };
   };
 }
+
+export interface TagsConnection {
+  tags_connection: {
+    nodes: Tag[];
+    pageInfo: {
+      page: number;
+      pageSize: number;
+      pageCount: number;
+      total: number;
+    };
+  };
+}
