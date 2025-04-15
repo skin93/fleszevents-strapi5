@@ -2,8 +2,8 @@ import { grafbase } from "@/lib/graphql";
 import { LATEST_ARTICLES_QUERY } from "@/lib/queries/articles/latestArticlesQuery";
 import { SINGLE_ARTICLE_QUERY } from "@/lib/queries/articles/singleArticleQuery";
 import { SINGLE_ARTICLE_META_QUERY } from "@/lib/queries/articles/singleArticleMetaQuery";
-// import { ARTICLES_BY_TERM_QUERY } from "@/lib/queries/articles/articlesByTermQuery";
-import { Articles, LatestArticles } from "../interfaces";
+import { Articles, ArticlesConnection, LatestArticles } from "../interfaces";
+import { ARTICLES_BY_TERM_QUERY } from "../queries/articles/articlesByTermQuery";
 // import { ARTICLES_SITEMAP_QUERY } from "@/lib/queries/articles/articlesSitemapQuery.ts";
 
 export async function getLatestArticles(start: number, limit: number) {
@@ -40,13 +40,16 @@ export async function getArticleMeta(slug: string) {
 //   return { articles: res.articles };
 // }
 
-// export async function getArticlesByTerm(term, start, limit) {
-//   const res = await grafbase.request(ARTICLES_BY_TERM_QUERY, {
-//     term,
-//   });
+export async function getArticlesByTerm(term: string) {
+  const res = await grafbase.request<ArticlesConnection>(
+    ARTICLES_BY_TERM_QUERY,
+    {
+      term,
+    }
+  );
 
-//   return {
-//     termInContent: res.termInContent,
-//     termInTitle: res.termInTitle,
-//   };
-// }
+  return {
+    articles: res.articles_connection.nodes,
+    pageInfo: res.articles_connection.pageInfo,
+  };
+}
