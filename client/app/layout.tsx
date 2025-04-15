@@ -38,7 +38,10 @@ export const metadata: Metadata = {
     type: "website",
     locale: "pl_PL",
     url: process.env.NEXT_PUBLIC_APP_DOMAIN,
-    title: process.env.NEXT_PUBLIC_APP_NAME,
+    title: {
+      template: `%s | ${process.env.NEXT_PUBLIC_APP_NAME}`,
+      default: `${process.env.NEXT_PUBLIC_APP_NAME}`,
+    },
     description: "Festiwalowa mapa oraz zapowiedzi koncertów",
     siteName: process.env.NEXT_PUBLIC_APP_NAME,
     images: [
