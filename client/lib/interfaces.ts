@@ -169,6 +169,10 @@ export interface Tag {
   galleries?: Gallery[] | null;
 }
 
+export interface Tags {
+  tags: Tag[];
+}
+
 export interface Media {
   id: number;
   name: string;
