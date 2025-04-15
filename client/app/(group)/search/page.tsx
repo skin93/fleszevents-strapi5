@@ -1,11 +1,12 @@
 import BaseCard from "@/components/ui/custom/base-card";
+import CustomPagination from "@/components/ui/custom/pagination";
 import { getArticlesByTerm } from "@/lib/data/articles";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import React from "react";
 
 type Props = {
-  searchParams: Promise<{ q: string }>;
+  searchParams: Promise<{ q: string; page: string }>;
 };
 
 export async function generateMetadata({ searchParams }: Props) {
@@ -28,9 +29,10 @@ export async function generateMetadata({ searchParams }: Props) {
 }
 
 export default async function SearchPage({ searchParams }: Props) {
-  const { q } = await searchParams;
+  const { q, page } = await searchParams;
   const term = q || "";
-  const { articles } = await getArticlesByTerm(term);
+  const currentPage = Number(page) || 1;
+  const { articles, pageInfo } = await getArticlesByTerm(term, currentPage, 1);
 
   if (!articles) {
     notFound();
@@ -54,7 +56,12 @@ export default async function SearchPage({ searchParams }: Props) {
             </div>
           ))}
         </div>
-        <div className="my-4" />
+        <div className="m-8" />
+        <CustomPagination
+          currentPage={currentPage}
+          pageCount={pageInfo.pageCount}
+          q={q}
+        />
       </section>
     </main>
   );

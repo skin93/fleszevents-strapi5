@@ -40,11 +40,17 @@ export async function getArticleMeta(slug: string) {
 //   return { articles: res.articles };
 // }
 
-export async function getArticlesByTerm(term: string) {
+export async function getArticlesByTerm(
+  term: string,
+  page: number,
+  pageSize: number
+) {
   const res = await grafbase.request<ArticlesConnection>(
     ARTICLES_BY_TERM_QUERY,
     {
       term,
+      page,
+      pageSize,
     }
   );
 

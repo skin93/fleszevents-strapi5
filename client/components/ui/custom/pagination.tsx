@@ -12,15 +12,20 @@ import { generatePagination } from "@/lib/utils";
 type Props = {
   currentPage: number;
   pageCount: number;
+  q?: string | undefined;
 };
 
-export default function CustomPagination({ currentPage, pageCount }: Props) {
+export default function CustomPagination({ currentPage, pageCount, q }: Props) {
   const allPages = generatePagination(currentPage, pageCount);
   return (
     <Pagination>
       <PaginationContent>
         <PaginationPrevious
-          href={`?page=${currentPage - 1}`}
+          href={
+            q === undefined
+              ? `?page=${currentPage - 1}`
+              : `?q=${q}&page=${currentPage - 1}`
+          }
           isDisabled={currentPage <= 1}
         />
         {allPages.map((p, index) => {
@@ -31,7 +36,7 @@ export default function CustomPagination({ currentPage, pageCount }: Props) {
             <PaginationItem key={index}>
               <PaginationLink
                 position={position}
-                href={`?page=${p}`}
+                href={q === undefined ? `?page=${p}` : `?q=${q}&page=${p}`}
                 isActive={currentPage === p}
               >
                 {p}
@@ -40,7 +45,11 @@ export default function CustomPagination({ currentPage, pageCount }: Props) {
           );
         })}
         <PaginationNext
-          href={`?page=${currentPage + 1}`}
+          href={
+            q === undefined
+              ? `?page=${currentPage + 1}`
+              : `?q=${q}&page=${currentPage + 1}`
+          }
           isDisabled={currentPage >= pageCount}
         />
       </PaginationContent>
