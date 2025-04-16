@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import Header from "@/components/layout/header";
-// import Footer from "@/components/layout/footer";
+import Footer from "@/components/layout/footer";
 
 export default function GroupLayout({
   children,
@@ -11,7 +11,7 @@ export default function GroupLayout({
     <Fragment>
       <Header />
       {children}
-      {/* <Footer /> */}
+      <Footer />
     </Fragment>
   );
 }
