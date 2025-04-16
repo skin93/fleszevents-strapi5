@@ -112,6 +112,10 @@ export interface Festival {
   place?: Place | null;
 }
 
+export interface Festivals {
+  festivals: Festival[];
+}
+
 export interface Gallery {
   id?: number;
   documentId?: string;
@@ -273,4 +277,22 @@ export interface TagsConnection {
       total: number;
     };
   };
+}
+
+export interface Marker {
+  position: [number, number];
+  popup: string;
+  alt: string;
+  id: string | undefined;
+  description: string;
+  imageSrc: string;
+  imageWidth: number;
+  imageHeight: number;
+  imageAlt: string;
+  slug: string;
+  date: Date | string;
+  endDate: Date | string | undefined;
+  city: string | undefined;
+  location: string | undefined;
+  tickets: string | undefined;
 }
