@@ -2,7 +2,7 @@ import { getMediaUrl } from "@/lib/getMediaUrl";
 import LazyMap from "@/components/ui/custom/lazy-map";
 import { getAllFestivals } from "@/lib/data/festivals";
 
-export const revalidate = 3600;
+export const dynamic = "force-dynamic";
 
 export const metadata = {
   title: "Festiwalowa Mapa",

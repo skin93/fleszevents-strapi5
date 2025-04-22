@@ -4,7 +4,7 @@ import Promo from "@/components/homepage/promo";
 import CategoryBlock from "@/components/homepage/category-block";
 import { getLatestArticles } from "@/lib/data/articles";
 
-export const revalidate = 3600;
+export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
   const { concerts, festivals, premiers, news, promos } =
