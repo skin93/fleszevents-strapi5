@@ -1,7 +1,7 @@
 import { gql } from "graphql-request";
 export const ALL_FESTIVALS_QUERY = gql`
   query allFestivalsQuery {
-    festivals(status: PUBLISHED) {
+    festivals {
       documentId
       name
       description
@@ -13,8 +13,10 @@ export const ALL_FESTIVALS_QUERY = gql`
         lat
         lng
       }
-      date
-      endDate
+      next_event {
+        date
+        endDate
+      }
       cover {
         url
         width

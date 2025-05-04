@@ -17,13 +17,13 @@ export const metadata = {
     },
   },
   alternates: {
-    canonical: "/festiwalowa-mapa",
+    canonical: "/festival-map",
   },
   openGraph: {
     type: "website",
     locale: "pl_PL",
-    url: process.env.NEXT_PUBLIC_APP_DOMAIN,
-    title: process.env.NEXT_PUBLIC_APP_NAME,
+    url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/festival-map`,
+    title: "Festiwalowa Mapa",
     description: "Sprawdź, czy w Twojej okolicy nie odbywa się fajny festiwal!",
     siteName: process.env.NEXT_PUBLIC_APP_NAME,
     images: [
