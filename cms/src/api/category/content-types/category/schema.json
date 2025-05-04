@@ -26,10 +26,8 @@
       "target": "api::article.article",
       "inversedBy": "categories"
     },
-    "seo": {
-      "type": "component",
-      "repeatable": false,
-      "component": "shared.seo",
+    "description": {
+      "type": "string",
       "required": true
     }
   }

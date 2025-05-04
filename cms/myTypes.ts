@@ -1,4 +1,11 @@
 
+export interface SharedNextEvent {
+  id?: number;
+  name: string;
+  date: Date | string;
+  endDate?: Date | string;
+};
+
 export interface SharedOpenGraph {
   id?: number;
   ogTitle: string;
@@ -46,7 +53,7 @@ export interface Article {
   slug: string;
   content: any;
   cover: Media | null;
-  seo: SharedSeo | null;
+  seo?: SharedSeo | null;
   authors?: Author[] | null;
   categories?: Category[] | null;
   tags?: Tag[] | null;
@@ -75,7 +82,7 @@ export interface Category {
   name: string;
   slug: string;
   articles?: Article[] | null;
-  seo: SharedSeo | null;
+  description: string;
 };
 
 export interface Festival {
@@ -89,11 +96,10 @@ export interface Festival {
   slug: string;
   description: string;
   cover: Media | null;
-  date: Date | string;
-  endDate?: Date | string;
   tickets?: string;
   music_types?: MusicType[] | null;
   place?: Place | null;
+  next_event?: SharedNextEvent | null;
 };
 
 export interface Gallery {
@@ -149,7 +155,6 @@ export interface Tag {
   name: string;
   slug: string;
   articles?: Article[] | null;
-  seo: SharedSeo | null;
   galleries?: Gallery[] | null;
 };
 

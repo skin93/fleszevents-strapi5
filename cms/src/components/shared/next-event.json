@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_shared_next_events",
+  "info": {
+    "displayName": "NextEvent",
+    "icon": "calendar"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "date": {
+      "required": true,
+      "type": "date"
+    },
+    "endDate": {
+      "type": "date"
+    }
+  }
+}

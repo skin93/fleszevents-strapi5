@@ -1,5 +1,20 @@
 import type { Schema, Struct } from '@strapi/strapi';
 
+export interface SharedNextEvent extends Struct.ComponentSchema {
+  collectionName: 'components_shared_next_events';
+  info: {
+    displayName: 'NextEvent';
+    icon: 'calendar';
+  };
+  attributes: {
+    date: Schema.Attribute.Date & Schema.Attribute.Required;
+    endDate: Schema.Attribute.Date;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+  };
+}
+
 export interface SharedOpenGraph extends Struct.ComponentSchema {
   collectionName: 'components_shared_open_graphs';
   info: {
@@ -97,6 +112,7 @@ export interface SharedSmallGallery extends Struct.ComponentSchema {
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
+      'shared.next-event': SharedNextEvent;
       'shared.open-graph': SharedOpenGraph;
       'shared.related-articles': SharedRelatedArticles;
       'shared.seo': SharedSeo;
