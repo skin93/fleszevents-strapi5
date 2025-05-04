@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import React from "react";
 import CustomPagination from "@/components/ui/custom/pagination";
-import { getArticlesByCategory, getCategoryMeta } from "@/lib/data/categories";
+import { getArticlesByCategory, getCategory } from "@/lib/data/categories";
 import { Metadata } from "next";
 
 type Props = {
@@ -21,36 +21,21 @@ export async function generateMetadata({
   const { slug } = await params;
 
   // fetch data
-  const { seo } = await getCategoryMeta(slug);
+  const { category } = await getCategory(slug);
 
   return {
-    title: seo.metaTitle,
-    description: seo.metaDescription,
+    title: category.name,
+    description: category.description,
     robots: {
-      index: seo.robotsIndex,
-      follow: seo.robotsFollow,
+      index: false,
       googleBot: {
-        index: seo.googleIndex,
-        follow: seo.googleFollow,
+        index: false,
       },
     },
     alternates: {
-      canonical: seo.canonicalURL,
+      canonical: `/categories/${category.slug}`,
     },
-    openGraph: {
-      type: "website",
-      url: seo.openGraph?.ogUrl,
-      title: seo.openGraph?.ogTitle,
-      description: seo.openGraph?.ogDescription,
-      images: [
-        {
-          url: `${process.env.NEXT_PUBLIC_STRAPI}/${seo.openGraph?.ogImage?.url}`,
-          width: seo.openGraph?.ogImage?.width,
-          height: seo.openGraph?.ogImage?.height,
-          alt: seo.openGraph?.ogImage?.alternativeText,
-        },
-      ],
-    },
+    openGraph: null,
   };
 }
 

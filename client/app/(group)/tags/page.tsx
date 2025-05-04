@@ -10,20 +10,18 @@ export async function generateMetadata() {
     description: "Zbiór wszystki tagów zawartych na stronie",
     robots: {
       index: false,
-      follow: false,
       googleBot: {
         index: false,
-        follow: false,
       },
     },
     alternates: {
-      canonical: "/tagi",
+      canonical: "/tags",
     },
     openGraph: {
       type: "website",
       locale: "pl_PL",
-      url: process.env.NEXT_PUBLIC_APP_DOMAIN,
-      title: process.env.NEXT_PUBLIC_APP_NAME,
+      url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/tags`,
+      title: "Tagi",
       description: "Zbiór wszystki tagów zawartych na stronie",
       siteName: process.env.NEXT_PUBLIC_APP_NAME,
       images: [

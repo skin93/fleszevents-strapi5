@@ -79,6 +79,7 @@ export interface Author {
 
 export interface Category {
   id?: number;
+  description: string;
   documentId?: string;
   createdAt?: Date | string;
   updatedAt?: Date | string;
@@ -87,7 +88,6 @@ export interface Category {
   name: string;
   slug: string;
   articles?: Article[] | null;
-  seo: SharedSeo;
 }
 
 export interface Categories {
@@ -169,7 +169,6 @@ export interface Tag {
   name: string;
   slug: string;
   articles?: Article[] | null;
-  seo: SharedSeo;
   galleries?: Gallery[] | null;
 }
 

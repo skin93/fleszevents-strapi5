@@ -2,7 +2,7 @@ import { grafbase } from "../graphql";
 import { ArticlesConnection, Tags, TagsConnection } from "../interfaces";
 import { ARTICLES_BY_TAG_QUERY } from "../queries/articles/articlesByTagQuery";
 import { ALL_TAGS_QUERY } from "../queries/tags/allTagsQuery";
-import { SINGLE_TAG_META_QUERY } from "../queries/tags/tagMetaQuery";
+import { SINGLE_TAG_QUERY } from "../queries/tags/tagQuery";
 
 export async function getArticlesByTag(
   tag: string,
@@ -35,9 +35,9 @@ export async function getAllTags(page: number, pageSize: number) {
   };
 }
 
-export async function getTagMeta(slug: string) {
-  const res = await grafbase.request<Tags>(SINGLE_TAG_META_QUERY, {
+export async function getTag(slug: string) {
+  const res = await grafbase.request<Tags>(SINGLE_TAG_QUERY, {
     slug,
   });
-  return { seo: res.tags[0].seo };
+  return { tag: res.tags[0] };
 }
