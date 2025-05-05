@@ -4,6 +4,7 @@ import { SINGLE_ARTICLE_QUERY } from "@/lib/queries/articles/singleArticleQuery"
 import { SINGLE_ARTICLE_META_QUERY } from "@/lib/queries/articles/singleArticleMetaQuery";
 import { Articles, ArticlesConnection, LatestArticles } from "../interfaces";
 import { ARTICLES_BY_TERM_QUERY } from "../queries/articles/articlesByTermQuery";
+import { SINGLE_ARTICLE_INFO_QUERY } from "../queries/articles/singleArticleInfoQuery";
 // import { ARTICLES_SITEMAP_QUERY } from "@/lib/queries/articles/articlesSitemapQuery.ts";
 
 export async function getLatestArticles(start: number, limit: number) {
@@ -33,6 +34,13 @@ export async function getArticleMeta(slug: string) {
     slug,
   });
   return { seo: res.articles[0].seo };
+}
+
+export async function getArticleInfo(slug: string) {
+  const res = await grafbase.request<Articles>(SINGLE_ARTICLE_INFO_QUERY, {
+    slug,
+  });
+  return { info: res.articles[0] };
 }
 
 // export async function getArticlesSitemap() {
