@@ -50,11 +50,12 @@ export default async function FestivalMap() {
     imageHeight: fest.cover!.height,
     imageAlt: fest.cover!.alternativeText,
     slug: fest.slug,
-    date: fest!.date,
-    endDate: fest?.endDate,
     city: fest.place?.city,
     location: fest.place?.location,
     tickets: fest.tickets,
+    festName: fest.next_event?.name,
+    date: fest.next_event?.date,
+    endDate: fest.next_event?.endDate,
   }));
   return (
     <main className="grid place-content-center">

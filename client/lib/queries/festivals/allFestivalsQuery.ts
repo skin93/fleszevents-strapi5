@@ -1,7 +1,7 @@
 import { gql } from "graphql-request";
 export const ALL_FESTIVALS_QUERY = gql`
   query allFestivalsQuery {
-    festivals {
+    festivals(pagination: { limit: -1 }) {
       documentId
       name
       description
@@ -23,6 +23,7 @@ export const ALL_FESTIVALS_QUERY = gql`
         height
         alternativeText
       }
+      tickets
     }
   }
 `;

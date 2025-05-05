@@ -1,4 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+export interface SharedNextEvent {
+  id?: number;
+  name: string;
+  date: Date | string;
+  endDate?: Date | string;
+}
+
 export interface SharedOpenGraph {
   id?: number;
   ogTitle: string;
@@ -105,11 +112,10 @@ export interface Festival {
   slug: string;
   description: string;
   cover: Media | null;
-  date: Date | string;
-  endDate?: Date | string;
   tickets?: string;
   music_types?: MusicType[] | null;
   place?: Place | null;
+  next_event?: SharedNextEvent | null;
 }
 
 export interface Festivals {
@@ -289,9 +295,10 @@ export interface Marker {
   imageHeight: number;
   imageAlt: string;
   slug: string;
-  date: Date | string;
-  endDate: Date | string | undefined;
   city: string | undefined;
   location: string | undefined;
   tickets: string | undefined;
+  festName: string | undefined;
+  date: Date | string | undefined;
+  endDate?: Date | string | undefined;
 }

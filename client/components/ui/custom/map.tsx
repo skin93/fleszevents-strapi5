@@ -109,12 +109,12 @@ export default function Map({ markers }: { markers: MarkerType[] }) {
                     {marker.city} - {marker.location}
                   </p>
                   {marker.date && marker.endDate ? (
-                    <p className="m-0">
+                    <p className="text-foreground m-0">
                       {formatDateToLocal(marker.date.toString())} -{" "}
                       {formatDateToLocal(marker.endDate.toString())}
                     </p>
                   ) : marker.date && !marker.endDate ? (
-                    <p className="m-0">
+                    <p className="text-foreground m-0">
                       {formatDateToLocal(marker.date.toString())}
                     </p>
                   ) : (
@@ -122,7 +122,7 @@ export default function Map({ markers }: { markers: MarkerType[] }) {
                   )}
                 </div>
                 {marker.tickets && (
-                  <Button variant={"ghost"} className="w-fit mx-auto">
+                  <Button variant={"default"} className="w-fit mx-auto">
                     <Link
                       target="_blank"
                       className="font-bold"
