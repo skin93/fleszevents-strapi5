@@ -4,7 +4,7 @@
 import L, { Icon } from "leaflet";
 import { useState } from "react";
 import "leaflet/dist/leaflet.css";
-import { MapContainer, Marker, Popup } from "react-leaflet";
+import { MapContainer, Marker, Popup, useMap } from "react-leaflet";
 import MarkerClusterGroup from "react-leaflet-markercluster";
 import { Dialog, DialogContent, DialogTrigger } from "../dialog";
 import { Button } from "../button";
@@ -47,6 +47,12 @@ export default function Map({ markers }: { markers: MarkerType[] }) {
       iconSize: L.point(30, 30, true),
     });
   };
+
+  function MapInstance() {
+    const map = useMap();
+    map.setView([51.974077, 19.451946], 6);
+    return null;
+  }
 
   return (
     <section className="relative">
@@ -138,23 +144,23 @@ export default function Map({ markers }: { markers: MarkerType[] }) {
             </Dialog>
           ))}
         </MarkerClusterGroup>
+        <div className="absolute top-8 right-8 z-500">
+          <Select onValueChange={(val) => handleChange(val)}>
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Wybierz miasto" />
+            </SelectTrigger>
+            <SelectContent className="z-500">
+              <SelectItem value="Wszystkie">Wszystkie</SelectItem>
+              {[...cities].sort().map((city) => (
+                <SelectItem key={city} value={city as string}>
+                  {city}
+                </SelectItem>
+              ))}
+            </SelectContent>
+            <MapInstance />
+          </Select>
+        </div>
       </MapContainer>
-
-      <div className="absolute top-8 right-8 z-500">
-        <Select onValueChange={(val) => handleChange(val)}>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Wybierz miasto" />
-          </SelectTrigger>
-          <SelectContent className="z-500">
-            <SelectItem value="Wszystkie">Wszystkie</SelectItem>
-            {[...cities].sort().map((city) => (
-              <SelectItem key={city} value={city as string}>
-                {city}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </div>
 
       <div className="absolute bottom-8 right-0 sm:bottom-0 sm:left-0 z-500 text-neutral-700 bg-neutral-100 font-normal px-[5px] text-[12px] w-fit">
         <a
