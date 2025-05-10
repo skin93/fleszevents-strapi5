@@ -4,7 +4,7 @@
 import L, { Icon } from "leaflet";
 import { useState } from "react";
 import "leaflet/dist/leaflet.css";
-import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import { MapContainer, Marker, Popup } from "react-leaflet";
 import MarkerClusterGroup from "react-leaflet-markercluster";
 import { Dialog, DialogContent, DialogTrigger } from "../dialog";
 import { Button } from "../button";
