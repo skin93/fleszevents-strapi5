@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import L, { Icon } from "leaflet";
-import { useState } from "react";
+import L, { Icon, LatLngExpression } from "leaflet";
+import { useState, useRef } from "react";
 import "leaflet/dist/leaflet.css";
-import { MapContainer, Marker, Popup, useMap } from "react-leaflet";
+import { MapContainer, Marker, Popup } from "react-leaflet";
 import MarkerClusterGroup from "react-leaflet-markercluster";
 import { Dialog, DialogContent, DialogTrigger } from "../dialog";
 import { Button } from "../button";
@@ -24,14 +24,40 @@ import {
 import { MapLibreTileLayer } from "./map-libre-tile-layer";
 
 export default function Map({ markers }: { markers: MarkerType[] }) {
-  const cities = new Set(markers.map((marker) => marker.city));
+  const center = [51.974077, 19.451946];
+  const zoom = 6;
+  const [cityValue, setCityValue] = useState<string>("");
+  const [festValue, setFestValue] = useState<string>("");
+  const mapRef = useRef<L.Map>(null);
+  const cities = new Set(markers.map((marker) => marker?.city));
+  const names = new Set(markers.map((marker) => marker.alt));
   const [filteredMarkers, setFilteredMarkers] = useState<MarkerType[]>(markers);
-  const handleChange = function (val: string) {
-    if (val === "Wszystkie") {
-      setFilteredMarkers(markers);
-      return;
+
+  const handleCityChange = function (val: string) {
+    const marker = markers.filter((marker) => marker?.city === val);
+    setCityValue(val);
+    setFilteredMarkers(marker);
+    if (mapRef.current != null) {
+      mapRef.current.flyTo(marker[0].position, 14, { duration: 1 });
     }
-    setFilteredMarkers(markers.filter((marker) => marker.city === val));
+  };
+
+  const handleFestChange = function (val: string) {
+    const marker = markers.filter((marker) => marker.alt == val);
+    setFestValue(val);
+    setFilteredMarkers(marker);
+    if (mapRef.current != null) {
+      mapRef.current.flyTo(marker[0].position, 14, { duration: 1 });
+    }
+  };
+
+  const handleReset = function () {
+    setFilteredMarkers(markers);
+    setCityValue("");
+    setFestValue("");
+    if (mapRef.current != null) {
+      mapRef.current.flyTo(center as LatLngExpression, zoom, { duration: 1 });
+    }
   };
 
   const customIcon = new Icon({
@@ -48,15 +74,10 @@ export default function Map({ markers }: { markers: MarkerType[] }) {
     });
   };
 
-  function MapInstance() {
-    const map = useMap();
-    map.setView([51.974077, 19.451946], 6);
-    return null;
-  }
-
   return (
     <section className="relative">
       <MapContainer
+        ref={mapRef}
         preferCanvas={true}
         center={[51.974077, 19.451946]}
         maxZoom={12}
@@ -144,21 +165,40 @@ export default function Map({ markers }: { markers: MarkerType[] }) {
             </Dialog>
           ))}
         </MarkerClusterGroup>
-        <div className="absolute top-8 right-8 z-500">
-          <Select onValueChange={(val) => handleChange(val)}>
+        <div className="absolute top-3 right-3 z-500 flex xl:flex-row flex-col gap-4">
+          <Select
+            value={cityValue}
+            onValueChange={(val) => handleCityChange(val)}
+            disabled={festValue == null}
+          >
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Wybierz miasto" />
             </SelectTrigger>
             <SelectContent className="z-500">
-              <SelectItem value="Wszystkie">Wszystkie</SelectItem>
               {[...cities].sort().map((city) => (
                 <SelectItem key={city} value={city as string}>
                   {city}
                 </SelectItem>
               ))}
             </SelectContent>
-            <MapInstance />
           </Select>
+          <Select
+            value={festValue}
+            onValueChange={(val) => handleFestChange(val)}
+            disabled={cityValue == null}
+          >
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Wybierz festiwal" />
+            </SelectTrigger>
+            <SelectContent className="z-500">
+              {[...names].sort().map((name) => (
+                <SelectItem key={name} value={name}>
+                  {name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          <Button onClick={handleReset}>Reset</Button>
         </div>
       </MapContainer>
 
