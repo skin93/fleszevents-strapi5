@@ -13,7 +13,8 @@ export default function Footer() {
   ];
 
   const items = [
-    { title: "tagi", path: "/tags" },
+    { title: "festiwalowa mapa", path: "/festival-map" },
+    // { title: "galerie", path: "/galleries" },
     { title: "kontakt", path: "/contact" },
   ];
 
