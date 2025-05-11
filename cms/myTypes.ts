@@ -58,6 +58,7 @@ export interface Article {
   categories?: Category[] | null;
   tags?: Tag[] | null;
   relatedArticles?: SharedRelatedArticles | null;
+  excerpt?: string;
 };
 
 export interface Author {

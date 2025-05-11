@@ -50,6 +50,7 @@ export interface Article {
   publishedAt?: Date | string;
   locale?: string | null;
   title: string;
+  excerpt?: string;
   slug: string;
   content: any;
   cover: Media;

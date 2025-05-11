@@ -65,6 +65,9 @@
       "type": "component",
       "repeatable": false,
       "component": "shared.related-articles"
+    },
+    "excerpt": {
+      "type": "text"
     }
   }
 }

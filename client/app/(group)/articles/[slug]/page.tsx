@@ -51,7 +51,7 @@ export async function generateMetadata({
 
   return {
     title: info.title,
-    description: "",
+    description: info.excerpt,
     // keywords: seo.keywords,
     robots: {
       index: true,

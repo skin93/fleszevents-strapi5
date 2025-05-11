@@ -4,6 +4,7 @@ export const SINGLE_ARTICLE_QUERY = gql`
     articles(filters: { slug: { eq: $slug } }, status: PUBLISHED) {
       documentId
       title
+      excerpt
       content
       slug
       cover {
