@@ -169,7 +169,7 @@ export default function Map({ markers }: { markers: MarkerType[] }) {
           <Select
             value={cityValue}
             onValueChange={(val) => handleCityChange(val)}
-            disabled={festValue == null}
+            disabled={festValue !== ""}
           >
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Wybierz miasto" />
@@ -185,7 +185,7 @@ export default function Map({ markers }: { markers: MarkerType[] }) {
           <Select
             value={festValue}
             onValueChange={(val) => handleFestChange(val)}
-            disabled={cityValue == null}
+            disabled={cityValue !== ""}
           >
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Wybierz festiwal" />
