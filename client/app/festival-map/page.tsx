@@ -1,6 +1,7 @@
 import { getMediaUrl } from "@/lib/getMediaUrl";
 import LazyMap from "@/components/ui/custom/lazy-map";
 import { getAllFestivals } from "@/lib/data/festivals";
+import { getAllMusicTypes } from "@/lib/data/music-types";
 
 export const dynamic = "force-dynamic";
 
@@ -39,6 +40,7 @@ export const metadata = {
 
 export default async function FestivalMap() {
   const { festivals } = await getAllFestivals();
+  const { genres } = await getAllMusicTypes();
   const markers = festivals.map((fest) => ({
     position: [fest.place?.lat, fest.place?.lng] as [number, number],
     popup: fest.name,
@@ -56,10 +58,11 @@ export default async function FestivalMap() {
     festName: fest.next_event?.name,
     date: fest.next_event?.date,
     endDate: fest.next_event?.endDate,
+    music_types: fest.music_types,
   }));
   return (
     <main className="grid place-content-center">
-      <LazyMap markers={markers} />
+      <LazyMap markers={markers} genres={genres} />
     </main>
   );
 }

@@ -23,14 +23,22 @@ import {
 } from "@/components/ui/select";
 import { MapLibreTileLayer } from "./map-libre-tile-layer";
 
-export default function Map({ markers }: { markers: MarkerType[] }) {
+export default function Map({
+  markers,
+  genres,
+}: {
+  markers: MarkerType[];
+  genres: string[];
+}) {
   const center = [51.974077, 19.451946];
   const zoom = 6;
   const [cityValue, setCityValue] = useState<string>("");
   const [festValue, setFestValue] = useState<string>("");
+  const [genreValue, setGenreValue] = useState<string>("");
   const mapRef = useRef<L.Map>(null);
   const cities = new Set(markers.map((marker) => marker?.city));
   const names = new Set(markers.map((marker) => marker.alt));
+
   const [filteredMarkers, setFilteredMarkers] = useState<MarkerType[]>(markers);
 
   const handleCityChange = function (val: string) {
@@ -38,7 +46,7 @@ export default function Map({ markers }: { markers: MarkerType[] }) {
     setCityValue(val);
     setFilteredMarkers(marker);
     if (mapRef.current != null) {
-      mapRef.current.flyTo(marker[0].position, 14, { duration: 1 });
+      mapRef.current.flyTo(marker[0].position, 10, { duration: 1 });
     }
   };
 
@@ -47,7 +55,19 @@ export default function Map({ markers }: { markers: MarkerType[] }) {
     setFestValue(val);
     setFilteredMarkers(marker);
     if (mapRef.current != null) {
-      mapRef.current.flyTo(marker[0].position, 14, { duration: 1 });
+      mapRef.current.flyTo(marker[0].position, 10, { duration: 1 });
+    }
+  };
+
+  const handleGenreChange = function (val: string) {
+    const markersWithGenre = markers.filter((marker) =>
+      marker.music_types?.some((g) => g.name === val)
+    );
+
+    setGenreValue(val);
+    setFilteredMarkers(markersWithGenre);
+    if (mapRef.current != null) {
+      mapRef.current.setView(center as LatLngExpression, zoom, { duration: 1 });
     }
   };
 
@@ -55,8 +75,9 @@ export default function Map({ markers }: { markers: MarkerType[] }) {
     setFilteredMarkers(markers);
     setCityValue("");
     setFestValue("");
+    setGenreValue("");
     if (mapRef.current != null) {
-      mapRef.current.flyTo(center as LatLngExpression, zoom, { duration: 1 });
+      mapRef.current.setView(center as LatLngExpression, zoom, { duration: 1 });
     }
   };
 
@@ -80,9 +101,9 @@ export default function Map({ markers }: { markers: MarkerType[] }) {
         ref={mapRef}
         preferCanvas={true}
         center={[51.974077, 19.451946]}
-        maxZoom={12}
-        zoom={7}
-        minZoom={7}
+        maxZoom={14}
+        zoom={zoom}
+        minZoom={zoom}
         scrollWheelZoom={true}
         className="w-[100svw] h-[calc(100svh-56px)]"
       >
@@ -169,15 +190,15 @@ export default function Map({ markers }: { markers: MarkerType[] }) {
           <Select
             value={cityValue}
             onValueChange={(val) => handleCityChange(val)}
-            disabled={festValue !== ""}
+            disabled={festValue !== "" || genreValue !== ""}
           >
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Wybierz miasto" />
             </SelectTrigger>
             <SelectContent className="z-500">
-              {[...cities].sort().map((city) => (
+              {[...cities].sort().map((city, index) => (
                 <SelectItem key={city} value={city as string}>
-                  {city}
+                  {`${index}. ${city}`}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -185,15 +206,31 @@ export default function Map({ markers }: { markers: MarkerType[] }) {
           <Select
             value={festValue}
             onValueChange={(val) => handleFestChange(val)}
-            disabled={cityValue !== ""}
+            disabled={cityValue !== "" || genreValue !== ""}
           >
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Wybierz festiwal" />
             </SelectTrigger>
             <SelectContent className="z-500">
-              {[...names].sort().map((name) => (
+              {[...names].sort().map((name, index) => (
                 <SelectItem key={name} value={name}>
-                  {name}
+                  {`${index}. ${name}`}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          <Select
+            value={genreValue}
+            onValueChange={(val) => handleGenreChange(val)}
+            disabled={cityValue !== "" || festValue !== ""}
+          >
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Wybierz gatunek" />
+            </SelectTrigger>
+            <SelectContent className="z-500">
+              {[...genres].sort().map((genre, index) => (
+                <SelectItem key={genre} value={genre}>
+                  {`${index}. ${genre}`}
                 </SelectItem>
               ))}
             </SelectContent>

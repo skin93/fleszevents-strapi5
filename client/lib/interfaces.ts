@@ -150,6 +150,10 @@ export interface MusicType {
   festivals?: Festival[] | null;
 }
 
+export interface MusicTypes {
+  musicTypes: MusicType[];
+}
+
 export interface Place {
   id?: number;
   documentId?: string;
@@ -302,4 +306,5 @@ export interface Marker {
   festName: string | undefined;
   date: Date | string | undefined;
   endDate?: Date | string | undefined;
+  music_types?: MusicType[] | null;
 }

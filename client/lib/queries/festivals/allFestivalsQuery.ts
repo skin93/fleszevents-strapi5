@@ -13,6 +13,9 @@ export const ALL_FESTIVALS_QUERY = gql`
         lat
         lng
       }
+      music_types {
+        name
+      }
       next_event {
         date
         endDate
