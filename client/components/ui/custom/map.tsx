@@ -59,7 +59,7 @@ export default function Map({
     setCityValue(val);
     setFilteredMarkers(marker);
     if (mapRef.current != null) {
-      mapRef.current.flyTo(marker[0].position, 10, { duration: 1 });
+      mapRef.current.setView(marker[0].position, 10, { duration: 1 });
     }
   };
 
@@ -68,7 +68,7 @@ export default function Map({
     setFestValue(val);
     setFilteredMarkers(marker);
     if (mapRef.current != null) {
-      mapRef.current.flyTo(marker[0].position, 10, { duration: 1 });
+      mapRef.current.setView(marker[0].position, 10, { duration: 1 });
     }
   };
 
