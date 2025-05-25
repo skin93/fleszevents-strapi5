@@ -22,6 +22,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { MapLibreTileLayer } from "./map-libre-tile-layer";
+import { Input } from "../input";
 
 export default function Map({
   markers,
@@ -32,14 +33,26 @@ export default function Map({
 }) {
   const center = [51.974077, 19.451946];
   const zoom = 6;
+  const [inputVal, setInputVal] = useState<string>("");
   const [cityValue, setCityValue] = useState<string>("");
   const [festValue, setFestValue] = useState<string>("");
   const [genreValue, setGenreValue] = useState<string>("");
   const mapRef = useRef<L.Map>(null);
+
+  const [filteredMarkers, setFilteredMarkers] = useState<MarkerType[]>(markers);
   const cities = new Set(markers.map((marker) => marker?.city));
   const names = new Set(markers.map((marker) => marker.alt));
 
-  const [filteredMarkers, setFilteredMarkers] = useState<MarkerType[]>(markers);
+  const handleNameChange = function (val: string) {
+    const marker = markers.filter((marker) =>
+      marker?.alt?.toLowerCase().includes(val.toLowerCase())
+    );
+    setInputVal(val);
+    setFilteredMarkers(marker);
+    if (mapRef.current != null) {
+      mapRef.current.setView(center as LatLngExpression, zoom, { duration: 1 });
+    }
+  };
 
   const handleCityChange = function (val: string) {
     const marker = markers.filter((marker) => marker?.city === val);
@@ -76,6 +89,7 @@ export default function Map({
     setCityValue("");
     setFestValue("");
     setGenreValue("");
+    setInputVal("");
     if (mapRef.current != null) {
       mapRef.current.setView(center as LatLngExpression, zoom, { duration: 1 });
     }
@@ -187,10 +201,17 @@ export default function Map({
           ))}
         </MarkerClusterGroup>
         <div className="absolute top-3 right-3 z-500 flex xl:flex-row flex-col gap-4">
+          <Input
+            value={inputVal}
+            placeholder="Podaj nazwę"
+            onChange={(e) => handleNameChange(e.target.value)}
+            disabled={festValue !== "" || genreValue !== "" || cityValue !== ""}
+          />
+
           <Select
             value={cityValue}
             onValueChange={(val) => handleCityChange(val)}
-            disabled={festValue !== "" || genreValue !== ""}
+            disabled={festValue !== "" || genreValue !== "" || inputVal !== ""}
           >
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Wybierz miasto" />
@@ -198,7 +219,7 @@ export default function Map({
             <SelectContent className="z-500">
               {[...cities].sort().map((city, index) => (
                 <SelectItem key={city} value={city as string}>
-                  {`${index}. ${city}`}
+                  {`${index + 1}. ${city}`}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -206,7 +227,7 @@ export default function Map({
           <Select
             value={festValue}
             onValueChange={(val) => handleFestChange(val)}
-            disabled={cityValue !== "" || genreValue !== ""}
+            disabled={cityValue !== "" || genreValue !== "" || inputVal !== ""}
           >
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Wybierz festiwal" />
@@ -214,7 +235,7 @@ export default function Map({
             <SelectContent className="z-500">
               {[...names].sort().map((name, index) => (
                 <SelectItem key={name} value={name}>
-                  {`${index}. ${name}`}
+                  {`${index + 1}. ${name}`}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -222,7 +243,7 @@ export default function Map({
           <Select
             value={genreValue}
             onValueChange={(val) => handleGenreChange(val)}
-            disabled={cityValue !== "" || festValue !== ""}
+            disabled={cityValue !== "" || festValue !== "" || inputVal !== ""}
           >
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Wybierz gatunek" />
@@ -230,7 +251,7 @@ export default function Map({
             <SelectContent className="z-500">
               {[...genres].sort().map((genre, index) => (
                 <SelectItem key={genre} value={genre}>
-                  {`${index}. ${genre}`}
+                  {`${index + 1}. ${genre}`}
                 </SelectItem>
               ))}
             </SelectContent>
