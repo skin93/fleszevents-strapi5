@@ -6,23 +6,29 @@ import { useState, useRef } from "react";
 import "leaflet/dist/leaflet.css";
 import { MapContainer, Marker, Popup } from "react-leaflet";
 import MarkerClusterGroup from "react-leaflet-markercluster";
-import { Dialog, DialogContent, DialogTrigger } from "../dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTrigger } from "../dialog";
 import { Button } from "../button";
 import Image from "next/image";
 import Link from "next/link";
-import { formatDateToLocal } from "@/lib/utils";
+import { cn, formatDateToLocal } from "@/lib/utils";
 import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
 import { Marker as MarkerType } from "@/lib/interfaces";
 
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { MapLibreTileLayer } from "./map-libre-tile-layer";
-import { Input } from "../input";
+import { Check, ChevronsUpDown } from "lucide-react";
 
 export default function Map({
   markers,
@@ -33,26 +39,19 @@ export default function Map({
 }) {
   const center = [51.974077, 19.451946];
   const zoom = 6;
-  const [inputVal, setInputVal] = useState<string>("");
+  const [dialog, setDialog] = useState<boolean>(false);
   const [cityValue, setCityValue] = useState<string>("");
   const [festValue, setFestValue] = useState<string>("");
   const [genreValue, setGenreValue] = useState<string>("");
+  const [cityPopOpen, setCityPopOpen] = useState<boolean>(false);
+  const [festPopOpen, setFestPopOpen] = useState<boolean>(false);
+  const [genrePopOpen, setGenrePopOpen] = useState<boolean>(false);
+
   const mapRef = useRef<L.Map>(null);
 
   const [filteredMarkers, setFilteredMarkers] = useState<MarkerType[]>(markers);
   const cities = new Set(markers.map((marker) => marker?.city));
   const names = new Set(markers.map((marker) => marker.alt));
-
-  const handleNameChange = function (val: string) {
-    const marker = markers.filter((marker) =>
-      marker?.alt?.toLowerCase().includes(val.toLowerCase())
-    );
-    setInputVal(val);
-    setFilteredMarkers(marker);
-    if (mapRef.current != null) {
-      mapRef.current.setView(center as LatLngExpression, zoom, { duration: 1 });
-    }
-  };
 
   const handleCityChange = function (val: string) {
     const marker = markers.filter((marker) => marker?.city === val);
@@ -61,6 +60,7 @@ export default function Map({
     if (mapRef.current != null) {
       mapRef.current.setView(marker[0].position, 10, { duration: 1 });
     }
+    setCityPopOpen(false);
   };
 
   const handleFestChange = function (val: string) {
@@ -70,6 +70,7 @@ export default function Map({
     if (mapRef.current != null) {
       mapRef.current.setView(marker[0].position, 10, { duration: 1 });
     }
+    setFestPopOpen(false);
   };
 
   const handleGenreChange = function (val: string) {
@@ -82,6 +83,7 @@ export default function Map({
     if (mapRef.current != null) {
       mapRef.current.setView(center as LatLngExpression, zoom, { duration: 1 });
     }
+    setGenrePopOpen(false);
   };
 
   const handleReset = function () {
@@ -89,7 +91,6 @@ export default function Map({
     setCityValue("");
     setFestValue("");
     setGenreValue("");
-    setInputVal("");
     if (mapRef.current != null) {
       mapRef.current.setView(center as LatLngExpression, zoom, { duration: 1 });
     }
@@ -200,64 +201,171 @@ export default function Map({
             </Dialog>
           ))}
         </MarkerClusterGroup>
-        <div className="absolute top-3 right-3 z-500 flex xl:flex-row flex-col gap-4">
-          <Input
-            value={inputVal}
-            placeholder="Podaj nazwę"
-            onChange={(e) => handleNameChange(e.target.value)}
-            disabled={festValue !== "" || genreValue !== "" || cityValue !== ""}
-          />
-
-          <Select
-            value={cityValue}
-            onValueChange={(val) => handleCityChange(val)}
-            disabled={festValue !== "" || genreValue !== "" || inputVal !== ""}
-          >
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Wybierz miasto" />
-            </SelectTrigger>
-            <SelectContent className="z-500">
-              {[...cities].sort().map((city, index) => (
-                <SelectItem key={city} value={city as string}>
-                  {`${index + 1}. ${city}`}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          <Select
-            value={festValue}
-            onValueChange={(val) => handleFestChange(val)}
-            disabled={cityValue !== "" || genreValue !== "" || inputVal !== ""}
-          >
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Wybierz festiwal" />
-            </SelectTrigger>
-            <SelectContent className="z-500">
-              {[...names].sort().map((name, index) => (
-                <SelectItem key={name} value={name}>
-                  {`${index + 1}. ${name}`}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          <Select
-            value={genreValue}
-            onValueChange={(val) => handleGenreChange(val)}
-            disabled={cityValue !== "" || festValue !== "" || inputVal !== ""}
-          >
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Wybierz gatunek" />
-            </SelectTrigger>
-            <SelectContent className="z-500">
-              {[...genres].sort().map((genre, index) => (
-                <SelectItem key={genre} value={genre}>
-                  {`${index + 1}. ${genre}`}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          <Button onClick={handleReset}>Reset</Button>
-        </div>
+        <Dialog open={dialog} onOpenChange={setDialog}>
+          <DialogTrigger asChild>
+            <Button
+              className="cursor-pointer z-800 absolute left-[50%] translate-x-[-50%] top-10  w-[200px]"
+              variant={"default"}
+              onClick={() => setDialog(true)}
+            >
+              Filtruj
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="border-none flex flex-col items-center justify-start max-w-[60em] h-130 md:h-120">
+            <DialogHeader>
+              <DialogTitle className="m-0">Filtruj mapę</DialogTitle>
+            </DialogHeader>
+            <DialogDescription className="m-0">
+              Wybierz jeden z poniszych filtrów
+            </DialogDescription>
+            <div className="flex flex-col justify-around md:flex-row gap-4">
+              <Popover open={cityPopOpen} onOpenChange={setCityPopOpen}>
+                <PopoverTrigger asChild>
+                  <Button
+                    disabled={festValue !== "" || genreValue !== ""}
+                    variant="outline"
+                    role="combobox"
+                    aria-expanded={cityPopOpen}
+                    className="xl:w-[200px] justify-between"
+                  >
+                    {cityValue
+                      ? [...cities].find((city) => city === cityValue)
+                      : "Wybierz miasto..."}
+                    <ChevronsUpDown className="opacity-50" />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="xl:w-[200px] p-0 pointer-events-auto">
+                  <Command>
+                    <CommandInput
+                      placeholder="Wybierz miasto..."
+                      className="h-9"
+                    />
+                    <CommandList className="h-50">
+                      <CommandEmpty>Brak miasta</CommandEmpty>
+                      <CommandGroup>
+                        {[...cities].sort().map((city) => (
+                          <CommandItem
+                            key={city}
+                            value={city}
+                            onSelect={(currentValue) => {
+                              handleCityChange(currentValue);
+                              setDialog(false);
+                            }}
+                          >
+                            {city}
+                            <Check
+                              className={cn(
+                                "ml-auto",
+                                cityValue === city ? "opacity-100" : "opacity-0"
+                              )}
+                            />
+                          </CommandItem>
+                        ))}
+                      </CommandGroup>
+                    </CommandList>
+                  </Command>
+                </PopoverContent>
+              </Popover>
+              <Popover open={festPopOpen} onOpenChange={setFestPopOpen}>
+                <PopoverTrigger asChild>
+                  <Button
+                    disabled={cityValue !== "" || genreValue !== ""}
+                    variant="outline"
+                    role="combobox"
+                    aria-expanded={festPopOpen}
+                    className="xl:w-[200px] justify-between"
+                  >
+                    {festValue
+                      ? [...names].find((name) => name === festValue)
+                      : "Wybierz festiwal..."}
+                    <ChevronsUpDown className="opacity-50" />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="xl:w-[200px] p-0 pointer-events-auto">
+                  <Command>
+                    <CommandInput
+                      placeholder="Wybierz festiwal..."
+                      className="h-9"
+                    />
+                    <CommandList className="h-50">
+                      <CommandEmpty>Brak festiwalu</CommandEmpty>
+                      <CommandGroup>
+                        {[...names].sort().map((name) => (
+                          <CommandItem
+                            key={name}
+                            value={name}
+                            onSelect={(currentValue) => {
+                              handleFestChange(currentValue);
+                              setDialog(false);
+                            }}
+                          >
+                            {name}
+                            <Check
+                              className={cn(
+                                "ml-auto",
+                                festValue === name ? "opacity-100" : "opacity-0"
+                              )}
+                            />
+                          </CommandItem>
+                        ))}
+                      </CommandGroup>
+                    </CommandList>
+                  </Command>
+                </PopoverContent>
+              </Popover>
+              <Popover open={genrePopOpen} onOpenChange={setGenrePopOpen}>
+                <PopoverTrigger asChild>
+                  <Button
+                    disabled={festValue !== "" || cityValue !== ""}
+                    variant="outline"
+                    role="combobox"
+                    aria-expanded={genrePopOpen}
+                    className="xl:w-[200px] justify-between"
+                  >
+                    {genreValue
+                      ? [...genres].find((genre) => genre === genreValue)
+                      : "Wybierz gatunek..."}
+                    <ChevronsUpDown className="opacity-50" />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="xl:w-[200px] p-0 pointer-events-auto">
+                  <Command>
+                    <CommandInput
+                      placeholder="Wybierz gatunek..."
+                      className="h-9"
+                    />
+                    <CommandList className="h-50">
+                      <CommandEmpty>Brak gatunku</CommandEmpty>
+                      <CommandGroup>
+                        {[...genres].sort().map((genre) => (
+                          <CommandItem
+                            key={genre}
+                            value={genre}
+                            onSelect={(currentValue) => {
+                              handleGenreChange(currentValue);
+                              setDialog(false);
+                            }}
+                          >
+                            {genre}
+                            <Check
+                              className={cn(
+                                "ml-auto",
+                                genreValue === genre
+                                  ? "opacity-100"
+                                  : "opacity-0"
+                              )}
+                            />
+                          </CommandItem>
+                        ))}
+                      </CommandGroup>
+                    </CommandList>
+                  </Command>
+                </PopoverContent>
+              </Popover>
+              <Button onClick={handleReset}>Reset</Button>
+            </div>
+          </DialogContent>
+        </Dialog>
       </MapContainer>
 
       <div className="absolute bottom-8 right-0 sm:bottom-0 sm:left-0 z-500 text-neutral-700 bg-neutral-100 font-normal px-[5px] text-[12px] w-fit">
