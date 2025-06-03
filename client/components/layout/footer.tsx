@@ -3,24 +3,24 @@ import { ButtonLink } from "../ui/custom/button-link";
 
 export default function Footer() {
   const navLinks = [
-    { title: "newsy", path: "/categories/newsy" },
-    { title: "single", path: "/categories/single" },
     { title: "festiwale", path: "/categories/festiwale" },
     { title: "koncerty", path: "/categories/koncerty" },
-    { title: "patronat", path: "/categories/patronat" },
+    { title: "newsy", path: "/categories/newsy" },
+    { title: "premiery", path: "/categories/premiery" },
     { title: "relacje", path: "/categories/relacje" },
     { title: "wywiady", path: "/categories/wywiady" },
   ];
 
   const items = [
     { title: "festiwalowa mapa", path: "/festival-map" },
+    { title: "patronat", path: "/categories/patronat" },
     // { title: "galerie", path: "/galleries" },
     { title: "kontakt", path: "/contact" },
   ];
 
   return (
     <footer className="w-full my-8">
-      <div className="flex flex-row justify-between items-center">
+      <div className="flex flex-row justify-around items-center">
         <div className="flex flex-col items-start">
           {navLinks.map(({ title, path }) => (
             <ButtonLink className="ml-[-1rem]" key={title} href={path}>
