@@ -14,7 +14,8 @@
     "title": {
       "type": "string",
       "required": true,
-      "unique": true
+      "unique": true,
+      "maxLength": 60
     },
     "slug": {
       "type": "uid",
@@ -67,7 +68,9 @@
       "component": "shared.related-articles"
     },
     "excerpt": {
-      "type": "text"
+      "type": "text",
+      "maxLength": 150,
+      "unique": true
     }
   }
 }

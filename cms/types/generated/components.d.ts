@@ -25,14 +25,15 @@ export interface SharedOpenGraph extends Struct.ComponentSchema {
   attributes: {
     ogDescription: Schema.Attribute.String &
       Schema.Attribute.Required &
+      Schema.Attribute.Unique &
       Schema.Attribute.SetMinMaxLength<{
-        maxLength: 200;
+        maxLength: 150;
       }>;
     ogImage: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
     ogTitle: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
-        maxLength: 70;
+        maxLength: 60;
       }>;
     ogType: Schema.Attribute.String &
       Schema.Attribute.Required &
@@ -74,8 +75,9 @@ export interface SharedSeo extends Struct.ComponentSchema {
     keywords: Schema.Attribute.Text & Schema.Attribute.Required;
     metaDescription: Schema.Attribute.String &
       Schema.Attribute.Required &
+      Schema.Attribute.Unique &
       Schema.Attribute.SetMinMaxLength<{
-        maxLength: 160;
+        maxLength: 150;
         minLength: 50;
       }>;
     metaImage: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;

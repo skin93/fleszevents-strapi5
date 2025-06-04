@@ -10,12 +10,13 @@
     "ogTitle": {
       "type": "string",
       "required": true,
-      "maxLength": 70
+      "maxLength": 60
     },
     "ogDescription": {
       "type": "string",
-      "maxLength": 200,
-      "required": true
+      "maxLength": 150,
+      "required": true,
+      "unique": true
     },
     "ogImage": {
       "type": "media",
