@@ -183,32 +183,42 @@ export default function Map({
                       {formatDateToLocal(marker.date.toString())}
                     </p>
                   ) : (
-                    <p className="font-bold text-foreground">Bra daty</p>
+                    <p className="font-bold text-white">Brak daty</p>
                   )}
                 </div>
-                {marker.date && isValidUrl(marker.tickets as string) ? (
-                  <Button className="bg-teal-600">
+                <div className="flex flex-col md:flex-row items-center gap-4">
+                  {marker.date && isValidUrl(marker.tickets as string) ? (
+                    <Button className="bg-teal-600">
+                      <Link
+                        target="_blank"
+                        className="font-bold"
+                        href={`${marker.tickets}`}
+                        rel="noopener noreferrer"
+                      >
+                        Bilety
+                      </Link>
+                    </Button>
+                  ) : marker.date &&
+                    (marker.tickets === "" || marker.tickets === null) ? (
+                    <p className="font-bold text-white">
+                      Brak informacji o biletach
+                    </p>
+                  ) : (
+                    marker.date && (
+                      <p className="font-bold text-white">{marker.tickets}</p>
+                    )
+                  )}
+                  <Button variant={"outline"}>
                     <Link
-                      target="_blank"
+                      href={`https://www.google.com/maps?q=${marker.position[0]},${marker.position[1]}`}
                       className="font-bold"
-                      href={`${marker.tickets}`}
-                      rel="nofollow"
+                      target="_blank"
+                      rel="noopener noreferrer"
                     >
-                      Bilety
+                      Nawiguj
                     </Link>
                   </Button>
-                ) : marker.date &&
-                  (marker.tickets == "" || marker.tickets === null) ? (
-                  <p className="font-bold text-foreground">
-                    Brak informacji o biletach
-                  </p>
-                ) : (
-                  marker.date && (
-                    <p className="font-bold text-foreground">
-                      {marker.tickets}
-                    </p>
-                  )
-                )}
+                </div>
                 <DialogDescription className="text-white text-center">
                   {marker.description}
                 </DialogDescription>
