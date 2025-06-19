@@ -3,19 +3,20 @@ import { ButtonLink } from "../ui/custom/button-link";
 
 export default function Footer() {
   const navLinks = [
-    { title: "festiwale", path: "/categories/festiwale" },
-    { title: "koncerty", path: "/categories/koncerty" },
     { title: "newsy", path: "/categories/newsy" },
     { title: "premiery", path: "/categories/premiery" },
+    { title: "festiwale", path: "/categories/festiwale" },
+    { title: "koncerty", path: "/categories/koncerty" },
+    { title: "patronat", path: "/categories/patronat" },
     { title: "relacje", path: "/categories/relacje" },
     { title: "wywiady", path: "/categories/wywiady" },
   ];
 
   const items = [
     { title: "festiwalowa mapa", path: "/festival-map" },
-    { title: "patronat", path: "/categories/patronat" },
     // { title: "galerie", path: "/galleries" },
     { title: "kontakt", path: "/contact" },
+    { title: "tagi", path: "/tags" },
   ];
 
   return (

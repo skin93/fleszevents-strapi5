@@ -26,7 +26,7 @@ export default function SlugPageComponent({ article }: Props) {
   }, []);
   return (
     <main>
-      <section className="my-8" aria-label="slug-page">
+      <section className="my-6" aria-label="slug-page">
         <div className="mb-4">
           {article.categories?.map((category) => (
             <Link
@@ -87,7 +87,7 @@ export default function SlugPageComponent({ article }: Props) {
                 </p>
               </div>
             </AspectRatio>
-            <Separator className="my-4" />
+            <Separator className="my-6" />
             <div
               dangerouslySetInnerHTML={{
                 __html: article.content,
@@ -96,6 +96,20 @@ export default function SlugPageComponent({ article }: Props) {
               className="embeded-iframe"
             />
             <Separator />
+            <h4 className="mb-0"> Tagi:</h4>
+            <div className="inline-table my-6">
+              {article.tags?.map((tag) => (
+                <Link key={tag.documentId} href={`/tags/${tag.slug}`}>
+                  <Badge
+                    className="uppercase ml-0 mr-6 p-0
+                    border-none hover:underline dark:text-foreground"
+                    variant="outline"
+                  >
+                    {tag.name}
+                  </Badge>
+                </Link>
+              ))}
+            </div>
           </article>
           <aside
             className="container justify-center p-0"

@@ -26,8 +26,8 @@ export function ReadMoreLink({ href, className }: Props) {
   return (
     <Button
       aria-label="read-more-button"
-      className={cn(className, "uppercase m-8 font-bold")}
-      variant={"outline"}
+      className={cn(className, "uppercase my-6 font-bold")}
+      variant={"default"}
     >
       <Link href={href}>ZOBACZ WIĘCEJ</Link>
     </Button>
