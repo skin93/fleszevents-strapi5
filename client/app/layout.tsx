@@ -66,12 +66,6 @@ export default function RootLayout({
   return (
     <html lang="pl" suppressHydrationWarning>
       <body className={`${playpen.className} antialiased`}>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
-          }}
-        />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -81,6 +75,12 @@ export default function RootLayout({
           <NextTopLoader color="#0d9488" height={5} />
           {children}
         </ThemeProvider>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+          }}
+        />
       </body>
     </html>
   );
