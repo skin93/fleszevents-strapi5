@@ -3,6 +3,7 @@ import SlugPageComponent from "@/components/slug-page";
 import { getArticleBySlug, getArticleInfo } from "@/lib/data/articles";
 import { notFound } from "next/navigation";
 import { Fragment } from "react";
+import { Article, WithContext } from "schema-dts";
 
 export async function generateMetadata({
   params,
@@ -89,9 +90,42 @@ export default async function SlugPage({
   const { slug } = await params;
   const { article } = await getArticleBySlug(slug);
 
+  const jsonLd: WithContext<Article> = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: article.title,
+    datePublished: article.publishedAt?.toLocaleString(),
+    dateModified: article.updatedAt?.toLocaleString(),
+    inLanguage: "pl",
+    image: `${process.env.NEXT_PUBLIC_STRAPI}/${article.cover.url}`,
+    description: article.excerpt,
+    url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/articles/${article.slug}`,
+    publisher: {
+      "@type": "Organization",
+      name: "FleszEvents",
+      image: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/logo-publikacja.jpeg`,
+    },
+    author: [
+      {
+        "@type": "Person",
+        name: article.authors[0].name,
+      },
+    ],
+  };
+
   if (!article) {
     notFound();
   }
 
-  return <Fragment>{<SlugPageComponent article={article} />}</Fragment>;
+  return (
+    <Fragment>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
+      {<SlugPageComponent article={article} />}
+    </Fragment>
+  );
 }

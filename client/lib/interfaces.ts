@@ -55,7 +55,7 @@ export interface Article {
   content: any;
   cover: Media;
   seo: SharedSeo;
-  authors?: Author[] | null;
+  authors: Author[];
   categories?: Category[] | null;
   tags?: Tag[] | null;
   relatedArticles?: SharedRelatedArticles | null;

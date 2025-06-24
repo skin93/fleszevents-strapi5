@@ -2,6 +2,8 @@ import { getMediaUrl } from "@/lib/getMediaUrl";
 import LazyMap from "@/components/ui/custom/lazy-map";
 import { getAllFestivals } from "@/lib/data/festivals";
 import { getAllMusicTypes } from "@/lib/data/music-types";
+import { WebSite, WithContext } from "schema-dts";
+import { Fragment } from "react";
 
 export const dynamic = "force-dynamic";
 
@@ -41,6 +43,22 @@ export const metadata = {
 export default async function FestivalMap() {
   const { festivals } = await getAllFestivals();
   const { genres } = await getAllMusicTypes();
+
+  const jsonLd: WithContext<WebSite> = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Festiwalowa Mapa",
+    description: "Sprawdź, czy w Twojej okolicy nie odbywa się fajny festiwal!",
+    inLanguage: "pl",
+    url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/festival-map`,
+    image: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/FE-mapa-2025-01.jpg`,
+    publisher: {
+      "@type": "Organization",
+      name: "FleszEvents",
+      image: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/logo-publikacja.jpeg`,
+    },
+  };
+
   const markers = festivals.map((fest) => ({
     position: [fest.place?.lat, fest.place?.lng] as [number, number],
     popup: fest.name,
@@ -61,8 +79,16 @@ export default async function FestivalMap() {
     music_types: fest.music_types,
   }));
   return (
-    <main className="grid place-content-center">
-      <LazyMap markers={markers} genres={genres} />
-    </main>
+    <Fragment>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
+      <main className="grid place-content-center">
+        <LazyMap markers={markers} genres={genres} />
+      </main>
+    </Fragment>
   );
 }
