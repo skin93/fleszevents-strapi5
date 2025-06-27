@@ -4,6 +4,9 @@ export interface SharedNextEvent {
   name: string;
   date: Date | string;
   endDate?: Date | string;
+  article: {
+    slug: string;
+  };
 }
 
 export interface SharedOpenGraph {
@@ -306,5 +309,6 @@ export interface Marker {
   festName: string | undefined;
   date: Date | string | undefined;
   endDate?: Date | string | undefined;
+  articleSlug?: string | undefined;
   music_types?: MusicType[] | null;
 }

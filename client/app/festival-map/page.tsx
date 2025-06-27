@@ -76,6 +76,7 @@ export default async function FestivalMap() {
     festName: fest.next_event?.name,
     date: fest.next_event?.date,
     endDate: fest.next_event?.endDate,
+    articleSlug: fest.next_event?.article?.slug,
     music_types: fest.music_types,
   }));
   return (

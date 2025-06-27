@@ -186,7 +186,11 @@ export default function Map({
                     <Link
                       target="_blank"
                       className="font-bold"
-                      href={`/tags/${marker.slug}`}
+                      href={
+                        marker.articleSlug === undefined
+                          ? `/tags/${marker.slug}`
+                          : `/articles/${marker.articleSlug}`
+                      }
                     >
                       Czytaj więcej
                     </Link>

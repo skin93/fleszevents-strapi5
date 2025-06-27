@@ -4,6 +4,7 @@ export interface SharedNextEvent {
   name: string;
   date: Date | string;
   endDate?: Date | string;
+  article?: Article | null;
 };
 
 export interface SharedOpenGraph {

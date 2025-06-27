@@ -3,10 +3,12 @@ import type { Schema, Struct } from '@strapi/strapi';
 export interface SharedNextEvent extends Struct.ComponentSchema {
   collectionName: 'components_shared_next_events';
   info: {
+    description: '';
     displayName: 'NextEvent';
     icon: 'calendar';
   };
   attributes: {
+    article: Schema.Attribute.Relation<'oneToOne', 'api::article.article'>;
     date: Schema.Attribute.Date & Schema.Attribute.Required;
     endDate: Schema.Attribute.Date;
     name: Schema.Attribute.String &

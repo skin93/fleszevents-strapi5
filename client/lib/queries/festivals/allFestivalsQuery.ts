@@ -19,6 +19,9 @@ export const ALL_FESTIVALS_QUERY = gql`
       next_event {
         date
         endDate
+        article {
+          slug
+        }
       }
       cover {
         url

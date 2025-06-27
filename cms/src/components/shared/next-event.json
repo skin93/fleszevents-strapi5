@@ -2,7 +2,8 @@
   "collectionName": "components_shared_next_events",
   "info": {
     "displayName": "NextEvent",
-    "icon": "calendar"
+    "icon": "calendar",
+    "description": ""
   },
   "options": {},
   "attributes": {
@@ -17,6 +18,11 @@
     },
     "endDate": {
       "type": "date"
+    },
+    "article": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::article.article"
     }
   }
 }
