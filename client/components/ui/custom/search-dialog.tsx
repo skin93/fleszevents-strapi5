@@ -18,6 +18,7 @@ import {
 
 import { Input } from "@/components/ui/input";
 import { DialogTitle } from "@radix-ui/react-dialog";
+import { Search } from "lucide-react";
 
 export default function SearchDialog() {
   const router = useRouter();
@@ -45,7 +46,9 @@ export default function SearchDialog() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline">Szukaj frazy</Button>
+        <Button className="border-0" variant="outline" size="icon">
+          <Search />
+        </Button>
       </DialogTrigger>
       <DialogContent className="max-w-[1000px] border-none overflow-y-hidden">
         <DialogTitle className="my-0 text-white">Szukaj frazy</DialogTitle>
