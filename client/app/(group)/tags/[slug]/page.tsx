@@ -43,6 +43,7 @@ export default async function TagPage({ params, searchParams }: Props) {
   const { page } = await searchParams;
   const currentPage = Number(page) || 1;
   const { articles, pageInfo } = await getArticlesByTag(slug, currentPage, 12);
+  const { tag } = await getTag(slug);
 
   if (!articles || articles.length == 0) {
     notFound();
@@ -55,7 +56,7 @@ export default async function TagPage({ params, searchParams }: Props) {
         className="flex flex-col justify-center items-center"
       >
         <h1 className="my-8 text-center font-bold uppercase">
-          {slug.toUpperCase()}
+          {tag.name.toUpperCase()}
         </h1>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
           {articles.map((article) => (
