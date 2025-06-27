@@ -159,15 +159,7 @@ export default function Map({
                   style={{ objectFit: "cover" }}
                   loading="lazy"
                 />
-                <DialogTitle className="my-0">
-                  <Link
-                    target="_blank"
-                    className="hover:underline text-white"
-                    href={`/tags/${marker.slug}`}
-                  >
-                    {marker.alt}
-                  </Link>
-                </DialogTitle>
+                <DialogTitle className="my-0">{marker.alt}</DialogTitle>
 
                 <div className="flex flex-col items-center justify-center">
                   <p className="text-teal-400 m-0">
@@ -185,10 +177,22 @@ export default function Map({
                   ) : (
                     <p className="font-bold text-white">Brak daty</p>
                   )}
+                  {marker.date && !isValidUrl(marker.tickets as string) && (
+                    <p className="font-bold text-white">{marker.tickets}</p>
+                  )}
                 </div>
                 <div className="flex flex-col md:flex-row items-center gap-4">
-                  {marker.date && isValidUrl(marker.tickets as string) ? (
-                    <Button className="bg-teal-600">
+                  <Button variant={"outline"}>
+                    <Link
+                      target="_blank"
+                      className="font-bold"
+                      href={`/tags/${marker.slug}`}
+                    >
+                      Czytaj więcej
+                    </Link>
+                  </Button>
+                  {marker.date && isValidUrl(marker.tickets as string) && (
+                    <Button variant={"outline"}>
                       <Link
                         target="_blank"
                         className="font-bold"
@@ -198,15 +202,6 @@ export default function Map({
                         Bilety
                       </Link>
                     </Button>
-                  ) : marker.date &&
-                    (marker.tickets === "" || marker.tickets === null) ? (
-                    <p className="font-bold text-white">
-                      Brak informacji o biletach
-                    </p>
-                  ) : (
-                    marker.date && (
-                      <p className="font-bold text-white">{marker.tickets}</p>
-                    )
                   )}
                   <Button variant={"outline"}>
                     <Link
