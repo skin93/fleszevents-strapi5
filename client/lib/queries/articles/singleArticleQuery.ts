@@ -32,7 +32,7 @@ export const SINGLE_ARTICLE_QUERY = gql`
         documentId
       }
       relatedArticles {
-        articles(sort: "publishedAt:DESC") {
+        articles(sort: "createdAt:DESC") {
           documentId
           title
           slug

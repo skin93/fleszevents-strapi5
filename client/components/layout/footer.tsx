@@ -14,7 +14,7 @@ export default function Footer() {
 
   const items = [
     { title: "festiwalowa mapa", path: "/festival-map" },
-    // { title: "galerie", path: "/galleries" },
+    { title: "galerie", path: "/galleries" },
     { title: "kontakt", path: "/contact" },
     { title: "tagi", path: "/tags" },
   ];

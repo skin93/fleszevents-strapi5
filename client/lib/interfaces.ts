@@ -137,9 +137,13 @@ export interface Gallery {
   description: string;
   slug: string;
   photos: Media[] | null;
-  cover: Media | null;
+  cover: Media;
   seo: SharedSeo | null;
   tags?: Tag[] | null;
+}
+
+export interface Galleries {
+  galleries: Gallery[];
 }
 
 export interface MusicType {
@@ -271,6 +275,18 @@ export interface FindMany<T> {
 export interface ArticlesConnection {
   articles_connection: {
     nodes: Article[];
+    pageInfo: {
+      page: number;
+      pageSize: number;
+      pageCount: number;
+      total: number;
+    };
+  };
+}
+
+export interface GalleriesConnection {
+  galleries_connection: {
+    nodes: Gallery[];
     pageInfo: {
       page: number;
       pageSize: number;
