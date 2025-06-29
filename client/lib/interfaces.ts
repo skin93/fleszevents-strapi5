@@ -196,6 +196,7 @@ export interface Tags {
 
 export interface Media {
   id: number;
+  documentId?: string;
   name: string;
   alternativeText: string;
   caption: string;
