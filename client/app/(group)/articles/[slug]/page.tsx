@@ -1,6 +1,7 @@
 import SlugPageComponent from "@/components/slug-page";
 
 import { getArticleBySlug, getArticleInfo } from "@/lib/data/articles";
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Fragment } from "react";
 import { Article, WithContext } from "schema-dts";
@@ -9,7 +10,7 @@ export async function generateMetadata({
   params,
 }: {
   params: Promise<{ slug: string }>;
-}) {
+}): Promise<Metadata> {
   // read route params
   const { slug } = await params;
 

@@ -12,13 +12,13 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-type Props = {
-  params: { slug: string };
-};
-
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  // fetch data
-  const { seo } = await getGalleryMeta(params.slug);
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const { seo } = await getGalleryMeta(slug);
 
   return {
     title: seo?.metaTitle,
@@ -50,8 +50,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function GalleryPage({ params }: Props) {
-  const { gallery } = await getGalleryBySlug(params.slug);
+export default async function GallerySlugPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const { gallery } = await getGalleryBySlug(slug);
 
   if (!gallery.photos || gallery.photos.length === 0) {
     notFound();
