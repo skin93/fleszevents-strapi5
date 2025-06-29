@@ -157,7 +157,7 @@ export default function Map({
                   height={marker.imageHeight}
                   className="rounded-sm aspect-video"
                   style={{ objectFit: "cover" }}
-                  loading="lazy"
+                  priority
                 />
                 <DialogTitle className="my-0">{marker.alt}</DialogTitle>
 

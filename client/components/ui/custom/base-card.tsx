@@ -13,6 +13,7 @@ export default function BaseCard({ article }: Props) {
     <Card className="group aspect-video w-full border-none relative shadow-none translate-y-0  hover:translate-y-2 transition-all duration-300">
       <CardContent className="p-5 bg-background/5 dark:bg-foreground/5 rounded-lg flex flex-col items-center justify-end ">
         <Image
+          priority
           src={getMediaUrl(article.cover)}
           title={article.title}
           alt={article.cover.alternativeText}
