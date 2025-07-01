@@ -65,6 +65,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pl" suppressHydrationWarning>
+      <head>
+        <meta name="apple-mobile-web-app-title" content="FleszEvents" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+          }}
+        />
+      </head>
       <body className={`${playpen.className} antialiased`}>
         <ThemeProvider
           attribute="class"
