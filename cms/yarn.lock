@@ -3141,7 +3141,7 @@
     lodash "4.17.21"
     react-remove-scroll "2.5.10"
 
-"@strapi/design-system@2.0.0-rc.21", "@strapi/design-system@^2.0.0-rc.10", "@strapi/design-system@^2.0.0-rc.11", "@strapi/design-system@^2.0.0-rc.14", "@strapi/design-system@^2.0.0-rc.16":
+"@strapi/design-system@2.0.0-rc.21", "@strapi/design-system@^2.0.0-rc.10", "@strapi/design-system@^2.0.0-rc.11", "@strapi/design-system@^2.0.0-rc.16":
   version "2.0.0-rc.21"
   resolved "https://registry.yarnpkg.com/@strapi/design-system/-/design-system-2.0.0-rc.21.tgz#463cd9fad08b8d17ee08c573c1536c0074f9912e"
   integrity sha512-bSbPK6jByMp/+03t+aNuzOATcM9Gmp6wRwdz0GmZLeEJqXcG4SVw4luFAVuxSG77YGedBWQTV2+W4Eu8uSOUfQ==
@@ -3222,7 +3222,7 @@
   resolved "https://registry.yarnpkg.com/@strapi/icons/-/icons-2.0.0-rc.18.tgz#32649132d7a6e46abe6f0f49d4ac44a1c9b672ac"
   integrity sha512-OPMoSeZzTBqU35OOK9fA8iiKhKk8TIaDIzI0+r7mgoD9bP35GaZ+AAZQpFOfQjwguJeKYkFagAoYiWYwAgxkPg==
 
-"@strapi/icons@2.0.0-rc.21", "@strapi/icons@^2.0.0-rc.10", "@strapi/icons@^2.0.0-rc.11", "@strapi/icons@^2.0.0-rc.14", "@strapi/icons@^2.0.0-rc.16":
+"@strapi/icons@2.0.0-rc.21", "@strapi/icons@^2.0.0-rc.10", "@strapi/icons@^2.0.0-rc.11", "@strapi/icons@^2.0.0-rc.16":
   version "2.0.0-rc.21"
   resolved "https://registry.yarnpkg.com/@strapi/icons/-/icons-2.0.0-rc.21.tgz#7f8ff7733693884fd132ebf20231215b26aa281f"
   integrity sha512-NotA9mUcuxbXjoOLVRhMFxEOHgVgahRyvWoXGhhJ3W/nT8H/pVrfjfIhx/K4LApJzI3d97T+ErKP0wyKYntksg==
@@ -9913,7 +9913,7 @@ react-intl@^6.6.8, react-intl@^6.8.0:
     intl-messageformat "10.7.7"
     tslib "2"
 
-react-intl@^7.1.0, react-intl@^7.1.6:
+react-intl@^7.1.6:
   version "7.1.10"
   resolved "https://registry.yarnpkg.com/react-intl/-/react-intl-7.1.10.tgz#2853eac0fac10a3dac5d60d6ca48428444a6d179"
   integrity sha512-I5eB73BAqBbkd2M3wL8gTSE/xFvJRmxZcjS1HMnBT3KXya2PUSI7nDO/tlapX8khchoDoliliMsmyIURB/ww1g==
@@ -10953,15 +10953,6 @@ stdin-discarder@^0.2.2:
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/stdin-discarder/-/stdin-discarder-0.2.2.tgz#390037f44c4ae1a1ae535c5fe38dc3aba8d997be"
   integrity sha512-UhDfHmA92YAlNnCfhmq0VeNL5bDbiZGg7sZ2IvPsXubGkiNa9EC+tUTsjBRsYUAz87btI6/1wf4XoVvQ3uRnmQ==
-
-strapi-5-sitemap-plugin@^1.0.5:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/strapi-5-sitemap-plugin/-/strapi-5-sitemap-plugin-1.0.5.tgz#d5627527d7825a033f0b8bff9e78761779c889ee"
-  integrity sha512-rWx7kovbhG4XJZL05IbxjTrHa36txkX+kmX1HNWcYSYfnDZr8+w7/vupQ/DtWvOntE3oqkIMV4iTow3tLhxjqw==
-  dependencies:
-    "@strapi/design-system" "^2.0.0-rc.14"
-    "@strapi/icons" "^2.0.0-rc.14"
-    react-intl "^7.1.0"
 
 strapi-geodata@^0.1.2:
   version "0.1.2"
