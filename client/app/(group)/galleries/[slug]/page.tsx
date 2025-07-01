@@ -93,7 +93,7 @@ export default async function GallerySlugPage({
                       />
                     </div>
                   </DialogTrigger>
-                  <DialogContent className="border-0 max-w-[90rem] h-auto p-0 ">
+                  <DialogContent className="border-0 max-w-[70rem] h-auto p-0 ">
                     <DialogHeader className="hidden">
                       <DialogTitle>{photo.name}</DialogTitle>
                     </DialogHeader>
