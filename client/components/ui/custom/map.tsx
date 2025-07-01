@@ -149,7 +149,7 @@ export default function Map({
                   </div>
                 </Popup>
               </Marker>
-              <DialogContent className="border-none flex flex-col justify-between items-center max-w-[60em] max-h-full overflow-y-hidden">
+              <DialogContent className="border-none flex flex-col justify-between items-center max-w-[60em] max-h-full overflow-y-scroll">
                 <Image
                   src={marker.imageSrc}
                   alt={marker.imageAlt}
