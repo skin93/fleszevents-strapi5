@@ -942,6 +942,7 @@ export interface PluginStrapi5SitemapPluginStrapi5SitemapPluginContentType
     pattern: Schema.Attribute.String;
     priority: Schema.Attribute.Float;
     publishedAt: Schema.Attribute.DateTime;
+    thumbnail: Schema.Attribute.String;
     type: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &

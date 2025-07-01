@@ -2,10 +2,15 @@ import { grafbase } from "@/lib/graphql";
 import { LATEST_ARTICLES_QUERY } from "@/lib/queries/articles/latestArticlesQuery";
 import { SINGLE_ARTICLE_QUERY } from "@/lib/queries/articles/singleArticleQuery";
 import { SINGLE_ARTICLE_META_QUERY } from "@/lib/queries/articles/singleArticleMetaQuery";
-import { Articles, ArticlesConnection, LatestArticles } from "../interfaces";
+import {
+  Articles,
+  ArticlesConnection,
+  ArticlesSitemap,
+  LatestArticles,
+} from "../interfaces";
 import { ARTICLES_BY_TERM_QUERY } from "../queries/articles/articlesByTermQuery";
 import { SINGLE_ARTICLE_INFO_QUERY } from "../queries/articles/singleArticleInfoQuery";
-// import { ARTICLES_SITEMAP_QUERY } from "@/lib/queries/articles/articlesSitemapQuery.ts";
+import { ARTICLES_SITEMAP_QUERY } from "../queries/articles/articlesSitemapQuery";
 
 export async function getLatestArticles(start: number, limit: number) {
   const res = await grafbase.request<LatestArticles>(LATEST_ARTICLES_QUERY, {
@@ -43,10 +48,10 @@ export async function getArticleInfo(slug: string) {
   return { info: res.articles[0] };
 }
 
-// export async function getArticlesSitemap() {
-//   const res = await grafbase.request(ARTICLES_SITEMAP_QUERY);
-//   return { articles: res.articles };
-// }
+export async function getArticlesSitemap() {
+  const res = await grafbase.request<ArticlesSitemap>(ARTICLES_SITEMAP_QUERY);
+  return { articles: res.articles };
+}
 
 export async function getArticlesByTerm(
   term: string,

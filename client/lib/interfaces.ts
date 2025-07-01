@@ -68,6 +68,17 @@ export interface Articles {
   articles: Article[];
 }
 
+export interface ArticleSitemap {
+  id?: number;
+  title: string;
+  slug: string;
+  updatedAt: Date | string;
+}
+
+export interface ArticlesSitemap {
+  articles: ArticleSitemap[];
+}
+
 export interface LatestArticles {
   news: Array<{ documentId: string; slug: string; articles: Article[] }>;
   festivals: Array<{ documentId: string; slug: string; articles: Article[] }>;
@@ -329,3 +340,17 @@ export interface Marker {
   articleSlug?: string | undefined;
   music_types?: MusicType[] | null;
 }
+
+export type Sitemap = Array<{
+  url: string;
+  lastModified?: string | Date;
+  changeFrequency?:
+    | "always"
+    | "hourly"
+    | "daily"
+    | "weekly"
+    | "monthly"
+    | "yearly"
+    | "never";
+  priority?: number;
+}>;
