@@ -72,40 +72,43 @@ export default async function GallerySlugPage({
           {gallery.name}
         </h1>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
-          {gallery.photos.map((photo) => {
-            const src = getMediaUrl(photo);
-            return (
-              <Dialog key={photo.documentId}>
-                <DialogTrigger asChild className="cursor-pointer">
-                  <div className="relative">
+          {gallery.photos
+            .sort((a, b) =>
+              a.updatedAt > b.updatedAt ? 1 : b.updatedAt > a.updatedAt ? -1 : 0
+            )
+            .map((photo) => {
+              const src = getMediaUrl(photo);
+              return (
+                <Dialog key={photo.documentId}>
+                  <DialogTrigger asChild className="cursor-pointer">
+                    <div className="relative translate-y-0  hover:translate-y-2 transition-all duration-300">
+                      <Image
+                        priority
+                        width={photo.width}
+                        height={photo.height}
+                        src={src}
+                        alt={photo.alternativeText}
+                        className="rounded-lg object-cover relative"
+                        sizes="(min-width: 1560px) 435px, (min-width: 1280px) calc(15.38vw + 198px), (min-width: 640px) calc(50vw - 40px), (min-width: 460px) calc(100vw - 64px), calc(7.86vw + 341px)"
+                      />
+                    </div>
+                  </DialogTrigger>
+                  <DialogContent className="border-0 max-w-[90rem] h-auto p-0 ">
+                    <DialogHeader className="hidden">
+                      <DialogTitle>{photo.name}</DialogTitle>
+                    </DialogHeader>
                     <Image
                       priority
                       width={photo.width}
                       height={photo.height}
                       src={src}
                       alt={photo.alternativeText}
-                      className="rounded-lg object-cover relative"
-                      sizes="(min-width: 1560px) 435px, (min-width: 1280px) calc(15.38vw + 198px), (min-width: 640px) calc(50vw - 40px), (min-width: 460px) calc(100vw - 64px), calc(7.86vw + 341px)"
+                      className="rounded-lg object-cover"
                     />
-                    <div className="absolute inset-0 bg-[rgba(0,0,0,0.7)] rounded-lg hover:bg-[rgba(0,0,0,0.1)] transition-all" />
-                  </div>
-                </DialogTrigger>
-                <DialogContent className="overflow-y-hidden border-0 max-w-[90rem] h-auto p-0">
-                  <DialogHeader className="hidden">
-                    <DialogTitle>{photo.name}</DialogTitle>
-                  </DialogHeader>
-                  <Image
-                    priority
-                    width={photo.width}
-                    height={photo.height}
-                    src={src}
-                    alt={photo.alternativeText}
-                    className="rounded-lg object-cover"
-                  />
-                </DialogContent>
-              </Dialog>
-            );
-          })}
+                  </DialogContent>
+                </Dialog>
+              );
+            })}
         </div>
       </section>
     </main>
