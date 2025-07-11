@@ -46,7 +46,12 @@ export default function SearchDialog() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button className="border-0" variant="outline" size="icon">
+        <Button
+          aria-label="search button"
+          className="border-0"
+          variant="outline"
+          size="icon"
+        >
           <Search />
         </Button>
       </DialogTrigger>

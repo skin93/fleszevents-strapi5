@@ -103,7 +103,7 @@ export default async function GallerySlugPage({
                       height={photo.height}
                       src={src}
                       alt={photo.alternativeText}
-                      className="rounded-lg object-cover"
+                      className="rounded-lg object-contain"
                     />
                   </DialogContent>
                 </Dialog>

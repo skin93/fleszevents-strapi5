@@ -34,7 +34,7 @@ export default function SlugPageComponent({ article }: Props) {
               href={`/categories/${category.slug}`}
             >
               <Badge
-                className="bg-foreground hover:bg-foreground/70 dark:bg-accent dark:hover:bg-accent/90 dark:text-foreground mr-2 p-2 rounded-sm uppercase"
+                className="bg-foreground hover:bg-foreground/70 dark:bg-accent/70 dark:hover:bg-accent/90 dark:text-foreground mr-2 p-2 rounded-sm uppercase"
                 variant="default"
               >
                 {category.name}
@@ -96,7 +96,7 @@ export default function SlugPageComponent({ article }: Props) {
               className="embeded-iframe"
             />
             <Separator />
-            <h4 className="mb-0"> Tagi:</h4>
+            <p className="mb-0 text-foreground font-bold"> Tagi:</p>
             <div className="inline-table my-6">
               {article.tags?.map((tag) => (
                 <Link key={tag.documentId} href={`/tags/${tag.slug}`}>
