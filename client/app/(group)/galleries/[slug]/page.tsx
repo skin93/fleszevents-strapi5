@@ -62,6 +62,14 @@ export default async function GallerySlugPage({
     notFound();
   }
 
+  const MAX_COLUMNS = 3;
+
+  function getColumns(colIndex: number) {
+    return gallery.photos?.filter(
+      (photo, idx) => idx % MAX_COLUMNS === colIndex
+    );
+  }
+
   return (
     <main>
       <section
@@ -71,44 +79,44 @@ export default async function GallerySlugPage({
         <h1 className="my-8 text-center text-4xl font-bold uppercase">
           {gallery.name}
         </h1>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
-          {gallery.photos
-            .sort((a, b) =>
-              a.updatedAt > b.updatedAt ? 1 : b.updatedAt > a.updatedAt ? -1 : 0
-            )
-            .map((photo) => {
-              const src = getMediaUrl(photo);
-              return (
-                <Dialog key={photo.documentId}>
-                  <DialogTrigger asChild className="cursor-pointer">
-                    <div className="relative translate-y-0  hover:translate-y-2 transition-all duration-300">
+        <div className="grid grid-cols-3 gap-4">
+          {[getColumns(0), getColumns(1), getColumns(2)].map((column, idx) => (
+            <div key={idx} className="flex flex-col gap-4">
+              {column?.map((photo) => {
+                const src = getMediaUrl(photo);
+                return (
+                  <Dialog key={photo.documentId}>
+                    <DialogTrigger asChild className="cursor-pointer">
+                      <div className="relative translate-y-0  hover:translate-y-2 transition-all duration-300">
+                        <Image
+                          priority
+                          width={photo.width}
+                          height={photo.height}
+                          src={src}
+                          alt={photo.alternativeText}
+                          className="rounded-lg object-cover relative"
+                          sizes="(min-width: 1560px) 435px, (min-width: 1280px) calc(15.38vw + 198px), (min-width: 640px) calc(50vw - 40px), (min-width: 460px) calc(100vw - 64px), calc(7.86vw + 341px)"
+                        />
+                      </div>
+                    </DialogTrigger>
+                    <DialogContent className="border-0 max-w-[70rem] h-auto p-0 ">
+                      <DialogHeader className="hidden">
+                        <DialogTitle>{photo.name}</DialogTitle>
+                      </DialogHeader>
                       <Image
                         priority
                         width={photo.width}
                         height={photo.height}
                         src={src}
                         alt={photo.alternativeText}
-                        className="rounded-lg object-cover relative"
-                        sizes="(min-width: 1560px) 435px, (min-width: 1280px) calc(15.38vw + 198px), (min-width: 640px) calc(50vw - 40px), (min-width: 460px) calc(100vw - 64px), calc(7.86vw + 341px)"
+                        className="rounded-lg object-contain"
                       />
-                    </div>
-                  </DialogTrigger>
-                  <DialogContent className="border-0 max-w-[70rem] h-auto p-0 ">
-                    <DialogHeader className="hidden">
-                      <DialogTitle>{photo.name}</DialogTitle>
-                    </DialogHeader>
-                    <Image
-                      priority
-                      width={photo.width}
-                      height={photo.height}
-                      src={src}
-                      alt={photo.alternativeText}
-                      className="rounded-lg object-contain"
-                    />
-                  </DialogContent>
-                </Dialog>
-              );
-            })}
+                    </DialogContent>
+                  </Dialog>
+                );
+              })}
+            </div>
+          ))}
         </div>
       </section>
     </main>
