@@ -27,7 +27,6 @@
     "react-router-dom": "^6.0.0",
     "strapi-geodata": "^0.1.2",
     "strapi-plugin-gen-types": "^0.0.15",
-    "strapi-plugin-webp-converter": "^1.0.4",
     "styled-components": "^6.0.0"
   },
   "devDependencies": {
