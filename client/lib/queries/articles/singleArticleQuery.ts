@@ -31,6 +31,17 @@ export const SINGLE_ARTICLE_QUERY = gql`
         name
         documentId
       }
+      gallery {
+        id
+        images(sort: "name:asc", pagination: { limit: -1 }) {
+          documentId
+          url
+          alternativeText
+          caption
+          width
+          height
+        }
+      }
       relatedArticles {
         articles(sort: "createdAt:DESC") {
           documentId

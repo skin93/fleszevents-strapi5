@@ -12,6 +12,7 @@ import { getGalleryBySlug, getGalleryMeta } from "@/lib/data/galleries";
 //   DialogTrigger,
 // } from "@/components/ui/dialog";
 import Link from "next/link";
+import { getColumns } from "@/lib/getColumnms";
 
 export async function generateMetadata({
   params,
@@ -63,14 +64,6 @@ export default async function GallerySlugPage({
     notFound();
   }
 
-  const MAX_COLUMNS = 3;
-
-  function getColumns(colIndex: number) {
-    return gallery.photos?.filter(
-      (photo, idx) => idx % MAX_COLUMNS === colIndex
-    );
-  }
-
   return (
     <main>
       <section
@@ -81,7 +74,11 @@ export default async function GallerySlugPage({
           {gallery.name}
         </h1>
         <div className="grid grid-cols-3 gap-4">
-          {[getColumns(0), getColumns(1), getColumns(2)].map((column, idx) => (
+          {[
+            getColumns(gallery.photos, 0, 3),
+            getColumns(gallery.photos, 1, 3),
+            getColumns(gallery.photos, 2, 3),
+          ].map((column, idx) => (
             <div key={idx} className="flex flex-col gap-4">
               {column?.map((photo) => {
                 const src = getMediaUrl(photo);

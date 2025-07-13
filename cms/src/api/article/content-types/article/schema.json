@@ -10,12 +10,13 @@
   "options": {
     "draftAndPublish": true
   },
+  "pluginOptions": {},
   "attributes": {
     "title": {
       "type": "string",
+      "maxLength": 60,
       "required": true,
-      "unique": true,
-      "maxLength": 60
+      "unique": true
     },
     "slug": {
       "type": "uid",
@@ -24,11 +25,11 @@
     },
     "content": {
       "type": "customField",
+      "customField": "plugin::ckeditor5.CKEditor",
       "options": {
         "preset": "defaultHtml"
       },
-      "required": true,
-      "customField": "plugin::ckeditor5.CKEditor"
+      "required": true
     },
     "cover": {
       "type": "media",
@@ -40,8 +41,8 @@
     },
     "seo": {
       "type": "component",
-      "repeatable": false,
       "component": "shared.seo",
+      "repeatable": false,
       "required": false
     },
     "authors": {
@@ -64,13 +65,18 @@
     },
     "relatedArticles": {
       "type": "component",
-      "repeatable": false,
-      "component": "shared.related-articles"
+      "component": "shared.related-articles",
+      "repeatable": false
     },
     "excerpt": {
       "type": "text",
       "maxLength": 150,
       "unique": true
+    },
+    "gallery": {
+      "type": "component",
+      "component": "shared.small-gallery",
+      "repeatable": false
     }
   }
 }

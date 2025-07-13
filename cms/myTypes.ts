@@ -60,6 +60,7 @@ export interface Article {
   tags?: Tag[] | null;
   relatedArticles?: SharedRelatedArticles | null;
   excerpt?: string;
+  gallery?: SharedSmallGallery | null;
 };
 
 export interface Author {

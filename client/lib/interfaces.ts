@@ -62,6 +62,7 @@ export interface Article {
   categories?: Category[] | null;
   tags?: Tag[] | null;
   relatedArticles?: SharedRelatedArticles | null;
+  gallery?: SharedSmallGallery | null;
 }
 
 export interface Articles {
