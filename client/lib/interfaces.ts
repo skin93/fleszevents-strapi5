@@ -80,6 +80,17 @@ export interface ArticlesSitemap {
   articles: ArticleSitemap[];
 }
 
+export interface GallerySitemap {
+  id?: number;
+  name: string;
+  slug: string;
+  updatedAt: Date | string;
+}
+
+export interface GalleriesSitemap {
+  galleries: GallerySitemap[];
+}
+
 export interface LatestArticles {
   news: Array<{ documentId: string; slug: string; articles: Article[] }>;
   festivals: Array<{ documentId: string; slug: string; articles: Article[] }>;

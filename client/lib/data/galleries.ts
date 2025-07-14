@@ -1,6 +1,11 @@
 import { grafbase } from "../graphql";
-import { Galleries, GalleriesConnection } from "../interfaces";
+import {
+  Galleries,
+  GalleriesConnection,
+  GalleriesSitemap,
+} from "../interfaces";
 import { GALLERIES_QUERY } from "../queries/galleries/galleriesQuery";
+import { GALLERIES_SITEMAP_QUERY } from "../queries/galleries/galleriesSitemap";
 import { GALLERY_BY_SLUG_QUERY } from "../queries/galleries/galleryBySlugQuery";
 import { GALLERY_META_QUERY } from "../queries/galleries/galleryMetaQuery";
 
@@ -32,4 +37,9 @@ export async function getGalleryMeta(slug: string) {
   });
 
   return { seo: res.galleries[0].seo };
+}
+
+export async function getGalleriesSitemap() {
+  const res = await grafbase.request<GalleriesSitemap>(GALLERIES_SITEMAP_QUERY);
+  return { galleries: res.galleries };
 }

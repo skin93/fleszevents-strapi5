@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: "/galerie",
+    canonical: "/galleries",
   },
   openGraph: {
     type: "website",
