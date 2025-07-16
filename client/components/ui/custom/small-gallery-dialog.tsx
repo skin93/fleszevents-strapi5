@@ -7,24 +7,22 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import Image from "next/image";
-import { Gallery } from "@/lib/interfaces";
 import { getColumns } from "@/lib/getColumnms";
 import { getMediaUrl } from "@/lib/getMediaUrl";
 import { DialogDescription } from "@radix-ui/react-dialog";
+import { Media } from "@/lib/interfaces";
 
 type Props = {
-  gallery: Gallery;
+  images: Media[];
 };
 
-export default function ImagesDialog({ gallery }: Props) {
-  const { photos } = gallery;
-
+export default function SmallGalleryDialog({ images }: Props) {
   return (
     <>
       {[
-        getColumns(photos!, 0, 3),
-        getColumns(photos!, 1, 3),
-        getColumns(photos!, 2, 3),
+        getColumns(images, 0, 3),
+        getColumns(images, 1, 3),
+        getColumns(images, 2, 3),
       ].map((column, idx) => (
         <div key={idx} className="flex flex-col gap-4">
           {column?.map((photo) => {

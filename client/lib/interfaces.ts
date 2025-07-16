@@ -42,7 +42,7 @@ export interface SharedSeo {
 
 export interface SharedSmallGallery {
   id?: number;
-  images: Media[] | null;
+  images: Media[];
 }
 
 export interface Article {

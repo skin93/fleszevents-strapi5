@@ -3,7 +3,7 @@ import React from "react";
 import { Metadata } from "next";
 import { getGalleryBySlug, getGalleryMeta } from "@/lib/data/galleries";
 
-import ImagesDialog from "@/components/ui/custom/images-dialog";
+import GalleryDialog from "@/components/ui/custom/gallery-dialog";
 
 export async function generateMetadata({
   params,
@@ -65,7 +65,7 @@ export default async function GallerySlugPage({
           {gallery.name}
         </h1>
         <div className="grid grid-cols-3 gap-4">
-          <ImagesDialog gallery={gallery} />
+          <GalleryDialog gallery={gallery} />
         </div>
       </section>
     </main>
