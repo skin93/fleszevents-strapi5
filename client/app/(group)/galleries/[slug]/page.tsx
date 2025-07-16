@@ -1,18 +1,10 @@
 import { notFound } from "next/navigation";
 import React from "react";
 import { Metadata } from "next";
-import Image from "next/image";
-import { getMediaUrl } from "@/lib/getMediaUrl";
 import { getGalleryBySlug, getGalleryMeta } from "@/lib/data/galleries";
-// import {
-//   Dialog,
-//   DialogContent,
-//   DialogHeader,
-//   DialogTitle,
-//   DialogTrigger,
-// } from "@/components/ui/dialog";
-import Link from "next/link";
-import { getColumns } from "@/lib/getColumnms";
+// import Link from "next/link";
+
+import ImagesDialog from "@/components/ui/custom/images-dialog";
 
 export async function generateMetadata({
   params,
@@ -74,62 +66,7 @@ export default async function GallerySlugPage({
           {gallery.name}
         </h1>
         <div className="grid grid-cols-3 gap-4">
-          {[
-            getColumns(gallery.photos, 0, 3),
-            getColumns(gallery.photos, 1, 3),
-            getColumns(gallery.photos, 2, 3),
-          ].map((column, idx) => (
-            <div key={idx} className="flex flex-col gap-4">
-              {column?.map((photo) => {
-                const src = getMediaUrl(photo);
-                return (
-                  // <Dialog key={photo.documentId}>
-                  //   <DialogTrigger asChild className="cursor-pointer">
-                  //     <div className="relative translate-y-0  hover:translate-y-2 transition-all duration-300">
-                  //       <Image
-                  //         priority
-                  //         width={photo.width}
-                  //         height={photo.height}
-                  //         src={src}
-                  //         alt={photo.alternativeText}
-                  //         className="rounded-lg object-cover relative"
-                  //         sizes="(min-width: 1560px) 435px, (min-width: 1280px) calc(15.38vw + 198px), (min-width: 640px) calc(50vw - 40px), (min-width: 460px) calc(100vw - 64px), calc(7.86vw + 341px)"
-                  //       />
-                  //     </div>
-                  //   </DialogTrigger>
-                  //   <DialogContent className="border-0 max-w-[70vw] h-auto p-0 ">
-                  //     <DialogHeader className="hidden">
-                  //       <DialogTitle>{photo.name}</DialogTitle>
-                  //     </DialogHeader>
-                  //     <Image
-                  //       priority
-                  //       width={photo.width}
-                  //       height={photo.height}
-                  //       src={src}
-                  //       alt={photo.alternativeText}
-                  //       className="rounded-lg object-contain "
-                  //     />
-                  //   </DialogContent>
-                  // </Dialog>
-                  <div key={photo.documentId}>
-                    <div className="relative translate-y-0  hover:translate-y-2 transition-all duration-300 cursor-pointer">
-                      <Link href={src} target="_blank">
-                        <Image
-                          priority
-                          width={photo.width}
-                          height={photo.height}
-                          src={src}
-                          alt={photo.alternativeText}
-                          className="rounded-lg object-cover relative"
-                          sizes="(min-width: 1560px) 435px, (min-width: 1280px) calc(15.38vw + 198px), (min-width: 640px) calc(50vw - 40px), (min-width: 460px) calc(100vw - 64px), calc(7.86vw + 341px)"
-                        />
-                      </Link>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          ))}
+          <ImagesDialog gallery={gallery} />
         </div>
       </section>
     </main>
