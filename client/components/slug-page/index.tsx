@@ -158,7 +158,7 @@ export default function SlugPageComponent({ article }: Props) {
                 </div>
               </>
             )}
-            <Separator />
+            <Separator className="my-6" />
             <p className="mb-0 text-foreground font-bold"> Tagi:</p>
             <div className="inline-table my-6">
               {article.tags?.map((tag) => (
