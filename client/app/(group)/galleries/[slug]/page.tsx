@@ -2,7 +2,6 @@ import { notFound } from "next/navigation";
 import React from "react";
 import { Metadata } from "next";
 import { getGalleryBySlug, getGalleryMeta } from "@/lib/data/galleries";
-// import Link from "next/link";
 
 import ImagesDialog from "@/components/ui/custom/images-dialog";
 
