@@ -46,7 +46,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
   const { articles, pageInfo } = await getArticlesByCategory(
     slug,
     currentPage,
-    12
+    1
   );
 
   if (!articles || articles.length == 0) {
