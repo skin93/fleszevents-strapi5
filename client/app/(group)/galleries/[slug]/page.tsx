@@ -33,7 +33,7 @@ export async function generateMetadata({
       description: seo?.openGraph?.ogDescription,
       images: [
         {
-          url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/${seo?.openGraph?.ogImage?.url}`,
+          url: `${process.env.NEXT_PUBLIC_STRAPI}${seo?.openGraph?.ogImage?.url}`,
           width: seo?.openGraph?.ogImage?.width,
           height: seo?.openGraph?.ogImage?.height,
           alt: seo?.openGraph?.ogImage?.alternativeText,

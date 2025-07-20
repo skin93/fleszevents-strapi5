@@ -73,7 +73,7 @@ export async function generateMetadata({
       description: "",
       images: [
         {
-          url: `${process.env.NEXT_PUBLIC_STRAPI}/${info.cover.url}`,
+          url: `${process.env.NEXT_PUBLIC_STRAPI}${info.cover.url}`,
           width: info.cover.width,
           height: info.cover.height,
           alt: info.cover.alternativeText,
