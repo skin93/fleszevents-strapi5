@@ -92,11 +92,11 @@ export interface GalleriesSitemap {
 }
 
 export interface LatestArticles {
-  news: Array<{ documentId: string; slug: string; articles: Article[] }>;
-  festivals: Array<{ documentId: string; slug: string; articles: Article[] }>;
-  concerts: Array<{ documentId: string; slug: string; articles: Article[] }>;
-  premiers: Array<{ documentId: string; slug: string; articles: Article[] }>;
-  promos: Array<{ documentId: string; slug: string; articles: Article[] }>;
+  news: { nodes: Article[] };
+  festivals: { nodes: Article[] };
+  concerts: { nodes: Article[] };
+  premiers: { nodes: Article[] };
+  promos: { nodes: Article[] };
 }
 
 export interface Author {

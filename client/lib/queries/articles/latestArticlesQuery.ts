@@ -1,14 +1,13 @@
 import { gql } from "graphql-request";
 export const LATEST_ARTICLES_QUERY = gql`
   query latestArticlesQuery($start: Int!, $limit: Int!) {
-    news: categories(filters: { slug: { eq: "newsy" } }) {
-      documentId
-      slug
-      articles(
-        sort: "createdAt:DESC"
-        pagination: { start: $start, limit: $limit }
-        filters: { publishedAt: { notNull: null } }
-      ) {
+    news: articles_connection(
+      status: PUBLISHED
+      filters: { categories: { slug: { eq: "newsy" } } }
+      pagination: { start: $start, limit: $limit }
+      sort: "createdAt:desc"
+    ) {
+      nodes {
         documentId
         title
         slug
@@ -21,14 +20,13 @@ export const LATEST_ARTICLES_QUERY = gql`
         }
       }
     }
-    concerts: categories(filters: { slug: { eq: "koncerty" } }) {
-      documentId
-      slug
-      articles(
-        sort: "createdAt:DESC"
-        pagination: { start: $start, limit: $limit }
-        filters: { publishedAt: { notNull: null } }
-      ) {
+    concerts: articles_connection(
+      status: PUBLISHED
+      filters: { categories: { slug: { eq: "koncerty" } } }
+      pagination: { start: $start, limit: $limit }
+      sort: "createdAt:desc"
+    ) {
+      nodes {
         documentId
         title
         slug
@@ -41,14 +39,13 @@ export const LATEST_ARTICLES_QUERY = gql`
         }
       }
     }
-    festivals: categories(filters: { slug: { eq: "festiwale" } }) {
-      documentId
-      slug
-      articles(
-        sort: "createdAt:DESC"
-        pagination: { start: $start, limit: $limit }
-        filters: { publishedAt: { notNull: null } }
-      ) {
+    festivals: articles_connection(
+      status: PUBLISHED
+      filters: { categories: { slug: { eq: "festiwale" } } }
+      pagination: { start: $start, limit: $limit }
+      sort: "createdAt:desc"
+    ) {
+      nodes {
         documentId
         title
         slug
@@ -61,14 +58,13 @@ export const LATEST_ARTICLES_QUERY = gql`
         }
       }
     }
-    premiers: categories(filters: { slug: { eq: "premiery" } }) {
-      documentId
-      slug
-      articles(
-        sort: "createdAt:DESC"
-        pagination: { start: $start, limit: $limit }
-        filters: { publishedAt: { notNull: null } }
-      ) {
+    premiers: articles_connection(
+      status: PUBLISHED
+      filters: { categories: { slug: { eq: "premiery" } } }
+      pagination: { start: $start, limit: $limit }
+      sort: "createdAt:desc"
+    ) {
+      nodes {
         documentId
         title
         slug
@@ -81,13 +77,13 @@ export const LATEST_ARTICLES_QUERY = gql`
         }
       }
     }
-    promos: categories(filters: { slug: { eq: "polecamy" } }) {
-      documentId
-      slug
-      articles(
-        sort: "createdAt:DESC"
-        filters: { publishedAt: { notNull: null } }
-      ) {
+    promos: articles_connection(
+      status: PUBLISHED
+      filters: { categories: { slug: { eq: "polecamy" } } }
+      pagination: { start: $start, limit: $limit }
+      sort: "createdAt:desc"
+    ) {
+      nodes {
         documentId
         title
         slug

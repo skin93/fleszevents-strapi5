@@ -18,12 +18,14 @@ export async function getLatestArticles(start: number, limit: number) {
     limit,
   });
 
+  console.log(res);
+
   return {
-    news: res.news[0],
-    concerts: res.concerts[0],
-    festivals: res.festivals[0],
-    premiers: res.premiers[0],
-    promos: res.promos[0],
+    news: res.news.nodes,
+    concerts: res.concerts.nodes,
+    festivals: res.festivals.nodes,
+    premiers: res.premiers.nodes,
+    promos: res.promos.nodes,
   };
 }
 

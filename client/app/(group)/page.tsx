@@ -16,27 +16,15 @@ export default async function HomePage() {
 
   return (
     <main>
-      <Promo promos={promos.articles} />
+      <Promo promos={promos} />
       <Separator />
-      <CategoryBlock
-        articles={festivals.articles}
-        name="festivals"
-        slug={festivals.slug}
-      />
+      <CategoryBlock articles={festivals} name="festivals" slug="festiwale" />
       <Separator />
-      <CategoryBlock
-        articles={concerts.articles}
-        name="concerts"
-        slug={concerts.slug}
-      />
+      <CategoryBlock articles={concerts} name="concerts" slug="koncerty" />
       <Separator />
-      <CategoryBlock articles={news.articles} name="news" slug={news.slug} />
+      <CategoryBlock articles={news} name="news" slug="newsy" />
       <Separator />
-      <CategoryBlock
-        articles={premiers.articles}
-        name="premiers"
-        slug={premiers.slug}
-      />
+      <CategoryBlock articles={premiers} name="premiers" slug="premiery" />
     </main>
   );
 }
