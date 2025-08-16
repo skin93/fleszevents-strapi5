@@ -5,6 +5,10 @@ import { getAllMusicTypes } from "@/lib/data/music-types";
 import { WebSite, WithContext } from "schema-dts";
 import { Fragment } from "react";
 
+type Props = {
+  searchParams: Promise<{ q: string }>;
+};
+
 export const dynamic = "force-dynamic";
 
 export const metadata = {
@@ -40,24 +44,10 @@ export const metadata = {
   },
 };
 
-export default async function FestivalMap() {
-  const { festivals } = await getAllFestivals();
+export default async function FestivalMap({ searchParams }: Props) {
+  const { q } = await searchParams;
+  const { festivals } = await getAllFestivals(q);
   const { genres } = await getAllMusicTypes();
-
-  const jsonLd: WithContext<WebSite> = {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: "Festiwalowa Mapa",
-    description: "Sprawdź, czy w Twojej okolicy nie odbywa się fajny festiwal!",
-    inLanguage: "pl",
-    url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/festival-map`,
-    image: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/FE-mapa-2025-01.jpg`,
-    publisher: {
-      "@type": "Organization",
-      name: "FleszEvents",
-      image: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/logo-publikacja.jpeg`,
-    },
-  };
 
   const markers = festivals.map((fest) => ({
     position: [fest.place?.lat, fest.place?.lng] as [number, number],
@@ -79,6 +69,21 @@ export default async function FestivalMap() {
     articleSlug: fest.next_event?.article?.slug,
     music_types: fest.music_types,
   }));
+
+  const jsonLd: WithContext<WebSite> = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Festiwalowa Mapa",
+    description: "Sprawdź, czy w Twojej okolicy nie odbywa się fajny festiwal!",
+    inLanguage: "pl",
+    url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/festival-map`,
+    image: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/FE-mapa-2025-01.jpg`,
+    publisher: {
+      "@type": "Organization",
+      name: "FleszEvents",
+      image: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/logo-publikacja.jpeg`,
+    },
+  };
   return (
     <Fragment>
       <script

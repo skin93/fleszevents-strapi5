@@ -2,7 +2,7 @@
 "use client";
 
 import L, { Icon, LatLngExpression } from "leaflet";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import "leaflet/dist/leaflet.css";
 import { MapContainer, Marker, Popup } from "react-leaflet";
 import MarkerClusterGroup from "react-leaflet-markercluster";
@@ -30,6 +30,7 @@ import {
 import { MapLibreTileLayer } from "./map-libre-tile-layer";
 import { Check, ChevronsUpDown } from "lucide-react";
 import isValidUrl from "@/lib/isValidUrl";
+import { useRouter } from "next/navigation";
 
 export default function Map({
   markers,
@@ -38,8 +39,14 @@ export default function Map({
   markers: MarkerType[];
   genres: string[];
 }) {
+  const router = useRouter();
   const center = [51.974077, 19.451946];
   const zoom = 6;
+
+  useEffect(() => {
+    setFilteredMarkers(markers);
+  }, [markers]);
+
   const [dialog, setDialog] = useState<boolean>(false);
   const [cityValue, setCityValue] = useState<string>("");
   const [festValue, setFestValue] = useState<string>("");
@@ -63,10 +70,11 @@ export default function Map({
     setCityPopOpen(false);
   };
 
-  const handleFestChange = function (val: string) {
+  const handleFestChange = async function (val: string) {
     const marker = markers.filter((marker) => marker.alt == val);
+    router.push(`/festival-map?q=${marker[0].slug}`);
     setFestValue(val);
-    setFilteredMarkers(marker);
+    // setFilteredMarkers(marker);
     if (mapRef.current != null) {
       mapRef.current.setView(marker[0].position, 10, { duration: 1 });
     }
@@ -87,10 +95,11 @@ export default function Map({
   };
 
   const handleReset = function () {
-    setFilteredMarkers(markers);
+    router.push("/festival-map");
     setCityValue("");
     setFestValue("");
     setGenreValue("");
+    // setFilteredMarkers(markers);
     if (mapRef.current != null) {
       mapRef.current.setView(center as LatLngExpression, zoom, { duration: 1 });
     }
@@ -387,7 +396,10 @@ export default function Map({
               </Popover>
               <Button
                 className="bg-teal-600 hover:bg-teal-600/80"
-                onClick={handleReset}
+                onClick={() => {
+                  handleReset();
+                  setDialog(false);
+                }}
               >
                 Reset
               </Button>
