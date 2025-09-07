@@ -66,7 +66,7 @@ export default function SlugPageComponent({ article }: Props) {
         <div className="grid grid-cols-1 xl:grid-cols-[50%_40%] gap-2 justify-between">
           <article aria-label="left-column">
             <AspectRatio
-              ratio={16 / 9}
+              ratio={3 / 2}
               className="realtive"
               aria-label="image-wrapper"
             >
@@ -76,7 +76,7 @@ export default function SlugPageComponent({ article }: Props) {
                 alt={article.title}
                 aria-label="article-cover"
                 style={{ objectFit: "cover" }}
-                className="rounded-sm aspect-video"
+                className="rounded-sm "
                 fill
               />
               <div className="absolute bottom-0 left-0 w-auto h-auto bg-[rgba(0,0,0,0.7)] rounded-bl-sm">
