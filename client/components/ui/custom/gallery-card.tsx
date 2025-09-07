@@ -10,7 +10,7 @@ type Props = {
 
 export default function GalleryCard({ gallery }: Props) {
   return (
-    <Card className="group aspect-video w-full border-none relative shadow-none translate-y-0  hover:translate-y-2 transition-all duration-300">
+    <Card className="group aspect-[3/2] w-full border-none relative shadow-none translate-y-0  hover:translate-y-2 transition-all duration-300">
       <CardContent className="p-5 bg-background/5 dark:bg-foreground/5 rounded-lg flex flex-col items-center justify-end ">
         <Image
           priority
@@ -22,7 +22,7 @@ export default function GalleryCard({ gallery }: Props) {
           style={{ objectFit: "cover" }}
           width={gallery.cover.width}
           height={gallery.cover.height}
-          className="rounded-sm aspect-video"
+          className="rounded-sm aspect-[3/2]"
         />
         <CardTitle className="w-full p-4 text-lg text-center text-foreground dark:no-underline dark:group-hover:text-teal-400 group-hover:underline rounded-b-lg transition-all duration-300">
           {gallery.name}

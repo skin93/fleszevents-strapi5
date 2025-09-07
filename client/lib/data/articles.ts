@@ -18,8 +18,6 @@ export async function getLatestArticles(start: number, limit: number) {
     limit,
   });
 
-  console.log(res);
-
   return {
     news: res.news.nodes,
     concerts: res.concerts.nodes,

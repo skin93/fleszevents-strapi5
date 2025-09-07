@@ -44,20 +44,19 @@ export default function GalleryDialog({ gallery }: Props) {
                     />
                   </div>
                 </DialogTrigger>
-                <DialogContent className="border-0 flex flex-col justify-between items-center max-w-screen h-full">
+                <DialogContent className="border-0 flex flex-col justify-between items-center max-w-screen h-[90%]">
                   <DialogHeader className="hidden">
                     <DialogTitle>{photo.name}</DialogTitle>
                   </DialogHeader>
                   <DialogDescription className="hidden">
                     {photo.alternativeText}
                   </DialogDescription>
-
                   <Image
                     priority
                     fill={true}
                     src={src}
                     alt={photo.alternativeText}
-                    className="object-contain w-full"
+                    className="object-contain"
                   />
                 </DialogContent>
               </Dialog>

@@ -148,8 +148,8 @@ export default function Map({
                 icon={customIcon}
               >
                 <Popup closeButton={false} closeOnEscapeKey offset={[0, 5]}>
-                  <div className="text-center flex flex-col gap-4">
-                    <h4 className="font-bold text-[16px]">{marker.popup}</h4>
+                  <div className="flex flex-col justify-between items-center gap-2">
+                    <h4 className="font-bold text-md m-0">{marker.popup}</h4>
                     <DialogTrigger asChild>
                       <Button className="cursor-pointer bg-teal-600 hover:bg-teal-600/80">
                         Szczegóły

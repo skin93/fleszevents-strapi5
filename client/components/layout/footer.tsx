@@ -3,11 +3,12 @@ import { ButtonLink } from "../ui/custom/button-link";
 
 export default function Footer() {
   const navLinks = [
-    { title: "newsy", path: "/categories/newsy" },
-    { title: "premiery", path: "/categories/premiery" },
+    { title: "polecamy", path: "/categories/polecamy" },
     { title: "festiwale", path: "/categories/festiwale" },
     { title: "koncerty", path: "/categories/koncerty" },
     { title: "patronat", path: "/categories/patronat" },
+    { title: "newsy", path: "/categories/newsy" },
+    { title: "premiery", path: "/categories/premiery" },
     { title: "relacje", path: "/categories/relacje" },
     { title: "wywiady", path: "/categories/wywiady" },
   ];
@@ -21,33 +22,32 @@ export default function Footer() {
 
   return (
     <footer className="w-full my-8">
-      <div className="flex flex-row justify-around items-center">
-        <div className="flex flex-col items-start">
+      <div className="grid grid-cols-2 xl:grid-rows-2 xl:grid-cols-1">
+        <div className="flex flex-col xl:flex-row xl:justify-center">
           {navLinks.map(({ title, path }) => (
-            <ButtonLink className="ml-[-1rem]" key={title} href={path}>
+            <ButtonLink key={title} href={path}>
               {title}
             </ButtonLink>
           ))}
         </div>
-        <div className="flex flex-col items-start">
+        {/* <div className="flex flex-row">
           {items.map(({ title, path }) => (
             <ButtonLink className="mx-auto" key={title} href={path}>
               {title}
             </ButtonLink>
           ))}
-        </div>
+        </div> */}
 
-        <div className="flex flex-col items-start">
-          <ButtonLink
-            className="mr-[-1rem]"
-            href="https://facebook.com/flesz.events"
-          >
+        <div className="flex flex-col xl:flex-row xl:justify-center">
+          {items.map(({ title, path }) => (
+            <ButtonLink key={title} href={path}>
+              {title}
+            </ButtonLink>
+          ))}
+          <ButtonLink href="https://facebook.com/flesz.events">
             <Facebook />
           </ButtonLink>
-          <ButtonLink
-            className="mr-[-1rem]"
-            href="https://www.youtube.com/channel/UCtJGqTQUcJRNVi4gBqVqAfg"
-          >
+          <ButtonLink href="https://www.youtube.com/channel/UCtJGqTQUcJRNVi4gBqVqAfg">
             <Youtube />
           </ButtonLink>
         </div>

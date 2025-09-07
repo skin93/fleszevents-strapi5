@@ -25,8 +25,10 @@ import { ButtonLink } from "@/components/ui/custom/button-link";
 import SearchDialog from "@/components/ui/custom/search-dialog";
 
 const navLinks1: Array<{ title: string; path: string }> = [
+  { title: "polecamy", path: "/categories/polecamy" },
   { title: "festiwale", path: "/categories/festiwale" },
   { title: "koncerty", path: "/categories/koncerty" },
+  { title: "patronat", path: "/categories/patronat" },
   { title: "newsy", path: "/categories/newsy" },
   { title: "premiery", path: "/categories/premiery" },
   { title: "relacje", path: "/categories/relacje" },
@@ -35,7 +37,6 @@ const navLinks1: Array<{ title: string; path: string }> = [
 
 const navLinks2: Array<{ title: string; path: string }> = [
   { title: "festiwalowa mapa", path: "/festival-map" },
-  { title: "patronat", path: "/categories/patronat" },
   { title: "galerie", path: "/galleries" },
   { title: "kontakt", path: "/contact" },
 ];
