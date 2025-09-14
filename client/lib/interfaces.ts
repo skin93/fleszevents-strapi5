@@ -63,6 +63,8 @@ export interface Article {
   tags?: Tag[] | null;
   relatedArticles?: SharedRelatedArticles | null;
   gallery?: SharedSmallGallery | null;
+  isFestival?: boolean;
+  festival?: Festival | null;
 }
 
 export interface Articles {

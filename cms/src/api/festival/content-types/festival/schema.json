@@ -10,6 +10,7 @@
   "options": {
     "draftAndPublish": false
   },
+  "pluginOptions": {},
   "attributes": {
     "name": {
       "type": "string",
@@ -50,8 +51,8 @@
     },
     "next_event": {
       "type": "component",
-      "repeatable": false,
       "component": "shared.next-event",
+      "repeatable": false,
       "required": false
     }
   }

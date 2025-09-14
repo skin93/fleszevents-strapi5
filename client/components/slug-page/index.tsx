@@ -42,6 +42,16 @@ export default function SlugPageComponent({ article }: Props) {
               </Badge>
             </Link>
           ))}
+          {article.isFestival && article.festival?.slug && (
+            <Link href={`/festival-map?q=${article.festival?.slug}`}>
+              <Badge
+                className="bg-foreground hover:bg-foreground/70 dark:bg-accent/70 dark:hover:bg-accent/90 dark:text-foreground mr-2 p-2 rounded-sm uppercase"
+                variant="default"
+              >
+                Pokaż na mapie
+              </Badge>
+            </Link>
+          )}
           {article.authors?.map((author) => (
             <Badge
               key={author.documentId}
@@ -51,6 +61,7 @@ export default function SlugPageComponent({ article }: Props) {
               {author.name}
             </Badge>
           ))}
+
           {article.publishedAt === undefined ? (
             <Badge variant="outline" className=" mr-2 p-2 border-none ">
               {formatDateToLocal(article.createdAt!.toLocaleString())}

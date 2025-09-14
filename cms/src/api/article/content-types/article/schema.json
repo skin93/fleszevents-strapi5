@@ -77,6 +77,26 @@
       "type": "component",
       "component": "shared.small-gallery",
       "repeatable": false
+    },
+    "isFestival": {
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    "festival": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::festival.festival",
+      "conditions": {
+        "visible": {
+          "==": [
+            {
+              "var": "isFestival"
+            },
+            true
+          ]
+        }
+      }
     }
   }
 }

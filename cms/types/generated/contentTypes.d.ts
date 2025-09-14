@@ -407,7 +407,9 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 150;
       }>;
+    festival: Schema.Attribute.Relation<'oneToOne', 'api::festival.festival'>;
     gallery: Schema.Attribute.Component<'shared.small-gallery', false>;
+    isFestival: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',

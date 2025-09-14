@@ -61,6 +61,8 @@ export interface Article {
   relatedArticles?: SharedRelatedArticles | null;
   excerpt?: string;
   gallery?: SharedSmallGallery | null;
+  isFestival?: boolean;
+  festival?: Festival | null;
 };
 
 export interface Author {

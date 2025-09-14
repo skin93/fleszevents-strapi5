@@ -25,6 +25,10 @@ export const SINGLE_ARTICLE_QUERY = gql`
         name
         slug
       }
+      isFestival
+      festival {
+        slug
+      }
       publishedAt
       createdAt
       authors {
