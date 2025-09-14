@@ -61,16 +61,9 @@ export default function SlugPageComponent({ article }: Props) {
               {author.name}
             </Badge>
           ))}
-
-          {article.publishedAt === undefined ? (
-            <Badge variant="outline" className=" mr-2 p-2 border-none ">
-              {formatDateToLocal(article.createdAt!.toLocaleString())}
-            </Badge>
-          ) : (
-            <Badge variant="outline" className=" mr-2 p-2 border-none">
-              {formatDateToLocal(article.publishedAt?.toString())}
-            </Badge>
-          )}
+          <Badge variant="outline" className=" mr-2 p-2 border-none ">
+            {formatDateToLocal(article.createdAt!.toLocaleString())}
+          </Badge>
         </div>
         <h1 aria-label="article-title">{article.title}</h1>
         <Separator className="mb-4" />
