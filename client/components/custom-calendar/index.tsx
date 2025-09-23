@@ -1,20 +1,36 @@
 "use client";
-import { SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
-
 import {
-  Sidebar,
-  SidebarContent,
-  SidebarRail,
-  SidebarSeparator,
+  SidebarFooter,
+  SidebarGroupLabel,
+  SidebarInset,
+  SidebarTrigger,
 } from "@/components/ui/sidebar";
+
+import { Sidebar, SidebarContent, SidebarRail } from "@/components/ui/sidebar";
 
 import { Calendar } from "@/components/ui/calendar";
 import { SidebarGroup, SidebarGroupContent } from "@/components/ui/sidebar";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Event } from "@/lib/interfaces";
 import { pl } from "date-fns/locale";
 import { format } from "date-fns";
 import { Event as EventComponent } from "../ui/custom/event";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Button } from "../ui/button";
+import { Check, ChevronsUpDown } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 type Props = {
   events: Event[];
@@ -22,11 +38,17 @@ type Props = {
 
 export default function CustomCalendar({ events }: Props) {
   const [date, setDate] = useState<Date | undefined>();
+  const [upcomingEvents, setUpcomingEvents] = useState<Event[]>(events);
+  const [cityValue, setCityValue] = useState<string>("");
+  const [cityPopOpen, setCityPopOpen] = useState<boolean>(false);
 
-  const upcomingEvents = events.filter(
-    (event) =>
-      format(event.date, "yyyy/MM/dd") > format(new Date(), "yyyy/MM/dd")
-  );
+  useEffect(() => {
+    const data = events.filter(
+      (event) =>
+        format(event.date, "yyyy/MM/dd") > format(new Date(), "yyyy/MM/dd")
+    );
+    setUpcomingEvents(data);
+  }, [events]);
 
   const filteredEvents = date
     ? events.filter(
@@ -37,11 +59,24 @@ export default function CustomCalendar({ events }: Props) {
 
   const bookedDays = events.map((event) => new Date(event.date));
 
+  const cities = new Set(events.map((event) => event.place?.city));
+
+  const handleCityChange = (val: string) => {
+    setCityValue(val);
+    setCityPopOpen(false);
+  };
+
+  const handleReset = () => {
+    setCityValue("");
+    setDate(undefined);
+  };
+
   return (
     <Fragment>
-      <Sidebar>
+      <Sidebar className="top-(--header-height) h-[calc(100svh-var(--header-height))]!">
         <SidebarContent>
           <SidebarGroup className="px-0">
+            <SidebarGroupLabel>Kalendarz</SidebarGroupLabel>
             <SidebarGroupContent>
               <Calendar
                 locale={pl}
@@ -60,8 +95,54 @@ export default function CustomCalendar({ events }: Props) {
               />
             </SidebarGroupContent>
           </SidebarGroup>
-          <SidebarSeparator className="mx-0" />
+          <SidebarGroup className="px-0"></SidebarGroup>
         </SidebarContent>
+        <SidebarFooter>
+          <Popover open={cityPopOpen} onOpenChange={setCityPopOpen}>
+            <PopoverTrigger asChild>
+              <Button
+                variant="outline"
+                role="combobox"
+                aria-expanded={cityPopOpen}
+                className="xl:w-[200px] justify-between"
+              >
+                {cityValue
+                  ? [...cities].find((city) => city === cityValue)
+                  : "Wybierz miasto..."}
+                <ChevronsUpDown className="opacity-50" />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="xl:w-[200px] p-0 pointer-events-auto">
+              <Command>
+                <CommandInput placeholder="Wybierz miasto..." className="h-9" />
+                <CommandList className="h-50">
+                  <CommandEmpty>Brak miasta</CommandEmpty>
+                  <CommandGroup>
+                    {[...cities].sort().map((city) => (
+                      <CommandItem
+                        key={city}
+                        value={city}
+                        onSelect={(currentValue) => {
+                          handleCityChange(currentValue);
+                        }}
+                      >
+                        {city}
+                        <Check
+                          className={cn(
+                            "ml-auto",
+                            cityValue === city ? "opacity-100" : "opacity-0"
+                          )}
+                        />
+                      </CommandItem>
+                    ))}
+                  </CommandGroup>
+                </CommandList>
+              </Command>
+            </PopoverContent>
+          </Popover>
+
+          <Button onClick={handleReset}>Resetuj filtry</Button>
+        </SidebarFooter>
         <SidebarRail />
       </Sidebar>
       <SidebarInset>
@@ -69,7 +150,25 @@ export default function CustomCalendar({ events }: Props) {
           <SidebarTrigger className="-ml-1" />
         </header>
 
-        {!date && upcomingEvents.length > 0 ? (
+        {!date && cityValue && upcomingEvents.length > 0 ? (
+          <div>
+            <h1 className="p-4 pl-0">
+              Nadchodzące wydarzenia w mieście: {cityValue}
+            </h1>
+            <div className="flex flex-col gap-4">
+              {upcomingEvents
+                .filter((event) => event.place?.city === cityValue)
+                .map((event) => (
+                  <div
+                    key={event.documentId}
+                    className="group border-none relative shadow-none translate-y-0  hover:-translate-y-2 transition-all duration-300"
+                  >
+                    <EventComponent event={event} />
+                  </div>
+                ))}
+            </div>
+          </div>
+        ) : !date && upcomingEvents.length > 0 ? (
           <div>
             <h1 className="p-4 pl-0">Nadchodzące wydarzenia:</h1>
             <div className="flex flex-col gap-4">

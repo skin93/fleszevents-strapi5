@@ -4,6 +4,7 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  --header-height: 56px;
   --list-style-type-*: initial;
   --list-style-type-square: square;
   --list-style-type-decimal: decimal;
