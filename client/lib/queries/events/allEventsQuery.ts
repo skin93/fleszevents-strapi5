@@ -1,7 +1,7 @@
 import { gql } from "graphql-request";
 export const ALL_EVENTS_QUERY = gql`
   query allEventsQuery {
-    events(sort: "date:asc") {
+    events(pagination: { limit: -1 }, sort: "date:asc") {
       documentId
       name
       date
