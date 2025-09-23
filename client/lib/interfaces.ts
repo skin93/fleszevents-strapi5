@@ -368,3 +368,21 @@ export type Sitemap = Array<{
     | "never";
   priority?: number;
 }>;
+
+export interface Event {
+  id?: number;
+  documentId?: string;
+  createdAt?: Date | string;
+  updatedAt?: Date | string;
+  publishedAt?: Date | string;
+  locale?: string | null;
+  name: string;
+  date: Date | string;
+  endDate?: Date | string;
+  article?: Article | null;
+  place?: Place | null;
+}
+
+export interface Events {
+  events: Event[];
+}

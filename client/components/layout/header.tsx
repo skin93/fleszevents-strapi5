@@ -36,6 +36,7 @@ const navLinks1: Array<{ title: string; path: string }> = [
 ];
 
 const navLinks2: Array<{ title: string; path: string }> = [
+  { title: "kalendarz", path: "/calendar" },
   { title: "festiwalowa mapa", path: "/festival-map" },
   { title: "galerie", path: "/galleries" },
   { title: "kontakt", path: "/contact" },
