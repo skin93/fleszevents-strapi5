@@ -35,6 +35,8 @@ export default function CustomCalendar({ events }: Props) {
       )
     : events;
 
+  const bookedDays = events.map((event) => new Date(event.date));
+
   return (
     <Fragment>
       <Sidebar>
@@ -47,6 +49,13 @@ export default function CustomCalendar({ events }: Props) {
                 mode="single"
                 selected={date}
                 onSelect={setDate}
+                modifiers={{
+                  booked: bookedDays,
+                }}
+                modifiersClassNames={{
+                  booked: "my-booked-class",
+                }}
+                disabled={{ before: new Date() }}
                 className="[&_[role=gridcell].bg-primary]:bg-sidebar-primary [&_[role=gridcell].bg-accent]:text-sidebar-primary-foreground [&_[role=gridcell]]:w-[33px]"
               />
             </SidebarGroupContent>

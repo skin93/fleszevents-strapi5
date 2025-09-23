@@ -111,6 +111,11 @@
     --input: 12 6.5% 15.1%;
     --ring: 174.7, 83.9%, 31.6%;
   }
+
+  .my-booked-class {
+    @apply bg-foreground text-background rounded-2xl;
+  }
+
   body {
     @apply bg-background text-foreground relative overflow-x-hidden;
     ::selection {
