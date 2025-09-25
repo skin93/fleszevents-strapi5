@@ -1,6 +1,5 @@
 "use client";
 import {
-  SidebarFooter,
   SidebarGroupLabel,
   SidebarInset,
   SidebarTrigger,
@@ -41,6 +40,8 @@ export default function CustomCalendar({ events }: Props) {
   const [upcomingEvents, setUpcomingEvents] = useState<Event[]>(events);
   const [cityValue, setCityValue] = useState<string>("");
   const [cityPopOpen, setCityPopOpen] = useState<boolean>(false);
+  const [locationValue, setLocationValue] = useState<string>("");
+  const [locationPopOpen, setLocationPopOpen] = useState<boolean>(false);
 
   useEffect(() => {
     const data = events.filter(
@@ -60,23 +61,29 @@ export default function CustomCalendar({ events }: Props) {
   const bookedDays = events.map((event) => new Date(event.date));
 
   const cities = new Set(events.map((event) => event.place?.city));
+  const locations = new Set(events.map((event) => event.place?.location));
 
   const handleCityChange = (val: string) => {
     setCityValue(val);
     setCityPopOpen(false);
   };
 
+  const handleLocationChange = (val: string) => {
+    setLocationValue(val);
+    setLocationPopOpen(false);
+  };
+
   const handleReset = () => {
     setCityValue("");
+    setLocationValue("");
     setDate(undefined);
   };
 
   return (
     <Fragment>
-      <Sidebar className="top-(--header-height) h-[calc(100svh-var(--header-height))]!">
+      <Sidebar>
         <SidebarContent>
-          <SidebarGroup className="px-0">
-            <SidebarGroupLabel>Kalendarz</SidebarGroupLabel>
+          <SidebarGroup className="p-0 mt-[56px]">
             <SidebarGroupContent>
               <Calendar
                 locale={pl}
@@ -91,58 +98,113 @@ export default function CustomCalendar({ events }: Props) {
                   booked: "my-booked-class",
                 }}
                 disabled={{ before: new Date() }}
-                className="[&_[role=gridcell].bg-primary]:bg-sidebar-primary [&_[role=gridcell].bg-accent]:text-sidebar-primary-foreground [&_[role=gridcell]]:w-[33px]"
+                className="[&_[role=gridcell].bg-primary]:bg-sidebar-primary [&_[role=gridcell].bg-accent]:text-sidebar-primary-foreground [&_[role=gridcell]]:w-[33px] "
               />
             </SidebarGroupContent>
           </SidebarGroup>
-          <SidebarGroup className="px-0"></SidebarGroup>
+          <SidebarGroup className="p-0 flex flex-col gap-4">
+            <SidebarGroupLabel>Filtry</SidebarGroupLabel>
+            <Popover open={cityPopOpen} onOpenChange={setCityPopOpen}>
+              <PopoverTrigger asChild>
+                <Button
+                  disabled={locationValue !== "" || date !== undefined}
+                  variant="outline"
+                  role="combobox"
+                  aria-expanded={cityPopOpen}
+                  className="xl:w-[200px] justify-between"
+                >
+                  {cityValue
+                    ? [...cities].find((city) => city === cityValue)
+                    : "Wybierz miasto..."}
+                  <ChevronsUpDown className="opacity-50" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="xl:w-[200px] p-0 pointer-events-auto">
+                <Command>
+                  <CommandInput
+                    placeholder="Wybierz miasto..."
+                    className="h-9"
+                  />
+                  <CommandList className="h-50">
+                    <CommandEmpty>Brak miasta</CommandEmpty>
+                    <CommandGroup>
+                      {[...cities].sort().map((city) => (
+                        <CommandItem
+                          key={city}
+                          value={city}
+                          onSelect={(currentValue) => {
+                            handleCityChange(currentValue);
+                          }}
+                        >
+                          {city}
+                          <Check
+                            className={cn(
+                              "ml-auto",
+                              cityValue === city ? "opacity-100" : "opacity-0"
+                            )}
+                          />
+                        </CommandItem>
+                      ))}
+                    </CommandGroup>
+                  </CommandList>
+                </Command>
+              </PopoverContent>
+            </Popover>
+            <Popover open={locationPopOpen} onOpenChange={setLocationPopOpen}>
+              <PopoverTrigger asChild>
+                <Button
+                  disabled={cityValue !== "" || date !== undefined}
+                  variant="outline"
+                  role="combobox"
+                  aria-expanded={cityPopOpen}
+                  className="xl:w-[200px] justify-between"
+                >
+                  {locationValue
+                    ? [...locations].find(
+                        (location) => location === locationValue
+                      )
+                    : "Wybierz miejsce..."}
+                  <ChevronsUpDown className="opacity-50" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="xl:w-[200px] p-0 pointer-events-auto">
+                <Command>
+                  <CommandInput
+                    placeholder="Wybierz miejsce..."
+                    className="h-9"
+                  />
+                  <CommandList className="h-50">
+                    <CommandEmpty>Brak miejsca</CommandEmpty>
+                    <CommandGroup>
+                      {[...locations].sort().map((location) => (
+                        <CommandItem
+                          key={location}
+                          value={location}
+                          onSelect={(currentValue) => {
+                            handleLocationChange(currentValue);
+                          }}
+                        >
+                          {location}
+                          <Check
+                            className={cn(
+                              "ml-auto",
+                              locationValue === location
+                                ? "opacity-100"
+                                : "opacity-0"
+                            )}
+                          />
+                        </CommandItem>
+                      ))}
+                    </CommandGroup>
+                  </CommandList>
+                </Command>
+              </PopoverContent>
+            </Popover>
+            <Button className="w-fit" onClick={handleReset}>
+              Resetuj filtry
+            </Button>
+          </SidebarGroup>
         </SidebarContent>
-        <SidebarFooter>
-          <Popover open={cityPopOpen} onOpenChange={setCityPopOpen}>
-            <PopoverTrigger asChild>
-              <Button
-                variant="outline"
-                role="combobox"
-                aria-expanded={cityPopOpen}
-                className="xl:w-[200px] justify-between"
-              >
-                {cityValue
-                  ? [...cities].find((city) => city === cityValue)
-                  : "Wybierz miasto..."}
-                <ChevronsUpDown className="opacity-50" />
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="xl:w-[200px] p-0 pointer-events-auto">
-              <Command>
-                <CommandInput placeholder="Wybierz miasto..." className="h-9" />
-                <CommandList className="h-50">
-                  <CommandEmpty>Brak miasta</CommandEmpty>
-                  <CommandGroup>
-                    {[...cities].sort().map((city) => (
-                      <CommandItem
-                        key={city}
-                        value={city}
-                        onSelect={(currentValue) => {
-                          handleCityChange(currentValue);
-                        }}
-                      >
-                        {city}
-                        <Check
-                          className={cn(
-                            "ml-auto",
-                            cityValue === city ? "opacity-100" : "opacity-0"
-                          )}
-                        />
-                      </CommandItem>
-                    ))}
-                  </CommandGroup>
-                </CommandList>
-              </Command>
-            </PopoverContent>
-          </Popover>
-
-          <Button onClick={handleReset}>Resetuj filtry</Button>
-        </SidebarFooter>
         <SidebarRail />
       </Sidebar>
       <SidebarInset>
@@ -152,12 +214,28 @@ export default function CustomCalendar({ events }: Props) {
 
         {!date && cityValue && upcomingEvents.length > 0 ? (
           <div>
-            <h1 className="p-4 pl-0">
-              Nadchodzące wydarzenia w mieście: {cityValue}
-            </h1>
+            <h1 className="p-4 pl-0">Nadchodzące wydarzenia w: {cityValue}</h1>
             <div className="flex flex-col gap-4">
               {upcomingEvents
                 .filter((event) => event.place?.city === cityValue)
+                .map((event) => (
+                  <div
+                    key={event.documentId}
+                    className="group border-none relative shadow-none translate-y-0  hover:-translate-y-2 transition-all duration-300"
+                  >
+                    <EventComponent event={event} />
+                  </div>
+                ))}
+            </div>
+          </div>
+        ) : !date && locationValue && upcomingEvents.length > 0 ? (
+          <div>
+            <h1 className="p-4 pl-0">
+              Nadchodzące wydarzenia w: {locationValue}
+            </h1>
+            <div className="flex flex-col gap-4">
+              {upcomingEvents
+                .filter((event) => event.place?.location === locationValue)
                 .map((event) => (
                   <div
                     key={event.documentId}
