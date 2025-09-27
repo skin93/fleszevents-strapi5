@@ -1,7 +1,11 @@
 import { gql } from "graphql-request";
-export const ALL_EVENTS_QUERY = gql`
-  query allEventsQuery {
-    events(pagination: { limit: -1 }, sort: "date:asc") {
+export const UPCOMING_EVENTS_QUERY = gql`
+  query upcomingEventsQuery($today: Date!) {
+    events(
+      pagination: { limit: -1 }
+      sort: "date:asc"
+      filters: { date: { gte: $today } }
+    ) {
       documentId
       name
       date

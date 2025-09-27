@@ -9,7 +9,7 @@ import { Sidebar, SidebarContent, SidebarRail } from "@/components/ui/sidebar";
 
 import { Calendar } from "@/components/ui/calendar";
 import { SidebarGroup, SidebarGroupContent } from "@/components/ui/sidebar";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useState } from "react";
 import { Event } from "@/lib/interfaces";
 import { pl } from "date-fns/locale";
 import { format } from "date-fns";
@@ -33,23 +33,16 @@ import { cn } from "@/lib/utils";
 
 type Props = {
   events: Event[];
+  month?: number;
+  year?: number;
 };
 
-export default function CustomCalendar({ events }: Props) {
+export default function CustomCalendar({ events, month, year }: Props) {
   const [date, setDate] = useState<Date | undefined>();
-  const [upcomingEvents, setUpcomingEvents] = useState<Event[]>(events);
   const [cityValue, setCityValue] = useState<string>("");
   const [cityPopOpen, setCityPopOpen] = useState<boolean>(false);
   const [locationValue, setLocationValue] = useState<string>("");
   const [locationPopOpen, setLocationPopOpen] = useState<boolean>(false);
-
-  useEffect(() => {
-    const data = events.filter(
-      (event) =>
-        format(event.date, "yyyy/MM/dd") > format(new Date(), "yyyy/MM/dd")
-    );
-    setUpcomingEvents(data);
-  }, [events]);
 
   const filteredEvents = date
     ? events.filter(
@@ -85,21 +78,40 @@ export default function CustomCalendar({ events }: Props) {
         <SidebarContent>
           <SidebarGroup className="p-0 mt-[56px]">
             <SidebarGroupContent>
-              <Calendar
-                locale={pl}
-                timeZone="Europe/Berlin"
-                mode="single"
-                selected={date}
-                onSelect={setDate}
-                modifiers={{
-                  booked: bookedDays,
-                }}
-                modifiersClassNames={{
-                  booked: "my-booked-class",
-                }}
-                disabled={{ before: new Date() }}
-                className="[&_[role=gridcell].bg-primary]:bg-sidebar-primary [&_[role=gridcell].bg-accent]:text-sidebar-primary-foreground [&_[role=gridcell]]:w-[33px] "
-              />
+              {year !== undefined && month !== undefined ? (
+                <Calendar
+                  month={new Date(year, month)}
+                  locale={pl}
+                  timeZone="Europe/Berlin"
+                  mode="single"
+                  selected={date}
+                  onSelect={setDate}
+                  modifiers={{
+                    booked: bookedDays,
+                  }}
+                  modifiersClassNames={{
+                    booked: "my-booked-class",
+                  }}
+                  disabled={{ before: new Date() }}
+                  className="[&_[role=gridcell].bg-primary]:bg-sidebar-primary [&_[role=gridcell].bg-accent]:text-sidebar-primary-foreground [&_[role=gridcell]]:w-[33px] "
+                />
+              ) : (
+                <Calendar
+                  locale={pl}
+                  timeZone="Europe/Berlin"
+                  mode="single"
+                  selected={date}
+                  onSelect={setDate}
+                  modifiers={{
+                    booked: bookedDays,
+                  }}
+                  modifiersClassNames={{
+                    booked: "my-booked-class",
+                  }}
+                  disabled={{ before: new Date() }}
+                  className="[&_[role=gridcell].bg-primary]:bg-sidebar-primary [&_[role=gridcell].bg-accent]:text-sidebar-primary-foreground [&_[role=gridcell]]:w-[33px] "
+                />
+              )}
             </SidebarGroupContent>
           </SidebarGroup>
           <SidebarGroup className="p-0 flex flex-col gap-4">
@@ -212,11 +224,32 @@ export default function CustomCalendar({ events }: Props) {
           <SidebarTrigger className="-ml-1" />
         </header>
 
-        {!date && cityValue && upcomingEvents.length > 0 ? (
+        {!date &&
+        month !== undefined &&
+        year !== undefined &&
+        events.length > 0 ? (
+          <div>
+            <h1 className="p-4 pl-0">
+              Nadchodzące wydarzenia{" "}
+              {format(new Date(year, month, 1), "MMMM", { locale: pl })} roku{" "}
+              {year}
+            </h1>
+            <div className="flex flex-col gap-4">
+              {events.map((event) => (
+                <div
+                  key={event.documentId}
+                  className="group border-none relative shadow-none translate-y-0  hover:-translate-y-2 transition-all duration-300"
+                >
+                  <EventComponent event={event} />
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : !date && cityValue && events.length > 0 ? (
           <div>
             <h1 className="p-4 pl-0">Nadchodzące wydarzenia w: {cityValue}</h1>
             <div className="flex flex-col gap-4">
-              {upcomingEvents
+              {events
                 .filter((event) => event.place?.city === cityValue)
                 .map((event) => (
                   <div
@@ -228,13 +261,13 @@ export default function CustomCalendar({ events }: Props) {
                 ))}
             </div>
           </div>
-        ) : !date && locationValue && upcomingEvents.length > 0 ? (
+        ) : !date && locationValue && events.length > 0 ? (
           <div>
             <h1 className="p-4 pl-0">
               Nadchodzące wydarzenia w: {locationValue}
             </h1>
             <div className="flex flex-col gap-4">
-              {upcomingEvents
+              {events
                 .filter((event) => event.place?.location === locationValue)
                 .map((event) => (
                   <div
@@ -246,11 +279,11 @@ export default function CustomCalendar({ events }: Props) {
                 ))}
             </div>
           </div>
-        ) : !date && upcomingEvents.length > 0 ? (
+        ) : !date && events.length > 0 ? (
           <div>
             <h1 className="p-4 pl-0">Nadchodzące wydarzenia:</h1>
             <div className="flex flex-col gap-4">
-              {upcomingEvents.map((event) => (
+              {events.map((event) => (
                 <div
                   key={event.documentId}
                   className="group border-none relative shadow-none translate-y-0  hover:-translate-y-2 transition-all duration-300"
