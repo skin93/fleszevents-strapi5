@@ -10,6 +10,7 @@ import { Sidebar, SidebarContent, SidebarRail } from "@/components/ui/sidebar";
 import { Calendar } from "@/components/ui/calendar";
 import { SidebarGroup, SidebarGroupContent } from "@/components/ui/sidebar";
 import { Fragment, useState } from "react";
+import { useRouter } from "next/navigation";
 import { Event } from "@/lib/interfaces";
 import { pl } from "date-fns/locale";
 import { format } from "date-fns";
@@ -38,6 +39,7 @@ type Props = {
 };
 
 export default function CustomCalendar({ events, month, year }: Props) {
+  const router = useRouter();
   const [date, setDate] = useState<Date | undefined>();
   const [cityValue, setCityValue] = useState<string>("");
   const [cityPopOpen, setCityPopOpen] = useState<boolean>(false);
@@ -67,6 +69,7 @@ export default function CustomCalendar({ events, month, year }: Props) {
   };
 
   const handleReset = () => {
+    router.push("/calendar");
     setCityValue("");
     setLocationValue("");
     setDate(undefined);
@@ -119,7 +122,12 @@ export default function CustomCalendar({ events, month, year }: Props) {
             <Popover open={cityPopOpen} onOpenChange={setCityPopOpen}>
               <PopoverTrigger asChild>
                 <Button
-                  disabled={locationValue !== "" || date !== undefined}
+                  disabled={
+                    locationValue !== "" ||
+                    date !== undefined ||
+                    month !== undefined ||
+                    year !== undefined
+                  }
                   variant="outline"
                   role="combobox"
                   aria-expanded={cityPopOpen}
@@ -165,7 +173,12 @@ export default function CustomCalendar({ events, month, year }: Props) {
             <Popover open={locationPopOpen} onOpenChange={setLocationPopOpen}>
               <PopoverTrigger asChild>
                 <Button
-                  disabled={cityValue !== "" || date !== undefined}
+                  disabled={
+                    cityValue !== "" ||
+                    date !== undefined ||
+                    month !== undefined ||
+                    year !== undefined
+                  }
                   variant="outline"
                   role="combobox"
                   aria-expanded={cityPopOpen}
