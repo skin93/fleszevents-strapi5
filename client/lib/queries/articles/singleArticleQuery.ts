@@ -20,7 +20,7 @@ export const SINGLE_ARTICLE_QUERY = gql`
         slug
       }
 
-      tags {
+      tags(pagination: { limit: -1 }) {
         documentId
         name
         slug
