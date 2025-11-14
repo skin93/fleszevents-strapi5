@@ -187,7 +187,14 @@ export default function Map({
                     <p className="font-bold text-white">Brak daty</p>
                   )}
                   {marker.date && !isValidUrl(marker.tickets as string) && (
-                    <p className="font-bold text-white">{marker.tickets}</p>
+                    <p
+                      className={cn(
+                        "font-bold text-white",
+                        marker.tickets === null ? "hidden" : "block"
+                      )}
+                    >
+                      {marker.tickets}
+                    </p>
                   )}
                 </div>
                 <div className="flex flex-col md:flex-row items-center gap-4">
