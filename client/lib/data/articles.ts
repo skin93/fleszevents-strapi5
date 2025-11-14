@@ -11,6 +11,7 @@ import {
 import { ARTICLES_BY_TERM_QUERY } from "../queries/articles/articlesByTermQuery";
 import { SINGLE_ARTICLE_INFO_QUERY } from "../queries/articles/singleArticleInfoQuery";
 import { ARTICLES_SITEMAP_QUERY } from "../queries/articles/articlesSitemapQuery";
+import { PROMO_ARTICLES_QUERY } from "../queries/articles/promoArticlesQuery";
 
 export async function getLatestArticles(start: number, limit: number) {
   const res = await grafbase.request<LatestArticles>(LATEST_ARTICLES_QUERY, {
@@ -23,8 +24,13 @@ export async function getLatestArticles(start: number, limit: number) {
     concerts: res.concerts.nodes,
     festivals: res.festivals.nodes,
     premiers: res.premiers.nodes,
-    promos: res.promos.nodes,
   };
+}
+
+export async function getPromoArticles() {
+  const res = await grafbase.request<Articles>(PROMO_ARTICLES_QUERY);
+
+  return { promos: res.articles };
 }
 
 export async function getArticleBySlug(slug: string) {

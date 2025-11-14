@@ -2,13 +2,14 @@ import { Separator } from "@/components/ui/separator";
 import { notFound } from "next/navigation";
 import Promo from "@/components/homepage/promo";
 import CategoryBlock from "@/components/homepage/category-block";
-import { getLatestArticles } from "@/lib/data/articles";
+import { getLatestArticles, getPromoArticles } from "@/lib/data/articles";
 
 export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
-  const { concerts, festivals, premiers, news, promos } =
-    await getLatestArticles(0, 6);
+  const { concerts, festivals, premiers, news } = await getLatestArticles(0, 6);
+
+  const { promos } = await getPromoArticles();
 
   if (!concerts || !festivals || !premiers || !news || !promos) {
     notFound();

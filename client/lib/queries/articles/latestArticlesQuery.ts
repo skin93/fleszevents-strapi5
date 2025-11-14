@@ -77,24 +77,5 @@ export const LATEST_ARTICLES_QUERY = gql`
         }
       }
     }
-    promos: articles_connection(
-      status: PUBLISHED
-      filters: { categories: { slug: { eq: "polecamy" } } }
-      pagination: { start: $start, limit: $limit }
-      sort: "createdAt:desc"
-    ) {
-      nodes {
-        documentId
-        title
-        slug
-        publishedAt
-        cover {
-          alternativeText
-          url
-          width
-          height
-        }
-      }
-    }
   }
 `;

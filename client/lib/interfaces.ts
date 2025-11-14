@@ -98,7 +98,6 @@ export interface LatestArticles {
   festivals: { nodes: Article[] };
   concerts: { nodes: Article[] };
   premiers: { nodes: Article[] };
-  promos: { nodes: Article[] };
 }
 
 export interface Author {
