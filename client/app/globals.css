@@ -81,7 +81,7 @@
     --secondary-foreground: 0 0% 98%;
     --muted: 60 4.8% 95.9%;
     --muted-foreground: 25 5.3% 44.7%;
-    --accent: 60 4.8% 95.9%;
+    --accent: 0 0% 9%;
     --accent-foreground: 0 0% 98%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
@@ -165,7 +165,7 @@
   }
 
   p {
-    @apply dark:text-neutral-400 leading-7 my-6;
+    @apply leading-7 my-6;
   }
 
   article {
@@ -198,7 +198,7 @@
   }
 
   blockquote {
-    @apply relative font-extrabold italic tracking-[2px] py-[30px] px-0 max-w-full z-1 my-6 mx-auto border-t-[3px] border-t-accent border-b-[3px] border-b-accent bg-transparent;
+    @apply relative font-extrabold italic tracking-[2px] py-[15px] px-[15px] max-w-full z-1 my-6 mx-auto bg-foreground/5 rounded-sm border-l-[5px] border-l-accent;
 
     p {
       @apply text-foreground;
