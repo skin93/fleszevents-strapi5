@@ -4,9 +4,7 @@
 import { useQueryState, createParser } from "nuqs";
 import {
   festivalsSearchParamsSchema,
-  type festivalsSearchParams,
-  calendarSearchParams,
-  calendarSearchParamsSchema,
+  festivalsSearchParams,
 } from "@/lib/validation";
 
 const zodParserForMap = (key: keyof festivalsSearchParams) =>
