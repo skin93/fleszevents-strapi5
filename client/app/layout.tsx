@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import NextTopLoader from "nextjs-toploader";
 import { WebSite, WithContext } from "schema-dts";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 const playpen = Inter({ subsets: ["latin"] });
 
@@ -82,7 +83,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <NextTopLoader color="#0d9488" height={5} />
-          {children}
+          <NuqsAdapter>{children}</NuqsAdapter>
         </ThemeProvider>
         <script
           type="application/ld+json"
