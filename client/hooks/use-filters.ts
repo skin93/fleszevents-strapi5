@@ -5,9 +5,11 @@ import { useQueryState, createParser } from "nuqs";
 import {
   festivalsSearchParamsSchema,
   type festivalsSearchParams,
+  calendarSearchParams,
+  calendarSearchParamsSchema,
 } from "@/lib/validation";
 
-const zodParser = (key: keyof festivalsSearchParams) =>
+const zodParserForMap = (key: keyof festivalsSearchParams) =>
   createParser({
     parse: (value) => {
       const result = festivalsSearchParamsSchema.shape[key].safeParse(value);
@@ -16,18 +18,33 @@ const zodParser = (key: keyof festivalsSearchParams) =>
     serialize: (value) => value.toString(),
   });
 
-export function useFilters() {
+export function useMapFilters() {
   const [city, setCity] = useQueryState(
     "city",
-    zodParser("city").withDefault("")
+    zodParserForMap("city")
+      .withOptions({
+        shallow: false,
+        history: "push",
+      })
+      .withDefault("")
   );
   const [fest, setFest] = useQueryState(
     "festival",
-    zodParser("festival").withDefault("")
+    zodParserForMap("festival")
+      .withOptions({
+        shallow: false,
+        history: "push",
+      })
+      .withDefault("")
   );
   const [genre, setGenre] = useQueryState(
     "genre",
-    zodParser("genre").withDefault("")
+    zodParserForMap("genre")
+      .withOptions({
+        shallow: false,
+        history: "push",
+      })
+      .withDefault("")
   );
 
   return {

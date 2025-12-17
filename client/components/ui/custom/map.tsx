@@ -39,15 +39,9 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "../drawer";
-import { useFilters } from "@/hooks/use-filters";
+import { useMapFilters } from "@/hooks/use-filters";
 
-export default function Map({
-  markers,
-  refetchMarkers,
-}: {
-  markers: MarkerType[];
-  refetchMarkers: () => Promise<void>;
-}) {
+export default function Map({ markers }: { markers: MarkerType[] }) {
   const router = useRouter();
   const center = [51.974077, 19.451946];
   const zoom = 6;
@@ -67,7 +61,7 @@ export default function Map({
     setCity,
     setFest,
     setGenre,
-  } = useFilters();
+  } = useMapFilters();
   const [cityPopOpen, setCityPopOpen] = useState<boolean>(false);
   const [festPopOpen, setFestPopOpen] = useState<boolean>(false);
   const [genrePopOpen, setGenrePopOpen] = useState<boolean>(false);
@@ -82,28 +76,16 @@ export default function Map({
 
   const handleCityChange = async function (val: string) {
     setCity(val);
-    setTimeout(() => {
-      refetchMarkers();
-    }, 300);
-
     setCityPopOpen(false);
   };
 
   const handleFestChange = async function (val: string) {
     setFest(val);
-    setTimeout(() => {
-      refetchMarkers();
-    }, 300);
-
     setFestPopOpen(false);
   };
 
   const handleGenreChange = async function (val: string) {
     setGenre(val);
-    setTimeout(() => {
-      refetchMarkers();
-    }, 300);
-
     setGenrePopOpen(false);
   };
 
@@ -112,9 +94,6 @@ export default function Map({
     setFest("");
     setGenre("");
     router.push("/festival-map");
-    setTimeout(() => {
-      refetchMarkers();
-    }, 300);
   };
 
   const customIcon = new Icon({
@@ -275,9 +254,7 @@ export default function Map({
                     aria-expanded={cityPopOpen}
                     className="xl:w-[200px] justify-between"
                   >
-                    {city !== ""
-                      ? [...cities].find((val) => val === city)
-                      : "Wybierz miasto..."}
+                    {city || "Wybierz miasto..."}
                     <ChevronsUpDown className="opacity-50" />
                   </Button>
                 </PopoverTrigger>
@@ -320,9 +297,7 @@ export default function Map({
                     aria-expanded={festPopOpen}
                     className="xl:w-[200px] justify-between"
                   >
-                    {fest !== ""
-                      ? [...names].find((val) => val === fest)
-                      : "Wybierz festiwal..."}
+                    {fest || "Wybierz festiwal..."}
                     <ChevronsUpDown className="opacity-50" />
                   </Button>
                 </PopoverTrigger>
@@ -365,9 +340,7 @@ export default function Map({
                     aria-expanded={genrePopOpen}
                     className="xl:w-[200px] justify-between"
                   >
-                    {genre
-                      ? [...genres].find((val) => val === genre)
-                      : "Wybierz gatunek..."}
+                    {genre || "Wybierz gatunek..."}
                     <ChevronsUpDown className="opacity-50" />
                   </Button>
                 </PopoverTrigger>

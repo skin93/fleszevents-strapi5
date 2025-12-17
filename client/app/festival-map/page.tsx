@@ -3,7 +3,6 @@ import LazyMap from "@/components/ui/custom/lazy-map";
 import { WebSite, WithContext } from "schema-dts";
 import { Fragment } from "react";
 import { getCachedMarkers } from "../actions";
-import { revalidateTag } from "next/cache";
 
 type Props = {
   searchParams: Promise<{ city: string; festival: string; genre: string }>;
@@ -48,11 +47,6 @@ export default async function FestivalMap({ searchParams }: Props) {
   const params = await searchParams;
   const markers = await getCachedMarkers(params);
 
-  async function refetchMarkers() {
-    "use server";
-    revalidateTag("markers");
-  }
-
   const jsonLd: WithContext<WebSite> = {
     "@context": "https://schema.org",
     "@type": "WebSite",
@@ -76,7 +70,7 @@ export default async function FestivalMap({ searchParams }: Props) {
         }}
       />
       <main className="grid place-content-center">
-        <LazyMap markers={markers} refetchMarkers={refetchMarkers} />
+        <LazyMap markers={markers} />
       </main>
     </Fragment>
   );
