@@ -1,7 +1,14 @@
 import { gql } from "graphql-request";
 export const ALL_FESTIVALS_QUERY = gql`
-  query allFestivalsQuery {
-    festivals(pagination: { limit: -1 }) {
+  query allFestivals($city: String, $festival: String, $genre: String) {
+    festivals(
+      filters: {
+        place: { city: { containsi: $city } }
+        music_types: { name: { containsi: $genre } }
+        name: { containsi: $festival }
+      }
+      pagination: { limit: -1 }
+    ) {
       documentId
       name
       description

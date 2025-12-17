@@ -1,12 +1,12 @@
-import { getMediaUrl } from "@/lib/getMediaUrl";
 import LazyMap from "@/components/ui/custom/lazy-map";
-import { getAllFestivals } from "@/lib/data/festivals";
-import { getAllMusicTypes } from "@/lib/data/music-types";
+
 import { WebSite, WithContext } from "schema-dts";
 import { Fragment } from "react";
+import { getCachedMarkers } from "../actions";
+import { revalidateTag } from "next/cache";
 
 type Props = {
-  searchParams: Promise<{ q: string }>;
+  searchParams: Promise<{ city: string; festival: string; genre: string }>;
 };
 
 export const dynamic = "force-dynamic";
@@ -45,30 +45,13 @@ export const metadata = {
 };
 
 export default async function FestivalMap({ searchParams }: Props) {
-  const { q } = await searchParams;
-  const { festivals } = await getAllFestivals(q);
-  const { genres } = await getAllMusicTypes();
+  const params = await searchParams;
+  const markers = await getCachedMarkers(params);
 
-  const markers = festivals.map((fest) => ({
-    position: [fest.place?.lat, fest.place?.lng] as [number, number],
-    popup: fest.name,
-    alt: fest.name,
-    id: fest.documentId,
-    description: fest.description,
-    imageSrc: getMediaUrl(fest.cover!),
-    imageWidth: fest.cover!.width,
-    imageHeight: fest.cover!.height,
-    imageAlt: fest.cover!.alternativeText,
-    slug: fest.slug,
-    city: fest.place?.city,
-    location: fest.place?.location,
-    tickets: fest.tickets,
-    festName: fest.next_event?.name,
-    date: fest.next_event?.date,
-    endDate: fest.next_event?.endDate,
-    articleSlug: fest.next_event?.article?.slug,
-    music_types: fest.music_types,
-  }));
+  async function refetchMarkers() {
+    "use server";
+    revalidateTag("markers");
+  }
 
   const jsonLd: WithContext<WebSite> = {
     "@context": "https://schema.org",
@@ -93,7 +76,7 @@ export default async function FestivalMap({ searchParams }: Props) {
         }}
       />
       <main className="grid place-content-center">
-        <LazyMap markers={markers} genres={genres} />
+        <LazyMap markers={markers} refetchMarkers={refetchMarkers} />
       </main>
     </Fragment>
   );

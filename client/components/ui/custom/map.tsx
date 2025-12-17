@@ -6,7 +6,7 @@ import { useState, useRef, useEffect } from "react";
 import "leaflet/dist/leaflet.css";
 import { MapContainer, Marker, Popup } from "react-leaflet";
 import MarkerClusterGroup from "react-leaflet-markercluster";
-import { Dialog, DialogContent, DialogHeader, DialogTrigger } from "../dialog";
+import { Dialog, DialogContent, DialogTrigger } from "../dialog";
 import { Button } from "../button";
 import Image from "next/image";
 import Link from "next/link";
@@ -31,78 +31,90 @@ import { MapLibreTileLayer } from "./map-libre-tile-layer";
 import { Check, ChevronsUpDown } from "lucide-react";
 import isValidUrl from "@/lib/isValidUrl";
 import { useRouter } from "next/navigation";
+import {
+  Drawer,
+  DrawerContent,
+  DrawerDescription,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "../drawer";
+import { useFilters } from "@/hooks/use-filters";
 
 export default function Map({
   markers,
-  genres,
+  refetchMarkers,
 }: {
   markers: MarkerType[];
-  genres: string[];
+  refetchMarkers: () => Promise<void>;
 }) {
   const router = useRouter();
   const center = [51.974077, 19.451946];
   const zoom = 6;
 
   useEffect(() => {
-    setFilteredMarkers(markers);
-  }, [markers]);
+    const map = mapRef.current;
+    if (!map) return;
 
-  const [dialog, setDialog] = useState<boolean>(false);
-  const [cityValue, setCityValue] = useState<string>("");
-  const [festValue, setFestValue] = useState<string>("");
-  const [genreValue, setGenreValue] = useState<string>("");
+    if (markers.length === 1) {
+      map.setView(markers[0].position, 8, { animate: true });
+    } else {
+      map.setView([51.974077, 19.451946], zoom, { animate: true });
+    }
+  }, [markers]);
+  const {
+    filters: { city, fest, genre },
+    setCity,
+    setFest,
+    setGenre,
+  } = useFilters();
   const [cityPopOpen, setCityPopOpen] = useState<boolean>(false);
   const [festPopOpen, setFestPopOpen] = useState<boolean>(false);
   const [genrePopOpen, setGenrePopOpen] = useState<boolean>(false);
 
   const mapRef = useRef<L.Map>(null);
-  const cities = new Set(markers.map((marker) => marker?.city));
-  const names = new Set(markers.map((marker) => marker.alt));
-  const [filteredMarkers, setFilteredMarkers] = useState<MarkerType[]>(markers);
 
-  const handleCityChange = function (val: string) {
-    const marker = markers.filter((marker) => marker?.city === val);
-    setCityValue(val);
-    setFilteredMarkers(marker);
-    if (mapRef.current != null) {
-      mapRef.current.setView(marker[0].position, 10, { duration: 1 });
-    }
+  const cities = new Set(markers.map((marker) => marker.city));
+  const names = new Set(markers.map((marker) => marker.alt));
+  const genres = new Set(
+    markers.flatMap((marker) => marker.music_types?.map((type) => type.name))
+  );
+
+  const handleCityChange = async function (val: string) {
+    setCity(val);
+    setTimeout(() => {
+      refetchMarkers();
+    }, 300);
+
     setCityPopOpen(false);
   };
 
   const handleFestChange = async function (val: string) {
-    const marker = markers.filter((marker) => marker.alt == val);
-    router.push(`/festival-map?q=${marker[0].slug}`);
-    setFestValue(val);
-    // setFilteredMarkers(marker);
-    if (mapRef.current != null) {
-      mapRef.current.setView(marker[0].position, 10, { duration: 1 });
-    }
+    setFest(val);
+    setTimeout(() => {
+      refetchMarkers();
+    }, 300);
+
     setFestPopOpen(false);
   };
 
-  const handleGenreChange = function (val: string) {
-    const markersWithGenre = markers.filter((marker) =>
-      marker.music_types?.some((g) => g.name === val)
-    );
+  const handleGenreChange = async function (val: string) {
+    setGenre(val);
+    setTimeout(() => {
+      refetchMarkers();
+    }, 300);
 
-    setGenreValue(val);
-    setFilteredMarkers(markersWithGenre);
-    if (mapRef.current != null) {
-      mapRef.current.setView(center as LatLngExpression, zoom, { duration: 1 });
-    }
     setGenrePopOpen(false);
   };
 
-  const handleReset = function () {
+  const handleReset = async function () {
+    setCity("");
+    setFest("");
+    setGenre("");
     router.push("/festival-map");
-    setCityValue("");
-    setFestValue("");
-    setGenreValue("");
-    // setFilteredMarkers(markers);
-    if (mapRef.current != null) {
-      mapRef.current.setView(center as LatLngExpression, zoom, { duration: 1 });
-    }
+    setTimeout(() => {
+      refetchMarkers();
+    }, 300);
   };
 
   const customIcon = new Icon({
@@ -140,7 +152,7 @@ export default function Map({
           chunkedLoading
           iconCreateFunction={createClusterCustomIcon}
         >
-          {filteredMarkers.map((marker) => (
+          {markers.map((marker) => (
             <Dialog key={marker.id}>
               <Marker
                 alt={marker.alt}
@@ -241,34 +253,30 @@ export default function Map({
             </Dialog>
           ))}
         </MarkerClusterGroup>
-        <Dialog open={dialog} onOpenChange={setDialog}>
-          <DialogTrigger asChild>
-            <Button
-              className="cursor-pointer z-900 absolute left-[50%] translate-x-[-50%] top-10  w-[200px] bg-teal-600 hover:bg-teal-600/80"
-              onClick={() => setDialog(true)}
-            >
+        <Drawer direction="right">
+          <DrawerTrigger asChild>
+            <Button className="cursor-pointer z-800 absolute left-[50%] translate-x-[-50%] top-10  w-[200px] bg-teal-600 hover:bg-teal-600/80">
               Filtruj
             </Button>
-          </DialogTrigger>
-          <DialogContent className="container border-none flex flex-col items-center justify-start">
-            <DialogHeader>
-              <DialogTitle className="m-0 text-white">Filtruj mapę</DialogTitle>
-            </DialogHeader>
-            <DialogDescription className="m-0 text-white">
+          </DrawerTrigger>
+          <DrawerContent className="container z-900 border-none flex flex-col justify-center items-center">
+            <DrawerHeader className="mt-0">
+              <DrawerTitle className="py-0 my-0 text-white">Filtry</DrawerTitle>
+            </DrawerHeader>
+            <DrawerDescription className="hidden">
               Wybierz jeden z poniszych filtrów
-            </DialogDescription>
-            <div className="flex flex-col justify-around md:flex-row gap-4">
+            </DrawerDescription>
+            <div className="flex flex-col gap-4 m-4 w-max">
               <Popover open={cityPopOpen} onOpenChange={setCityPopOpen}>
                 <PopoverTrigger asChild>
                   <Button
-                    disabled={festValue !== "" || genreValue !== ""}
                     variant="outline"
                     role="combobox"
                     aria-expanded={cityPopOpen}
                     className="xl:w-[200px] justify-between"
                   >
-                    {cityValue
-                      ? [...cities].find((city) => city === cityValue)
+                    {city !== ""
+                      ? [...cities].find((val) => val === city)
                       : "Wybierz miasto..."}
                     <ChevronsUpDown className="opacity-50" />
                   </Button>
@@ -282,20 +290,19 @@ export default function Map({
                     <CommandList className="h-50">
                       <CommandEmpty>Brak miasta</CommandEmpty>
                       <CommandGroup>
-                        {[...cities].sort().map((city) => (
+                        {[...cities].sort().map((val) => (
                           <CommandItem
-                            key={city}
-                            value={city}
+                            key={val}
+                            value={val}
                             onSelect={(currentValue) => {
                               handleCityChange(currentValue);
-                              setDialog(false);
                             }}
                           >
-                            {city}
+                            {val}
                             <Check
                               className={cn(
                                 "ml-auto",
-                                cityValue === city ? "opacity-100" : "opacity-0"
+                                city === val ? "opacity-100" : "opacity-0"
                               )}
                             />
                           </CommandItem>
@@ -308,14 +315,13 @@ export default function Map({
               <Popover open={festPopOpen} onOpenChange={setFestPopOpen}>
                 <PopoverTrigger asChild>
                   <Button
-                    disabled={cityValue !== "" || genreValue !== ""}
                     variant="outline"
                     role="combobox"
                     aria-expanded={festPopOpen}
                     className="xl:w-[200px] justify-between"
                   >
-                    {festValue
-                      ? [...names].find((name) => name === festValue)
+                    {fest !== ""
+                      ? [...names].find((val) => val === fest)
                       : "Wybierz festiwal..."}
                     <ChevronsUpDown className="opacity-50" />
                   </Button>
@@ -329,20 +335,19 @@ export default function Map({
                     <CommandList className="h-50">
                       <CommandEmpty>Brak festiwalu</CommandEmpty>
                       <CommandGroup>
-                        {[...names].sort().map((name) => (
+                        {[...names].sort().map((val) => (
                           <CommandItem
-                            key={name}
-                            value={name}
+                            key={val}
+                            value={val}
                             onSelect={(currentValue) => {
                               handleFestChange(currentValue);
-                              setDialog(false);
                             }}
                           >
-                            {name}
+                            {val}
                             <Check
                               className={cn(
                                 "ml-auto",
-                                festValue === name ? "opacity-100" : "opacity-0"
+                                fest === val ? "opacity-100" : "opacity-0"
                               )}
                             />
                           </CommandItem>
@@ -355,14 +360,13 @@ export default function Map({
               <Popover open={genrePopOpen} onOpenChange={setGenrePopOpen}>
                 <PopoverTrigger asChild>
                   <Button
-                    disabled={festValue !== "" || cityValue !== ""}
                     variant="outline"
                     role="combobox"
                     aria-expanded={genrePopOpen}
                     className="xl:w-[200px] justify-between"
                   >
-                    {genreValue
-                      ? [...genres].find((genre) => genre === genreValue)
+                    {genre
+                      ? [...genres].find((val) => val === genre)
                       : "Wybierz gatunek..."}
                     <ChevronsUpDown className="opacity-50" />
                   </Button>
@@ -376,22 +380,19 @@ export default function Map({
                     <CommandList className="h-50">
                       <CommandEmpty>Brak gatunku</CommandEmpty>
                       <CommandGroup>
-                        {[...genres].sort().map((genre) => (
+                        {[...genres].sort().map((val) => (
                           <CommandItem
-                            key={genre}
-                            value={genre}
+                            key={val}
+                            value={val}
                             onSelect={(currentValue) => {
                               handleGenreChange(currentValue);
-                              setDialog(false);
                             }}
                           >
-                            {genre}
+                            {val}
                             <Check
                               className={cn(
                                 "ml-auto",
-                                genreValue === genre
-                                  ? "opacity-100"
-                                  : "opacity-0"
+                                genre === val ? "opacity-100" : "opacity-0"
                               )}
                             />
                           </CommandItem>
@@ -405,14 +406,13 @@ export default function Map({
                 className="bg-teal-600 hover:bg-teal-600/80"
                 onClick={() => {
                   handleReset();
-                  setDialog(false);
                 }}
               >
-                Reset
+                Resetuj pola
               </Button>
             </div>
-          </DialogContent>
-        </Dialog>
+          </DrawerContent>
+        </Drawer>
       </MapContainer>
 
       <div className="absolute bottom-8 right-0 sm:bottom-0 sm:left-0 z-500 text-neutral-700 bg-neutral-100 font-normal px-[5px] text-[12px] w-fit">
