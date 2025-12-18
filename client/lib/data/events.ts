@@ -1,30 +1,56 @@
 import { format } from "date-fns";
 import { grafbase } from "../graphql";
 import { Events } from "../interfaces";
-import { UPCOMING_EVENTS_AT_MONTH_QUERY } from "../queries/events/upcomingEventsAtMonthQuery";
 import { UPCOMING_EVENTS_QUERY } from "../queries/events/upcomingEventsQuery";
+import { calendarSearchParamsSchema } from "../validation";
+import { unstable_cache } from "next/cache";
+import { ALL_DATES_QUERY } from "../queries/events/allDatesQuery";
 
-export async function getUpcomingEvents() {
-  const today = format(new Date(), "yyyy-MM-dd");
-  const res = await grafbase.request<Events>(UPCOMING_EVENTS_QUERY, {
-    today,
-  });
-  return {
-    events: res.events,
-  };
-}
+export const getCachedEvents = async (rawParams: {
+  city: string;
+  location: string;
+  date: Date | null;
+}) => {
+  const validated = calendarSearchParamsSchema.parse(rawParams);
 
-export async function getUpcomingEventsAtMonth(year: number, month: number) {
-  const today = format(new Date(), "yyyy-MM-dd");
-  const firstDayOfMonth = format(new Date(year, month), "yyyy-MM-dd");
-  const lastDayOfMonth = format(new Date(year, month + 1, 0), "yyyy-MM-dd");
-  console.log(today, firstDayOfMonth, lastDayOfMonth);
-  const res = await grafbase.request<Events>(UPCOMING_EVENTS_AT_MONTH_QUERY, {
-    today,
-    firstDayOfMonth,
-    lastDayOfMonth,
-  });
-  return {
-    events: res.events,
-  };
-}
+  const now = format(new Date(), "yyyy-MM-dd");
+
+  const dateFilter =
+    validated.date === null
+      ? { gte: now }
+      : { eq: format(validated.date, "yyyy-MM-dd") };
+
+  return unstable_cache(
+    async () => {
+      const res = await grafbase.request<Events>(UPCOMING_EVENTS_QUERY, {
+        dateFilter: dateFilter,
+        city: validated.city || undefined,
+        location: validated.location || undefined,
+      });
+      return res.events;
+    },
+    ["events", JSON.stringify(validated)],
+    { tags: ["events"] }
+  )();
+};
+
+export const getCachedBookedDays = async () => {
+  return unstable_cache(
+    async () => {
+      try {
+        const res = await grafbase.request<{ events: { date: string }[] }>(
+          ALL_DATES_QUERY
+        );
+
+        return res.events.map((e) => e.date);
+      } catch (error) {
+        console.error("Błąd pobierania wszystkich dat", error);
+        return [];
+      }
+    },
+    ["booked-days-global"],
+    {
+      tags: ["events"],
+    }
+  )();
+};

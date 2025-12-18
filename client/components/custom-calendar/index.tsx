@@ -13,7 +13,6 @@ import { Fragment, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Event } from "@/lib/interfaces";
 import { pl } from "date-fns/locale";
-import { format } from "date-fns";
 import { Event as EventComponent } from "../ui/custom/event";
 import {
   Command,
@@ -31,48 +30,46 @@ import {
 import { Button } from "../ui/button";
 import { Check, ChevronsUpDown } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useCalendarFilters } from "@/hooks/use-filters";
 
 type Props = {
   events: Event[];
-  month?: number;
-  year?: number;
+  allBookedDates: string[];
 };
 
-export default function CustomCalendar({ events, month, year }: Props) {
+export default function CustomCalendar({ events, allBookedDates }: Props) {
   const router = useRouter();
-  const [date, setDate] = useState<Date | undefined>();
-  const [cityValue, setCityValue] = useState<string>("");
+
+  const {
+    filters: { city, location, date },
+    setCity,
+    setLocation,
+    setDate,
+  } = useCalendarFilters();
+
   const [cityPopOpen, setCityPopOpen] = useState<boolean>(false);
-  const [locationValue, setLocationValue] = useState<string>("");
   const [locationPopOpen, setLocationPopOpen] = useState<boolean>(false);
-
-  const filteredEvents = date
-    ? events.filter(
-        (event) =>
-          format(event.date, "dd/MM/yyy") === format(date, "dd/MM/yyyy")
-      )
-    : events;
-
-  const bookedDays = events.map((event) => new Date(event.date));
 
   const cities = new Set(events.map((event) => event.place?.city));
   const locations = new Set(events.map((event) => event.place?.location));
 
+  const booked = allBookedDates.map((date) => new Date(date));
+
   const handleCityChange = (val: string) => {
-    setCityValue(val);
+    setCity(val);
     setCityPopOpen(false);
   };
 
   const handleLocationChange = (val: string) => {
-    setLocationValue(val);
+    setLocation(val);
     setLocationPopOpen(false);
   };
 
   const handleReset = () => {
+    setCity(null);
+    setLocation(null);
+    setDate(null);
     router.push("/calendar");
-    setCityValue("");
-    setLocationValue("");
-    setDate(undefined);
   };
 
   return (
@@ -81,40 +78,23 @@ export default function CustomCalendar({ events, month, year }: Props) {
         <SidebarContent>
           <SidebarGroup className="p-0 mt-[56px]">
             <SidebarGroupContent>
-              {year !== undefined && month !== undefined ? (
-                <Calendar
-                  month={new Date(year, month)}
-                  locale={pl}
-                  timeZone="Europe/Berlin"
-                  mode="single"
-                  selected={date}
-                  onSelect={setDate}
-                  modifiers={{
-                    booked: bookedDays,
-                  }}
-                  modifiersClassNames={{
-                    booked: "my-booked-class",
-                  }}
-                  disabled={{ before: new Date() }}
-                  className="[&_[role=gridcell].bg-primary]:bg-sidebar-primary [&_[role=gridcell].bg-accent]:text-sidebar-primary-foreground [&_[role=gridcell]]:w-[33px] "
-                />
-              ) : (
-                <Calendar
-                  locale={pl}
-                  timeZone="Europe/Berlin"
-                  mode="single"
-                  selected={date}
-                  onSelect={setDate}
-                  modifiers={{
-                    booked: bookedDays,
-                  }}
-                  modifiersClassNames={{
-                    booked: "my-booked-class",
-                  }}
-                  disabled={{ before: new Date() }}
-                  className="[&_[role=gridcell].bg-primary]:bg-sidebar-primary [&_[role=gridcell].bg-accent]:text-sidebar-primary-foreground [&_[role=gridcell]]:w-[33px] "
-                />
-              )}
+              <Calendar
+                locale={pl}
+                timeZone="Europe/Berlin"
+                mode="single"
+                selected={date ?? undefined}
+                onSelect={(newDate) => {
+                  if (newDate) setDate(newDate);
+                }}
+                modifiers={{
+                  booked: booked,
+                }}
+                modifiersClassNames={{
+                  booked: "my-booked-class",
+                }}
+                disabled={{ before: new Date() }}
+                className="[&_[role=gridcell].bg-primary]:bg-sidebar-primary [&_[role=gridcell].bg-accent]:text-sidebar-primary-foreground [&_[role=gridcell]]:w-[33px] "
+              />
             </SidebarGroupContent>
           </SidebarGroup>
           <SidebarGroup className="p-0 flex flex-col gap-4">
@@ -122,45 +102,34 @@ export default function CustomCalendar({ events, month, year }: Props) {
             <Popover open={cityPopOpen} onOpenChange={setCityPopOpen}>
               <PopoverTrigger asChild>
                 <Button
-                  disabled={
-                    locationValue !== "" ||
-                    date !== undefined ||
-                    month !== undefined ||
-                    year !== undefined
-                  }
                   variant="outline"
                   role="combobox"
                   aria-expanded={cityPopOpen}
                   className="xl:w-[200px] justify-between"
                 >
-                  {cityValue
-                    ? [...cities].find((city) => city === cityValue)
-                    : "Wybierz miasto..."}
+                  {String(city) || "Wybierz miejscowość..."}
                   <ChevronsUpDown className="opacity-50" />
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="xl:w-[200px] p-0 pointer-events-auto">
                 <Command>
-                  <CommandInput
-                    placeholder="Wybierz miasto..."
-                    className="h-9"
-                  />
+                  <CommandInput placeholder="Wybierz miejscowość..." />
                   <CommandList className="h-50">
                     <CommandEmpty>Brak miasta</CommandEmpty>
                     <CommandGroup>
-                      {[...cities].sort().map((city) => (
+                      {[...cities].sort().map((val) => (
                         <CommandItem
-                          key={city}
-                          value={city}
+                          key={val}
+                          value={val}
                           onSelect={(currentValue) => {
                             handleCityChange(currentValue);
                           }}
                         >
-                          {city}
+                          {val}
                           <Check
                             className={cn(
                               "ml-auto",
-                              cityValue === city ? "opacity-100" : "opacity-0"
+                              city === val ? "opacity-100" : "opacity-0"
                             )}
                           />
                         </CommandItem>
@@ -173,49 +142,34 @@ export default function CustomCalendar({ events, month, year }: Props) {
             <Popover open={locationPopOpen} onOpenChange={setLocationPopOpen}>
               <PopoverTrigger asChild>
                 <Button
-                  disabled={
-                    cityValue !== "" ||
-                    date !== undefined ||
-                    month !== undefined ||
-                    year !== undefined
-                  }
                   variant="outline"
                   role="combobox"
                   aria-expanded={cityPopOpen}
                   className="xl:w-[200px] justify-between"
                 >
-                  {locationValue
-                    ? [...locations].find(
-                        (location) => location === locationValue
-                      )
-                    : "Wybierz miejsce..."}
+                  {String(location) || "Wybierz miejsce..."}
                   <ChevronsUpDown className="opacity-50" />
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="xl:w-[200px] p-0 pointer-events-auto">
                 <Command>
-                  <CommandInput
-                    placeholder="Wybierz miejsce..."
-                    className="h-9"
-                  />
+                  <CommandInput placeholder="Wybierz miejsce..." />
                   <CommandList className="h-50">
                     <CommandEmpty>Brak miejsca</CommandEmpty>
                     <CommandGroup>
-                      {[...locations].sort().map((location) => (
+                      {[...locations].sort().map((val) => (
                         <CommandItem
-                          key={location}
-                          value={location}
+                          key={val}
+                          value={val}
                           onSelect={(currentValue) => {
                             handleLocationChange(currentValue);
                           }}
                         >
-                          {location}
+                          {val}
                           <Check
                             className={cn(
                               "ml-auto",
-                              locationValue === location
-                                ? "opacity-100"
-                                : "opacity-0"
+                              location === val ? "opacity-100" : "opacity-0"
                             )}
                           />
                         </CommandItem>
@@ -237,33 +191,14 @@ export default function CustomCalendar({ events, month, year }: Props) {
           <SidebarTrigger className="-ml-1" />
         </header>
 
-        {!date &&
-        month !== undefined &&
-        year !== undefined &&
-        events.length > 0 ? (
+        {city && events.length > 0 ? (
           <div>
             <h1 className="p-4 pl-0">
-              Nadchodzące wydarzenia{" "}
-              {format(new Date(year, month, 1), "MMMM", { locale: pl })} roku{" "}
-              {year}
+              Nadchodzące wydarzenia w: {String(city)}
             </h1>
             <div className="flex flex-col gap-4">
-              {events.map((event) => (
-                <div
-                  key={event.documentId}
-                  className="group border-none relative shadow-none translate-y-0  hover:-translate-y-2 transition-all duration-300"
-                >
-                  <EventComponent event={event} />
-                </div>
-              ))}
-            </div>
-          </div>
-        ) : !date && cityValue && events.length > 0 ? (
-          <div>
-            <h1 className="p-4 pl-0">Nadchodzące wydarzenia w: {cityValue}</h1>
-            <div className="flex flex-col gap-4">
               {events
-                .filter((event) => event.place?.city === cityValue)
+                .filter((event) => event.place?.city === city)
                 .map((event) => (
                   <div
                     key={event.documentId}
@@ -274,14 +209,14 @@ export default function CustomCalendar({ events, month, year }: Props) {
                 ))}
             </div>
           </div>
-        ) : !date && locationValue && events.length > 0 ? (
+        ) : location && events.length > 0 ? (
           <div>
             <h1 className="p-4 pl-0">
-              Nadchodzące wydarzenia w: {locationValue}
+              Nadchodzące wydarzenia w: {String(location)}
             </h1>
             <div className="flex flex-col gap-4">
               {events
-                .filter((event) => event.place?.location === locationValue)
+                .filter((event) => event.place?.location === location)
                 .map((event) => (
                   <div
                     key={event.documentId}
@@ -292,28 +227,11 @@ export default function CustomCalendar({ events, month, year }: Props) {
                 ))}
             </div>
           </div>
-        ) : !date && events.length > 0 ? (
+        ) : events.length > 0 ? (
           <div>
             <h1 className="p-4 pl-0">Nadchodzące wydarzenia:</h1>
             <div className="flex flex-col gap-4">
               {events.map((event) => (
-                <div
-                  key={event.documentId}
-                  className="group border-none relative shadow-none translate-y-0  hover:-translate-y-2 transition-all duration-300"
-                >
-                  <EventComponent event={event} />
-                </div>
-              ))}
-            </div>
-          </div>
-        ) : date && filteredEvents.length > 0 ? (
-          <div>
-            <h1 className="p-4 pl-0">
-              Wydarzenia w dniu{" "}
-              {date && format(date, "dd MMMM yyyy", { locale: pl })}:
-            </h1>
-            <div className="flex flex-col gap-4">
-              {filteredEvents.map((event) => (
                 <div
                   key={event.documentId}
                   className="group border-none relative shadow-none translate-y-0  hover:-translate-y-2 transition-all duration-300"

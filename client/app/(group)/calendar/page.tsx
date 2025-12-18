@@ -1,12 +1,16 @@
 import CustomCalendar from "@/components/custom-calendar";
 import { SidebarProvider } from "@/components/ui/sidebar";
-import { getUpcomingEvents, getUpcomingEventsAtMonth } from "@/lib/data/events";
+import { getCachedBookedDays, getCachedEvents } from "@/lib/data/events";
 import { Fragment } from "react";
 import { WebSite, WithContext } from "schema-dts";
 export const dynamic = "force-dynamic";
 
 type Props = {
-  searchParams: Promise<{ month: string; year: string }>;
+  searchParams: Promise<{
+    city: string;
+    location: string;
+    date: Date | null;
+  }>;
 };
 
 export const metadata = {
@@ -61,38 +65,30 @@ export default async function CalendarPage({ searchParams }: Props) {
     },
   };
 
-  const { year, month } = await searchParams;
+  const params = await searchParams;
+  const dateParam = params.date ? new Date(params.date) : null;
 
-  if (month === undefined && year === undefined) {
-    const { events } = await getUpcomingEvents();
-    return (
+  const [events, allBookedDates] = await Promise.all([
+    getCachedEvents({
+      city: params.city,
+      location: params.location,
+      date: dateParam,
+    }),
+    getCachedBookedDays(),
+  ]);
+
+  return (
+    <Fragment>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
       <SidebarProvider>
-        <CustomCalendar events={events} />
+        <CustomCalendar events={events} allBookedDates={allBookedDates} />
+        <div className="m-8" />
       </SidebarProvider>
-    );
-  } else {
-    const monthAsNumber = Number(month) - 1;
-    const yearAsNumber = Number(year);
-    const { events } = await getUpcomingEventsAtMonth(
-      yearAsNumber,
-      monthAsNumber
-    );
-    return (
-      <Fragment>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
-          }}
-        />
-        <SidebarProvider>
-          <CustomCalendar
-            events={events}
-            month={monthAsNumber}
-            year={yearAsNumber}
-          />
-        </SidebarProvider>
-      </Fragment>
-    );
-  }
+    </Fragment>
+  );
 }
