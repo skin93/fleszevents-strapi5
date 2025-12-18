@@ -2,7 +2,7 @@ import LazyMap from "@/components/ui/custom/lazy-map";
 
 import { WebSite, WithContext } from "schema-dts";
 import { Fragment } from "react";
-import { getCachedMarkers } from "../actions";
+import { getCachedMarkers } from "@/lib/data/festivals";
 
 type Props = {
   searchParams: Promise<{ city: string; festival: string; genre: string }>;

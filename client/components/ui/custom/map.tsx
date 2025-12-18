@@ -254,14 +254,14 @@ export default function Map({ markers }: { markers: MarkerType[] }) {
                     aria-expanded={cityPopOpen}
                     className="xl:w-[200px] justify-between"
                   >
-                    {city || "Wybierz miasto..."}
+                    {city || "Wybierz miejscowość..."}
                     <ChevronsUpDown className="opacity-50" />
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent className="xl:w-[200px] p-0 pointer-events-auto">
                   <Command>
                     <CommandInput
-                      placeholder="Wybierz miasto..."
+                      placeholder="Wybierz miejscowość..."
                       className="h-9"
                     />
                     <CommandList className="h-50">

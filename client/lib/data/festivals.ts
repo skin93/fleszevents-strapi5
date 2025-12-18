@@ -1,13 +1,11 @@
-"use server";
-
-import { getMediaUrl } from "@/lib/getMediaUrl";
-import { grafbase } from "@/lib/graphql";
-import { Festival, Festivals } from "@/lib/interfaces";
-import { ALL_FESTIVALS_QUERY } from "@/lib/queries/festivals/allFestivalsQuery";
-import { festivalsSearchParamsSchema } from "@/lib/validation";
 import { unstable_cache } from "next/cache";
+import { festivalsSearchParamsSchema } from "../validation";
+import { ALL_FESTIVALS_QUERY } from "../queries/festivals/allFestivalsQuery";
+import { Festival, Festivals } from "../interfaces";
+import { getMediaUrl } from "../getMediaUrl";
+import { grafbase } from "../graphql";
 
-export default async function getMarkersAction(festivals: Festival[]) {
+function createMarkers(festivals: Festival[]) {
   const markers = festivals.map((fest) => ({
     position: [fest.place?.lat, fest.place?.lng] as [number, number],
     popup: fest.name,
@@ -32,11 +30,11 @@ export default async function getMarkersAction(festivals: Festival[]) {
   return markers;
 }
 
-export const getCachedMarkers = async (rawParams: {
+export async function getCachedMarkers(rawParams: {
   city: string;
   festival: string;
   genre: string;
-}) => {
+}) {
   const validated = festivalsSearchParamsSchema.parse(rawParams);
 
   return unstable_cache(
@@ -49,9 +47,9 @@ export const getCachedMarkers = async (rawParams: {
 
       const { festivals } = res;
 
-      return await getMarkersAction(festivals);
+      return createMarkers(festivals);
     },
     ["festivals", JSON.stringify(validated)],
     { tags: ["festivals"] }
   )();
-};
+}
