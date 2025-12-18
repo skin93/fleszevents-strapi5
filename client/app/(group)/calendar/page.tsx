@@ -1,6 +1,6 @@
 import CustomCalendar from "@/components/custom-calendar";
 import { SidebarProvider } from "@/components/ui/sidebar";
-import { getCachedBookedDays, getCachedEvents } from "@/lib/data/events";
+import { getBookedDays, getEvents } from "@/lib/data/events";
 import { Fragment } from "react";
 import { WebSite, WithContext } from "schema-dts";
 export const dynamic = "force-dynamic";
@@ -69,12 +69,12 @@ export default async function CalendarPage({ searchParams }: Props) {
   const dateParam = params.date ? new Date(params.date) : null;
 
   const [events, allBookedDates] = await Promise.all([
-    getCachedEvents({
+    getEvents({
       city: params.city,
       location: params.location,
       date: dateParam,
     }),
-    getCachedBookedDays(),
+    getBookedDays(),
   ]);
 
   return (

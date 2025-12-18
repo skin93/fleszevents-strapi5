@@ -2,7 +2,7 @@ import LazyMap from "@/components/ui/custom/lazy-map";
 
 import { WebSite, WithContext } from "schema-dts";
 import { Fragment } from "react";
-import { getCachedMarkers } from "@/lib/data/festivals";
+import { getMarkers } from "@/lib/data/festivals";
 
 type Props = {
   searchParams: Promise<{ city: string; festival: string; genre: string }>;
@@ -45,7 +45,7 @@ export const metadata = {
 
 export default async function FestivalMap({ searchParams }: Props) {
   const params = await searchParams;
-  const markers = await getCachedMarkers(params);
+  const markers = await getMarkers(params);
 
   const jsonLd: WithContext<WebSite> = {
     "@context": "https://schema.org",

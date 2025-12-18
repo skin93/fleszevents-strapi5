@@ -1,4 +1,3 @@
-import { unstable_cache } from "next/cache";
 import { festivalsSearchParamsSchema } from "../validation";
 import { ALL_FESTIVALS_QUERY } from "../queries/festivals/allFestivalsQuery";
 import { Festival, Festivals } from "../interfaces";
@@ -30,26 +29,24 @@ function createMarkers(festivals: Festival[]) {
   return markers;
 }
 
-export async function getCachedMarkers(rawParams: {
+export async function getMarkers(rawParams: {
   city: string;
   festival: string;
   genre: string;
 }) {
   const validated = festivalsSearchParamsSchema.parse(rawParams);
+  try {
+    const res = await grafbase.request<Festivals>(ALL_FESTIVALS_QUERY, {
+      city: validated.city || undefined,
+      festival: validated.festival || undefined,
+      genre: validated.genre || undefined,
+    });
 
-  return unstable_cache(
-    async () => {
-      const res = await grafbase.request<Festivals>(ALL_FESTIVALS_QUERY, {
-        city: validated.city || undefined,
-        festival: validated.festival || undefined,
-        genre: validated.genre || undefined,
-      });
+    const { festivals } = res;
 
-      const { festivals } = res;
-
-      return createMarkers(festivals);
-    },
-    ["festivals", JSON.stringify(validated)],
-    { tags: ["festivals"] }
-  )();
+    return createMarkers(festivals);
+  } catch (error) {
+    console.error("Błąd pobierania wszystkich markerów...", error);
+    return [];
+  }
 }
