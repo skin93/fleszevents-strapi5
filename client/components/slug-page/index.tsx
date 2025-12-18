@@ -43,7 +43,7 @@ export default function SlugPageComponent({ article }: Props) {
             </Link>
           ))}
           {article.isFestival && article.festival?.slug && (
-            <Link href={`/festival-map?q=${article.festival?.slug}`}>
+            <Link href={`/festival-map?festival=${article.festival?.name}`}>
               <Badge
                 className="bg-foreground hover:bg-foreground/70 dark:bg-accent/70 dark:hover:bg-accent/90 dark:text-foreground mr-2 p-2 rounded-sm uppercase"
                 variant="default"

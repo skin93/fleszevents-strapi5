@@ -28,6 +28,7 @@ export const SINGLE_ARTICLE_QUERY = gql`
       isFestival
       festival {
         slug
+        name
       }
       publishedAt
       createdAt
