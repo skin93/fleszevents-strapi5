@@ -1,4 +1,3 @@
-// lib/validations.ts
 import { z } from "zod";
 
 export const festivalsSearchParamsSchema = z.object({
@@ -8,3 +7,11 @@ export const festivalsSearchParamsSchema = z.object({
 });
 
 export type festivalsSearchParams = z.infer<typeof festivalsSearchParamsSchema>;
+
+export const calendarSearchParamsSchema = z.object({
+  date: z.date().nullable().catch(null),
+  city: z.string().trim().max(50).catch(""),
+  location: z.string().trim().max(50).catch(""),
+});
+
+export type calendarSearchParams = z.infer<typeof calendarSearchParamsSchema>;
