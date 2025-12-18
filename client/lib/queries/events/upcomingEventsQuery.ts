@@ -1,10 +1,20 @@
 import { gql } from "graphql-request";
 export const UPCOMING_EVENTS_QUERY = gql`
-  query upcomingEventsQuery($today: Date!) {
+  query upcomingEventsQuery(
+    $dateFilter: DateFilterInput!
+    $city: String
+    $location: String
+  ) {
     events(
       pagination: { limit: -1 }
       sort: "date:asc"
-      filters: { date: { gte: $today } }
+      filters: {
+        date: $dateFilter
+        place: {
+          city: { containsi: $city }
+          location: { containsi: $location }
+        }
+      }
     ) {
       documentId
       name
