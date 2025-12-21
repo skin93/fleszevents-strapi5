@@ -15,6 +15,9 @@ export default function Loading() {
         <Skeleton className="w-full aspect-video" />
         <Skeleton className="w-full aspect-video" />
         <Skeleton className="w-full aspect-video" />
+        <Skeleton className="w-full aspect-video" />
+        <Skeleton className="w-full aspect-video" />
+        <Skeleton className="w-full aspect-video" />
       </section>
     </main>
   );
