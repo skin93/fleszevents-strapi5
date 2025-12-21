@@ -151,13 +151,14 @@ export default function Map({ markers }: { markers: MarkerType[] }) {
               </Marker>
               <DialogContent className="border-none flex flex-col justify-between items-center max-w-[60em] max-h-full overflow-y-scroll">
                 <Image
+                  loading={"eager"}
                   src={marker.imageSrc}
                   alt={marker.imageAlt}
                   width={marker.imageWidth}
                   height={marker.imageHeight}
                   className="rounded-sm aspect-video"
                   style={{ objectFit: "cover" }}
-                  priority
+                  unoptimized
                 />
                 <DialogTitle className="my-0">{marker.alt}</DialogTitle>
 

@@ -34,7 +34,8 @@ export default function GalleryDialog({ gallery }: Props) {
                 <DialogTrigger asChild className="cursor-pointer">
                   <div className="relative translate-y-0  hover:translate-y-2 transition-all duration-300">
                     <Image
-                      priority
+                      loading={"eager"}
+                      unoptimized
                       width={photo.width}
                       height={photo.height}
                       src={src}

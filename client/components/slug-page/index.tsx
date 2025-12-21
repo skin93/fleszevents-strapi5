@@ -75,6 +75,7 @@ export default function SlugPageComponent({ article }: Props) {
               aria-label="image-wrapper"
             >
               <Image
+                unoptimized
                 src={getMediaUrl(article.cover)}
                 priority
                 alt={article.title}

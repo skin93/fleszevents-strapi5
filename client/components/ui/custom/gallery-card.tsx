@@ -13,7 +13,8 @@ export default function GalleryCard({ gallery }: Props) {
     <Card className="group border-none relative shadow-none translate-y-0  hover:translate-y-2 transition-all duration-300">
       <CardContent className="p-0 bg-background/5 dark:bg-foreground/5 rounded-lg flex flex-col items-center justify-end ">
         <Image
-          priority
+          loading={"eager"}
+          unoptimized
           src={getMediaUrl(gallery.cover)}
           title={gallery.name}
           alt={gallery.cover.alternativeText}

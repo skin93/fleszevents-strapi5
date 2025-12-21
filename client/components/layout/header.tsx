@@ -51,14 +51,14 @@ export default function Header() {
           className="flex shrink-0 justify-start items-center relative w-[100px] h-full mr-4"
         >
           <Image
-            priority
+            loading={"eager"}
             fill
             src="/FE_1_baner.svg"
             className="cursor-pointer w-full h-full "
             alt="logo"
           />
           <Image
-            priority
+            loading={"eager"}
             fill
             src="/FE_2_baner.svg"
             className="cursor-pointer w-full h-full dark:hidden"
