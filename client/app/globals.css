@@ -231,6 +231,9 @@
     }
   }
 }
+.leaflet-top {
+  @apply z-800!;
+}
 
 :root {
   --sidebar: hsl(0 0% 98%);

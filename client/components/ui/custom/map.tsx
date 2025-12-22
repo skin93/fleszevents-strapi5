@@ -233,20 +233,22 @@ export default function Map({ markers }: { markers: MarkerType[] }) {
             </Dialog>
           ))}
         </MarkerClusterGroup>
-        <Drawer direction="right">
+        <Drawer direction="top">
           <DrawerTrigger asChild>
             <Button className="cursor-pointer z-800 absolute left-[50%] translate-x-[-50%] top-10  w-[200px] bg-teal-600 hover:bg-teal-600/80">
               Filtruj
             </Button>
           </DrawerTrigger>
-          <DrawerContent className="container z-900 border-none flex flex-col justify-center items-center">
+          <DrawerContent className="container z-900 border-none flex flex-col justify-center items-center w-full">
             <DrawerHeader className="mt-0">
-              <DrawerTitle className="py-0 my-0 text-white">Filtry</DrawerTitle>
+              <DrawerTitle className=" py-0 my-0 text-white">
+                Filtry
+              </DrawerTitle>
             </DrawerHeader>
             <DrawerDescription className="hidden">
               Wybierz jeden z poniszych filtrów
             </DrawerDescription>
-            <div className="flex flex-col gap-4 m-4 w-max">
+            <div className="flex flex-col md:flex-row gap-4 m-4">
               <Popover open={cityPopOpen} onOpenChange={setCityPopOpen}>
                 <PopoverTrigger asChild>
                   <Button
@@ -255,7 +257,7 @@ export default function Map({ markers }: { markers: MarkerType[] }) {
                     aria-expanded={cityPopOpen}
                     className="xl:w-[200px] justify-between"
                   >
-                    {city || "Wybierz miejscowość..."}
+                    {city || "Miejscowość"}
                     <ChevronsUpDown className="opacity-50" />
                   </Button>
                 </PopoverTrigger>
@@ -268,6 +270,14 @@ export default function Map({ markers }: { markers: MarkerType[] }) {
                     <CommandList className="h-50">
                       <CommandEmpty>Brak miasta</CommandEmpty>
                       <CommandGroup>
+                        <CommandItem
+                          value={"Wszystko"}
+                          onSelect={() => {
+                            handleCityChange("");
+                          }}
+                        >
+                          {"Wszystko"}
+                        </CommandItem>
                         {[...cities].sort().map((val) => (
                           <CommandItem
                             key={val}
@@ -298,7 +308,7 @@ export default function Map({ markers }: { markers: MarkerType[] }) {
                     aria-expanded={festPopOpen}
                     className="xl:w-[200px] justify-between"
                   >
-                    {fest || "Wybierz festiwal..."}
+                    {fest || "Festiwal"}
                     <ChevronsUpDown className="opacity-50" />
                   </Button>
                 </PopoverTrigger>
@@ -306,11 +316,19 @@ export default function Map({ markers }: { markers: MarkerType[] }) {
                   <Command>
                     <CommandInput
                       placeholder="Wybierz festiwal..."
-                      className="h-9"
+                      className="h-9 "
                     />
-                    <CommandList className="h-50">
+                    <CommandList className="h-50 ">
                       <CommandEmpty>Brak festiwalu</CommandEmpty>
                       <CommandGroup>
+                        <CommandItem
+                          value={"Wszystko"}
+                          onSelect={() => {
+                            handleFestChange("");
+                          }}
+                        >
+                          {"Wszystko"}
+                        </CommandItem>
                         {[...names].sort().map((val) => (
                           <CommandItem
                             key={val}
@@ -341,7 +359,7 @@ export default function Map({ markers }: { markers: MarkerType[] }) {
                     aria-expanded={genrePopOpen}
                     className="xl:w-[200px] justify-between"
                   >
-                    {genre || "Wybierz gatunek..."}
+                    {genre || "Gatunek"}
                     <ChevronsUpDown className="opacity-50" />
                   </Button>
                 </PopoverTrigger>
@@ -354,6 +372,14 @@ export default function Map({ markers }: { markers: MarkerType[] }) {
                     <CommandList className="h-50">
                       <CommandEmpty>Brak gatunku</CommandEmpty>
                       <CommandGroup>
+                        <CommandItem
+                          value={"Wszystko"}
+                          onSelect={() => {
+                            handleGenreChange("");
+                          }}
+                        >
+                          {"Wszystko"}
+                        </CommandItem>
                         {[...genres].sort().map((val) => (
                           <CommandItem
                             key={val}
@@ -382,7 +408,7 @@ export default function Map({ markers }: { markers: MarkerType[] }) {
                   handleReset();
                 }}
               >
-                Resetuj pola
+                Resetuj filtry
               </Button>
             </div>
           </DrawerContent>
