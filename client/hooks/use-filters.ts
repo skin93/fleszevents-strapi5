@@ -88,6 +88,15 @@ export function useCalendarFilters() {
       })
       .withDefault("")
   );
+  const [type, setType] = useQueryState(
+    "type",
+    zodParserForCalendar("type")
+      .withOptions({
+        shallow: false,
+        history: "push",
+      })
+      .withDefault("")
+  );
 
   const [date, setDate] = useQueryState(
     "date",
@@ -98,9 +107,10 @@ export function useCalendarFilters() {
   );
 
   return {
-    filters: { city, location, date },
+    filters: { city, location, date, type },
     setCity,
     setLocation,
     setDate,
+    setType,
   };
 }

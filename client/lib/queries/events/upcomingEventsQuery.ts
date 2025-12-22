@@ -4,12 +4,14 @@ export const UPCOMING_EVENTS_QUERY = gql`
     $dateFilter: DateFilterInput!
     $city: String
     $location: String
+    $type: String
   ) {
     events(
       pagination: { limit: -1 }
       sort: "date:asc"
       filters: {
         date: $dateFilter
+        type: { eqi: $type }
         place: {
           city: { containsi: $city }
           location: { containsi: $location }
@@ -20,6 +22,7 @@ export const UPCOMING_EVENTS_QUERY = gql`
       name
       date
       endDate
+      type
       article {
         slug
       }

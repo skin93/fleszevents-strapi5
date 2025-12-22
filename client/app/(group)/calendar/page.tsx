@@ -9,6 +9,7 @@ type Props = {
   searchParams: Promise<{
     city: string;
     location: string;
+    type: "Koncert" | "Festiwal";
     date: Date | null;
   }>;
 };
@@ -72,6 +73,7 @@ export default async function CalendarPage({ searchParams }: Props) {
     getEvents({
       city: params.city,
       location: params.location,
+      type: params.type,
       date: dateParam,
     }),
     getBookedDays(),

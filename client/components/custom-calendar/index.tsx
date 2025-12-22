@@ -41,17 +41,20 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
   const router = useRouter();
 
   const {
-    filters: { city, location, date },
+    filters: { city, location, date, type },
     setCity,
     setLocation,
     setDate,
+    setType,
   } = useCalendarFilters();
 
   const [cityPopOpen, setCityPopOpen] = useState<boolean>(false);
   const [locationPopOpen, setLocationPopOpen] = useState<boolean>(false);
+  const [typePopOpen, setTypePopOpen] = useState<boolean>(false);
 
   const cities = new Set(events.map((event) => event.place?.city));
   const locations = new Set(events.map((event) => event.place?.location));
+  const types = new Set(events.map((event) => event.type));
 
   const booked = allBookedDates.map((date) => new Date(date));
 
@@ -65,10 +68,16 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
     setLocationPopOpen(false);
   };
 
+  const handleTypeChange = (val: string) => {
+    setType(val);
+    setTypePopOpen(false);
+  };
+
   const handleReset = () => {
     setCity(null);
     setLocation(null);
     setDate(null);
+    setType(null);
     router.push("/calendar");
   };
 
@@ -107,7 +116,7 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
                   aria-expanded={cityPopOpen}
                   className="xl:w-[200px] justify-between"
                 >
-                  {String(city) || "Wybierz miejscowość..."}
+                  {String(city) || "Miejscowość"}
                   <ChevronsUpDown className="opacity-50" />
                 </Button>
               </PopoverTrigger>
@@ -117,6 +126,14 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
                   <CommandList className="h-50">
                     <CommandEmpty>Brak miasta</CommandEmpty>
                     <CommandGroup>
+                      <CommandItem
+                        value={"Wszystko"}
+                        onSelect={() => {
+                          handleCityChange("");
+                        }}
+                      >
+                        {"Wszystko"}
+                      </CommandItem>
                       {[...cities].sort().map((val) => (
                         <CommandItem
                           key={val}
@@ -147,7 +164,7 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
                   aria-expanded={cityPopOpen}
                   className="xl:w-[200px] justify-between"
                 >
-                  {String(location) || "Wybierz miejsce..."}
+                  {String(location) || "Miejsce"}
                   <ChevronsUpDown className="opacity-50" />
                 </Button>
               </PopoverTrigger>
@@ -157,6 +174,14 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
                   <CommandList className="h-50">
                     <CommandEmpty>Brak miejsca</CommandEmpty>
                     <CommandGroup>
+                      <CommandItem
+                        value={"Wszystko"}
+                        onSelect={() => {
+                          handleLocationChange("");
+                        }}
+                      >
+                        {"Wszystko"}
+                      </CommandItem>
                       {[...locations].sort().map((val) => (
                         <CommandItem
                           key={val}
@@ -170,6 +195,54 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
                             className={cn(
                               "ml-auto",
                               location === val ? "opacity-100" : "opacity-0"
+                            )}
+                          />
+                        </CommandItem>
+                      ))}
+                    </CommandGroup>
+                  </CommandList>
+                </Command>
+              </PopoverContent>
+            </Popover>
+            <Popover open={typePopOpen} onOpenChange={setTypePopOpen}>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="outline"
+                  role="combobox"
+                  aria-expanded={cityPopOpen}
+                  className="xl:w-[200px] justify-between"
+                >
+                  {String(type) || "Typ"}
+                  <ChevronsUpDown className="opacity-50" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="xl:w-[200px] p-0 pointer-events-auto">
+                <Command>
+                  <CommandInput placeholder="Wybierz typ eventu..." />
+                  <CommandList className="h-50">
+                    <CommandEmpty>Brak typu</CommandEmpty>
+                    <CommandGroup>
+                      <CommandItem
+                        value={"Wszystko"}
+                        onSelect={() => {
+                          handleTypeChange("");
+                        }}
+                      >
+                        {"Wszystko"}
+                      </CommandItem>
+                      {[...types].sort().map((val) => (
+                        <CommandItem
+                          key={val}
+                          value={val as string}
+                          onSelect={(currentValue) => {
+                            handleTypeChange(currentValue);
+                          }}
+                        >
+                          {val}
+                          <Check
+                            className={cn(
+                              "ml-auto",
+                              type === val ? "opacity-100" : "opacity-0"
                             )}
                           />
                         </CommandItem>

@@ -8,6 +8,7 @@ import { ALL_DATES_QUERY } from "../queries/events/allDatesQuery";
 export const getEvents = async (rawParams: {
   city: string;
   location: string;
+  type: "Koncert" | "Festiwal";
   date: Date | null;
 }) => {
   const validated = calendarSearchParamsSchema.parse(rawParams);
@@ -23,6 +24,7 @@ export const getEvents = async (rawParams: {
       dateFilter: dateFilter,
       city: validated.city || undefined,
       location: validated.location || undefined,
+      type: validated.type || undefined,
     });
     return res.events;
   } catch (error) {

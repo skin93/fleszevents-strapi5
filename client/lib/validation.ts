@@ -12,6 +12,7 @@ export const calendarSearchParamsSchema = z.object({
   date: z.date().nullable().catch(null),
   city: z.string().trim().max(50).catch(""),
   location: z.string().trim().max(50).catch(""),
+  type: z.enum(["Koncert", "Festiwal"]).nullable().catch(null),
 });
 
 export type calendarSearchParams = z.infer<typeof calendarSearchParamsSchema>;
