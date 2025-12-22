@@ -102,6 +102,7 @@ export interface Event {
   endDate?: Date | string;
   article?: Article | null;
   place?: Place | null;
+  type: "Koncert" | "Festiwal";
 };
 
 export interface Festival {

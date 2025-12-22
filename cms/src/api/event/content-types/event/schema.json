@@ -31,6 +31,15 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::place.place"
+    },
+    "type": {
+      "type": "enumeration",
+      "required": true,
+      "default": "Koncert",
+      "enum": [
+        "Koncert",
+        "Festiwal"
+      ]
     }
   }
 }

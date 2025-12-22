@@ -521,6 +521,9 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
     name: Schema.Attribute.String & Schema.Attribute.Required;
     place: Schema.Attribute.Relation<'oneToOne', 'api::place.place'>;
     publishedAt: Schema.Attribute.DateTime;
+    type: Schema.Attribute.Enumeration<['Koncert', 'Festiwal']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Koncert'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
