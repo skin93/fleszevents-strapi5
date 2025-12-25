@@ -1,16 +1,16 @@
 import { format } from "date-fns";
 import { grafbase } from "../graphql";
-import { Events } from "../interfaces";
+import { Event, Events, Place } from "../interfaces";
 import { UPCOMING_EVENTS_QUERY } from "../queries/events/upcomingEventsQuery";
 import { calendarSearchParamsSchema } from "../validation";
 import { ALL_DATES_QUERY } from "../queries/events/allDatesQuery";
 
-export const getEvents = async (rawParams: {
-  city: string;
-  location: string;
-  type: "Koncert" | "Festiwal";
-  date: Date | null;
-}) => {
+type Props = {
+  rawParams: Pick<Place, "city" | "location" | "region"> &
+    Pick<Event, "type" | "date">;
+};
+
+export const getEvents = async ({ rawParams }: Props) => {
   const validated = calendarSearchParamsSchema.parse(rawParams);
 
   const now = format(new Date(), "yyyy-MM-dd");
@@ -25,6 +25,7 @@ export const getEvents = async (rawParams: {
       city: validated.city || undefined,
       location: validated.location || undefined,
       type: validated.type || undefined,
+      region: validated.region || undefined,
     });
     return res.events;
   } catch (error) {

@@ -199,6 +199,24 @@ export interface Place {
   festivals?: Festival[] | null;
   geolocation?: any;
   geohash?: string;
+  inPoland: boolean;
+  region?:
+    | "Dolnośląskie"
+    | "Kujawsko-Pomorskie"
+    | "Lubelskie"
+    | "Lubuskie"
+    | "Łódzkie"
+    | "Małopolskie"
+    | "Mazowieckie"
+    | "Opolskie"
+    | "Podkarpackie"
+    | "Podlaskie"
+    | "Pomorskie"
+    | "Śląskie"
+    | "Świętokrzyskie"
+    | "Warmińsko-Mazurskie"
+    | "Wielkopolskie"
+    | "Zachodniopomorskie";
 }
 
 export interface Tag {

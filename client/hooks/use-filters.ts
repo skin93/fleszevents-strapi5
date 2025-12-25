@@ -70,6 +70,16 @@ const dateParser = createParser({
 });
 
 export function useCalendarFilters() {
+  const [region, setRegion] = useQueryState(
+    "region",
+    zodParserForCalendar("region")
+      .withOptions({
+        shallow: false,
+        history: "push",
+      })
+      .withDefault("")
+  );
+
   const [city, setCity] = useQueryState(
     "city",
     zodParserForCalendar("city")
@@ -107,7 +117,8 @@ export function useCalendarFilters() {
   );
 
   return {
-    filters: { city, location, date, type },
+    filters: { region, city, location, date, type },
+    setRegion,
     setCity,
     setLocation,
     setDate,

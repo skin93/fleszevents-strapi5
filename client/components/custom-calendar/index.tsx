@@ -41,22 +41,30 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
   const router = useRouter();
 
   const {
-    filters: { city, location, date, type },
+    filters: { region, city, location, date, type },
+    setRegion,
     setCity,
     setLocation,
     setDate,
     setType,
   } = useCalendarFilters();
 
+  const [regionPopOpen, setRegionPopOpen] = useState<boolean>(false);
   const [cityPopOpen, setCityPopOpen] = useState<boolean>(false);
   const [locationPopOpen, setLocationPopOpen] = useState<boolean>(false);
   const [typePopOpen, setTypePopOpen] = useState<boolean>(false);
 
+  const regions = new Set(events.map((event) => event.place?.region));
   const cities = new Set(events.map((event) => event.place?.city));
   const locations = new Set(events.map((event) => event.place?.location));
   const types = new Set(events.map((event) => event.type));
 
   const booked = allBookedDates.map((date) => new Date(date));
+
+  const handleRegionChange = (val: string) => {
+    setRegion(val);
+    setRegionPopOpen(false);
+  };
 
   const handleCityChange = (val: string) => {
     setCity(val);
@@ -78,6 +86,7 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
     setLocation(null);
     setDate(null);
     setType(null);
+    setRegion(null);
     router.push("/calendar");
   };
 
@@ -108,6 +117,57 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
           </SidebarGroup>
           <SidebarGroup className="p-0 flex flex-col gap-4">
             <SidebarGroupLabel>Filtry</SidebarGroupLabel>
+            <Popover open={regionPopOpen} onOpenChange={setRegionPopOpen}>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="outline"
+                  role="combobox"
+                  aria-expanded={regionPopOpen}
+                  className="xl:w-[200px] justify-between"
+                >
+                  {String(region) || "Województwo"}
+                  <ChevronsUpDown className="opacity-50" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="xl:w-[200px] p-0 pointer-events-auto">
+                <Command>
+                  <CommandInput placeholder="Wybierz województwo..." />
+                  <CommandList className="h-50">
+                    <CommandEmpty>Brak województwa</CommandEmpty>
+                    <CommandGroup>
+                      <CommandItem
+                        value={"Wszystko"}
+                        onSelect={() => {
+                          handleRegionChange("");
+                        }}
+                      >
+                        {"Wszystko"}
+                      </CommandItem>
+                      {[...regions].sort().map(
+                        (val) =>
+                          val && (
+                            <CommandItem
+                              key={val}
+                              value={val}
+                              onSelect={(currentValue) => {
+                                handleRegionChange(currentValue);
+                              }}
+                            >
+                              {val}
+                              <Check
+                                className={cn(
+                                  "ml-auto",
+                                  region === val ? "opacity-100" : "opacity-0"
+                                )}
+                              />
+                            </CommandItem>
+                          )
+                      )}
+                    </CommandGroup>
+                  </CommandList>
+                </Command>
+              </PopoverContent>
+            </Popover>
             <Popover open={cityPopOpen} onOpenChange={setCityPopOpen}>
               <PopoverTrigger asChild>
                 <Button

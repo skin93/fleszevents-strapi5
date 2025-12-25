@@ -5,6 +5,7 @@ export const UPCOMING_EVENTS_QUERY = gql`
     $city: String
     $location: String
     $type: String
+    $region: String
   ) {
     events(
       pagination: { limit: -1 }
@@ -15,6 +16,7 @@ export const UPCOMING_EVENTS_QUERY = gql`
         place: {
           city: { containsi: $city }
           location: { containsi: $location }
+          region: { eqi: $region }
         }
       }
     ) {
@@ -30,6 +32,8 @@ export const UPCOMING_EVENTS_QUERY = gql`
         city
         documentId
         location
+        region
+        inPoland
       }
     }
   }

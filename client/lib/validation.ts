@@ -13,6 +13,27 @@ export const calendarSearchParamsSchema = z.object({
   city: z.string().trim().max(50).catch(""),
   location: z.string().trim().max(50).catch(""),
   type: z.enum(["Koncert", "Festiwal"]).nullable().catch(null),
+  region: z
+    .enum([
+      "Dolnośląskie",
+      "Kujawsko-Pomorskie",
+      "Lubelskie",
+      "Lubuskie",
+      "Łódzkie",
+      "Małopolskie",
+      "Mazowieckie",
+      "Opolskie",
+      "Podkarpackie",
+      "Podlaskie",
+      "Pomorskie",
+      "Śląskie",
+      "Świętokrzyskie",
+      "Warmińsko-Mazurskie",
+      "Wielkopolskie",
+      "Zachodniopomorskie",
+    ])
+    .nullable()
+    .catch(null),
 });
 
 export type calendarSearchParams = z.infer<typeof calendarSearchParamsSchema>;

@@ -1,17 +1,15 @@
 import CustomCalendar from "@/components/custom-calendar";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { getBookedDays, getEvents } from "@/lib/data/events";
+import { Event, Place } from "@/lib/interfaces";
 import { Fragment } from "react";
 import { WebSite, WithContext } from "schema-dts";
 export const dynamic = "force-dynamic";
 
 type Props = {
-  searchParams: Promise<{
-    city: string;
-    location: string;
-    type: "Koncert" | "Festiwal";
-    date: Date | null;
-  }>;
+  searchParams: Promise<
+    Pick<Place, "city" | "location" | "region"> & Pick<Event, "type" | "date">
+  >;
 };
 
 export const metadata = {
@@ -69,13 +67,10 @@ export default async function CalendarPage({ searchParams }: Props) {
   const params = await searchParams;
   const dateParam = params.date ? new Date(params.date) : null;
 
+  const rawParams = { ...params, dateParam };
+
   const [events, allBookedDates] = await Promise.all([
-    getEvents({
-      city: params.city,
-      location: params.location,
-      type: params.type,
-      date: dateParam,
-    }),
+    getEvents({ rawParams }),
     getBookedDays(),
   ]);
 
