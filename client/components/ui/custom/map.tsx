@@ -57,22 +57,31 @@ export default function Map({ markers }: { markers: MarkerType[] }) {
     }
   }, [markers]);
   const {
-    filters: { city, fest, genre },
+    filters: { region, city, fest, genre },
+    setRegion,
     setCity,
     setFest,
     setGenre,
   } = useMapFilters();
+
+  const [regionPopOpen, setRegionPopOpen] = useState<boolean>(false);
   const [cityPopOpen, setCityPopOpen] = useState<boolean>(false);
   const [festPopOpen, setFestPopOpen] = useState<boolean>(false);
   const [genrePopOpen, setGenrePopOpen] = useState<boolean>(false);
 
   const mapRef = useRef<L.Map>(null);
 
+  const regions = new Set(markers.map((marker) => marker.region));
   const cities = new Set(markers.map((marker) => marker.city));
   const names = new Set(markers.map((marker) => marker.alt));
   const genres = new Set(
     markers.flatMap((marker) => marker.music_types?.map((type) => type.name))
   );
+
+  const handleRegionChange = async function (val: string) {
+    setRegion(val);
+    setRegionPopOpen(false);
+  };
 
   const handleCityChange = async function (val: string) {
     setCity(val);
@@ -90,6 +99,7 @@ export default function Map({ markers }: { markers: MarkerType[] }) {
   };
 
   const handleReset = async function () {
+    setRegion("");
     setCity("");
     setFest("");
     setGenre("");
@@ -249,6 +259,60 @@ export default function Map({ markers }: { markers: MarkerType[] }) {
               Wybierz jeden z poniszych filtrów
             </DrawerDescription>
             <div className="flex flex-col md:flex-row gap-4 m-4">
+              <Popover open={regionPopOpen} onOpenChange={setRegionPopOpen}>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant="outline"
+                    role="combobox"
+                    aria-expanded={regionPopOpen}
+                    className="xl:w-[200px] justify-between"
+                  >
+                    {region || "Województwo"}
+                    <ChevronsUpDown className="opacity-50" />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="xl:w-[200px] p-0 pointer-events-auto">
+                  <Command>
+                    <CommandInput
+                      placeholder="Wybierz województwo..."
+                      className="h-9"
+                    />
+                    <CommandList className="h-50">
+                      <CommandEmpty>Brak województwa</CommandEmpty>
+                      <CommandGroup>
+                        <CommandItem
+                          value={"Wszystko"}
+                          onSelect={() => {
+                            handleRegionChange("");
+                          }}
+                        >
+                          {"Wszystko"}
+                        </CommandItem>
+                        {[...regions].sort().map(
+                          (val) =>
+                            val && (
+                              <CommandItem
+                                key={val}
+                                value={val}
+                                onSelect={(currentValue) => {
+                                  handleRegionChange(currentValue);
+                                }}
+                              >
+                                {val}
+                                <Check
+                                  className={cn(
+                                    "ml-auto",
+                                    region === val ? "opacity-100" : "opacity-0"
+                                  )}
+                                />
+                              </CommandItem>
+                            )
+                        )}
+                      </CommandGroup>
+                    </CommandList>
+                  </Command>
+                </PopoverContent>
+              </Popover>
               <Popover open={cityPopOpen} onOpenChange={setCityPopOpen}>
                 <PopoverTrigger asChild>
                   <Button

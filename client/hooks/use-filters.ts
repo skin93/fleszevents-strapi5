@@ -19,6 +19,15 @@ const zodParserForMap = (key: keyof festivalsSearchParams) =>
   });
 
 export function useMapFilters() {
+  const [region, setRegion] = useQueryState(
+    "region",
+    zodParserForMap("region")
+      .withOptions({
+        shallow: false,
+        history: "push",
+      })
+      .withDefault("")
+  );
   const [city, setCity] = useQueryState(
     "city",
     zodParserForMap("city")
@@ -48,7 +57,8 @@ export function useMapFilters() {
   );
 
   return {
-    filters: { city, fest, genre },
+    filters: { region, city, fest, genre },
+    setRegion,
     setCity,
     setFest,
     setGenre,

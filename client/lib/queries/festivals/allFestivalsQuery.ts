@@ -1,9 +1,14 @@
 import { gql } from "graphql-request";
 export const ALL_FESTIVALS_QUERY = gql`
-  query allFestivals($city: String, $festival: String, $genre: String) {
+  query allFestivals(
+    $city: String
+    $festival: String
+    $region: String
+    $genre: String
+  ) {
     festivals(
       filters: {
-        place: { city: { containsi: $city } }
+        place: { city: { containsi: $city }, region: { eqi: $region } }
         music_types: { name: { containsi: $genre } }
         name: { containsi: $festival }
       }
@@ -15,6 +20,7 @@ export const ALL_FESTIVALS_QUERY = gql`
       slug
       place {
         city
+        region
         documentId
         location
         lat

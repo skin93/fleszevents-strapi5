@@ -5,7 +5,12 @@ import { Fragment } from "react";
 import { getMarkers } from "@/lib/data/festivals";
 
 type Props = {
-  searchParams: Promise<{ city: string; festival: string; genre: string }>;
+  searchParams: Promise<{
+    city: string;
+    festival: string;
+    genre: string;
+    region: string;
+  }>;
 };
 
 export const dynamic = "force-dynamic";

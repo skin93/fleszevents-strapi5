@@ -363,6 +363,23 @@ export interface Marker {
   imageAlt: string;
   slug: string;
   city: string | undefined;
+  region?:
+    | "Dolnośląskie"
+    | "Kujawsko-Pomorskie"
+    | "Lubelskie"
+    | "Lubuskie"
+    | "Łódzkie"
+    | "Małopolskie"
+    | "Mazowieckie"
+    | "Opolskie"
+    | "Podkarpackie"
+    | "Podlaskie"
+    | "Pomorskie"
+    | "Śląskie"
+    | "Świętokrzyskie"
+    | "Warmińsko-Mazurskie"
+    | "Wielkopolskie"
+    | "Zachodniopomorskie";
   location: string | undefined;
   tickets: string | undefined;
   festName: string | undefined;

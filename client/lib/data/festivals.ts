@@ -17,6 +17,7 @@ function createMarkers(festivals: Festival[]) {
     imageAlt: fest.cover!.alternativeText,
     slug: fest.slug,
     city: fest.place?.city,
+    region: fest.place?.region,
     location: fest.place?.location,
     tickets: fest.tickets,
     festName: fest.next_event?.name,
@@ -33,14 +34,18 @@ export async function getMarkers(rawParams: {
   city: string;
   festival: string;
   genre: string;
+  region: string;
 }) {
   const validated = festivalsSearchParamsSchema.parse(rawParams);
   try {
     const res = await grafbase.request<Festivals>(ALL_FESTIVALS_QUERY, {
       city: validated.city || undefined,
+      region: validated.region || undefined,
       festival: validated.festival || undefined,
       genre: validated.genre || undefined,
     });
+
+    console.log(res.festivals);
 
     const { festivals } = res;
 
