@@ -10,6 +10,7 @@
   "options": {
     "draftAndPublish": false
   },
+  "pluginOptions": {},
   "attributes": {
     "lat": {
       "type": "float",
@@ -35,13 +36,32 @@
     },
     "geolocation": {
       "type": "customField",
+      "customField": "plugin::geodata.geojson",
       "options": {
         "info": true
-      },
-      "customField": "plugin::geodata.geojson"
+      }
     },
     "geohash": {
       "type": "string"
+    },
+    "inPoland": {
+      "type": "boolean",
+      "required": true,
+      "default": true
+    },
+    "region": {
+      "type": "string",
+      "conditions": {
+        "visible": {
+          "==": [
+            {
+              "var": "inPoland"
+            },
+            true
+          ]
+        }
+      },
+      "required": false
     }
   }
 }

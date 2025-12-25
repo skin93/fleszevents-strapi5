@@ -163,6 +163,8 @@ export interface Place {
   festivals?: Festival[] | null;
   geolocation?: any;
   geohash?: string;
+  inPoland: boolean;
+  region?: string;
 };
 
 export interface Tag {
