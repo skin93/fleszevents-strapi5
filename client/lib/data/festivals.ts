@@ -45,8 +45,6 @@ export async function getMarkers(rawParams: {
       genre: validated.genre || undefined,
     });
 
-    console.log(res.festivals);
-
     const { festivals } = res;
 
     return createMarkers(festivals);

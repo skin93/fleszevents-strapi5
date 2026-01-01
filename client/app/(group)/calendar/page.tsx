@@ -8,7 +8,8 @@ export const dynamic = "force-dynamic";
 
 type Props = {
   searchParams: Promise<
-    Pick<Place, "city" | "location" | "region"> & Pick<Event, "type" | "date">
+    Pick<Place, "city" | "location" | "region"> &
+      Pick<Event, "type"> & { date: Date | null }
   >;
 };
 
@@ -65,9 +66,9 @@ export default async function CalendarPage({ searchParams }: Props) {
   };
 
   const params = await searchParams;
-  const dateParam = params.date ? new Date(params.date) : null;
+  const date = params.date ? new Date(params.date) : null;
 
-  const rawParams = { ...params, dateParam };
+  const rawParams = { ...params, date };
 
   const [events, allBookedDates] = await Promise.all([
     getEvents({ rawParams }),

@@ -7,7 +7,7 @@ import { ALL_DATES_QUERY } from "../queries/events/allDatesQuery";
 
 type Props = {
   rawParams: Pick<Place, "city" | "location" | "region"> &
-    Pick<Event, "type" | "date">;
+    Pick<Event, "type"> & { date: Date | null };
 };
 
 export const getEvents = async ({ rawParams }: Props) => {
@@ -27,6 +27,7 @@ export const getEvents = async ({ rawParams }: Props) => {
       type: validated.type || undefined,
       region: validated.region || undefined,
     });
+    console.log(validated.date);
     return res.events;
   } catch (error) {
     console.error("Błąd pobierania wszystkich wydarzeń...", error);
