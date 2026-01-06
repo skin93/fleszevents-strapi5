@@ -44,7 +44,7 @@ export default async function SearchPage({ searchParams }: Props) {
         aria-label="Search articles"
         className="flex flex-col justify-center items-center"
       >
-        <h1 className="my-8 text-center font-bold uppercase">
+        <h1 className="my-8 text-center uppercase">
           Wyniki dla frazy <q>{term}</q>
         </h1>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">

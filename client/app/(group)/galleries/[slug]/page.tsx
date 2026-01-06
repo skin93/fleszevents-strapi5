@@ -61,9 +61,7 @@ export default async function GallerySlugPage({
         aria-label={`${gallery.name}`}
         className="flex flex-col justify-center items-center"
       >
-        <h1 className="my-8 text-center text-4xl font-bold uppercase">
-          {gallery.name}
-        </h1>
+        <h1 className="my-8 text-center text-4xl uppercase">{gallery.name}</h1>
         <div className="grid grid-cols-3 gap-4">
           <GalleryDialog gallery={gallery} />
         </div>

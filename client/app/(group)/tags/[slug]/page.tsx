@@ -55,9 +55,7 @@ export default async function TagPage({ params, searchParams }: Props) {
         aria-label={`${slug} content`}
         className="flex flex-col justify-center items-center"
       >
-        <h1 className="my-8 text-center font-bold uppercase">
-          {tag.name.toUpperCase()}
-        </h1>
+        <h1 className="my-8 text-center uppercase">{tag.name.toUpperCase()}</h1>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
           {articles.map((article) => (
             <div key={article.documentId}>

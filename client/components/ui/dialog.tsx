@@ -63,7 +63,7 @@ function DialogContent({
         {...props}
       >
         {children}
-        <DialogPrimitive.Close className="absolute bg-teal-600 hover:bg-teal-600/80 right-0 top-0 rounded-sm transition-opacity hover:opacity-100  disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
+        <DialogPrimitive.Close className="absolute bg-teal-600 hover:bg-teal-600/80 right-0 rounded-sm transition-opacity hover:opacity-100  disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
           <XIcon className="h-5 w-5 cursor-pointer text-white hover:text-white dark:text-foreground" />
           <span className="sr-only">Close</span>
         </DialogPrimitive.Close>
@@ -105,10 +105,7 @@ function DialogTitle({
   return (
     <DialogPrimitive.Title
       data-slot="dialog-title"
-      className={cn(
-        "text-lg font-semibold leading-none tracking-tight",
-        className
-      )}
+      className={cn("text-lg font-bold leading-none tracking-tight", className)}
       {...props}
     />
   );

@@ -159,7 +159,7 @@ export default function Map({ markers }: { markers: MarkerType[] }) {
                   </div>
                 </Popup>
               </Marker>
-              <DialogContent className="border-none flex flex-col justify-between items-center max-w-[60em] max-h-full overflow-y-scroll">
+              <DialogContent className="border-none flex flex-col justify-between items-center max-w-[60em] max-h-full overflow-y-auto">
                 <Image
                   loading={"eager"}
                   src={marker.imageSrc}
@@ -236,7 +236,7 @@ export default function Map({ markers }: { markers: MarkerType[] }) {
                     </Link>
                   </Button>
                 </div>
-                <DialogDescription className="text-white text-center">
+                <DialogDescription className="text-white text-start">
                   {marker.description}
                 </DialogDescription>
               </DialogContent>

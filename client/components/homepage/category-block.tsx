@@ -15,7 +15,7 @@ export default function CategoryBlock({ articles, name, slug }: Props) {
       aria-label={`Latest ${name}`}
       className="flex flex-col justify-center items-center"
     >
-      <h1 className="my-8 text-center font-bold">{slug.toUpperCase()}</h1>
+      <h1 className="my-8 text-center">{slug.toUpperCase()}</h1>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
         {articles?.map((article) => (
           <div key={article.documentId}>

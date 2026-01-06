@@ -137,7 +137,7 @@
   h2,
   h3,
   h4 {
-    @apply scroll-m-20 tracking-tight my-6;
+    @apply scroll-m-20 tracking-tight my-6 font-bold;
   }
 
   h1 {
@@ -145,15 +145,15 @@
   }
 
   h2 {
-    @apply text-3xl font-semibold;
+    @apply text-3xl font-bold;
   }
 
   h3 {
-    @apply text-2xl font-semibold;
+    @apply text-2xl font-bold;
   }
 
   h4 {
-    @apply text-xl font-semibold;
+    @apply text-xl font-bold;
   }
 
   strong {

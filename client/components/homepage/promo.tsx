@@ -23,7 +23,7 @@ export default function Promo({ promos }: Props) {
       aria-label="Promo events"
       className="flex flex-col justify-center items-center my-8"
     >
-      <h1 className="mb-8 text-center font-bold">POLECAMY</h1>
+      <h1 className="mb-8 text-center">POLECAMY</h1>
       <Carousel
         plugins={[plugin.current]}
         opts={{

@@ -54,7 +54,7 @@ export default async function GalleriesPage({ searchParams }: Props) {
   return (
     <main>
       <section aria-label="Galleries">
-        <h1 className="my-8 text-center font-bold uppercase">GALERIE</h1>
+        <h1 className="my-8 text-center uppercase">GALERIE</h1>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 ">
           {galleries.map((gallery) => (
             <div key={gallery.documentId}>

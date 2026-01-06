@@ -52,7 +52,7 @@ export default async function TagsPage({ searchParams }: Props) {
   return (
     <main>
       <section aria-label="Tags">
-        <h1 className="my-8 text-center font-bold uppercase">TAGI</h1>
+        <h1 className="my-8 text-center uppercase">TAGI</h1>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 ">
           {tags.map((tag) => (
             <ButtonLink key={tag.documentId} href={`/tags/${tag.slug}`}>
