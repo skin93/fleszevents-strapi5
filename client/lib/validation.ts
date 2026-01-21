@@ -34,6 +34,7 @@ export const calendarSearchParamsSchema = z.object({
   city: z.string().trim().max(50).catch(""),
   location: z.string().trim().max(50).catch(""),
   type: z.enum(["Koncert", "Festiwal"]).nullable().catch(null),
+  term: z.string().trim().max(50).catch(""),
   region: z
     .enum([
       "Dolnośląskie",

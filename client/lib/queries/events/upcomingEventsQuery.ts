@@ -6,6 +6,7 @@ export const UPCOMING_EVENTS_QUERY = gql`
     $location: String
     $type: String
     $region: String
+    $term: String
   ) {
     events(
       pagination: { limit: -1 }
@@ -13,6 +14,7 @@ export const UPCOMING_EVENTS_QUERY = gql`
       filters: {
         date: $dateFilter
         type: { eqi: $type }
+        name: { containsi: $term }
         place: {
           city: { containsi: $city }
           location: { containsi: $location }

@@ -31,6 +31,7 @@ import { Button } from "../ui/button";
 import { Check, ChevronsUpDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useCalendarFilters } from "@/hooks/use-filters";
+import { debounce } from "nuqs";
 
 type Props = {
   events: Event[];
@@ -41,12 +42,13 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
   const router = useRouter();
 
   const {
-    filters: { region, city, location, date, type },
+    filters: { region, city, location, date, type, term },
     setRegion,
     setCity,
     setLocation,
     setDate,
     setType,
+    setTerm,
   } = useCalendarFilters();
 
   const [regionPopOpen, setRegionPopOpen] = useState<boolean>(false);
@@ -81,12 +83,17 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
     setTypePopOpen(false);
   };
 
+  const handleTermChange = (val: string) => {
+    setTerm(val, { limitUrlUpdates: val === "" ? undefined : debounce(500) });
+  };
+
   const handleReset = () => {
     setCity(null);
     setLocation(null);
     setDate(null);
     setType(null);
     setRegion(null);
+    setTerm(null);
     router.push("/calendar");
   };
 
@@ -117,6 +124,15 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
           </SidebarGroup>
           <SidebarGroup className="p-0 flex flex-col gap-4">
             <SidebarGroupLabel>Filtry</SidebarGroupLabel>
+            <Command>
+              <CommandInput
+                placeholder="Szukaj frazy..."
+                value={term as string}
+                onValueChange={(val) => {
+                  handleTermChange(val);
+                }}
+              />
+            </Command>
             <Popover open={regionPopOpen} onOpenChange={setRegionPopOpen}>
               <PopoverTrigger asChild>
                 <Button

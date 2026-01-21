@@ -26,6 +26,7 @@ export const getEvents = async ({ rawParams }: Props) => {
       location: validated.location || undefined,
       type: validated.type || undefined,
       region: validated.region || undefined,
+      term: validated.term || undefined,
     });
     console.log(validated.date);
     return res.events;

@@ -9,7 +9,7 @@ export const dynamic = "force-dynamic";
 type Props = {
   searchParams: Promise<
     Pick<Place, "city" | "location" | "region"> &
-      Pick<Event, "type"> & { date: Date | null }
+      Pick<Event, "type"> & { date: Date | null } & { term: string }
   >;
 };
 
