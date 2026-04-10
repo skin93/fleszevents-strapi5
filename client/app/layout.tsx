@@ -15,7 +15,8 @@ export const metadata: Metadata = {
     template: `%s | ${process.env.NEXT_PUBLIC_APP_NAME}`,
     default: `${process.env.NEXT_PUBLIC_APP_NAME}`,
   },
-  description: "Festiwalowa mapa oraz zapowiedzi koncertów",
+  description:
+    "FleszEvents: Twoje centrum muzyczne! Newsy, premiery, kalendarz koncertowy i mapa festiwali w Polsce. Rock, metal, pop i reggae – bądź zawsze na bieżąco!",
   robots: {
     index: true,
     follow: true,
@@ -28,6 +29,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
+  other: {
+    ["fb:app_id"]: `${process.env.NEXT_PUBLIC_FB_ID}`,
+  },
   openGraph: {
     type: "website",
     locale: "pl_PL",
@@ -36,7 +40,8 @@ export const metadata: Metadata = {
       template: `%s | ${process.env.NEXT_PUBLIC_APP_NAME}`,
       default: `${process.env.NEXT_PUBLIC_APP_NAME}`,
     },
-    description: "Festiwalowa mapa oraz zapowiedzi koncertów",
+    description:
+      "FleszEvents: Twoje centrum muzyczne! Newsy, premiery, kalendarz koncertowy i mapa festiwali w Polsce. Rock, metal, pop i reggae – bądź zawsze na bieżąco!",
     siteName: process.env.NEXT_PUBLIC_APP_NAME,
     images: [
       {
@@ -53,7 +58,8 @@ const jsonLd: WithContext<WebSite> = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   name: "FleszEvents",
-  description: "Festiwalowa mapa oraz zapowiedzi koncertów",
+  description:
+    "FleszEvents: Twoje centrum muzyczne! Newsy, premiery, kalendarz koncertowy i mapa festiwali w Polsce. Rock, metal, pop i reggae – bądź zawsze na bieżąco!",
   inLanguage: "pl",
   url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}`,
   image: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/logo-publikacja.jpeg`,

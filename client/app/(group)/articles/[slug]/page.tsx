@@ -20,7 +20,6 @@ export async function generateMetadata({
   //   return {
   //     title: seo.metaTitle,
   //     description: seo.metaDescription,
-  //     keywords: seo.keywords,
   //     robots: {
   //       index: seo.robotsIndex,
   //       follow: seo.robotsFollow,
@@ -54,7 +53,6 @@ export async function generateMetadata({
   return {
     title: info.title,
     description: info.excerpt,
-    // keywords: seo.keywords,
     robots: {
       index: true,
       follow: true,
@@ -70,7 +68,7 @@ export async function generateMetadata({
       type: "article",
       url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/articles/${slug}`,
       title: info.title,
-      description: "",
+      description: info.excerpt,
       images: [
         {
           url: `${process.env.NEXT_PUBLIC_STRAPI}${info.cover.url}`,

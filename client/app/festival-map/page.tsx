@@ -17,8 +17,8 @@ export const dynamic = "force-dynamic";
 
 export const metadata = {
   title: "Festiwalowa Mapa",
-  description: "Sprawdź, czy w Twojej okolicy nie odbywa się fajny festiwal!",
-  keywords: ["Festiwalowa mapa", "festiwale w okolicy", "interaktywna mapa"],
+  description:
+    "Metal, rock, punk, reggae czy pop? Znajdź festiwale w Polsce na mapie FleszEvents. Sprawdź daty, lokalizacje i zaplanuj swoją trasę. Zobacz, co grają!",
   robots: {
     index: true,
     follow: true,
@@ -35,7 +35,8 @@ export const metadata = {
     locale: "pl_PL",
     url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/festival-map`,
     title: "Festiwalowa Mapa",
-    description: "Sprawdź, czy w Twojej okolicy nie odbywa się fajny festiwal!",
+    description:
+      "Metal, rock, punk, reggae czy pop? Znajdź festiwale w Polsce na mapie FleszEvents. Sprawdź daty, lokalizacje i zaplanuj swoją trasę. Zobacz, co grają!",
     siteName: process.env.NEXT_PUBLIC_APP_NAME,
     images: [
       {
@@ -56,7 +57,8 @@ export default async function FestivalMap({ searchParams }: Props) {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: "Festiwalowa Mapa",
-    description: "Sprawdź, czy w Twojej okolicy nie odbywa się fajny festiwal!",
+    description:
+      "Metal, rock, punk, reggae czy pop? Znajdź festiwale w Polsce na mapie FleszEvents. Sprawdź daty, lokalizacje i zaplanuj swoją trasę. Zobacz, co grają!",
     inLanguage: "pl",
     url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/festival-map`,
     image: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/FE-mapa-2025-01.jpg`,
