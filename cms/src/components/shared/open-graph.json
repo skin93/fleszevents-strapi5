@@ -9,12 +9,13 @@
   "attributes": {
     "ogTitle": {
       "type": "string",
+      "maxLength": 100,
       "required": true,
-      "maxLength": 60
+      "unique": true
     },
     "ogDescription": {
       "type": "string",
-      "maxLength": 150,
+      "maxLength": 158,
       "required": true,
       "unique": true
     },
@@ -28,13 +29,13 @@
     },
     "ogUrl": {
       "type": "string",
-      "required": true,
-      "default": "https://fleszevents.pl/"
+      "default": "https://fleszevents.pl/",
+      "required": true
     },
     "ogType": {
       "type": "string",
-      "required": true,
-      "default": "Facebook"
+      "default": "Facebook",
+      "required": true
     }
   }
 }

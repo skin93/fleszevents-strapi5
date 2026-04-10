@@ -29,13 +29,14 @@ export interface SharedOpenGraph extends Struct.ComponentSchema {
       Schema.Attribute.Required &
       Schema.Attribute.Unique &
       Schema.Attribute.SetMinMaxLength<{
-        maxLength: 150;
+        maxLength: 158;
       }>;
     ogImage: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
     ogTitle: Schema.Attribute.String &
       Schema.Attribute.Required &
+      Schema.Attribute.Unique &
       Schema.Attribute.SetMinMaxLength<{
-        maxLength: 60;
+        maxLength: 100;
       }>;
     ogType: Schema.Attribute.String &
       Schema.Attribute.Required &
@@ -74,22 +75,20 @@ export interface SharedSeo extends Struct.ComponentSchema {
     googleIndex: Schema.Attribute.Boolean &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<true>;
-    keywords: Schema.Attribute.Text & Schema.Attribute.Required;
     metaDescription: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Unique &
       Schema.Attribute.SetMinMaxLength<{
-        maxLength: 150;
+        maxLength: 158;
         minLength: 50;
       }>;
     metaImage: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
-    metaRobots: Schema.Attribute.String;
     metaTitle: Schema.Attribute.String &
       Schema.Attribute.Required &
+      Schema.Attribute.Unique &
       Schema.Attribute.SetMinMaxLength<{
-        maxLength: 60;
+        maxLength: 100;
       }>;
-    metaViewport: Schema.Attribute.String;
     openGraph: Schema.Attribute.Component<'shared.open-graph', false> &
       Schema.Attribute.Required;
     robotsFollow: Schema.Attribute.Boolean &

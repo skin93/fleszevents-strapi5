@@ -27,9 +27,6 @@ export interface SharedSeo {
   metaDescription: string;
   metaImage: Media | null;
   openGraph: SharedOpenGraph | null;
-  keywords: string;
-  metaRobots?: string;
-  metaViewport?: string;
   canonicalURL: string;
   structuredData?: Record<string, any>;
   robotsIndex: boolean;
