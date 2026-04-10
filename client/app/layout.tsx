@@ -29,8 +29,8 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
-  other: {
-    ["fb:app_id"]: `${process.env.NEXT_PUBLIC_FB_ID}`,
+  facebook: {
+    appId: `${process.env.NEXT_PUBLIC_FB_ID}`,
   },
   openGraph: {
     type: "website",
