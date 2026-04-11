@@ -405,7 +405,7 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
     excerpt: Schema.Attribute.Text &
       Schema.Attribute.Unique &
       Schema.Attribute.SetMinMaxLength<{
-        maxLength: 150;
+        maxLength: 200;
       }>;
     festival: Schema.Attribute.Relation<'oneToOne', 'api::festival.festival'>;
     gallery: Schema.Attribute.Component<'shared.small-gallery', false>;
@@ -428,7 +428,7 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
       Schema.Attribute.Required &
       Schema.Attribute.Unique &
       Schema.Attribute.SetMinMaxLength<{
-        maxLength: 60;
+        maxLength: 100;
       }>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &

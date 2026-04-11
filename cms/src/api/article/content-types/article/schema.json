@@ -14,7 +14,7 @@
   "attributes": {
     "title": {
       "type": "string",
-      "maxLength": 60,
+      "maxLength": 100,
       "required": true,
       "unique": true
     },
@@ -70,7 +70,7 @@
     },
     "excerpt": {
       "type": "text",
-      "maxLength": 150,
+      "maxLength": 200,
       "unique": true
     },
     "gallery": {
