@@ -91,12 +91,6 @@ export default function RootLayout({
           <NextTopLoader color="#0d9488" height={5} />
           <NuqsAdapter>{children}</NuqsAdapter>
         </ThemeProvider>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
-          }}
-        />
       </body>
     </html>
   );
