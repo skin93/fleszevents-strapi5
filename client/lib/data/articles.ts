@@ -12,6 +12,7 @@ import { ARTICLES_BY_TERM_QUERY } from "../queries/articles/articlesByTermQuery"
 import { SINGLE_ARTICLE_INFO_QUERY } from "../queries/articles/singleArticleInfoQuery";
 import { ARTICLES_SITEMAP_QUERY } from "../queries/articles/articlesSitemapQuery";
 import { PROMO_ARTICLES_QUERY } from "../queries/articles/promoArticlesQuery";
+import { SINGLE_ARTICLE_STRUCTURED_DATA_QUERY } from "../queries/articles/singleArticleStructuredDataQuery";
 
 export async function getLatestArticles(start: number, limit: number) {
   const res = await grafbase.request<LatestArticles>(LATEST_ARTICLES_QUERY, {
@@ -47,6 +48,16 @@ export async function getArticleMeta(slug: string) {
   return { seo: res.articles[0].seo };
 }
 
+export async function getArticleStructuredData(slug: string) {
+  const res = await grafbase.request<Articles>(
+    SINGLE_ARTICLE_STRUCTURED_DATA_QUERY,
+    {
+      slug,
+    },
+  );
+  return { structuredData: res.articles[0].seo.structuredData };
+}
+
 export async function getArticleInfo(slug: string) {
   const res = await grafbase.request<Articles>(SINGLE_ARTICLE_INFO_QUERY, {
     slug,
@@ -62,7 +73,7 @@ export async function getArticlesSitemap() {
 export async function getArticlesByTerm(
   term: string,
   page: number,
-  pageSize: number
+  pageSize: number,
 ) {
   const res = await grafbase.request<ArticlesConnection>(
     ARTICLES_BY_TERM_QUERY,
@@ -70,7 +81,7 @@ export async function getArticlesByTerm(
       term,
       page,
       pageSize,
-    }
+    },
   );
 
   return {

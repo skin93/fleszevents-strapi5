@@ -1,6 +1,10 @@
 import SlugPageComponent from "@/components/slug-page";
 
-import { getArticleBySlug, getArticleInfo } from "@/lib/data/articles";
+import {
+  getArticleBySlug,
+  getArticleInfo,
+  getArticleStructuredData,
+} from "@/lib/data/articles";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Fragment } from "react";
@@ -88,29 +92,37 @@ export default async function SlugPage({
 }) {
   const { slug } = await params;
   const { article } = await getArticleBySlug(slug);
+  const { structuredData } = await getArticleStructuredData(slug);
 
-  const jsonLd: WithContext<Article> = {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    headline: article.title,
-    datePublished: article.publishedAt?.toLocaleString(),
-    dateModified: article.updatedAt?.toLocaleString(),
-    inLanguage: "pl",
-    image: `${process.env.NEXT_PUBLIC_STRAPI}/${article.cover.url}`,
-    description: article.excerpt,
-    url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/articles/${article.slug}`,
-    publisher: {
-      "@type": "Organization",
-      name: "FleszEvents",
-      image: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/logo-publikacja.jpeg`,
-    },
-    author: [
-      {
-        "@type": "Person",
-        name: article.authors[0].name,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let jsonLd: WithContext<Article> | Record<string, any> | undefined;
+
+  if (!structuredData) {
+    jsonLd = {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      headline: article.title,
+      datePublished: article.publishedAt?.toLocaleString(),
+      dateModified: article.updatedAt?.toLocaleString(),
+      inLanguage: "pl",
+      image: `${process.env.NEXT_PUBLIC_STRAPI}/${article.cover.url}`,
+      description: article.excerpt,
+      url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/articles/${article.slug}`,
+      publisher: {
+        "@type": "Organization",
+        name: "FleszEvents",
+        image: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/logo-publikacja.jpeg`,
       },
-    ],
-  };
+      author: [
+        {
+          "@type": "Person",
+          name: article.authors[0].name,
+        },
+      ],
+    };
+  } else {
+    jsonLd = structuredData;
+  }
 
   if (!article) {
     notFound();
