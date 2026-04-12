@@ -3,7 +3,6 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import NextTopLoader from "nextjs-toploader";
-import { WebSite, WithContext } from "schema-dts";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 const playpen = Inter({ subsets: ["latin"] });
@@ -16,7 +15,7 @@ export const metadata: Metadata = {
     default: `${process.env.NEXT_PUBLIC_APP_NAME}`,
   },
   description:
-    "FleszEvents: Twoje centrum muzyczne! Newsy, premiery, kalendarz koncertowy i mapa festiwali w Polsce. Rock, metal, pop i reggae – bądź zawsze na bieżąco!",
+    "Portal informacyjny poświęcony wydarzeniom muzycznym, koncertom i festiwalom rockowym oraz metalowym w Polsce.",
   robots: {
     index: true,
     follow: true,
@@ -41,7 +40,7 @@ export const metadata: Metadata = {
       default: `${process.env.NEXT_PUBLIC_APP_NAME}`,
     },
     description:
-      "FleszEvents: Twoje centrum muzyczne! Newsy, premiery, kalendarz koncertowy i mapa festiwali w Polsce. Rock, metal, pop i reggae – bądź zawsze na bieżąco!",
+      "Portal informacyjny poświęcony wydarzeniom muzycznym, koncertom i festiwalom rockowym oraz metalowym w Polsce.",
     siteName: process.env.NEXT_PUBLIC_APP_NAME,
     images: [
       {
@@ -54,17 +53,6 @@ export const metadata: Metadata = {
   },
 };
 
-const jsonLd: WithContext<WebSite> = {
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  name: "FleszEvents",
-  description:
-    "FleszEvents: Twoje centrum muzyczne! Newsy, premiery, kalendarz koncertowy i mapa festiwali w Polsce. Rock, metal, pop i reggae – bądź zawsze na bieżąco!",
-  inLanguage: "pl",
-  url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}`,
-  image: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/logo-publikacja.jpeg`,
-};
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -74,12 +62,6 @@ export default function RootLayout({
     <html lang="pl" suppressHydrationWarning>
       <head>
         <meta name="apple-mobile-web-app-title" content="FleszEvents" />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
-          }}
-        />
       </head>
       <body className={`${playpen.className} antialiased`}>
         <ThemeProvider
