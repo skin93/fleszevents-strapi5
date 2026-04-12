@@ -3,7 +3,8 @@ import CustomPagination from "@/components/ui/custom/pagination";
 import { getArticlesByTerm } from "@/lib/data/articles";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import React from "react";
+import React, { Fragment } from "react";
+import { SearchResultsPage, WithContext } from "schema-dts";
 
 type Props = {
   searchParams: Promise<{ q: string; page: string }>;
@@ -34,35 +35,86 @@ export default async function SearchPage({ searchParams }: Props) {
   const currentPage = Number(page) || 1;
   const { articles, pageInfo } = await getArticlesByTerm(term, currentPage, 12);
 
+  const jsonLd: WithContext<SearchResultsPage> = {
+    "@context": "https://schema.org",
+    "@type": "SearchResultsPage",
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": "https://fleszevents.pl/search",
+    },
+    name: "Wyszukiwarka wydarzeń i newsów - FleszEvents",
+    description:
+      "Znajdź interesujące Cię koncerty, festiwale, wywiady oraz aktualności ze świata muzyki rockowej i metalowej w bazie FleszEvents.",
+    breadcrumb: {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "FleszEvents",
+          item: "https://fleszevents.pl/",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Wyszukiwarka",
+          item: "https://fleszevents.pl/search",
+        },
+      ],
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "FleszEvents",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://fleszevents.pl/FE_1_baner.svg",
+      },
+    },
+    potentialAction: {
+      "@type": "SearchAction",
+      target: "https://fleszevents.pl/search?q={search_term_string}",
+      // @ts-expect-error - https://github.com/google/schema-dts/issues/114
+      "query-input": "required name=search_term_string",
+    },
+  };
+
   if (!articles) {
     notFound();
   }
 
   return (
-    <main>
-      <section
-        aria-label="Search articles"
-        className="flex flex-col justify-center items-center"
-      >
-        <h1 className="my-8 text-center uppercase">
-          Wyniki dla frazy <q>{term}</q>
-        </h1>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
-          {articles.map((article) => (
-            <div key={article.documentId}>
-              <Link href={`/articles/${article.slug}`}>
-                <BaseCard article={article} />
-              </Link>
-            </div>
-          ))}
-        </div>
-        <div className="m-8" />
-        <CustomPagination
-          currentPage={currentPage}
-          pageCount={pageInfo.pageCount}
-          q={q}
-        />
-      </section>
-    </main>
+    <Fragment>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
+      <main>
+        <section
+          aria-label="Search articles"
+          className="flex flex-col justify-center items-center"
+        >
+          <h1 className="my-8 text-center uppercase">
+            Wyniki dla frazy <q>{term}</q>
+          </h1>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
+            {articles.map((article) => (
+              <div key={article.documentId}>
+                <Link href={`/articles/${article.slug}`}>
+                  <BaseCard article={article} />
+                </Link>
+              </div>
+            ))}
+          </div>
+          <div className="m-8" />
+          <CustomPagination
+            currentPage={currentPage}
+            pageCount={pageInfo.pageCount}
+            q={q}
+          />
+        </section>
+      </main>
+    </Fragment>
   );
 }
