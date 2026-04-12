@@ -7,6 +7,9 @@ export const SINGLE_ARTICLE_QUERY = gql`
       excerpt
       content
       slug
+      seo {
+        structuredData
+      }
       cover {
         url
         alternativeText
@@ -19,7 +22,6 @@ export const SINGLE_ARTICLE_QUERY = gql`
         name
         slug
       }
-
       tags(pagination: { limit: -1 }) {
         documentId
         name

@@ -23,6 +23,7 @@ export const SINGLE_ARTICLE_META_QUERY = gql`
         robotsFollow
         googleIndex
         robotsIndex
+        structuredData
         metaImage {
           url
           caption
