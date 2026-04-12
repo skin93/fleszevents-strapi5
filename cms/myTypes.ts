@@ -85,6 +85,7 @@ export interface Category {
   slug: string;
   articles?: Article[] | null;
   description: string;
+  seo: SharedSeo | null;
 };
 
 export interface Event {
