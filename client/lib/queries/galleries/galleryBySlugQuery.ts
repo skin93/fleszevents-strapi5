@@ -5,6 +5,9 @@ export const GALLERY_BY_SLUG_QUERY = gql`
       publishedAt
       name
       slug
+      seo {
+        structuredData
+      }
       photos(sort: "name:asc", pagination: { limit: -1 }) {
         documentId
         alternativeText

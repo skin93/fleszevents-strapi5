@@ -4,7 +4,7 @@ import CustomPagination from "@/components/ui/custom/pagination";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import GalleryCard from "@/components/ui/custom/gallery-card";
-import { WebPage, WithContext } from "schema-dts";
+import { CollectionPage, WithContext } from "schema-dts";
 import { Fragment } from "react";
 
 export const metadata: Metadata = {
@@ -45,7 +45,7 @@ type Props = {
 };
 
 export default async function GalleriesPage({ searchParams }: Props) {
-  const jsonLd: WithContext<WebPage> = {
+  const jsonLd: WithContext<CollectionPage> = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     mainEntityOfPage: {

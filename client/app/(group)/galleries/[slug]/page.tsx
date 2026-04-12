@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import React from "react";
+import React, { Fragment } from "react";
 import { Metadata } from "next";
 import { getGalleryBySlug, getGalleryMeta } from "@/lib/data/galleries";
 
@@ -56,16 +56,29 @@ export default async function GallerySlugPage({
   }
 
   return (
-    <main>
-      <section
-        aria-label={`${gallery.name}`}
-        className="flex flex-col justify-center items-center"
-      >
-        <h1 className="my-8 text-center text-4xl uppercase">{gallery.name}</h1>
-        <div className="grid grid-cols-3 gap-4">
-          <GalleryDialog gallery={gallery} />
-        </div>
-      </section>
-    </main>
+    <Fragment>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(gallery.seo?.structuredData).replace(
+            /</g,
+            "\\u003c",
+          ),
+        }}
+      />
+      <main>
+        <section
+          aria-label={`${gallery.name}`}
+          className="flex flex-col justify-center items-center"
+        >
+          <h1 className="my-8 text-center text-4xl uppercase">
+            {gallery.name}
+          </h1>
+          <div className="grid grid-cols-3 gap-4">
+            <GalleryDialog gallery={gallery} />
+          </div>
+        </section>
+      </main>
+    </Fragment>
   );
 }
