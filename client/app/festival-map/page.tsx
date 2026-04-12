@@ -1,6 +1,6 @@
 import LazyMap from "@/components/ui/custom/lazy-map";
 
-import { WebSite, WithContext } from "schema-dts";
+import { WebPage, WithContext } from "schema-dts";
 import { Fragment } from "react";
 import { getMarkers } from "@/lib/data/festivals";
 
@@ -18,7 +18,7 @@ export const dynamic = "force-dynamic";
 export const metadata = {
   title: "Festiwalowa Mapa",
   description:
-    "Metal, rock, punk, reggae czy pop? Znajdź festiwale w Polsce na mapie FleszEvents. Sprawdź daty, lokalizacje i zaplanuj swoją trasę. Zobacz, co grają!",
+    "Interaktywna mapa festiwali rockowych i metalowych w Polsce. Znajdź wydarzenia muzyczne w Twojej okolicy, sprawdź lokalizacje i zaplanuj swój festiwalowy sezon.",
   robots: {
     index: true,
     follow: true,
@@ -36,7 +36,7 @@ export const metadata = {
     url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/festival-map`,
     title: "Festiwalowa Mapa",
     description:
-      "Metal, rock, punk, reggae czy pop? Znajdź festiwale w Polsce na mapie FleszEvents. Sprawdź daty, lokalizacje i zaplanuj swoją trasę. Zobacz, co grają!",
+      "Interaktywna mapa festiwali rockowych i metalowych w Polsce. Znajdź wydarzenia muzyczne w Twojej okolicy, sprawdź lokalizacje i zaplanuj swój festiwalowy sezon.",
     siteName: process.env.NEXT_PUBLIC_APP_NAME,
     images: [
       {
@@ -53,21 +53,49 @@ export default async function FestivalMap({ searchParams }: Props) {
   const params = await searchParams;
   const markers = await getMarkers(params);
 
-  const jsonLd: WithContext<WebSite> = {
+  const jsonLd: WithContext<WebPage> = {
     "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: "Festiwalowa Mapa",
+    "@type": "WebPage",
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": "https://fleszevents.pl/festival-map",
+    },
+    name: "Festiwalowa Mapa Polski - FleszEvents",
     description:
-      "Metal, rock, punk, reggae czy pop? Znajdź festiwale w Polsce na mapie FleszEvents. Sprawdź daty, lokalizacje i zaplanuj swoją trasę. Zobacz, co grają!",
-    inLanguage: "pl",
-    url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/festival-map`,
-    image: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/FE-mapa-2025-01.jpg`,
+      "Interaktywna mapa festiwali rockowych i metalowych w Polsce. Znajdź wydarzenia muzyczne w Twojej okolicy, sprawdź lokalizacje i zaplanuj swój festiwalowy sezon.",
+    breadcrumb: {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "FleszEvents",
+          item: "https://fleszevents.pl/",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Festiwalowa Mapa",
+          item: "https://fleszevents.pl/festival-map",
+        },
+      ],
+    },
     publisher: {
       "@type": "Organization",
       name: "FleszEvents",
-      image: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/logo-publikacja.jpeg`,
+      logo: {
+        "@type": "ImageObject",
+        url: "https://fleszevents.pl/FE_1_baner.svg",
+      },
+    },
+    about: {
+      "@type": "Map",
+      mapType: "VenueMap",
+      description:
+        "Mapa lokalizacji największych i najciekawszych festiwali muzycznych w Polsce, w tym wydarzeń takich jak Mystic Festival, Pol'and'Rock czy Materiafest.",
     },
   };
+
   return (
     <Fragment>
       <script
