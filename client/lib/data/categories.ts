@@ -2,11 +2,12 @@ import { grafbase } from "../graphql";
 import { ArticlesConnection, Categories } from "../interfaces";
 import { ARTICLES_BY_CATEGORY_QUERY } from "../queries/articles/articlesByCategoryQuery";
 import { SINGLE_CATEGORY_QUERY } from "../queries/categories/categoryQuery";
+import { SINGLE_CATEGORY_META_QUERY } from "../queries/categories/singleCategoryMetaQuery";
 
 export async function getArticlesByCategory(
   category: string,
   page: number,
-  pageSize: number
+  pageSize: number,
 ) {
   const res = await grafbase.request<ArticlesConnection>(
     ARTICLES_BY_CATEGORY_QUERY,
@@ -14,7 +15,7 @@ export async function getArticlesByCategory(
       category,
       page,
       pageSize,
-    }
+    },
   );
 
   return {
@@ -28,4 +29,11 @@ export async function getCategory(slug: string) {
     slug,
   });
   return { category: res.categories[0] };
+}
+
+export async function getCategoryMetaQuery(slug: string) {
+  const res = await grafbase.request<Categories>(SINGLE_CATEGORY_META_QUERY, {
+    slug,
+  });
+  return { seo: res.categories[0].seo };
 }

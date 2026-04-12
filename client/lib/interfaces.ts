@@ -123,6 +123,7 @@ export interface Category {
   name: string;
   slug: string;
   articles?: Article[] | null;
+  seo: SharedSeo;
 }
 
 export interface Categories {
