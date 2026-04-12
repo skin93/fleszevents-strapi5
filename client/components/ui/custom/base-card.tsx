@@ -23,7 +23,7 @@ export default function BaseCard({ article }: Props) {
           style={{ objectFit: "cover" }}
           width={article.cover.width}
           height={article.cover.height}
-          className="rounded-sm rounded-bl-none aspect-[3/2]"
+          className="rounded-sm rounded-bl-none aspect-[16/9]"
         />
         <CardTitle className="w-full p-4 text-lg text-center text-foreground dark:no-underline dark:group-hover:text-teal-400 group-hover:underline rounded-b-lg transition-all duration-300">
           {article.title}

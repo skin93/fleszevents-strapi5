@@ -40,6 +40,8 @@ export default function GalleryDialog({ gallery }: Props) {
                       height={photo.height}
                       src={src}
                       alt={photo.alternativeText}
+                      placeholder="blur"
+                      blurDataURL="iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
                       className="rounded-lg object-cover"
                       sizes="(min-width: 1560px) 435px, (min-width: 1280px) calc(15.38vw + 198px), (min-width: 640px) calc(50vw - 40px), (min-width: 460px) calc(100vw - 64px), calc(7.86vw + 341px)"
                     />

@@ -75,14 +75,17 @@ export default function SlugPageComponent({ article }: Props) {
               aria-label="image-wrapper"
             >
               <Image
+                loading={"eager"}
                 unoptimized
                 src={getMediaUrl(article.cover)}
-                priority
-                alt={article.title}
-                aria-label="article-cover"
+                title={article.title}
+                alt={article.cover.alternativeText}
+                placeholder="blur"
+                blurDataURL="iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
                 style={{ objectFit: "cover" }}
-                className="rounded-sm "
-                fill
+                width={article.cover.width}
+                height={article.cover.height}
+                className="rounded-sm rounded-bl-none aspect-[16/9]"
               />
               <div className="absolute bottom-0 left-0 w-auto h-auto bg-[rgba(0,0,0,0.7)] rounded-bl-sm">
                 <p
