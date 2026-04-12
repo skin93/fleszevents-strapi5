@@ -3,7 +3,7 @@ import { SidebarProvider } from "@/components/ui/sidebar";
 import { getBookedDays, getEvents } from "@/lib/data/events";
 import { Event, Place } from "@/lib/interfaces";
 import { Fragment } from "react";
-import { WebSite, WithContext } from "schema-dts";
+import { WebPage, WithContext } from "schema-dts";
 export const dynamic = "force-dynamic";
 
 type Props = {
@@ -49,19 +49,40 @@ export const metadata = {
 };
 
 export default async function CalendarPage({ searchParams }: Props) {
-  const jsonLd: WithContext<WebSite> = {
+  const jsonLd: WithContext<WebPage> = {
     "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: "Kalendarz",
+    "@type": "WebPage",
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": "https://fleszevents.pl/calendar",
+    },
+    name: "Kalendarz Wydarzeń - FleszEvents",
     description:
-      "Sprawdź nadchodzące wydarzenia! Koncerty i festiwale zebrane w jednym miejscu!",
-    inLanguage: "pl",
-    url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/calendar`,
-    image: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/logo-publikacja.jpeg`,
+      "Ogólnopolski harmonogram koncertów, festiwali oraz tras koncertowych z obszaru muzyki rockowej, metalowej i alternatywnej.",
+    breadcrumb: {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "FleszEvents",
+          item: "https://fleszevents.pl/",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Kalendarz",
+          item: "https://fleszevents.pl/calendar",
+        },
+      ],
+    },
     publisher: {
       "@type": "Organization",
       name: "FleszEvents",
-      image: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/logo-publikacja.jpeg`,
+      logo: {
+        "@type": "ImageObject",
+        url: "https://fleszevents.pl/FE_1_baner.svg",
+      },
     },
   };
 
