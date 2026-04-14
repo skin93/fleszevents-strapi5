@@ -70,8 +70,8 @@ export default function SlugPageComponent({ article }: Props) {
         <div className="grid grid-cols-1 xl:grid-cols-[50%_40%] gap-2 justify-between">
           <article aria-label="left-column">
             <AspectRatio
-              ratio={3 / 2}
-              className="realtive"
+              ratio={16 / 9}
+              className="relative"
               aria-label="image-wrapper"
             >
               <Image
@@ -85,7 +85,7 @@ export default function SlugPageComponent({ article }: Props) {
                 style={{ objectFit: "cover" }}
                 width={article.cover.width}
                 height={article.cover.height}
-                className="rounded-sm rounded-bl-none aspect-[16/9]"
+                className="rounded-sm aspect-[16/9]"
               />
               <div className="absolute bottom-0 left-0 w-auto h-auto bg-[rgba(0,0,0,0.7)] rounded-bl-sm">
                 <p
