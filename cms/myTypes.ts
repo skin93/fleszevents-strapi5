@@ -154,13 +154,11 @@ export interface Place {
   updatedAt?: Date | string;
   publishedAt?: Date | string;
   locale?: string | null;
-  lat?: number;
-  lng?: number;
+  lat: number;
+  lng: number;
   city: string;
   location: string;
   festivals?: Festival[] | null;
-  geolocation?: any;
-  geohash?: string;
   inPoland: boolean;
   region?: string;
 };

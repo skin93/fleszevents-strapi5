@@ -660,19 +660,11 @@ export interface ApiPlacePlace extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     festivals: Schema.Attribute.Relation<'oneToMany', 'api::festival.festival'>;
-    geohash: Schema.Attribute.String;
-    geolocation: Schema.Attribute.JSON &
-      Schema.Attribute.CustomField<
-        'plugin::geodata.geojson',
-        {
-          info: true;
-        }
-      >;
     inPoland: Schema.Attribute.Boolean &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<true>;
-    lat: Schema.Attribute.Float;
-    lng: Schema.Attribute.Float;
+    lat: Schema.Attribute.Float & Schema.Attribute.Required;
+    lng: Schema.Attribute.Float & Schema.Attribute.Required;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::place.place'> &
       Schema.Attribute.Private;

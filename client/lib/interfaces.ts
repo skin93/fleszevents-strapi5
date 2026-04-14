@@ -198,8 +198,6 @@ export interface Place {
   city: string;
   location: string;
   festivals?: Festival[] | null;
-  geolocation?: any;
-  geohash?: string;
   inPoland: boolean;
   region?:
     | "Dolnośląskie"

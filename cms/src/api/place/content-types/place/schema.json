@@ -14,11 +14,11 @@
   "attributes": {
     "lat": {
       "type": "float",
-      "required": false
+      "required": true
     },
     "lng": {
       "type": "float",
-      "required": false
+      "required": true
     },
     "city": {
       "type": "string",
@@ -33,16 +33,6 @@
       "relation": "oneToMany",
       "target": "api::festival.festival",
       "mappedBy": "place"
-    },
-    "geolocation": {
-      "type": "customField",
-      "customField": "plugin::geodata.geojson",
-      "options": {
-        "info": true
-      }
-    },
-    "geohash": {
-      "type": "string"
     },
     "inPoland": {
       "type": "boolean",
