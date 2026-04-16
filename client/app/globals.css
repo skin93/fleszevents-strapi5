@@ -219,13 +219,17 @@
 
   .embeded-iframe {
     > .raw-html-embed {
-      @apply relative overflow-hidden w-full pt-[56.25%] my-6 rounded-sm;
+      @apply relative overflow-hidden w-full my-6 rounded-sm;
+
+      &:has(iframe[src*="youtube"]) {
+        @apply aspect-video;
+      }
 
       > iframe {
-        @apply absolute inset-0 w-full h-full;
+        @apply block w-full;
 
-        > .fb {
-          @apply h-full relative;
+        &[src*="youtube"] {
+          @apply absolute inset-0 h-full;
         }
       }
     }
