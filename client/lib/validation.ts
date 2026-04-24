@@ -4,6 +4,7 @@ export const festivalsSearchParamsSchema = z.object({
   city: z.string().trim().max(50).catch(""),
   festival: z.string().trim().max(100).catch(""),
   genre: z.string().trim().max(30).catch(""),
+  location: z.string().trim().max(50).catch(""),
   region: z
     .enum([
       "Dolnośląskie",

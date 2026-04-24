@@ -7,6 +7,7 @@ import { getMarkers } from "@/lib/data/festivals";
 type Props = {
   searchParams: Promise<{
     city: string;
+    location: string;
     festival: string;
     genre: string;
     region: string;

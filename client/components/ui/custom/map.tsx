@@ -57,15 +57,17 @@ export default function Map({ markers }: { markers: MarkerType[] }) {
     }
   }, [markers]);
   const {
-    filters: { region, city, fest, genre },
+    filters: { region, city, fest, genre, location },
     setRegion,
     setCity,
     setFest,
     setGenre,
+    setLocation,
   } = useMapFilters();
 
   const [regionPopOpen, setRegionPopOpen] = useState<boolean>(false);
   const [cityPopOpen, setCityPopOpen] = useState<boolean>(false);
+  const [locationPopOpen, setLocationPopOpen] = useState<boolean>(false);
   const [festPopOpen, setFestPopOpen] = useState<boolean>(false);
   const [genrePopOpen, setGenrePopOpen] = useState<boolean>(false);
 
@@ -73,9 +75,10 @@ export default function Map({ markers }: { markers: MarkerType[] }) {
 
   const regions = new Set(markers.map((marker) => marker.region));
   const cities = new Set(markers.map((marker) => marker.city));
+  const locations = new Set(markers.map((marker) => marker.location));
   const names = new Set(markers.map((marker) => marker.alt));
   const genres = new Set(
-    markers.flatMap((marker) => marker.music_types?.map((type) => type.name))
+    markers.flatMap((marker) => marker.music_types?.map((type) => type.name)),
   );
 
   const handleRegionChange = async function (val: string) {
@@ -86,6 +89,11 @@ export default function Map({ markers }: { markers: MarkerType[] }) {
   const handleCityChange = async function (val: string) {
     setCity(val);
     setCityPopOpen(false);
+  };
+
+  const handleLocationChange = async function (val: string) {
+    setLocation(val);
+    setLocationPopOpen(false);
   };
 
   const handleFestChange = async function (val: string) {
@@ -101,6 +109,7 @@ export default function Map({ markers }: { markers: MarkerType[] }) {
   const handleReset = async function () {
     setRegion("");
     setCity("");
+    setLocation("");
     setFest("");
     setGenre("");
     router.push("/festival-map");
@@ -170,7 +179,9 @@ export default function Map({ markers }: { markers: MarkerType[] }) {
                   style={{ objectFit: "cover" }}
                   unoptimized
                 />
-                <DialogTitle className="my-0">{marker.alt}</DialogTitle>
+                <DialogTitle className="my-0 text-primary">
+                  {marker.alt}
+                </DialogTitle>
 
                 <div className="flex flex-col items-center justify-center">
                   <p className="text-teal-400 m-0">
@@ -192,7 +203,7 @@ export default function Map({ markers }: { markers: MarkerType[] }) {
                     <p
                       className={cn(
                         "font-bold text-white",
-                        marker.tickets === null ? "hidden" : "block"
+                        marker.tickets === null ? "hidden" : "block",
                       )}
                     >
                       {marker.tickets}
@@ -251,14 +262,14 @@ export default function Map({ markers }: { markers: MarkerType[] }) {
           </DrawerTrigger>
           <DrawerContent className="container z-900 border-none flex flex-col justify-center items-center w-full">
             <DrawerHeader className="mt-0">
-              <DrawerTitle className=" py-0 my-0 text-white">
+              <DrawerTitle className=" py-0 my-0 text-background">
                 Filtry
               </DrawerTitle>
             </DrawerHeader>
             <DrawerDescription className="hidden">
               Wybierz jeden z poniszych filtrów
             </DrawerDescription>
-            <div className="flex flex-col md:flex-row gap-4 m-4">
+            <div className="flex flex-col lg:flex-row gap-4 m-4">
               <Popover open={regionPopOpen} onOpenChange={setRegionPopOpen}>
                 <PopoverTrigger asChild>
                   <Button
@@ -302,11 +313,13 @@ export default function Map({ markers }: { markers: MarkerType[] }) {
                                 <Check
                                   className={cn(
                                     "ml-auto",
-                                    region === val ? "opacity-100" : "opacity-0"
+                                    region === val
+                                      ? "opacity-100"
+                                      : "opacity-0",
                                   )}
                                 />
                               </CommandItem>
-                            )
+                            ),
                         )}
                       </CommandGroup>
                     </CommandList>
@@ -354,7 +367,58 @@ export default function Map({ markers }: { markers: MarkerType[] }) {
                             <Check
                               className={cn(
                                 "ml-auto",
-                                city === val ? "opacity-100" : "opacity-0"
+                                city === val ? "opacity-100" : "opacity-0",
+                              )}
+                            />
+                          </CommandItem>
+                        ))}
+                      </CommandGroup>
+                    </CommandList>
+                  </Command>
+                </PopoverContent>
+              </Popover>
+              <Popover open={locationPopOpen} onOpenChange={setLocationPopOpen}>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant="outline"
+                    role="combobox"
+                    aria-expanded={locationPopOpen}
+                    className="xl:w-[200px] justify-between"
+                  >
+                    {location || "Miejsce"}
+                    <ChevronsUpDown className="opacity-50" />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="xl:w-[200px] p-0 pointer-events-auto">
+                  <Command>
+                    <CommandInput
+                      placeholder="Wybierz miejsce..."
+                      className="h-9"
+                    />
+                    <CommandList className="h-50">
+                      <CommandEmpty>Brak miejsca</CommandEmpty>
+                      <CommandGroup>
+                        <CommandItem
+                          value={"Wszystko"}
+                          onSelect={() => {
+                            handleLocationChange("");
+                          }}
+                        >
+                          {"Wszystko"}
+                        </CommandItem>
+                        {[...locations].sort().map((val) => (
+                          <CommandItem
+                            key={val}
+                            value={val}
+                            onSelect={(currentValue) => {
+                              handleLocationChange(currentValue);
+                            }}
+                          >
+                            {val}
+                            <Check
+                              className={cn(
+                                "ml-auto",
+                                location === val ? "opacity-100" : "opacity-0",
                               )}
                             />
                           </CommandItem>
@@ -405,7 +469,7 @@ export default function Map({ markers }: { markers: MarkerType[] }) {
                             <Check
                               className={cn(
                                 "ml-auto",
-                                fest === val ? "opacity-100" : "opacity-0"
+                                fest === val ? "opacity-100" : "opacity-0",
                               )}
                             />
                           </CommandItem>
@@ -456,7 +520,7 @@ export default function Map({ markers }: { markers: MarkerType[] }) {
                             <Check
                               className={cn(
                                 "ml-auto",
-                                genre === val ? "opacity-100" : "opacity-0"
+                                genre === val ? "opacity-100" : "opacity-0",
                               )}
                             />
                           </CommandItem>

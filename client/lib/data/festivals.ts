@@ -32,6 +32,7 @@ function createMarkers(festivals: Festival[]) {
 
 export async function getMarkers(rawParams: {
   city: string;
+  location: string;
   festival: string;
   genre: string;
   region: string;
@@ -40,6 +41,7 @@ export async function getMarkers(rawParams: {
   try {
     const res = await grafbase.request<Festivals>(ALL_FESTIVALS_QUERY, {
       city: validated.city || undefined,
+      location: validated.location || undefined,
       region: validated.region || undefined,
       festival: validated.festival || undefined,
       genre: validated.genre || undefined,

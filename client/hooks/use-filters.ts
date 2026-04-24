@@ -26,7 +26,7 @@ export function useMapFilters() {
         shallow: false,
         history: "push",
       })
-      .withDefault("")
+      .withDefault(""),
   );
   const [city, setCity] = useQueryState(
     "city",
@@ -35,7 +35,16 @@ export function useMapFilters() {
         shallow: false,
         history: "push",
       })
-      .withDefault("")
+      .withDefault(""),
+  );
+  const [location, setLocation] = useQueryState(
+    "location",
+    zodParserForMap("location")
+      .withOptions({
+        shallow: false,
+        history: "push",
+      })
+      .withDefault(""),
   );
   const [fest, setFest] = useQueryState(
     "festival",
@@ -44,7 +53,7 @@ export function useMapFilters() {
         shallow: false,
         history: "push",
       })
-      .withDefault("")
+      .withDefault(""),
   );
   const [genre, setGenre] = useQueryState(
     "genre",
@@ -53,15 +62,16 @@ export function useMapFilters() {
         shallow: false,
         history: "push",
       })
-      .withDefault("")
+      .withDefault(""),
   );
 
   return {
-    filters: { region, city, fest, genre },
+    filters: { region, city, fest, genre, location },
     setRegion,
     setCity,
     setFest,
     setGenre,
+    setLocation,
   };
 }
 
@@ -87,7 +97,7 @@ export function useCalendarFilters() {
         shallow: false,
         history: "push",
       })
-      .withDefault("")
+      .withDefault(""),
   );
 
   const [city, setCity] = useQueryState(
@@ -97,7 +107,7 @@ export function useCalendarFilters() {
         shallow: false,
         history: "push",
       })
-      .withDefault("")
+      .withDefault(""),
   );
   const [location, setLocation] = useQueryState(
     "location",
@@ -106,7 +116,7 @@ export function useCalendarFilters() {
         shallow: false,
         history: "push",
       })
-      .withDefault("")
+      .withDefault(""),
   );
   const [type, setType] = useQueryState(
     "type",
@@ -115,7 +125,7 @@ export function useCalendarFilters() {
         shallow: false,
         history: "push",
       })
-      .withDefault("")
+      .withDefault(""),
   );
 
   const [term, setTerm] = useQueryState(
@@ -125,7 +135,7 @@ export function useCalendarFilters() {
         shallow: false,
         history: "push",
       })
-      .withDefault("")
+      .withDefault(""),
   );
 
   const [date, setDate] = useQueryState(
@@ -133,7 +143,7 @@ export function useCalendarFilters() {
     dateParser
       .withOptions({ shallow: false, history: "push", clearOnDefault: true })
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      .withDefault(null as any) // Domyślnie brak wybranej daty
+      .withDefault(null as any), // Domyślnie brak wybranej daty
   );
 
   return {
