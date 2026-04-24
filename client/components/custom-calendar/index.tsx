@@ -1,9 +1,5 @@
 "use client";
-import {
-  SidebarGroupLabel,
-  SidebarInset,
-  SidebarTrigger,
-} from "@/components/ui/sidebar";
+import { SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
 
 import { Sidebar, SidebarContent, SidebarRail } from "@/components/ui/sidebar";
 
@@ -101,7 +97,7 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
     <Fragment>
       <Sidebar>
         <SidebarContent>
-          <SidebarGroup className="p-0 mt-[56px]">
+          <SidebarGroup className="mt-[112px]">
             <SidebarGroupContent>
               <Calendar
                 locale={pl}
@@ -118,12 +114,11 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
                   booked: "my-booked-class",
                 }}
                 disabled={{ before: new Date() }}
-                className="[&_[role=gridcell].bg-primary]:bg-sidebar-primary [&_[role=gridcell].bg-accent]:text-sidebar-primary-foreground [&_[role=gridcell]]:w-[33px] "
+                className="[&_[role=gridcell].bg-primary]:bg-sidebar-primary [&_[role=gridcell].bg-accent]:text-sidebar-primary-foreground [&_[role=gridcell]]:w-fit bg-card"
               />
             </SidebarGroupContent>
           </SidebarGroup>
-          <SidebarGroup className="p-0 flex flex-col gap-4">
-            <SidebarGroupLabel>Filtry</SidebarGroupLabel>
+          <SidebarGroup className="flex flex-col gap-4 bg-card rounded-lg p-4 my-6">
             <Command>
               <CommandInput
                 placeholder="Szukaj frazy..."
@@ -173,11 +168,11 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
                               <Check
                                 className={cn(
                                   "ml-auto",
-                                  region === val ? "opacity-100" : "opacity-0"
+                                  region === val ? "opacity-100" : "opacity-0",
                                 )}
                               />
                             </CommandItem>
-                          )
+                          ),
                       )}
                     </CommandGroup>
                   </CommandList>
@@ -222,7 +217,7 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
                           <Check
                             className={cn(
                               "ml-auto",
-                              city === val ? "opacity-100" : "opacity-0"
+                              city === val ? "opacity-100" : "opacity-0",
                             )}
                           />
                         </CommandItem>
@@ -270,7 +265,7 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
                           <Check
                             className={cn(
                               "ml-auto",
-                              location === val ? "opacity-100" : "opacity-0"
+                              location === val ? "opacity-100" : "opacity-0",
                             )}
                           />
                         </CommandItem>
@@ -318,7 +313,7 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
                           <Check
                             className={cn(
                               "ml-auto",
-                              type === val ? "opacity-100" : "opacity-0"
+                              type === val ? "opacity-100" : "opacity-0",
                             )}
                           />
                         </CommandItem>
@@ -345,15 +340,15 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
             <h1 className="p-4 pl-0">
               Nadchodzące wydarzenia w: {String(city)}
             </h1>
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-6">
               {events
                 .filter((event) => event.place?.city === city)
-                .map((event) => (
+                .map((event, index) => (
                   <div
                     key={event.documentId}
-                    className="group border-none relative shadow-none translate-y-0  hover:-translate-y-2 transition-all duration-300"
+                    className="group border-none relative shadow-none translate-y-0  hover:-translate-y-2 transition-all duration-300 bg-card rounded-lg p-4"
                   >
-                    <EventComponent event={event} />
+                    <EventComponent index={index} event={event} />
                   </div>
                 ))}
             </div>
@@ -363,15 +358,33 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
             <h1 className="p-4 pl-0">
               Nadchodzące wydarzenia w: {String(location)}
             </h1>
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-6">
               {events
                 .filter((event) => event.place?.location === location)
-                .map((event) => (
+                .map((event, index) => (
                   <div
                     key={event.documentId}
-                    className="group border-none relative shadow-none translate-y-0  hover:-translate-y-2 transition-all duration-300"
+                    className="group border-none relative shadow-none translate-y-0  hover:-translate-y-2 transition-all duration-300 bg-card rounded-lg p-4"
                   >
-                    <EventComponent event={event} />
+                    <EventComponent index={index} event={event} />
+                  </div>
+                ))}
+            </div>
+          </div>
+        ) : region && events.length > 0 ? (
+          <div>
+            <h1 className="p-4 pl-0">
+              Nadchodzące wydarzenia w: {String(region)}
+            </h1>
+            <div className="flex flex-col gap-6">
+              {events
+                .filter((event) => event.place?.region === region)
+                .map((event, index) => (
+                  <div
+                    key={event.documentId}
+                    className="group border-none relative shadow-none translate-y-0  hover:-translate-y-2 transition-all duration-300 bg-card rounded-lg p-4"
+                  >
+                    <EventComponent index={index} event={event} />
                   </div>
                 ))}
             </div>
@@ -379,13 +392,13 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
         ) : events.length > 0 ? (
           <div>
             <h1 className="p-4 pl-0">Nadchodzące wydarzenia:</h1>
-            <div className="flex flex-col gap-4">
-              {events.map((event) => (
+            <div className="flex flex-col gap-6">
+              {events.map((event, index) => (
                 <div
                   key={event.documentId}
-                  className="group border-none relative shadow-none translate-y-0  hover:-translate-y-2 transition-all duration-300"
+                  className="group border-none relative shadow-none translate-y-0  hover:-translate-y-2 transition-all duration-300 bg-card rounded-lg p-4"
                 >
-                  <EventComponent event={event} />
+                  <EventComponent index={index} event={event} />
                 </div>
               ))}
             </div>
