@@ -7,8 +7,8 @@ function Card({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="card"
       className={cn(
-        "rounded-lg border bg-card text-card-foreground shadow-xs",
-        className
+        "rounded-lg border text-card-foreground shadow-xs",
+        className,
       )}
       {...props}
     />
@@ -30,8 +30,8 @@ function CardTitle({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="card-title"
       className={cn(
-        "text-2xl font-bold leading-none tracking-tight",
-        className
+        "text-2xl font-extrabold leading-none tracking-tight",
+        className,
       )}
       {...props}
     />
@@ -54,7 +54,7 @@ function CardAction({ className, ...props }: React.ComponentProps<"div">) {
       data-slot="card-action"
       className={cn(
         "col-start-2 row-span-2 row-start-1 self-start justify-self-end",
-        className
+        className,
       )}
       {...props}
     />
