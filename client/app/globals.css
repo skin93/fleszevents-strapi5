@@ -92,9 +92,9 @@
   }
 
   .dark {
-    --background: 0 0% 9%;
+    --background: 0 0% 13%;
     --foreground: 0 0% 98%;
-    --card: 0 0% 9%;
+    --card: 0 0% 15%;
     --card-foreground: 0 0% 98%;
     --popover: 0 0% 9%;
     --popover-foreground: 0 0% 98%;
@@ -124,7 +124,7 @@
     }
 
     ::marker {
-      @apply text-teal-600;
+      @apply text-foreground dark:text-teal-400;
     }
   }
 
@@ -137,35 +137,35 @@
   h2,
   h3,
   h4 {
-    @apply scroll-m-20 tracking-tight my-6 font-bold;
+    @apply font-extrabold scroll-m-20 tracking-tight my-6;
   }
 
   h1 {
-    @apply text-4xl font-extrabold text-balance;
+    @apply text-4xl text-balance;
   }
 
   h2 {
-    @apply text-3xl font-bold;
+    @apply text-3xl;
   }
 
   h3 {
-    @apply text-2xl font-bold;
+    @apply text-2xl;
   }
 
   h4 {
-    @apply text-xl font-bold;
+    @apply text-xl;
   }
 
   strong {
-    @apply font-extrabold dark:text-white text-foreground;
+    @apply font-extrabold dark:text-white/95 text-foreground/95;
   }
 
   .min-h-custom {
-    @apply min-h-[calc(100svh-56px)];
+    @apply min-h-[calc(100svh-112px)];
   }
 
   p {
-    @apply leading-7 my-6;
+    @apply leading-9 my-4 text-[18px];
   }
 
   article {
@@ -175,7 +175,7 @@
 
     ul,
     ol {
-      @apply ml-6 my-6 font-medium text-neutral-900 dark:text-neutral-200  leading-7;
+      @apply ml-6 font-medium text-neutral-900 dark:text-neutral-200  leading-10;
     }
 
     ul {
@@ -210,7 +210,7 @@
   }
 
   img {
-    @apply max-w-full mx-auto;
+    @apply max-w-full;
   }
 
   figcaption {
