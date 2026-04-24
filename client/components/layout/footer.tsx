@@ -21,24 +21,16 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="w-full my-8">
-      <div className="grid grid-cols-2 xl:grid-rows-2 xl:grid-cols-1">
-        <div className="flex flex-col xl:flex-row xl:justify-center">
+    <footer className="max-w-screen h-full bg-foreground p-4">
+      <div className="container flex flex-col h-full items-center justify-around">
+        <div className="flex flex-col md:flex-row xl:justify-center">
           {navLinks.map(({ title, path }) => (
             <ButtonLink key={title} href={path}>
               {title}
             </ButtonLink>
           ))}
         </div>
-        {/* <div className="flex flex-row">
-          {items.map(({ title, path }) => (
-            <ButtonLink className="mx-auto" key={title} href={path}>
-              {title}
-            </ButtonLink>
-          ))}
-        </div> */}
-
-        <div className="flex flex-col xl:flex-row xl:justify-center">
+        <div className="flex flex-col md:flex-row xl:justify-around py-4">
           {items.map(({ title, path }) => (
             <ButtonLink key={title} href={path}>
               {title}
@@ -52,7 +44,9 @@ export default function Footer() {
           </ButtonLink>
         </div>
       </div>
-      <p className="text-center mt-8">&copy; FleszEvents</p>
+      <div className="text-primary dark:text-background text-center font-extrabold">
+        &copy; 2021 - {JSON.stringify(new Date().getFullYear())}, FleszEvents
+      </div>
     </footer>
   );
 }
