@@ -11,7 +11,7 @@ type Props = {
 export default function BaseCard({ article }: Props) {
   return (
     <Card className="group border-none relative shadow-none translate-y-0  hover:translate-y-2 transition-all duration-300">
-      <CardContent className="p-0 bg-background/5 dark:bg-foreground/5 rounded-lg flex flex-col items-center justify-end ">
+      <CardContent className="p-0 rounded-lg flex flex-col items-center justify-end ">
         <Image
           loading={"eager"}
           unoptimized
@@ -23,9 +23,9 @@ export default function BaseCard({ article }: Props) {
           style={{ objectFit: "cover" }}
           width={article.cover.width}
           height={article.cover.height}
-          className="rounded-sm rounded-bl-none aspect-[16/9]"
+          className="rounded-sm aspect-[16/9]"
         />
-        <CardTitle className="w-full p-4 text-lg text-center text-foreground dark:no-underline dark:group-hover:text-teal-400 group-hover:underline rounded-b-lg transition-all duration-300">
+        <CardTitle className="w-full h-[100px] flex flex-col items-center justify-center p-4 text-lg text-center text-foreground dark:no-underline dark:group-hover:text-teal-400 group-hover:underline rounded-b-lg transition-all duration-300">
           {article.title}
         </CardTitle>
       </CardContent>
