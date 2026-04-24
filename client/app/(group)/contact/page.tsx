@@ -95,7 +95,7 @@ export default function ContactPage() {
         }}
       />
       <main>
-        <section className="flex flex-col items-center justify-center ">
+        <section className="flex flex-col items-center justify-start h-screen ">
           <h1 className="my-8 text-center uppercase">KONTAKT</h1>
           <p className="my-0">
             Organizujesz festiwal albo w Twojej okolicy odbywa się ciekawe
