@@ -35,6 +35,17 @@ const navLinks1: Array<{ title: string; path: string }> = [
   { title: "wywiady", path: "/categories/wywiady" },
 ];
 
+// const navLinks1: Array<{ title: string; path: string }> = [
+//   { title: "polecamy", path: "/polecamy" },
+//   { title: "festiwale", path: "/festiwale" },
+//   { title: "koncerty", path: "/koncerty" },
+//   { title: "patronat", path: "/patronat" },
+//   { title: "newsy", path: "/newsy" },
+//   { title: "premiery", path: "/premiery" },
+//   { title: "relacje", path: "/relacje" },
+//   { title: "wywiady", path: "/wywiady" },
+// ];
+
 const navLinks2: Array<{ title: string; path: string }> = [
   { title: "kalendarz", path: "/calendar" },
   { title: "festiwalowa mapa", path: "/festival-map" },
@@ -44,34 +55,29 @@ const navLinks2: Array<{ title: string; path: string }> = [
 
 export default function Header() {
   return (
-    <header className="p-4 sticky top-0 z-50 bg-foreground">
-      <div className="container flex h-20 items-center">
-        <Link
-          href="/"
-          className="flex shrink-0 justify-start items-center relative w-[100px] h-full mr-4"
-        >
-          <Image
-            loading={"eager"}
-            fill
-            src="/FE_2_baner.svg"
-            className="cursor-pointer w-full h-full "
-            alt="logo"
-          />
-          <Image
-            loading={"eager"}
-            fill
-            src="/FE_1_baner.svg"
-            className="cursor-pointer w-full h-full dark:hidden"
-            alt="logo"
-          />
-        </Link>
+    <header className="p-4 sticky top-0 z-50 bg-stone-950 ">
+      <div className="container flex h-20 justify-between">
+        <div>
+          <Link
+            href="/"
+            className="flex shrink-0 justify-start items-center relative w-[100px] h-full mr-4"
+          >
+            <Image
+              loading={"eager"}
+              fill
+              src="/FE_1_baner.svg"
+              className="cursor-pointer w-full h-full"
+              alt="logo"
+            />
+          </Link>
+        </div>
 
         <nav
           aria-label="main-navigation"
           className="hidden lg:flex justify-start items-center gap-2 "
         >
           <DropdownMenu>
-            <DropdownMenuTrigger className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm  ring-offset-background transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:cursor-pointer hover:bg-foreground bg-transparent text-primary dark:text-background underline-offset-4 hover:underline py-2 px-4 font-extrabold">
+            <DropdownMenuTrigger className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm  ring-offset-background transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:cursor-pointer bg-transparent text-primary underline-offset-4 hover:underline py-2 px-4 font-extrabold">
               WPISY
             </DropdownMenuTrigger>
 
@@ -92,7 +98,7 @@ export default function Header() {
           ))}
         </nav>
 
-        <div className="ml-auto flex flex-row items-center">
+        <div className="flex flex-row items-center">
           <div className="hidden lg:block ">
             <ButtonLink href="https://facebook.com/flesz.events">
               <Facebook />
@@ -106,10 +112,7 @@ export default function Header() {
           <div className="lg:hidden flex flex-col justify-center">
             <Drawer direction="right">
               <DrawerTrigger>
-                <Menu
-                  aria-label="menu-button"
-                  className="text-primary dark:text-background"
-                />
+                <Menu aria-label="menu-button" className="text-primary" />
               </DrawerTrigger>
               <DrawerContent>
                 <DrawerHeader className="hidden">
@@ -118,7 +121,7 @@ export default function Header() {
                 </DrawerHeader>
                 {navLinks1.map(({ title, path }) => (
                   <ButtonLink
-                    className="text-2xl text-foreground"
+                    className="text-2xl !text-foreground"
                     key={title}
                     href={path}
                   >
@@ -127,7 +130,11 @@ export default function Header() {
                 ))}
                 <hr />
                 {navLinks2.map(({ title, path }) => (
-                  <ButtonLink className="text-2xl" key={title} href={path}>
+                  <ButtonLink
+                    className="text-2xl !text-foreground"
+                    key={title}
+                    href={path}
+                  >
                     {title}
                   </ButtonLink>
                 ))}

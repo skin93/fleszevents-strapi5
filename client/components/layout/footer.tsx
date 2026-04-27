@@ -13,6 +13,17 @@ export default function Footer() {
     { title: "wywiady", path: "/categories/wywiady" },
   ];
 
+  // const navLinks = [
+  //   { title: "polecamy", path: "/polecamy" },
+  //   { title: "festiwale", path: "/festiwale" },
+  //   { title: "koncerty", path: "/koncerty" },
+  //   { title: "patronat", path: "/patronat" },
+  //   { title: "newsy", path: "/newsy" },
+  //   { title: "premiery", path: "/premiery" },
+  //   { title: "relacje", path: "/relacje" },
+  //   { title: "wywiady", path: "/wywiady" },
+  // ];
+
   const items = [
     { title: "festiwalowa mapa", path: "/festival-map" },
     { title: "galerie", path: "/galleries" },
@@ -21,16 +32,16 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="max-w-screen h-full bg-foreground p-4">
-      <div className="container flex flex-col h-full items-center justify-around">
-        <div className="flex flex-col md:flex-row xl:justify-center">
+    <footer className="max-w-screen h-full bg-stone-950 p-4">
+      <div className="container flex flex-row md:flex-col h-full md:items-center justify-around my-6">
+        <div className="flex flex-col md:flex-row">
           {navLinks.map(({ title, path }) => (
             <ButtonLink key={title} href={path}>
               {title}
             </ButtonLink>
           ))}
         </div>
-        <div className="flex flex-col md:flex-row xl:justify-around py-4">
+        <div className="flex flex-col md:flex-row">
           {items.map(({ title, path }) => (
             <ButtonLink key={title} href={path}>
               {title}
@@ -44,7 +55,7 @@ export default function Footer() {
           </ButtonLink>
         </div>
       </div>
-      <div className="text-primary dark:text-background text-center font-extrabold">
+      <div className="text-primary text-center font-extrabold">
         &copy; 2021 - {JSON.stringify(new Date().getFullYear())}, FleszEvents
       </div>
     </footer>
