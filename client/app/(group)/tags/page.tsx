@@ -5,6 +5,17 @@ import CustomPagination from "@/components/ui/custom/pagination";
 import { getAllTags } from "@/lib/data/tags";
 import { CollectionPage, WithContext } from "schema-dts";
 
+// import {
+//   Breadcrumb,
+//   BreadcrumbItem,
+//   BreadcrumbLink,
+//   BreadcrumbList,
+//   BreadcrumbPage,
+//   BreadcrumbSeparator,
+// } from "@/components/ui/breadcrumb";
+// import Link from "next/link";
+// import { Home } from "lucide-react";
+
 export async function generateMetadata() {
   return {
     title: "Tagi",
@@ -99,10 +110,31 @@ export default async function TagsPage({ searchParams }: Props) {
       />
       <main>
         <section aria-label="Tags">
+          {/* <div className="my-6">
+            <Breadcrumb>
+              <BreadcrumbList>
+                <BreadcrumbItem>
+                  <BreadcrumbLink asChild>
+                    <Link href="/">
+                      <Home />
+                    </Link>
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbPage>TAGI</BreadcrumbPage>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
+          </div> */}
           <h1 className="my-8 text-center uppercase">TAGI</h1>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 ">
             {tags.map((tag) => (
-              <ButtonLink key={tag.documentId} href={`/tags/${tag.slug}`}>
+              <ButtonLink
+                className="!text-foreground"
+                key={tag.documentId}
+                href={`/tags/${tag.slug}`}
+              >
                 #{tag.name}
               </ButtonLink>
             ))}
