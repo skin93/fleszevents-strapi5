@@ -5,16 +5,16 @@ import CustomPagination from "@/components/ui/custom/pagination";
 import { getAllTags } from "@/lib/data/tags";
 import { CollectionPage, WithContext } from "schema-dts";
 
-// import {
-//   Breadcrumb,
-//   BreadcrumbItem,
-//   BreadcrumbLink,
-//   BreadcrumbList,
-//   BreadcrumbPage,
-//   BreadcrumbSeparator,
-// } from "@/components/ui/breadcrumb";
-// import Link from "next/link";
-// import { Home } from "lucide-react";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+import Link from "next/link";
+import { Home } from "lucide-react";
 
 export async function generateMetadata() {
   return {
@@ -86,7 +86,7 @@ export default async function TagsPage({ searchParams }: Props) {
           "@type": "ListItem",
           position: 2,
           name: "Tagi",
-          item: "https://fleszevents.pl/tags",
+          item: "https://fleszevents.pl/tagi",
         },
       ],
     },
@@ -110,7 +110,7 @@ export default async function TagsPage({ searchParams }: Props) {
       />
       <main>
         <section aria-label="Tags">
-          {/* <div className="my-6">
+          <div className="my-6">
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem>
@@ -126,14 +126,14 @@ export default async function TagsPage({ searchParams }: Props) {
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
-          </div> */}
+          </div>
           <h1 className="my-8 text-center uppercase">TAGI</h1>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 ">
             {tags.map((tag) => (
               <ButtonLink
                 className="!text-foreground"
                 key={tag.documentId}
-                href={`/tags/${tag.slug}`}
+                href={`/tagi/${tag.slug}`}
               >
                 #{tag.name}
               </ButtonLink>

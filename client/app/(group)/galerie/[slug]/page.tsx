@@ -5,6 +5,17 @@ import { getGalleryBySlug, getGalleryMeta } from "@/lib/data/galleries";
 
 import GalleryDialog from "@/components/ui/custom/gallery-dialog";
 
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+import Link from "next/link";
+import { Home } from "lucide-react";
+
 export async function generateMetadata({
   params,
 }: {
@@ -67,15 +78,37 @@ export default async function GallerySlugPage({
         }}
       />
       <main>
-        <section
-          aria-label={`${gallery.name}`}
-          className="flex flex-col justify-center items-center"
-        >
-          <h1 className="my-8 text-center text-4xl uppercase">
-            {gallery.name}
-          </h1>
-          <div className="grid grid-cols-3 gap-4">
-            <GalleryDialog gallery={gallery} />
+        <section aria-label={`${gallery.name}`}>
+          <div className="my-6">
+            <Breadcrumb>
+              <BreadcrumbList>
+                <BreadcrumbItem>
+                  <BreadcrumbLink asChild>
+                    <Link href="/">
+                      <Home />
+                    </Link>
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink asChild>
+                    <Link href="/galleries">GALERIE</Link>
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbPage>{gallery.name}</BreadcrumbPage>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
+          </div>
+          <div className="flex flex-col justify-center items-center">
+            <h1 className="my-8 text-center text-4xl uppercase">
+              {gallery.name}
+            </h1>
+            <div className="grid grid-cols-3 gap-4">
+              <GalleryDialog gallery={gallery} />
+            </div>
           </div>
         </section>
       </main>

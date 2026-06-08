@@ -11,22 +11,33 @@ import {
 import { Metadata } from "next";
 import { CollectionPage, WithContext } from "schema-dts";
 
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+
+import { Home } from "lucide-react";
+
 type Props = {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ categorySlug: string }>;
   searchParams: Promise<{ page: string }>;
 };
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ categorySlug: string }>;
   searchParams: Promise<{ page: string }>;
 }): Promise<Metadata> {
   // read route params
-  const { slug } = await params;
+  const { categorySlug } = await params;
 
   // fetch data
-  const { seo } = await getCategoryMetaQuery(slug);
+  const { seo } = await getCategoryMetaQuery(categorySlug);
 
   return {
     title: seo.metaTitle,
@@ -40,11 +51,11 @@ export async function generateMetadata({
       },
     },
     alternates: {
-      canonical: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/categories/${slug}`,
+      canonical: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/${categorySlug}`,
     },
     openGraph: {
       type: "website",
-      url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/categories/${slug}`,
+      url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/${categorySlug}`,
       title: seo.openGraph?.ogTitle,
       description: seo.openGraph?.ogDescription,
       images: [
@@ -60,12 +71,12 @@ export async function generateMetadata({
 }
 
 export default async function CategoryPage({ params, searchParams }: Props) {
-  const { slug } = await params;
+  const { categorySlug } = await params;
   const { page } = await searchParams;
   const currentPage = Number(page) || 1;
-  const { category } = await getCategory(slug);
+  const { category } = await getCategory(categorySlug);
   const { articles, pageInfo } = await getArticlesByCategory(
-    slug,
+    categorySlug,
     currentPage,
     12,
   );
@@ -79,7 +90,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
     "@type": "CollectionPage",
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": `https://fleszevents.pl/categories/${category.slug}`,
+      "@id": `https://fleszevents.pl/${categorySlug}`,
     },
     name: `${category.name} - FleszEvents`,
     description: `${category.description}`,
@@ -96,7 +107,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
           "@type": "ListItem",
           position: 2,
           name: "Koncerty",
-          item: `https://fleszevents.pl/categories/${category.slug}`,
+          item: `https://fleszevents.pl/${categorySlug}`,
         },
       ],
     },
@@ -119,25 +130,43 @@ export default async function CategoryPage({ params, searchParams }: Props) {
         }}
       />
       <main>
-        <section
-          aria-label={`${slug} content`}
-          className="flex flex-col justify-center items-center"
-        >
-          <h1 className="my-8 text-center uppercase">{slug.toUpperCase()}</h1>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
-            {articles.map((article) => (
-              <div key={article.documentId}>
-                <Link href={`/articles/${article.slug}`}>
-                  <BaseCard article={article} />
-                </Link>
-              </div>
-            ))}
+        <section aria-label={`${categorySlug} content`}>
+          <div className="my-6">
+            <Breadcrumb>
+              <BreadcrumbList>
+                <BreadcrumbItem>
+                  <BreadcrumbLink asChild>
+                    <Link href="/">
+                      <Home />
+                    </Link>
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbPage>{categorySlug.toUpperCase()}</BreadcrumbPage>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
           </div>
-          <div className="m-8" />
-          <CustomPagination
-            currentPage={currentPage}
-            pageCount={pageInfo.pageCount}
-          />
+          <div className="flex flex-col justify-center items-center">
+            <h1 className="my-8 text-center uppercase">
+              {categorySlug.toUpperCase()}
+            </h1>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
+              {articles.map((article) => (
+                <div key={article.documentId}>
+                  <Link href={`/${categorySlug}/${article.slug}`}>
+                    <BaseCard article={article} />
+                  </Link>
+                </div>
+              ))}
+            </div>
+            <div className="m-8" />
+            <CustomPagination
+              currentPage={currentPage}
+              pageCount={pageInfo.pageCount}
+            />
+          </div>
         </section>
       </main>
     </Fragment>

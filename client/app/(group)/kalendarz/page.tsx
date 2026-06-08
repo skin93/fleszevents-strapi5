@@ -72,7 +72,7 @@ export default async function CalendarPage({ searchParams }: Props) {
           "@type": "ListItem",
           position: 2,
           name: "Kalendarz",
-          item: "https://fleszevents.pl/calendar",
+          item: "https://fleszevents.pl/kalendarz",
         },
       ],
     },

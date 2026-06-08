@@ -7,6 +7,16 @@ import { getArticlesByTag, getTag } from "@/lib/data/tags";
 import { Metadata } from "next";
 import { CollectionPage, WithContext } from "schema-dts";
 
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+import { Home } from "lucide-react";
+
 type Props = {
   params: Promise<{ slug: string }>;
   searchParams: Promise<{ page: string }>;
@@ -72,13 +82,13 @@ export default async function TagPage({ params, searchParams }: Props) {
           "@type": "ListItem",
           position: 2,
           name: "Tagi",
-          item: "https://fleszevents.pl/tags",
+          item: "https://fleszevents.pl/tagi",
         },
         {
           "@type": "ListItem",
           position: 3,
           name: `${tag.name}`,
-          item: `https://fleszevents.pl/tags/${tag.slug}`,
+          item: `https://fleszevents.pl/tagi/${tag.slug}`,
         },
       ],
     },
@@ -101,27 +111,49 @@ export default async function TagPage({ params, searchParams }: Props) {
         }}
       />
       <main>
-        <section
-          aria-label={`${slug} content`}
-          className="flex flex-col justify-center items-center"
-        >
-          <h1 className="my-8 text-center uppercase">
-            {tag.name.toUpperCase()}
-          </h1>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
-            {articles.map((article) => (
-              <div key={article.documentId}>
-                <Link href={`/articles/${article.slug}`}>
-                  <BaseCard article={article} />
-                </Link>
-              </div>
-            ))}
+        <section aria-label={`${slug} content`}>
+          <div className="my-6">
+            <Breadcrumb>
+              <BreadcrumbList>
+                <BreadcrumbItem>
+                  <BreadcrumbLink asChild>
+                    <Link href="/">
+                      <Home />
+                    </Link>
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink asChild>
+                    <Link href="/tagi">TAGI</Link>
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbPage>{tag.name}</BreadcrumbPage>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
           </div>
-          <div className="m-8" />
-          <CustomPagination
-            currentPage={currentPage}
-            pageCount={pageInfo.pageCount}
-          />
+          <div className="flex flex-col justify-center items-center">
+            <h1 className="my-8 text-center uppercase">
+              {tag.name.toUpperCase()}
+            </h1>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
+              {articles.map((article) => (
+                <div key={article.documentId}>
+                  <Link href={`/articles/${article.slug}`}>
+                    <BaseCard article={article} />
+                  </Link>
+                </div>
+              ))}
+            </div>
+            <div className="m-8" />
+            <CustomPagination
+              currentPage={currentPage}
+              pageCount={pageInfo.pageCount}
+            />
+          </div>
         </section>
       </main>
     </Fragment>

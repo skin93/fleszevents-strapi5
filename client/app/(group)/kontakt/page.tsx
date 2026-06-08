@@ -2,6 +2,17 @@ import { Metadata } from "next";
 import React, { Fragment } from "react";
 import { WebPage, WithContext } from "schema-dts";
 
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+import Link from "next/link";
+import { Home } from "lucide-react";
+
 export const metadata: Metadata = {
   title: "Kontakt",
   description:
@@ -80,7 +91,7 @@ export default function ContactPage() {
           "@type": "ListItem",
           position: 2,
           name: "Kontakt",
-          item: "https://fleszevents.pl/contact",
+          item: "https://fleszevents.pl/kontakt",
         },
       ],
     },
@@ -95,15 +106,34 @@ export default function ContactPage() {
         }}
       />
       <main>
-        <section className="flex flex-col items-center justify-start h-screen ">
-          <h1 className="my-8 text-center uppercase">KONTAKT</h1>
-          <p className="my-0">
-            Organizujesz festiwal albo w Twojej okolicy odbywa się ciekawe
-            wydarzenie? Masz zespół, wydajecie album/singiel albo gracie
-            niedługo koncert i szukacie patronatu? A może po prostu potrzebujesz
-            nawiązać kontakt? Wyślij wiadomość na{" "}
-            <strong>kontakt@fleszevents.pl</strong>
-          </p>
+        <section>
+          <div className="my-6">
+            <Breadcrumb>
+              <BreadcrumbList>
+                <BreadcrumbItem>
+                  <BreadcrumbLink asChild>
+                    <Link href="/">
+                      <Home />
+                    </Link>
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbPage>KONTAKT</BreadcrumbPage>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
+          </div>
+          <div className="flex flex-col items-center justify-start h-screen ">
+            <h1 className="my-8 text-center uppercase">KONTAKT</h1>
+            <p className="my-0">
+              Organizujesz festiwal albo w Twojej okolicy odbywa się ciekawe
+              wydarzenie? Masz zespół, wydajecie album/singiel albo gracie
+              niedługo koncert i szukacie patronatu? A może po prostu
+              potrzebujesz nawiązać kontakt? Wyślij wiadomość na{" "}
+              <strong>kontakt@fleszevents.pl</strong>
+            </p>
+          </div>
         </section>
       </main>
     </Fragment>

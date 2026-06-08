@@ -13,14 +13,14 @@ import { NewsArticle, WithContext } from "schema-dts";
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ categorySlug: string; articleSlug: string }>;
 }): Promise<Metadata> {
   // read route params
-  const { slug } = await params;
+  const { articleSlug, categorySlug } = await params;
 
   // fetch data
-  const { seo } = await getArticleMeta(slug);
-  const { info } = await getArticleInfo(slug);
+  const { seo } = await getArticleMeta(articleSlug);
+  const { info } = await getArticleInfo(articleSlug);
 
   if (seo === null) {
     return {
@@ -35,11 +35,11 @@ export async function generateMetadata({
         },
       },
       alternates: {
-        canonical: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/articles/${slug}`,
+        canonical: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/${categorySlug}/${articleSlug}`,
       },
       openGraph: {
         type: "article",
-        url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/articles/${slug}`,
+        url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/${categorySlug}}/${articleSlug}`,
         title: info.title,
         description: info.excerpt,
         images: [
@@ -65,11 +65,11 @@ export async function generateMetadata({
         },
       },
       alternates: {
-        canonical: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/articles/${slug}`,
+        canonical: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/${categorySlug}/${articleSlug}`,
       },
       openGraph: {
         type: "article",
-        url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/articles/${slug}`,
+        url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/${categorySlug}}/${articleSlug}`,
         title: seo.openGraph?.ogTitle,
         description: seo.openGraph?.ogDescription,
         images: [
@@ -88,10 +88,10 @@ export async function generateMetadata({
 export default async function SlugPage({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ categorySlug: string; articleSlug: string }>;
 }) {
-  const { slug } = await params;
-  const { article } = await getArticleBySlug(slug);
+  const { categorySlug, articleSlug } = await params;
+  const { article } = await getArticleBySlug(articleSlug, categorySlug);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let jsonLd: WithContext<NewsArticle> | Record<string, any> | undefined;
@@ -106,7 +106,7 @@ export default async function SlugPage({
       inLanguage: "pl",
       image: `${process.env.NEXT_PUBLIC_STRAPI}/${article.cover.url}`,
       description: article.excerpt,
-      url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/articles/${article.slug}`,
+      url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/${categorySlug}/${articleSlug}`,
       publisher: {
         "@type": "Organization",
         name: "FleszEvents",
@@ -135,7 +135,7 @@ export default async function SlugPage({
           __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
         }}
       />
-      {<SlugPageComponent article={article} />}
+      {<SlugPageComponent article={article} categorySlug={categorySlug} />}
     </Fragment>
   );
 }

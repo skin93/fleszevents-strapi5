@@ -11,11 +11,22 @@ import Link from "next/link";
 import { Article } from "@/lib/interfaces";
 import SmallGalleryDialog from "../ui/custom/small-gallery-dialog";
 
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+import { Home } from "lucide-react";
+
 type Props = {
   article: Article;
+  categorySlug: string;
 };
 
-export default function SlugPageComponent({ article }: Props) {
+export default function SlugPageComponent({ article, categorySlug }: Props) {
   useEffect(() => {
     const figures = document.querySelectorAll(".image");
     figures?.forEach((figure) => {
@@ -27,13 +38,35 @@ export default function SlugPageComponent({ article }: Props) {
   }, []);
   return (
     <main>
-      <section className="my-6" aria-label="slug-page">
+      <section className="my-6" aria-label="article-page">
+        <div className="my-6">
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link href="/">
+                    <Home />
+                  </Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link href={`/${categorySlug}`}>
+                    {categorySlug.toUpperCase()}
+                  </Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>{article.title}</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+        </div>
         <div className="mb-4">
           {article.categories?.map((category) => (
-            <Link
-              key={category.documentId}
-              href={`/categories/${category.slug}`}
-            >
+            <Link key={category.documentId} href={`/${category.slug}`}>
               <Badge
                 className="bg-foreground hover:bg-foreground/70 dark:bg-accent/70 dark:hover:bg-accent/90 dark:text-foreground mr-2 p-2 rounded-sm uppercase"
                 variant="default"
@@ -43,7 +76,7 @@ export default function SlugPageComponent({ article }: Props) {
             </Link>
           ))}
           {article.isFestival && article.festival?.slug && (
-            <Link href={`/festival-map?festival=${article.festival?.name}`}>
+            <Link href={`/festiwalowa-mapa?festival=${article.festival?.name}`}>
               <Badge
                 className="bg-foreground hover:bg-foreground/70 dark:bg-accent/70 dark:hover:bg-accent/90 dark:text-foreground mr-2 p-2 rounded-sm uppercase"
                 variant="default"

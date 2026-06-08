@@ -7,6 +7,16 @@ import GalleryCard from "@/components/ui/custom/gallery-card";
 import { CollectionPage, WithContext } from "schema-dts";
 import { Fragment } from "react";
 
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+import { Home } from "lucide-react";
+
 export const metadata: Metadata = {
   title: "Galerie",
   description:
@@ -68,7 +78,7 @@ export default async function GalleriesPage({ searchParams }: Props) {
           "@type": "ListItem",
           position: 2,
           name: "Galerie",
-          item: "https://fleszevents.pl/galleries",
+          item: "https://fleszevents.pl/galerie",
         },
       ],
     },
@@ -105,11 +115,28 @@ export default async function GalleriesPage({ searchParams }: Props) {
       />
       <main>
         <section aria-label="Galleries">
+          <div className="my-6">
+            <Breadcrumb>
+              <BreadcrumbList>
+                <BreadcrumbItem>
+                  <BreadcrumbLink asChild>
+                    <Link href="/">
+                      <Home />
+                    </Link>
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbPage>GALERIE</BreadcrumbPage>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
+          </div>
           <h1 className="my-8 text-center uppercase">GALERIE</h1>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 ">
             {galleries.map((gallery) => (
               <div key={gallery.documentId}>
-                <Link href={`/galleries/${gallery.slug}`}>
+                <Link href={`/galerie/${gallery.slug}`}>
                   <GalleryCard gallery={gallery} />
                 </Link>
               </div>
