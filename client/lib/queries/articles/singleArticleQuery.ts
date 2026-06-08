@@ -1,7 +1,13 @@
 import { gql } from "graphql-request";
 export const SINGLE_ARTICLE_QUERY = gql`
-  query singleArticleQuery($slug: String!) {
-    articles(filters: { slug: { eq: $slug } }, status: PUBLISHED) {
+  query singleArticleQuery($articleSlug: String!, $categorySlug: String) {
+    articles(
+      filters: {
+        slug: { eq: $articleSlug }
+        categories: { slug: { eq: $categorySlug } }
+      }
+      status: PUBLISHED
+    ) {
       documentId
       title
       excerpt
@@ -54,6 +60,10 @@ export const SINGLE_ARTICLE_QUERY = gql`
           documentId
           title
           slug
+          categories {
+            name
+            slug
+          }
           publishedAt
           cover {
             alternativeText

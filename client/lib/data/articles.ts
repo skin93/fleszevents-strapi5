@@ -34,9 +34,13 @@ export async function getPromoArticles() {
   return { promos: res.articles };
 }
 
-export async function getArticleBySlug(slug: string) {
+export async function getArticleBySlug(
+  articleSlug: string,
+  categorySlug?: string,
+) {
   const res = await grafbase.request<Articles>(SINGLE_ARTICLE_QUERY, {
-    slug,
+    articleSlug,
+    categorySlug,
   });
   return { article: res.articles[0] };
 }

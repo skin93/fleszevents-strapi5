@@ -17,7 +17,7 @@ export default function RelatedArticles({ articles }: Props) {
       <div className="grid grid-cols-1 sm:grid-cols-2 justify-center gap-4 mx-auto">
         {articles?.map((article) => (
           <div key={article.documentId}>
-            <Link href={`/articles/${article.slug}`}>
+            <Link href={`/${article.categories[0].slug}/${article.slug}`}>
               <BaseCard article={article} />
             </Link>
           </div>

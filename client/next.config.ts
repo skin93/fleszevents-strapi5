@@ -1,5 +1,49 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  async redirects() {
+    return [
+      {
+        source: "/galleries",
+        destination: "/galerie",
+        permanent: true,
+      },
+      {
+        source: "/galleries/:slug",
+        destination: "/galerie/:slug",
+        permanent: true,
+      },
+      {
+        source: "/tags",
+        destination: "/tagi",
+        permanent: true,
+      },
+      {
+        source: "/tags/:slug",
+        destination: "/tagi/:slug",
+        permanent: true,
+      },
+      {
+        source: "/contact",
+        destination: "/kontakt",
+        permanent: true,
+      },
+      {
+        source: "/calendar",
+        destination: "/kalendarz",
+        permanent: true,
+      },
+      {
+        source: "/festival-map",
+        destination: "/festiwalowa-mapa",
+        permanent: true,
+      },
+      {
+        source: "/search",
+        destination: "/szukaj",
+        permanent: true,
+      },
+    ];
+  },
   eslint: {
     // Warning: This allows production builds to successfully complete even if
     // your project has ESLint errors.

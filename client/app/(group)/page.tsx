@@ -15,69 +15,69 @@ export default async function HomePage() {
     "@type": "WebSite",
     hasPart: [
       {
-        url: "https://fleszevents.pl/calendar",
+        url: "https://fleszevents.pl/kalendarz",
         name: "Kalendarz",
         "@type": "WebPage",
         description:
           "Harmonogram nadchodzących koncertów i festiwali muzycznych.",
       },
       {
-        url: "https://fleszevents.pl/festival-map",
+        url: "https://fleszevents.pl/festiwalowa-map",
         name: "Festiwalowa Mapa",
         "@type": "WebPage",
         description:
           "Interaktywna mapa festiwali rockowych i metalowych w Polsce.",
       },
       {
-        url: "https://fleszevents.pl/contact",
+        url: "https://fleszevents.pl/kontakt",
         name: "Kontakt",
         "@type": "ContactPage",
         description: "Dane kontaktowe redakcji FleszEvents.",
       },
       {
-        url: "https://fleszevents.pl/festivals",
+        url: "https://fleszevents.pl/festiwale",
         name: "Festiwale",
         "@type": "CollectionPage",
         description: "Najnowsze informacje, daty i line-upy festiwali.",
       },
       {
-        url: "https://fleszevents.pl/concerts",
+        url: "https://fleszevents.pl/koncerty",
         name: "Koncerty",
         "@type": "CollectionPage",
         description: "Zapowiedzi koncertów klubowych i tras koncertowych.",
       },
       {
-        url: "https://fleszevents.pl/news",
+        url: "https://fleszevents.pl/newsy",
         name: "Newsy",
         "@type": "CollectionPage",
         description: "Aktualności ze świata muzyki alternatywnej i ciężkiej.",
       },
       {
-        url: "https://fleszevents.pl/premieres",
+        url: "https://fleszevents.pl/premiery",
         name: "Premiery",
         "@type": "CollectionPage",
         description: "Nowe single, teledyski oraz zapowiedzi albumów.",
       },
       {
-        url: "https://fleszevents.pl/reports",
+        url: "https://fleszevents.pl/relacje",
         name: "Relacje",
         "@type": "CollectionPage",
         description: "Artykuły i fotorelacje z odbytych wydarzeń muzycznych.",
       },
       {
-        url: "https://fleszevents.pl/interviews",
+        url: "https://fleszevents.pl/wywiady",
         name: "Wywiady",
         "@type": "CollectionPage",
         description: "Rozmowy z artystami i promotorami sceny muzycznej.",
       },
       {
-        url: "https://fleszevents.pl/patronage",
+        url: "https://fleszevents.pl/patronat",
         name: "Patronat",
         "@type": "CollectionPage",
         description: "Wydarzenia objęte patronatem medialnym FleszEvents.",
       },
       {
-        url: "https://fleszevents.pl/galleries",
+        url: "https://fleszevents.pl/galerie",
         name: "Galerie",
         "@type": "CollectionPage",
         description: "Obszerne galerie zdjęć z koncertów i festiwali.",
@@ -121,13 +121,25 @@ export default async function HomePage() {
       <main>
         <Promo promos={promos} />
         <Separator />
-        <CategoryBlock articles={festivals} name="festivals" slug="festiwale" />
+        <CategoryBlock
+          articles={festivals}
+          name="festivals"
+          categorySlug="festiwale"
+        />
         <Separator />
-        <CategoryBlock articles={concerts} name="concerts" slug="koncerty" />
+        <CategoryBlock
+          articles={concerts}
+          name="concerts"
+          categorySlug="koncerty"
+        />
         <Separator />
-        <CategoryBlock articles={news} name="news" slug="newsy" />
+        <CategoryBlock articles={news} name="news" categorySlug="newsy" />
         <Separator />
-        <CategoryBlock articles={premiers} name="premiers" slug="premiery" />
+        <CategoryBlock
+          articles={premiers}
+          name="premiers"
+          categorySlug="premiery"
+        />
       </main>
     </Fragment>
   );

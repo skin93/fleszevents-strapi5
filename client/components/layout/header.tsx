@@ -25,32 +25,21 @@ import { ButtonLink } from "@/components/ui/custom/button-link";
 import SearchDialog from "@/components/ui/custom/search-dialog";
 
 const navLinks1: Array<{ title: string; path: string }> = [
-  { title: "polecamy", path: "/categories/polecamy" },
-  { title: "festiwale", path: "/categories/festiwale" },
-  { title: "koncerty", path: "/categories/koncerty" },
-  { title: "patronat", path: "/categories/patronat" },
-  { title: "newsy", path: "/categories/newsy" },
-  { title: "premiery", path: "/categories/premiery" },
-  { title: "relacje", path: "/categories/relacje" },
-  { title: "wywiady", path: "/categories/wywiady" },
+  { title: "polecamy", path: "/polecamy" },
+  { title: "festiwale", path: "/festiwale" },
+  { title: "koncerty", path: "/koncerty" },
+  { title: "patronat", path: "/patronat" },
+  { title: "newsy", path: "/newsy" },
+  { title: "premiery", path: "/premiery" },
+  { title: "relacje", path: "/relacje" },
+  { title: "wywiady", path: "/wywiady" },
 ];
 
-// const navLinks1: Array<{ title: string; path: string }> = [
-//   { title: "polecamy", path: "/polecamy" },
-//   { title: "festiwale", path: "/festiwale" },
-//   { title: "koncerty", path: "/koncerty" },
-//   { title: "patronat", path: "/patronat" },
-//   { title: "newsy", path: "/newsy" },
-//   { title: "premiery", path: "/premiery" },
-//   { title: "relacje", path: "/relacje" },
-//   { title: "wywiady", path: "/wywiady" },
-// ];
-
 const navLinks2: Array<{ title: string; path: string }> = [
-  { title: "kalendarz", path: "/calendar" },
-  { title: "festiwalowa mapa", path: "/festival-map" },
-  { title: "galerie", path: "/galleries" },
-  { title: "kontakt", path: "/contact" },
+  { title: "kalendarz", path: "/kalendarz" },
+  { title: "festiwalowa mapa", path: "/festiwalowa-mapa" },
+  { title: "galerie", path: "/galerie" },
+  { title: "kontakt", path: "/kontakt" },
 ];
 
 export default function Header() {

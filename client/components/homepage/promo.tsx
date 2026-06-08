@@ -39,7 +39,7 @@ export default function Promo({ promos }: Props) {
               className="basis md:basis-1/2 xl:basis-1/3"
             >
               <div key={promo.documentId}>
-                <Link href={`/articles/${promo.slug}`}>
+                <Link href={`/polecamy/${promo.slug}`}>
                   <BaseCard article={promo} />
                 </Link>
               </div>

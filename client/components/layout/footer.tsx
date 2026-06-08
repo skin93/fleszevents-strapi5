@@ -3,32 +3,21 @@ import { ButtonLink } from "../ui/custom/button-link";
 
 export default function Footer() {
   const navLinks = [
-    { title: "polecamy", path: "/categories/polecamy" },
-    { title: "festiwale", path: "/categories/festiwale" },
-    { title: "koncerty", path: "/categories/koncerty" },
-    { title: "patronat", path: "/categories/patronat" },
-    { title: "newsy", path: "/categories/newsy" },
-    { title: "premiery", path: "/categories/premiery" },
-    { title: "relacje", path: "/categories/relacje" },
-    { title: "wywiady", path: "/categories/wywiady" },
+    { title: "polecamy", path: "/polecamy" },
+    { title: "festiwale", path: "/festiwale" },
+    { title: "koncerty", path: "/koncerty" },
+    { title: "patronat", path: "/patronat" },
+    { title: "newsy", path: "/newsy" },
+    { title: "premiery", path: "/premiery" },
+    { title: "relacje", path: "/relacje" },
+    { title: "wywiady", path: "/wywiady" },
   ];
 
-  // const navLinks = [
-  //   { title: "polecamy", path: "/polecamy" },
-  //   { title: "festiwale", path: "/festiwale" },
-  //   { title: "koncerty", path: "/koncerty" },
-  //   { title: "patronat", path: "/patronat" },
-  //   { title: "newsy", path: "/newsy" },
-  //   { title: "premiery", path: "/premiery" },
-  //   { title: "relacje", path: "/relacje" },
-  //   { title: "wywiady", path: "/wywiady" },
-  // ];
-
   const items = [
-    { title: "festiwalowa mapa", path: "/festival-map" },
-    { title: "galerie", path: "/galleries" },
-    { title: "kontakt", path: "/contact" },
-    { title: "tagi", path: "/tags" },
+    { title: "festiwalowa mapa", path: "/festiwalowa-mapa" },
+    { title: "galerie", path: "/galerie" },
+    { title: "kontakt", path: "/kontakt" },
+    { title: "tagi", path: "/tagi" },
   ];
 
   return (

@@ -217,8 +217,8 @@ export default function Map({ markers }: { markers: MarkerType[] }) {
                       className="font-bold"
                       href={
                         marker.articleSlug === undefined
-                          ? `/tags/${marker.slug}`
-                          : `/articles/${marker.articleSlug}`
+                          ? `/tagi/${marker.slug}`
+                          : `/festiwale/${marker.articleSlug}`
                       }
                     >
                       Czytaj więcej

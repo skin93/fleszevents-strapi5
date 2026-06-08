@@ -37,7 +37,7 @@ export default function SearchDialog() {
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    router.push(`/search?q=${data.term}`);
+    router.push(`/szukaj?q=${data.term}`);
     form.reset();
     setOpen(false);
   }
