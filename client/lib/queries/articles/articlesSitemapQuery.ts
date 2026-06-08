@@ -6,6 +6,9 @@ export const ARTICLES_SITEMAP_QUERY = gql`
       title
       slug
       updatedAt
+      categories {
+        slug
+      }
     }
   }
 `;

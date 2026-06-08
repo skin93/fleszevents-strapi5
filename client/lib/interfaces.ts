@@ -59,7 +59,7 @@ export interface Article {
   cover: Media;
   seo: SharedSeo;
   authors: Author[];
-  categories?: Category[] | null;
+  categories: Category[];
   tags?: Tag[] | null;
   relatedArticles?: SharedRelatedArticles | null;
   gallery?: SharedSmallGallery | null;
@@ -76,6 +76,7 @@ export interface ArticleSitemap {
   title: string;
   slug: string;
   updatedAt: Date | string;
+  categories: Category[];
 }
 
 export interface ArticlesSitemap {

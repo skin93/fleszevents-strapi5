@@ -1,6 +1,7 @@
 import { grafbase } from "../graphql";
 import { ArticlesConnection, Categories } from "../interfaces";
 import { ARTICLES_BY_CATEGORY_QUERY } from "../queries/articles/articlesByCategoryQuery";
+import { ALL_CATEGORIES_QUERY } from "../queries/categories/allCategoriesQuery";
 import { SINGLE_CATEGORY_QUERY } from "../queries/categories/categoryQuery";
 import { SINGLE_CATEGORY_META_QUERY } from "../queries/categories/singleCategoryMetaQuery";
 
@@ -36,4 +37,9 @@ export async function getCategoryMetaQuery(slug: string) {
     slug,
   });
   return { seo: res.categories[0].seo };
+}
+
+export async function getAllCategoriesQuery() {
+  const res = await grafbase.request<Categories>(ALL_CATEGORIES_QUERY);
+  return { categories: res.categories };
 }
