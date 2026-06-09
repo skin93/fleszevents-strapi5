@@ -6,7 +6,7 @@ export const ARTICLES_BY_TERM_QUERY = gql`
       sort: "createdAt:DESC"
       pagination: { page: $page, pageSize: $pageSize }
       filters: {
-        or: [{ content: { containsi: $term }, title: { containsi: $term } }]
+        or: [{ title: { containsi: $term } }, { content: { containsi: $term } }]
       }
     ) {
       nodes {

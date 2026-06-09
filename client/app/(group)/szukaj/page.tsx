@@ -24,7 +24,7 @@ export async function generateMetadata({ searchParams }: Props) {
       },
     },
     alternates: {
-      canonical: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/search?q=${q}`,
+      canonical: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/szukaj?q=${q}`,
     },
   };
 }
@@ -58,7 +58,7 @@ export default async function SearchPage({ searchParams }: Props) {
           "@type": "ListItem",
           position: 2,
           name: "Wyszukiwarka",
-          item: "https://fleszevents.pl/search",
+          item: "https://fleszevents.pl/szukaj",
         },
       ],
     },
@@ -67,7 +67,7 @@ export default async function SearchPage({ searchParams }: Props) {
       name: "FleszEvents",
       logo: {
         "@type": "ImageObject",
-        url: "https://fleszevents.pl/FE_1_baner.svg",
+        url: "https://fleszevents.pl/logo-publikacja.jpeg",
       },
     },
     potentialAction: {
@@ -95,18 +95,31 @@ export default async function SearchPage({ searchParams }: Props) {
           aria-label="Search articles"
           className="flex flex-col justify-center items-center"
         >
-          <h1 className="my-8 text-center uppercase">
-            Wyniki dla frazy <q>{term}</q>
-          </h1>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
-            {articles.map((article) => (
-              <div key={article.documentId}>
-                <Link href={`/articles/${article.slug}`}>
-                  <BaseCard article={article} />
-                </Link>
+          {articles && articles.length > 0 ? (
+            <>
+              <h1 className="my-8 text-center uppercase">
+                Wyniki dla frazy <q>{term}</q>
+              </h1>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3 ">
+                {articles.map((article) => (
+                  <div key={article.documentId}>
+                    <Link
+                      href={`/${article.categories[0].slug}/${article.slug}`}
+                    >
+                      <BaseCard article={article} />
+                    </Link>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+            </>
+          ) : (
+            <div>
+              <h1 className="uppercase">
+                Brak wyników dla frazy <q>{term}</q>
+              </h1>
+            </div>
+          )}
+
           <div className="m-8" />
           <CustomPagination
             currentPage={currentPage}
