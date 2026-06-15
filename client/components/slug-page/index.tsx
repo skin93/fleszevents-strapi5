@@ -36,8 +36,11 @@ export default function SlugPageComponent({ article, categorySlug }: Props) {
   }, []);
   return (
     <main>
-      <section className="m-6 p-6 bg-card rounded-sm" aria-label="article-page">
-        <div className="my-6">
+      <section
+        className="my-6 p-6 bg-card rounded-sm"
+        aria-label="article-page"
+      >
+        <div className="mb-6">
           <Breadcrumb>
             <BreadcrumbList>
               <BreadcrumbItem>
@@ -62,7 +65,7 @@ export default function SlugPageComponent({ article, categorySlug }: Props) {
             </BreadcrumbList>
           </Breadcrumb>
         </div>
-        <div className="mb-4">
+        <div className="inline-table">
           {article.categories?.map((category) => (
             <Link key={category.documentId} href={`/${category.slug}`}>
               <Badge
@@ -76,7 +79,7 @@ export default function SlugPageComponent({ article, categorySlug }: Props) {
           {article.isFestival && article.festival?.slug && (
             <Link href={`/festiwalowa-mapa?festival=${article.festival?.name}`}>
               <Badge
-                className="bg-foreground hover:bg-foreground/70 dark:bg-accent/70 dark:hover:bg-accent/90 dark:text-foreground mr-2 p-2 rounded-sm uppercase"
+                className="my-6 sm:my-0 bg-foreground hover:bg-foreground/70 dark:bg-accent/70 dark:hover:bg-accent/90 dark:text-foreground mr-2 p-2 rounded-sm uppercase"
                 variant="default"
               >
                 Pokaż na mapie
@@ -117,7 +120,7 @@ export default function SlugPageComponent({ article, categorySlug }: Props) {
               <div className="absolute bottom-0 left-0 translate-0 bg-[rgba(0,0,0,0.7)] rounded-bl-sm">
                 <p
                   aria-label="article-image-caption"
-                  className="font-bold text-[#fff]! my-0 px-4 text-xs md:text-sm"
+                  className="font-bold text-[#fff]! my-0 px-4 text-xs"
                 >
                   {article.cover.caption}
                 </p>
@@ -138,21 +141,20 @@ export default function SlugPageComponent({ article, categorySlug }: Props) {
                 </div>
               </>
             )}
-            <div className="border border-white/10 bg-[var(--color-foreground)]/5 text-[contrast-color(var(--color-foreground))] backdrop-blur-md rounded-sm shadow-md p-8">
-              <p className="m-0 text-foreground font-bold"> Tagi:</p>
-              <div className="inline-table mt-4">
-                {article.tags?.map((tag) => (
-                  <Link key={tag.documentId} href={`/tags/${tag.slug}`}>
-                    <Badge
-                      className="uppercase ml-0 mr-6 p-0
+
+            <p className="m-0 text-foreground font-bold"> Tagi:</p>
+            <div className="inline-table mt-4">
+              {article.tags?.map((tag) => (
+                <Link key={tag.documentId} href={`/tags/${tag.slug}`}>
+                  <Badge
+                    className="uppercase ml-0 mr-6 p-0
                     border-none scale-100 hover:underline hover:scale-105 transition-all duration-300 dark:text-foreground"
-                      variant="outline"
-                    >
-                      {tag.name}
-                    </Badge>
-                  </Link>
-                ))}
-              </div>
+                    variant="outline"
+                  >
+                    {tag.name}
+                  </Badge>
+                </Link>
+              ))}
             </div>
           </article>
           <aside
