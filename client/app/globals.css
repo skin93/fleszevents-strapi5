@@ -198,12 +198,16 @@
   }
 
   blockquote {
-    @apply relative p-8 border border-white/10 bg-[var(--color-foreground)]/5 backdrop-blur-md rounded-sm shadow-md before:content-['“'] before:text-7xl before:text-[var(--color-accent)] before:absolute before:top-0 before:left-2 before:font-serif;
+    @apply relative my-6 p-8 border border-white/10 bg-[var(--color-foreground)]/5 backdrop-blur-md rounded-sm shadow-md before:content-['“'] before:text-7xl before:text-[var(--color-accent)] before:absolute before:top-0 before:left-2 before:font-serif;
 
     p {
       @apply text-xl italic text-[contrast-color([var(--color-foreground)])]/90;
     }
   }
+
+  /* blockquote ~ blockquote {
+    @apply my-6;
+  } */
 
   figure {
     @apply block text-center my-6 mx-0;
