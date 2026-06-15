@@ -78,7 +78,10 @@ export default async function GallerySlugPage({
         }}
       />
       <main>
-        <section aria-label={`${gallery.name}`}>
+        <section
+          aria-label={`${gallery.name}`}
+          className="my-6 p-6 bg-card rounded-sm"
+        >
           <div className="my-6">
             <Breadcrumb>
               <BreadcrumbList>

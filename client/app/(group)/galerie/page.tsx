@@ -114,7 +114,7 @@ export default async function GalleriesPage({ searchParams }: Props) {
         }}
       />
       <main>
-        <section aria-label="Galleries">
+        <section aria-label="Galleries" className="my-6 p-6 bg-card rounded-sm">
           <div className="my-6">
             <Breadcrumb>
               <BreadcrumbList>
