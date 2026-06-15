@@ -38,7 +38,7 @@ export default function SmallGalleryDialog({ images }: Props) {
                       height={photo.height}
                       src={src}
                       alt={photo.alternativeText}
-                      className="rounded-lg object-cover"
+                      className="rounded-sm object-cover"
                       sizes="(min-width: 1560px) 435px, (min-width: 1280px) calc(15.38vw + 198px), (min-width: 640px) calc(50vw - 40px), (min-width: 460px) calc(100vw - 64px), calc(7.86vw + 341px)"
                     />
                   </div>

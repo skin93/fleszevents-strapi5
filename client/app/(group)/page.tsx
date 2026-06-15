@@ -1,4 +1,3 @@
-import { Separator } from "@/components/ui/separator";
 import { notFound } from "next/navigation";
 import Promo from "@/components/homepage/promo";
 import CategoryBlock from "@/components/homepage/category-block";
@@ -119,27 +118,25 @@ export default async function HomePage() {
         }}
       />
       <main>
-        <Promo promos={promos} />
-        <Separator />
-        <CategoryBlock
-          articles={festivals}
-          name="festivals"
-          categorySlug="festiwale"
-        />
-        <Separator />
-        <CategoryBlock
-          articles={concerts}
-          name="concerts"
-          categorySlug="koncerty"
-        />
-        <Separator />
-        <CategoryBlock articles={news} name="news" categorySlug="newsy" />
-        <Separator />
-        <CategoryBlock
-          articles={premiers}
-          name="premiers"
-          categorySlug="premiery"
-        />
+        <section className="my-6 p-6 bg-card rounded-sm">
+          <Promo promos={promos} />
+          <CategoryBlock
+            articles={festivals}
+            name="festivals"
+            categorySlug="festiwale"
+          />
+          <CategoryBlock
+            articles={concerts}
+            name="concerts"
+            categorySlug="koncerty"
+          />
+          <CategoryBlock articles={news} name="news" categorySlug="newsy" />
+          <CategoryBlock
+            articles={premiers}
+            name="premiers"
+            categorySlug="premiery"
+          />
+        </section>
       </main>
     </Fragment>
   );

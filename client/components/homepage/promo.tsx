@@ -21,22 +21,22 @@ export default function Promo({ promos }: Props) {
   return (
     <section
       aria-label="Promo events"
-      className="flex flex-col justify-center items-center my-8"
+      className="flex flex-col justify-center items-center"
     >
-      <h1 className="mb-8 text-center">POLECAMY</h1>
+      <h1 className=" text-center">POLECAMY</h1>
       <Carousel
+        className="max-w-full"
         plugins={[plugin.current]}
         opts={{
           align: "start",
           loop: true,
         }}
-        className="w-full"
       >
         <CarouselContent>
           {promos?.map((promo) => (
             <CarouselItem
               key={promo.documentId}
-              className="basis md:basis-1/2 xl:basis-1/3"
+              className="basis sm:basis-1/2 lg:basis-1/3"
             >
               <div key={promo.documentId}>
                 <Link href={`/polecamy/${promo.slug}`}>

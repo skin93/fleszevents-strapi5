@@ -10,8 +10,8 @@ type Props = {
 
 export default function GalleryCard({ gallery }: Props) {
   return (
-    <Card className="group border-none relative shadow-none translate-y-0  hover:translate-y-2 transition-all duration-300">
-      <CardContent className="p-0 rounded-lg flex flex-col items-center justify-end ">
+    <Card className="group border-none bg-[var(--color-foreground)]/5 text-[contrast-color(var(--color-foreground))] relative scale-100  hover:scale-105 transition-all duration-300 shadow-md">
+      <CardContent className="p-0 rounded-sm flex flex-col items-center justify-end ">
         <Image
           loading={"eager"}
           unoptimized

@@ -13,10 +13,10 @@ export default function CategoryBlock({ articles, name, categorySlug }: Props) {
   return (
     <section
       aria-label={`Latest ${name}`}
-      className="flex flex-col justify-center items-center"
+      className="flex flex-col justify-center items-center my-6"
     >
       <h1 className="my-8 text-center">{categorySlug.toUpperCase()}</h1>
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {articles?.map((article) => (
           <div key={article.documentId}>
             <Link href={`/${categorySlug}/${article.slug}`}>

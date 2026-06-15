@@ -32,7 +32,7 @@ export default function GalleryDialog({ gallery }: Props) {
             return (
               <Dialog key={photo.documentId}>
                 <DialogTrigger asChild className="cursor-pointer">
-                  <div className="relative translate-y-0  hover:translate-y-2 transition-all duration-300">
+                  <div className="relative scale-100 hover:scale-105 transition-all duration-300 shadow-md">
                     <Image
                       loading={"eager"}
                       unoptimized
@@ -42,7 +42,7 @@ export default function GalleryDialog({ gallery }: Props) {
                       alt={photo.alternativeText}
                       placeholder="blur"
                       blurDataURL="iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
-                      className="rounded-lg object-cover"
+                      className="rounded-sm object-cover shadow-md"
                       sizes="(min-width: 1560px) 435px, (min-width: 1280px) calc(15.38vw + 198px), (min-width: 640px) calc(50vw - 40px), (min-width: 460px) calc(100vw - 64px), calc(7.86vw + 341px)"
                     />
                   </div>

@@ -1,9 +1,7 @@
 "use client";
 import React, { useEffect } from "react";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Badge } from "@/components/ui/badge";
 import RelatedArticles from "@/components/ui/custom/related-articles";
-import { Separator } from "@/components/ui/separator";
 import { getMediaUrl } from "@/lib/getMediaUrl";
 import { formatDateToLocal } from "@/lib/utils";
 import Image from "next/image";
@@ -38,7 +36,7 @@ export default function SlugPageComponent({ article, categorySlug }: Props) {
   }, []);
   return (
     <main>
-      <section className="my-6" aria-label="article-page">
+      <section className="m-6 p-6 bg-card rounded-sm" aria-label="article-page">
         <div className="my-6">
           <Breadcrumb>
             <BreadcrumbList>
@@ -99,14 +97,10 @@ export default function SlugPageComponent({ article, categorySlug }: Props) {
           </Badge>
         </div>
         <h1 aria-label="article-title">{article.title}</h1>
-        <Separator className="mb-4" />
-        <div className="grid grid-cols-1 xl:grid-cols-[50%_40%] gap-2 justify-between">
+
+        <div className="grid grid-cols-1 xl:grid-cols-[60%_30%] gap-2 justify-between">
           <article aria-label="left-column">
-            <AspectRatio
-              ratio={16 / 9}
-              className="relative"
-              aria-label="image-wrapper"
-            >
+            <div className="relative" aria-label="image-wrapper">
               <Image
                 loading={"eager"}
                 unoptimized
@@ -118,46 +112,47 @@ export default function SlugPageComponent({ article, categorySlug }: Props) {
                 style={{ objectFit: "cover" }}
                 width={article.cover.width}
                 height={article.cover.height}
-                className="rounded-sm aspect-[16/9]"
+                className="rounded-sm aspect-[16/9] shadow-md"
               />
-              <div className="absolute bottom-0 left-0 w-auto h-auto bg-[rgba(0,0,0,0.7)] rounded-bl-sm">
+              <div className="absolute bottom-0 left-0 translate-0 bg-[rgba(0,0,0,0.7)] rounded-bl-sm">
                 <p
                   aria-label="article-image-caption"
-                  className="font-bold text-[#fff]! my-0 px-4"
+                  className="font-bold text-[#fff]! my-0 px-4 text-xs md:text-sm"
                 >
                   {article.cover.caption}
                 </p>
               </div>
-            </AspectRatio>
-            <Separator className="my-6" />
+            </div>
+
             <div
               dangerouslySetInnerHTML={{
                 __html: article.content,
               }}
               aria-label="article-content"
-              className="embeded-iframe"
+              className="embeded-iframe my-6"
             />
             {article.gallery && (
               <>
-                <div className="grid grid-cols-3 gap-4">
+                <div className="grid grid-cols-3 gap-4 my-6">
                   <SmallGalleryDialog images={article.gallery.images} />
                 </div>
               </>
             )}
-            <Separator className="my-6" />
-            <p className="mb-0 text-foreground font-bold"> Tagi:</p>
-            <div className="inline-table my-6">
-              {article.tags?.map((tag) => (
-                <Link key={tag.documentId} href={`/tags/${tag.slug}`}>
-                  <Badge
-                    className="uppercase ml-0 mr-6 p-0
-                    border-none hover:underline dark:text-foreground"
-                    variant="outline"
-                  >
-                    {tag.name}
-                  </Badge>
-                </Link>
-              ))}
+            <div className="border border-white/10 bg-[var(--color-foreground)]/5 text-[contrast-color(var(--color-foreground))] backdrop-blur-md rounded-sm shadow-md p-8">
+              <p className="m-0 text-foreground font-bold"> Tagi:</p>
+              <div className="inline-table mt-4">
+                {article.tags?.map((tag) => (
+                  <Link key={tag.documentId} href={`/tags/${tag.slug}`}>
+                    <Badge
+                      className="uppercase ml-0 mr-6 p-0
+                    border-none scale-100 hover:underline hover:scale-105 transition-all duration-300 dark:text-foreground"
+                      variant="outline"
+                    >
+                      {tag.name}
+                    </Badge>
+                  </Link>
+                ))}
+              </div>
             </div>
           </article>
           <aside

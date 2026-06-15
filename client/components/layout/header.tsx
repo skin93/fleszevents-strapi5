@@ -66,7 +66,7 @@ export default function Header() {
           className="hidden lg:flex justify-start items-center gap-2 "
         >
           <DropdownMenu>
-            <DropdownMenuTrigger className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm  ring-offset-background transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:cursor-pointer bg-transparent text-primary underline-offset-4 hover:underline py-2 px-4 font-extrabold">
+            <DropdownMenuTrigger className="inline-flex items-center justify-center whitespace-nowrap rounded-sm text-sm  ring-offset-background transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:cursor-pointer bg-transparent text-primary underline-offset-4 hover:underline py-2 px-4 font-extrabold">
               WPISY
             </DropdownMenuTrigger>
 

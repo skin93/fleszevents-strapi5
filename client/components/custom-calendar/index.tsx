@@ -128,7 +128,7 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
               />
             </SidebarGroupContent>
           </SidebarGroup>
-          <SidebarGroup className="flex flex-col gap-4 bg-card rounded-lg p-4 my-6">
+          <SidebarGroup className="flex flex-col gap-4 bg-card rounded-sm p-4 my-6">
             <Command>
               <CommandInput
                 placeholder="Szukaj frazy..."
@@ -373,7 +373,7 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
                 .map((event, index) => (
                   <div
                     key={event.documentId}
-                    className="group border-none relative shadow-none translate-y-0  hover:-translate-y-2 transition-all duration-300 bg-card rounded-lg p-4"
+                    className="group border-none relative shadow-md translate-y-0  hover:-translate-y-2 transition-all duration-300 bg-card rounded-sm p-4"
                   >
                     <EventComponent index={index} event={event} />
                   </div>
@@ -391,7 +391,7 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
                 .map((event, index) => (
                   <div
                     key={event.documentId}
-                    className="group border-none relative shadow-none translate-y-0  hover:-translate-y-2 transition-all duration-300 bg-card rounded-lg p-4"
+                    className="group border-none relative shadow-md translate-y-0  hover:-translate-y-2 transition-all duration-300 bg-card rounded-sm p-4"
                   >
                     <EventComponent index={index} event={event} />
                   </div>
@@ -409,7 +409,7 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
                 .map((event, index) => (
                   <div
                     key={event.documentId}
-                    className="group border-none relative shadow-none translate-y-0  hover:-translate-y-2 transition-all duration-300 bg-card rounded-lg p-4"
+                    className="group border-none relative shadow-md translate-y-0  hover:-translate-y-2 transition-all duration-300 bg-card rounded-sm p-4"
                   >
                     <EventComponent index={index} event={event} />
                   </div>
@@ -423,7 +423,7 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
               {events.map((event, index) => (
                 <div
                   key={event.documentId}
-                  className="group border-none relative shadow-none translate-y-0  hover:-translate-y-2 transition-all duration-300 bg-card rounded-lg p-4"
+                  className="group border-none relative shadow-md translate-y-0  hover:-translate-y-2 transition-all duration-300 bg-card rounded-sm p-4"
                 >
                   <EventComponent index={index} event={event} />
                 </div>
