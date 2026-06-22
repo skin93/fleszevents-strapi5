@@ -66,16 +66,17 @@ export default function Header() {
           className="hidden lg:flex justify-start items-center gap-2 "
         >
           <DropdownMenu>
-            <DropdownMenuTrigger className="inline-flex items-center justify-center whitespace-nowrap rounded-sm text-sm  ring-offset-background transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:cursor-pointer bg-transparent text-primary underline-offset-4 hover:underline py-2 px-4 font-extrabold">
+            <DropdownMenuTrigger className="inline-flex items-center justify-center whitespace-nowrap rounded-sm text-sm  ring-offset-background focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:cursor-pointer text-primary uppercase underline-offset-4 hover:underline py-2 px-4 font-bold sale-100 hover:scale-105 transition-all duration-300">
               WPISY
             </DropdownMenuTrigger>
 
             <DropdownMenuContent className="z-1000">
               {navLinks1.map(({ title, path }) => (
-                <DropdownMenuItem className="h-10" key={title}>
-                  <Link className="uppercase" href={path}>
-                    {title}
-                  </Link>
+                <DropdownMenuItem
+                  className="h-10 uppercase font-bold sale-100 hover:scale-105 transition-all duration-300"
+                  key={title}
+                >
+                  <Link href={path}>{title}</Link>
                 </DropdownMenuItem>
               ))}
             </DropdownMenuContent>

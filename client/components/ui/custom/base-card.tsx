@@ -25,7 +25,7 @@ export default function BaseCard({ article }: Props) {
           height={article.cover.height}
           className="rounded-sm aspect-[16/9]"
         />
-        <CardTitle className="w-full h-[100px] flex flex-col items-center justify-center p-4 text-sm md:text-md xl:text-lg text-center text-foreground dark:no-underline dark:group-hover:text-teal-400 group-hover:underline rounded-b-lg transition-all duration-300">
+        <CardTitle className="w-full h-[100px] flex flex-col items-center justify-center p-4 text-sm md:text-md xl:text-lg text-center text-[contrast-color(var(--color-background))] dark:no-underline dark:group-hover:text-teal-400 group-hover:underline rounded-b-lg transition-all duration-300">
           {article.title}
         </CardTitle>
       </CardContent>

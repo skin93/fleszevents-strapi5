@@ -142,13 +142,16 @@ export default function SlugPageComponent({ article, categorySlug }: Props) {
               </>
             )}
 
-            <p className="m-0 text-foreground font-bold"> Tagi:</p>
+            <p className="m-0 font-bold text-[contrast-color(var(--color-background))]">
+              {" "}
+              Tagi:
+            </p>
             <div className="inline-table mt-4">
               {article.tags?.map((tag) => (
                 <Link key={tag.documentId} href={`/tags/${tag.slug}`}>
                   <Badge
                     className="uppercase ml-0 mr-6 p-0
-                    border-none scale-100 hover:underline hover:scale-105 transition-all duration-300 dark:text-foreground"
+                    border-none scale-100 hover:underline hover:scale-105 transition-all duration-300 text-[contrast-color(var(--color-background))]"
                     variant="outline"
                   >
                     {tag.name}
