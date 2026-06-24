@@ -101,7 +101,7 @@ export default function SlugPageComponent({ article, categorySlug }: Props) {
         </div>
         <h1 aria-label="article-title">{article.title}</h1>
 
-        <div className="grid grid-cols-1 xl:grid-cols-[60%_30%] gap-2 justify-between">
+        <div className="grid grid-cols-1 xl:grid-cols-[70%_25%] justify-between">
           <article aria-label="left-column">
             <div className="relative" aria-label="image-wrapper">
               <Image
