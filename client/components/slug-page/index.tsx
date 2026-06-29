@@ -103,7 +103,7 @@ export default function SlugPageComponent({ article, categorySlug }: Props) {
 
         <div className="grid grid-cols-1 xl:grid-cols-[70%_25%] justify-between">
           <article aria-label="left-column">
-            <div className="relative" aria-label="image-wrapper">
+            <div className="relative " aria-label="image-wrapper">
               <Image
                 loading={"eager"}
                 unoptimized
@@ -115,7 +115,7 @@ export default function SlugPageComponent({ article, categorySlug }: Props) {
                 style={{ objectFit: "cover" }}
                 width={article.cover.width}
                 height={article.cover.height}
-                className="rounded-sm aspect-[16/9] shadow-md"
+                className="rounded-sm  shadow-md w-full aspect-video"
               />
               <div className="absolute bottom-0 left-0 translate-0 bg-[rgba(0,0,0,0.7)] rounded-bl-sm">
                 <p
