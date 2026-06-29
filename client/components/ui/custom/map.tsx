@@ -159,7 +159,9 @@ export default function Map({ markers }: { markers: MarkerType[] }) {
               >
                 <Popup closeButton={false} closeOnEscapeKey offset={[0, 5]}>
                   <div className="flex flex-col justify-between items-center gap-2">
-                    <h4 className="font-bold text-md m-0">{marker.popup}</h4>
+                    <h4 className="font-bold text-md m-0 text-black">
+                      {marker.popup}
+                    </h4>
                     <DialogTrigger asChild>
                       <Button className="cursor-pointer bg-teal-600 hover:bg-teal-600/80">
                         Szczegóły
@@ -262,7 +264,7 @@ export default function Map({ markers }: { markers: MarkerType[] }) {
           </DrawerTrigger>
           <DrawerContent className="container z-900 border-none flex flex-col justify-center items-center w-full">
             <DrawerHeader className="mt-0">
-              <DrawerTitle className=" py-0 my-0 text-background">
+              <DrawerTitle className=" py-0 my-0 bg-[var(--color-background)] text-[contrast-color(var(--color-background))]/80">
                 Filtry
               </DrawerTitle>
             </DrawerHeader>
