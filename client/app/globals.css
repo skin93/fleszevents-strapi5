@@ -118,7 +118,7 @@
   }
 
   body {
-    @apply bg-[var(--color-background)] text-[contrast-color(var(--color-background))]/80 relative overflow-x-hidden;
+    @apply bg-[var(--color-background)] text-[contrast-color(var(--color-background))]/85 font-medium relative overflow-x-hidden;
     ::selection {
       @apply bg-[var(--color-accent)] text-[contrast-color(var(--color-accent))];
     }
@@ -164,7 +164,7 @@
   }
 
   p {
-    @apply leading-9 my-4 text-base md:text-lg;
+    @apply leading-9 my-4 text-base md:text-lg font-medium;
   }
 
   article {
