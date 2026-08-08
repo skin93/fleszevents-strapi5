@@ -643,6 +643,35 @@ export interface ApiMusicTypeMusicType extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiPatronagePatronage extends Struct.CollectionTypeSchema {
+  collectionName: 'patronages';
+  info: {
+    displayName: 'Patronage';
+    pluralName: 'patronages';
+    singularName: 'patronage';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    cover: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::patronage.patronage'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiPlacePlace extends Struct.CollectionTypeSchema {
   collectionName: 'places';
   info: {
@@ -1222,6 +1251,7 @@ declare module '@strapi/strapi' {
       'api::festival.festival': ApiFestivalFestival;
       'api::gallery.gallery': ApiGalleryGallery;
       'api::music-type.music-type': ApiMusicTypeMusicType;
+      'api::patronage.patronage': ApiPatronagePatronage;
       'api::place.place': ApiPlacePlace;
       'api::tag.tag': ApiTagTag;
       'plugin::content-releases.release': PluginContentReleasesRelease;

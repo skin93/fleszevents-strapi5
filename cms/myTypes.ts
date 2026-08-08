@@ -147,6 +147,17 @@ export interface MusicType {
   festivals?: Festival[] | null;
 };
 
+export interface Patronage {
+  id?: number;
+  documentId?: string;
+  createdAt?: Date | string;
+  updatedAt?: Date | string;
+  publishedAt?: Date | string;
+  locale?: string | null;
+  name: string;
+  cover: Media | null;
+};
+
 export interface Place {
   id?: number;
   documentId?: string;
