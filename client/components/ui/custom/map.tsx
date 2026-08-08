@@ -212,7 +212,7 @@ export default function Map({ markers }: { markers: MarkerType[] }) {
                     </p>
                   )}
                 </div>
-                <div className="flex flex-col md:flex-row items-center gap-4">
+                <div className="flex flex-row items-center gap-4">
                   <Button variant={"outline"}>
                     <Link
                       target="_blank"
