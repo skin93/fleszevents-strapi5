@@ -422,3 +422,18 @@ export interface Event {
 export interface Events {
   events: Event[];
 }
+
+export interface Patronage {
+  id?: number;
+  documentId?: string;
+  createdAt?: Date | string;
+  updatedAt?: Date | string;
+  publishedAt?: Date | string;
+  locale?: string | null;
+  name: string;
+  cover: Media;
+}
+
+export interface Patronages {
+  patronages: Patronage[];
+}

@@ -4,6 +4,8 @@ import CategoryBlock from "@/components/homepage/category-block";
 import { getLatestArticles, getPromoArticles } from "@/lib/data/articles";
 import { WebSite, WithContext } from "schema-dts";
 import { Fragment } from "react";
+import { Patronages } from "@/components/homepage/patronages";
+import { getPatronages } from "@/lib/data/patronages";
 
 export const dynamic = "force-dynamic";
 
@@ -101,12 +103,12 @@ export default async function HomePage() {
     },
   };
 
+  const { promos } = await getPromoArticles();
   const { concerts, festivals, premiers, news, relations } =
     await getLatestArticles(0, 6);
+  const { patronages } = await getPatronages();
 
-  const { promos } = await getPromoArticles();
-
-  if (!concerts || !festivals || !premiers || !news || !promos) {
+  if (!concerts || !festivals || !premiers || !news || !promos || !patronages) {
     notFound();
   }
 
@@ -131,6 +133,7 @@ export default async function HomePage() {
             name="concerts"
             categorySlug="koncerty"
           />
+          <Patronages patronages={patronages} />
           <CategoryBlock articles={news} name="news" categorySlug="newsy" />
           <CategoryBlock
             articles={premiers}
