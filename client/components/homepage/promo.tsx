@@ -1,11 +1,5 @@
 "use client";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "../ui/carousel";
+import { Carousel, CarouselContent, CarouselItem } from "../ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import Link from "next/link";
 import BaseCard from "@/components/ui/custom/base-card";
@@ -17,7 +11,7 @@ interface Props {
 }
 
 export default function Promo({ promos }: Props) {
-  const plugin = useRef(Autoplay({ delay: 2000, stopOnInteraction: true }));
+  const plugin = useRef(Autoplay({ delay: 2000, stopOnInteraction: false }));
   return (
     <section
       aria-label="Promo events"
@@ -36,7 +30,7 @@ export default function Promo({ promos }: Props) {
           {promos?.map((promo) => (
             <CarouselItem
               key={promo.documentId}
-              className="basis sm:basis-1/2 lg:basis-1/3"
+              className="basis basis-1/2 lg:basis-1/5"
             >
               <div key={promo.documentId}>
                 <Link href={`/polecamy/${promo.slug}`}>
@@ -46,8 +40,6 @@ export default function Promo({ promos }: Props) {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="hidden sm:flex" />
-        <CarouselNext className="hidden sm:flex" />
       </Carousel>
     </section>
   );
