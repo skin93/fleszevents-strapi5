@@ -133,7 +133,7 @@ export default async function GalleriesPage({ searchParams }: Props) {
             </Breadcrumb>
           </div>
           <h1 className="my-8 text-center uppercase">GALERIE</h1>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 ">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 ">
             {galleries.map((gallery) => (
               <div key={gallery.documentId}>
                 <Link href={`/galerie/${gallery.slug}`}>
