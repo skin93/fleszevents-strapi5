@@ -111,7 +111,7 @@ export default function Header() {
                 </DrawerHeader>
                 {navLinks1.map(({ title, path }) => (
                   <ButtonLink
-                    className="text-2xl !text-foreground"
+                    className="text-md !text-foreground"
                     key={title}
                     href={path}
                   >
@@ -121,7 +121,7 @@ export default function Header() {
                 <hr />
                 {navLinks2.map(({ title, path }) => (
                   <ButtonLink
-                    className="text-2xl !text-foreground"
+                    className="text-md !text-foreground"
                     key={title}
                     href={path}
                   >
