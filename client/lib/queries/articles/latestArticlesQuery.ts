@@ -77,5 +77,24 @@ export const LATEST_ARTICLES_QUERY = gql`
         }
       }
     }
+    relations: articles_connection(
+      status: PUBLISHED
+      filters: { categories: { slug: { eq: "relacje" } } }
+      pagination: { start: $start, limit: $limit }
+      sort: "createdAt:desc"
+    ) {
+      nodes {
+        documentId
+        title
+        slug
+        publishedAt
+        cover {
+          alternativeText
+          url
+          width
+          height
+        }
+      }
+    }
   }
 `;

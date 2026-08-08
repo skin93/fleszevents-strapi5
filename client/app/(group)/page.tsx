@@ -101,7 +101,8 @@ export default async function HomePage() {
     },
   };
 
-  const { concerts, festivals, premiers, news } = await getLatestArticles(0, 6);
+  const { concerts, festivals, premiers, news, relations } =
+    await getLatestArticles(0, 6);
 
   const { promos } = await getPromoArticles();
 
@@ -135,6 +136,11 @@ export default async function HomePage() {
             articles={premiers}
             name="premiers"
             categorySlug="premiery"
+          />
+          <CategoryBlock
+            articles={relations}
+            name="relations"
+            categorySlug="relacje"
           />
         </section>
       </main>

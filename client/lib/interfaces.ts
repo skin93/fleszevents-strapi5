@@ -99,6 +99,7 @@ export interface LatestArticles {
   festivals: { nodes: Article[] };
   concerts: { nodes: Article[] };
   premiers: { nodes: Article[] };
+  relations: { nodes: Article[] };
 }
 
 export interface Author {

@@ -25,6 +25,7 @@ export async function getLatestArticles(start: number, limit: number) {
     concerts: res.concerts.nodes,
     festivals: res.festivals.nodes,
     premiers: res.premiers.nodes,
+    relations: res.relations.nodes,
   };
 }
 
