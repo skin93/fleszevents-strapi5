@@ -30,7 +30,7 @@ export default function Promo({ promos }: Props) {
           {promos?.map((promo) => (
             <CarouselItem
               key={promo.documentId}
-              className="basis basis-1/2 lg:basis-1/5"
+              className="basis sm:basis-1/2 lg:basis-1/5"
             >
               <div key={promo.documentId}>
                 <Link href={`/polecamy/${promo.slug}`}>
