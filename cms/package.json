@@ -15,12 +15,12 @@
     "upgrade:dry": "npx @strapi/upgrade latest --dry"
   },
   "dependencies": {
-    "@_sh/strapi-plugin-ckeditor": "^5.0.2",
-    "@strapi/plugin-cloud": "5.18.0",
-    "@strapi/plugin-graphql": "5.18.0",
-    "@strapi/plugin-seo": "5.18.0",
-    "@strapi/plugin-users-permissions": "5.18.0",
-    "@strapi/strapi": "5.18.0",
+    "@_sh/strapi-plugin-ckeditor": "^8.0.0",
+    "@strapi/plugin-cloud": "5.53.0",
+    "@strapi/plugin-graphql": "5.53.0",
+    "@strapi/plugin-seo": "5.53.0",
+    "@strapi/plugin-users-permissions": "5.53.0",
+    "@strapi/strapi": "5.53.0",
     "pg": "8.8.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
@@ -33,10 +33,6 @@
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "typescript": "^5"
-  },
-  "engines": {
-    "node": ">=18.0.0 <=22.x.x",
-    "npm": ">=6.0.0"
   },
   "strapi": {
     "uuid": "e117b7fa-3d05-4da2-b73e-b83346bf4a70"

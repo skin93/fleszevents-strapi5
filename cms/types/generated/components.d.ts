@@ -113,7 +113,7 @@ export interface SharedSmallGallery extends Struct.ComponentSchema {
 }
 
 declare module '@strapi/strapi' {
-  export module Public {
+  export namespace Public {
     export interface ComponentSchemas {
       'shared.next-event': SharedNextEvent;
       'shared.open-graph': SharedOpenGraph;
