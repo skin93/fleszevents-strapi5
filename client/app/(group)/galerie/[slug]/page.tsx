@@ -109,7 +109,7 @@ export default async function GallerySlugPage({
             <h1 className="my-8 text-center text-4xl uppercase">
               {gallery.name}
             </h1>
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
               <GalleryDialog gallery={gallery} />
             </div>
           </div>
