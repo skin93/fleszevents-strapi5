@@ -10,6 +10,7 @@ export const SINGLE_ARTICLE_INFO_QUERY = gql`
         caption
         width
         height
+        blurDataURL
       }
     }
   }

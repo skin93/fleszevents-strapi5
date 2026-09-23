@@ -16,6 +16,7 @@ export const GALLERY_BY_SLUG_QUERY = gql`
         height
         url
         createdAt
+        blurDataURL
       }
       tags {
         name

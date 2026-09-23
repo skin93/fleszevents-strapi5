@@ -15,6 +15,7 @@ export const GALLERIES_QUERY = gql`
           height
           alternativeText
           url
+          blurDataURL
         }
         tags {
           name

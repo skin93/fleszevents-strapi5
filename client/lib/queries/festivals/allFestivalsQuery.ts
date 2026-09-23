@@ -47,6 +47,7 @@ export const ALL_FESTIVALS_QUERY = gql`
         width
         height
         alternativeText
+        blurDataURL
       }
       tickets
     }

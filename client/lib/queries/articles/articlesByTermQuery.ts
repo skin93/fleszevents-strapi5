@@ -19,6 +19,7 @@ export const ARTICLES_BY_TERM_QUERY = gql`
           url
           width
           height
+          blurDataURL
         }
         categories {
           name

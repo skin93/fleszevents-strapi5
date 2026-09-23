@@ -9,6 +9,7 @@ export const PATRONAGES_QUERY = gql`
         url
         width
         height
+        blurDataURL
       }
     }
   }

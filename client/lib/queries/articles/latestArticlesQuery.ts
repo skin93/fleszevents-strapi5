@@ -17,6 +17,7 @@ export const LATEST_ARTICLES_QUERY = gql`
           url
           width
           height
+          blurDataURL
         }
       }
     }

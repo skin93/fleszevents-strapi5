@@ -22,6 +22,7 @@ export const SINGLE_ARTICLE_QUERY = gql`
         caption
         width
         height
+        blurDataURL
       }
       categories {
         documentId
