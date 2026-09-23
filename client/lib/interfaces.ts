@@ -163,7 +163,7 @@ export interface Gallery {
   name: string;
   description: string;
   slug: string;
-  photos: Media[] | null;
+  photos: Media[];
   cover: Media;
   seo: SharedSeo | null;
   tags?: Tag[] | null;
@@ -245,6 +245,7 @@ export interface Media {
   caption: string;
   width: number;
   height: number;
+  blurDataURL: string;
   formats: {
     thumbnail: MediaFormat;
     small: MediaFormat;
@@ -362,6 +363,7 @@ export interface Marker {
   imageWidth: number;
   imageHeight: number;
   imageAlt: string;
+  imageBlurDataURL: string;
   slug: string;
   city: string | undefined;
   region?:

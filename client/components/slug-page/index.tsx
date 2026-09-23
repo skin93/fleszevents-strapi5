@@ -4,7 +4,6 @@ import { Badge } from "@/components/ui/badge";
 import RelatedArticles from "@/components/ui/custom/related-articles";
 import { getMediaUrl } from "@/lib/getMediaUrl";
 import { formatDateToLocal } from "@/lib/utils";
-import Image from "next/image";
 import Link from "next/link";
 import { Article } from "@/lib/interfaces";
 import SmallGalleryDialog from "../ui/custom/small-gallery-dialog";
@@ -18,6 +17,10 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { Home } from "lucide-react";
+
+import Image from "strapi-next-image";
+import { initializeStrapiImage } from "strapi-next-image";
+await initializeStrapiImage(process.env.NEXT_PUBLIC_STRAPI as string);
 
 type Props = {
   article: Article;
@@ -105,17 +108,15 @@ export default function SlugPageComponent({ article, categorySlug }: Props) {
           <article aria-label="left-column">
             <div className="relative " aria-label="image-wrapper">
               <Image
-                loading={"eager"}
-                unoptimized
                 src={getMediaUrl(article.cover)}
-                title={article.title}
                 alt={article.cover.alternativeText}
-                placeholder="blur"
-                blurDataURL="iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
-                style={{ objectFit: "cover" }}
+                blurDataURL={article.cover.blurDataURL}
                 width={article.cover.width}
                 height={article.cover.height}
-                className="rounded-sm  shadow-md w-full aspect-video"
+                sizes="(min-width: 1540px) 829px, (min-width: 1280px) 721px, (min-width: 1040px) 825px, (min-width: 780px) 692px, (min-width: 680px) 543px, calc(93.89vw - 60px)"
+                priority
+                style={{ objectFit: "cover" }}
+                className="rounded-sm aspect-video"
               />
               <div className="absolute bottom-0 left-0 translate-0 bg-[rgba(0,0,0,0.7)] rounded-bl-sm">
                 <p

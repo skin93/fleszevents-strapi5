@@ -12,6 +12,7 @@ function createMarkers(festivals: Festival[]) {
     id: fest.documentId,
     description: fest.description,
     imageSrc: getMediaUrl(fest.cover!),
+    imageBlurDataURL: fest.cover!.blurDataURL,
     imageWidth: fest.cover!.width,
     imageHeight: fest.cover!.height,
     imageAlt: fest.cover!.alternativeText,
