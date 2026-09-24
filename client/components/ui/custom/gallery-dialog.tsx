@@ -74,18 +74,14 @@ export default function GalleryDialog({ gallery }: Props) {
           {photosWithIndex
             .filter((photo) => photo.originalIndex % columnsCount === colIndex)
             .map((photo) => {
-              const src = getMediaUrl(photo);
               return (
                 <div
                   key={photo.originalIndex}
                   className="relative scale-100 hover:scale-105 transition-all duration-300 shadow-md rounded-sm"
                 >
                   <Image
-                    src={src}
+                    src={photo}
                     alt={photo.alternativeText}
-                    blurDataURL={photo.blurDataURL}
-                    width={photo.width}
-                    height={photo.height}
                     sizes="(min-width: 1024px) 480px, (min-width: 768px) 400px, (min-width: 640px) 267px, calc(99.69vw - 78px)"
                     priority
                     className="rounded-sm object-cover shadow-md cursor-pointer"

@@ -2,7 +2,6 @@
 import React, { useEffect } from "react";
 import { Badge } from "@/components/ui/badge";
 import RelatedArticles from "@/components/ui/custom/related-articles";
-import { getMediaUrl } from "@/lib/getMediaUrl";
 import { formatDateToLocal } from "@/lib/utils";
 import Link from "next/link";
 import { Article } from "@/lib/interfaces";
@@ -106,11 +105,8 @@ export default function SlugPageComponent({ article, categorySlug }: Props) {
           <article aria-label="left-column">
             <div className="relative " aria-label="image-wrapper">
               <Image
-                src={getMediaUrl(article.cover)}
+                src={article.cover}
                 alt={article.cover.alternativeText}
-                blurDataURL={article.cover.blurDataURL}
-                height={article.cover.height}
-                width={article.cover.width}
                 sizes="(min-width: 1536px) 874px, (min-width: 1280px) 720px, (min-width: 1024px) 950px, (min-width: 768px) 688px, (min-width: 640px) 560px, calc(94.17vw - 62px)"
                 priority
                 style={{ objectFit: "cover" }}

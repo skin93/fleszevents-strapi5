@@ -10,7 +10,7 @@ import {
   CarouselItem,
 } from "@/components/ui/carousel";
 import { Patronage } from "@/lib/interfaces";
-import Image from "next/image";
+import Image from "strapi-next-image";
 import { getMediaUrl } from "@/lib/getMediaUrl";
 
 type Props = {
@@ -45,12 +45,9 @@ export function Patronages({ patronages }: Props) {
               <Card className="border-none">
                 <CardContent className="flex aspect-video items-center justify-center p-0">
                   <Image
-                    src={getMediaUrl(patronage.cover)}
+                    src={patronage.cover}
                     alt={patronage.cover.alternativeText}
-                    blurDataURL={patronage.cover.blurDataURL}
-                    width={patronage.cover.width}
-                    height={patronage.cover.height}
-                    sizes="(min-width: 1536px) 262px, (min-width: 1280px) 212px, (min-width: 1024px) 160px, (min-width: 768px) 295px, (min-width: 640px) 231px, calc(47.22vw - 81px)"
+                    sizes="(min-width: 1536px) 256px, (min-width: 1280px) 212px, (min-width: 1024px) 160px, (min-width: 768px) 295px, (min-width: 640px) 231px, calc(47.22vw - 81px)"
                     priority
                     style={{ objectFit: "cover" }}
                     className="rounded-sm rounded-b-none aspect-video"
