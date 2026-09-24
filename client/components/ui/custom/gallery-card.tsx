@@ -5,8 +5,6 @@ import { Gallery } from "@/lib/interfaces";
 import { getMediaUrl } from "@/lib/getMediaUrl";
 
 import Image from "strapi-next-image";
-import { initializeStrapiImage } from "strapi-next-image";
-await initializeStrapiImage(process.env.NEXT_PUBLIC_STRAPI as string);
 
 type Props = {
   gallery: Gallery;
@@ -22,7 +20,7 @@ export default function GalleryCard({ gallery }: Props) {
           blurDataURL={gallery.cover.blurDataURL}
           width={gallery.cover.width}
           height={gallery.cover.height}
-          sizes="(min-width: 1540px) 475px, (min-width: 1280px) 389px, (min-width: 1040px) 304px, (min-width: 780px) 336px, (min-width: 640px) 272px, calc(100vw - 80px)"
+          sizes="(min-width: 1280px) 426px, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
           priority
           style={{ objectFit: "cover" }}
           className="rounded-sm rounded-b-none aspect-video"

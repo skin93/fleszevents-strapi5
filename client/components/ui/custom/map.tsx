@@ -14,8 +14,6 @@ import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
 import { Marker as MarkerType } from "@/lib/interfaces";
 
 import Image from "strapi-next-image";
-import { initializeStrapiImage } from "strapi-next-image";
-await initializeStrapiImage(process.env.NEXT_PUBLIC_STRAPI as string);
 
 import {
   Command,
@@ -173,17 +171,17 @@ export default function Map({ markers }: { markers: MarkerType[] }) {
                   </div>
                 </Popup>
               </Marker>
-              <DialogContent className="border-none flex flex-col justify-between items-center max-w-[60em] max-h-full overflow-y-auto">
+              <DialogContent className="border-none flex flex-col justify-between items-center max-w-7xl max-h-full overflow-y-auto">
                 <Image
                   src={marker.imageSrc}
                   alt={marker.imageAlt}
                   blurDataURL={marker.imageBlurDataURL}
                   width={marker.imageWidth}
                   height={marker.imageHeight}
-                  sizes="(min-width: 1540px) 829px, (min-width: 1280px) 721px, (min-width: 1040px) 825px, (min-width: 780px) 692px, (min-width: 680px) 543px, calc(93.89vw - 60px)"
+                  sizes="(min-width: 1280px) 1280px, 100vw"
                   priority
                   style={{ objectFit: "cover" }}
-                  className="rounded-sm aspect-video"
+                  className="rounded-sm  aspect-video"
                 />
                 <DialogTitle className="my-0 text-primary">
                   {marker.alt}

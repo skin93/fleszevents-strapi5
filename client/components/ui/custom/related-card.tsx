@@ -5,8 +5,6 @@ import { Article } from "@/lib/interfaces";
 import { getMediaUrl } from "@/lib/getMediaUrl";
 
 import Image from "strapi-next-image";
-import { initializeStrapiImage } from "strapi-next-image";
-await initializeStrapiImage(process.env.NEXT_PUBLIC_STRAPI as string);
 
 type Props = {
   article: Article;

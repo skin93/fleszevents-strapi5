@@ -19,8 +19,6 @@ import {
 import { Home } from "lucide-react";
 
 import Image from "strapi-next-image";
-import { initializeStrapiImage } from "strapi-next-image";
-await initializeStrapiImage(process.env.NEXT_PUBLIC_STRAPI as string);
 
 type Props = {
   article: Article;
@@ -111,9 +109,9 @@ export default function SlugPageComponent({ article, categorySlug }: Props) {
                 src={getMediaUrl(article.cover)}
                 alt={article.cover.alternativeText}
                 blurDataURL={article.cover.blurDataURL}
-                width={article.cover.width}
                 height={article.cover.height}
-                sizes="(min-width: 1540px) 829px, (min-width: 1280px) 721px, (min-width: 1040px) 825px, (min-width: 780px) 692px, (min-width: 680px) 543px, calc(93.89vw - 60px)"
+                width={article.cover.width}
+                sizes="(min-width: 1536px) 874px, (min-width: 1280px) 720px, (min-width: 1024px) 950px, (min-width: 768px) 688px, (min-width: 640px) 560px, calc(94.17vw - 62px)"
                 priority
                 style={{ objectFit: "cover" }}
                 className="rounded-sm aspect-video"

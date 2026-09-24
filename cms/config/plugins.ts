@@ -29,9 +29,8 @@ export default ({ env }) => ({
   },
   "next-image": {
     config: {
-      deviceSizes: [
-        320, 480, 640, 750, 828, 1080, 1200, 1440, 1920, 2048, 3840,
-      ],
+      deviceSizes: [320, 400, 480, 640, 750, 828, 1080, 1280, 1440],
+      imageSizes: [16, 32, 48, 64, 96, 128, 256, 384, 512],
       qualities: [75],
       formats: ["image/webp"],
       minimumCacheTTL: 14400,

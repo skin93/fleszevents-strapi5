@@ -45,17 +45,15 @@ export function Patronages({ patronages }: Props) {
               <Card className="border-none">
                 <CardContent className="flex aspect-video items-center justify-center p-0">
                   <Image
-                    loading={"eager"}
-                    unoptimized
                     src={getMediaUrl(patronage.cover)}
-                    title={patronage.name}
                     alt={patronage.cover.alternativeText}
-                    placeholder="blur"
-                    blurDataURL="iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
-                    style={{ objectFit: "cover" }}
+                    blurDataURL={patronage.cover.blurDataURL}
                     width={patronage.cover.width}
                     height={patronage.cover.height}
-                    className="rounded-sm aspect-video "
+                    sizes="(min-width: 1536px) 262px, (min-width: 1280px) 212px, (min-width: 1024px) 160px, (min-width: 768px) 295px, (min-width: 640px) 231px, calc(47.22vw - 81px)"
+                    priority
+                    style={{ objectFit: "cover" }}
+                    className="rounded-sm rounded-b-none aspect-video"
                   />
                 </CardContent>
               </Card>

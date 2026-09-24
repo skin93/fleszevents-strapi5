@@ -7,8 +7,6 @@ import { Gallery } from "@/lib/interfaces";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 import Image from "strapi-next-image";
-import { initializeStrapiImage } from "strapi-next-image";
-await initializeStrapiImage(process.env.NEXT_PUBLIC_STRAPI as string);
 
 type Props = {
   gallery: Gallery;
@@ -88,7 +86,7 @@ export default function GalleryDialog({ gallery }: Props) {
                     blurDataURL={photo.blurDataURL}
                     width={photo.width}
                     height={photo.height}
-                    sizes="(min-width: 1540px) 475px, (min-width: 1280px) 389px, (min-width: 1040px) 304px, (min-width: 780px) 336px, (min-width: 640px) 272px, calc(100vw - 80px)"
+                    sizes="(min-width: 1024px) 480px, (min-width: 768px) 400px, (min-width: 640px) 267px, calc(99.69vw - 78px)"
                     priority
                     className="rounded-sm object-cover shadow-md cursor-pointer"
                     onClick={() => {
@@ -112,7 +110,7 @@ export default function GalleryDialog({ gallery }: Props) {
             {selectedPhoto?.alternativeText}
           </DialogDescription>
           {selectedPhoto && (
-            <div className="relative w-full h-full flex items-center justify-center group">
+            <div className="relative w-full max-w-[1440px] h-full flex items-center justify-center group">
               <button
                 onClick={handlePrev}
                 aria-label="Poprzednie zdjęcie"
@@ -129,11 +127,15 @@ export default function GalleryDialog({ gallery }: Props) {
                 <ChevronRight className="w-6 h-6" />
               </button>
               <Image
-                priority
-                fill={true}
                 src={getMediaUrl(selectedPhoto)}
-                alt={selectedPhoto?.alternativeText}
-                className="object-contain"
+                alt={selectedPhoto.alternativeText}
+                blurDataURL={selectedPhoto.blurDataURL}
+                // width={selectedPhoto.width}
+                // height={selectedPhoto.height}
+                fill
+                sizes="(min-width: 1560px) 1440px, 100vw"
+                priority
+                className="rounded-sm  aspect-video object-contain"
               />
             </div>
           )}

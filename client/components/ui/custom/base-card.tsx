@@ -5,8 +5,6 @@ import { Article } from "@/lib/interfaces";
 import { getMediaUrl } from "@/lib/getMediaUrl";
 
 import Image from "strapi-next-image";
-import { initializeStrapiImage } from "strapi-next-image";
-await initializeStrapiImage(process.env.NEXT_PUBLIC_STRAPI as string);
 
 type Props = {
   article: Article;
@@ -22,7 +20,7 @@ export default function BaseCard({ article }: Props) {
           blurDataURL={article.cover.blurDataURL}
           width={article.cover.width}
           height={article.cover.height}
-          sizes="(min-width: 1560px) 435px, (min-width: 1280px) calc(15.38vw + 198px), (min-width: 640px) calc(50vw - 40px), (min-width: 460px) calc(100vw - 64px), calc(7.86vw + 341px)"
+          sizes="(min-width: 1536px) 512px, (min-width: 1280px) 384px, (min-width: 768px) 320px, (min-width: 640px) 267px, calc(99.69vw - 78px)"
           priority
           style={{ objectFit: "cover" }}
           className="rounded-sm aspect-[16/9]"

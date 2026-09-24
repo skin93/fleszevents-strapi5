@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import Header from "@/components/layout/header";
+import { Providers } from "../provider";
 
 export default function FestivalLayout({
   children,
@@ -9,7 +10,7 @@ export default function FestivalLayout({
   return (
     <Fragment>
       <Header />
-      {children}
+      <Providers>{children}</Providers>
     </Fragment>
   );
 }
