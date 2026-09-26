@@ -45,7 +45,7 @@ const navLinks2: Array<{ title: string; path: string }> = [
 export default function Header() {
   return (
     <header className="p-4 sticky top-0 z-50 bg-stone-950 ">
-      <div className="container flex h-20 justify-between">
+      <div className="container max-w-7xl flex h-20 justify-between">
         <div>
           <Link
             href="/"

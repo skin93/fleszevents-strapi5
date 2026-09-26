@@ -2,9 +2,9 @@
 import { Carousel, CarouselContent, CarouselItem } from "../ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import Link from "next/link";
-import BaseCard from "@/components/ui/custom/base-card";
 import { useRef } from "react";
 import { Article } from "@/lib/interfaces";
+import PromoCard from "../ui/custom/promo-card";
 
 interface Props {
   promos: Article[];
@@ -32,15 +32,22 @@ export default function Promo({ promos }: Props) {
               key={promo.documentId}
               className="basis sm:basis-1/2 lg:basis-1/3"
             >
-              <div key={promo.documentId}>
+              <div key={promo.documentId} className="h-auto">
                 <Link href={`/polecamy/${promo.slug}`}>
-                  <BaseCard article={promo} />
+                  <PromoCard article={promo} />
                 </Link>
               </div>
             </CarouselItem>
           ))}
         </CarouselContent>
       </Carousel>
+      {/* {promos?.map((promo) => (
+        <div key={promo.documentId}>
+          <Link href={`/polecamy/${promo.slug}`}>
+            <PromoCard article={promo} />
+          </Link>
+        </div>
+      ))} */}
     </section>
   );
 }

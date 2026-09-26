@@ -1,47 +1,45 @@
 import { Facebook, Youtube } from "lucide-react";
 import { ButtonLink } from "../ui/custom/button-link";
+import FooterLinksContainer from "../ui/custom/footer-links-container";
 
 export default function Footer() {
-  const navLinks = [
-    { title: "polecamy", path: "/polecamy" },
+  const festivalsNavLinks = [
+    { title: "festiwalowa mapa", path: "/festiwalowa-mapa" },
+    { title: "festiwale 2027", path: "/tagi/festiwale-2027" },
+    { title: "festiwale 2026", path: "/tagi/festiwale-2026" },
     { title: "festiwale", path: "/festiwale" },
-    { title: "koncerty", path: "/koncerty" },
-    { title: "patronat", path: "/patronat" },
-    { title: "newsy", path: "/newsy" },
-    { title: "premiery", path: "/premiery" },
-    { title: "relacje", path: "/relacje" },
-    { title: "wywiady", path: "/wywiady" },
   ];
 
-  const items = [
-    { title: "festiwalowa mapa", path: "/festiwalowa-mapa" },
-    { title: "galerie", path: "/galerie" },
+  const concertsNavLinks = [
+    { title: "koncerty 2027", path: "/tagi/koncerty-2027" },
+    { title: "koncerty 2026", path: "/tagi/koncerty-2026" },
+    { title: "koncerty", path: "/koncerty" },
+  ];
+
+  const links = [
+    { title: "patronat", path: "/patronat" },
     { title: "kontakt", path: "/kontakt" },
-    { title: "tagi", path: "/tagi" },
   ];
 
   return (
     <footer className="max-w-screen h-full bg-stone-950 p-4">
-      <div className="container flex flex-row md:flex-col h-full md:items-center justify-around my-6">
-        <div className="flex flex-col md:flex-row">
-          {navLinks.map(({ title, path }) => (
-            <ButtonLink key={title} href={path}>
-              {title}
+      <div className="container max-w-7xl grid grid-cols-2 md:grid-cols-4 h-full my-6">
+        <FooterLinksContainer links={festivalsNavLinks} text={"festiwale"} />
+        <FooterLinksContainer links={concertsNavLinks} text={"koncerty"} />
+        <FooterLinksContainer links={links} text={"współpraca"} />
+
+        <div className="flex flex-col items-start">
+          <p className="px-4 py-2 m-0 uppercase dark:text-accent text-muted">
+            sociale
+          </p>
+          <div className="flex flex-row">
+            <ButtonLink href="https://facebook.com/flesz.events">
+              <Facebook />
             </ButtonLink>
-          ))}
-        </div>
-        <div className="flex flex-col md:flex-row">
-          {items.map(({ title, path }) => (
-            <ButtonLink key={title} href={path}>
-              {title}
+            <ButtonLink href="https://www.youtube.com/channel/UCtJGqTQUcJRNVi4gBqVqAfg">
+              <Youtube />
             </ButtonLink>
-          ))}
-          <ButtonLink href="https://facebook.com/flesz.events">
-            <Facebook />
-          </ButtonLink>
-          <ButtonLink href="https://www.youtube.com/channel/UCtJGqTQUcJRNVi4gBqVqAfg">
-            <Youtube />
-          </ButtonLink>
+          </div>
         </div>
       </div>
       <div className="text-primary text-center font-extrabold">

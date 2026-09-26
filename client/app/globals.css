@@ -130,7 +130,7 @@
 
   main,
   footer {
-    @apply container px-4;
+    @apply container px-4 max-w-7xl min-w-xs;
   }
 
   h1,
