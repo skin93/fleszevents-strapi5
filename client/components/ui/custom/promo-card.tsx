@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { Card, CardContent, CardTitle } from "../card";
+import { Card, CardHeader, CardTitle } from "../card";
 import { Article } from "@/lib/interfaces";
 
 import Image from "strapi-next-image";
@@ -11,20 +11,20 @@ type Props = {
 
 export default function PromoCard({ article }: Props) {
   return (
-    <Card className="group border border-white/10 bg-[var(--color-foreground)]/5 text-[contrast-color(var(--color-foreground))] backdrop-blur-md rounded-sm shadow-md relative transition-all duration-300 max-w-full">
-      <CardContent className="p-0 rounded-sm flex flex-row items-center">
-        <Image
-          src={article.cover}
-          alt={article.cover.alternativeText}
-          sizes="(min-width: 780px) 128px, 80px"
-          priority
-          style={{ objectFit: "cover" }}
-          className="rounded-sm aspect-video w-[5em] md:w-[8em] p-0"
-        />
-        <CardTitle className="text-xs text-left ml-4 text-foreground dark:no-underline dark:group-hover:text-teal-400 group-hover:underline rounded-b-lg transition-all duration-300 p-0 w-full">
+    <Card className="group relative overflow-hidden border-none text-white flex flex-col justify-end max-w-full aspect-square">
+      <Image
+        src={article.cover}
+        alt={article.cover.alternativeText}
+        sizes="256px"
+        priority
+        className="absolute inset-0 h-full w-full object-cover "
+      />
+      <div className=" absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent" />
+      <CardHeader className="pb-1 sm:pb-4 relative z-10">
+        <CardTitle className="text-white text-[10px] sm:text-sm text-center group-hover:text-teal-400 transition-all duration-300">
           {article.title}
         </CardTitle>
-      </CardContent>
+      </CardHeader>
     </Card>
   );
 }
