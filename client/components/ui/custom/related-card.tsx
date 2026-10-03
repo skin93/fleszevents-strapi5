@@ -11,12 +11,7 @@ type Props = {
 
 export default function RelatedCard({ article }: Props) {
   return (
-    <Card
-      className="group relative scale-100  hover:scale-105 transition-all duration-300 max-w-full border 
-      border-black/10 bg-white/85
-      
-      dark:border-white/5 dark:bg-[var(--color-foreground)]/5 text-[contrast-color(var(--color-foreground))] backdrop-blur-md rounded-sm shadow-md"
-    >
+    <Card className="group relative scale-100  hover:scale-105 transition-all duration-300 max-w-full border border-black/10 bg-[var(--color-foreground)]/10 dark:border-white/5 dark:bg-[var(--color-foreground)]/5 backdrop-blur-md rounded-sm shadow-md">
       <CardContent className="p-0 rounded-sm flex flex-row items-center">
         <Image
           src={article.cover}
