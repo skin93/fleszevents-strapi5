@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/carousel";
 import { Patronage } from "@/lib/interfaces";
 import Image from "strapi-next-image";
-import { getMediaUrl } from "@/lib/getMediaUrl";
+import Section from "../ui/custom/section";
 
 type Props = {
   patronages: Patronage[];
@@ -23,14 +23,11 @@ export function Patronages({ patronages }: Props) {
   );
 
   return (
-    <section
-      aria-label="Promo events"
-      className="flex flex-col justify-center items-center "
-    >
-      <h1 className=" text-center">PATRONAT I WSPÓŁPRACA</h1>
+    <Section ariaLabel="Promo events">
+      <h1 className=" text-center mt-0 mb-6">PATRONAT I WSPÓŁPRACA</h1>
       <Carousel
         plugins={[plugin.current]}
-        className="w-full border border-white/10 bg-[var(--color-foreground)]/5 text-[contrast-color(var(--color-foreground))] backdrop-blur-md rounded-sm shadow-md relative p-10"
+        className="w-full"
         opts={{
           align: "center",
           loop: true,
@@ -43,14 +40,14 @@ export function Patronages({ patronages }: Props) {
               className="basis basis-1/2 lg:basis-1/5"
             >
               <Card className="border-none">
-                <CardContent className="flex aspect-video items-center justify-center p-0">
+                <CardContent className="flex  items-center justify-center p-0">
                   <Image
                     src={patronage.cover}
                     alt={patronage.cover.alternativeText}
                     sizes="(min-width: 1536px) 256px, (min-width: 1280px) 212px, (min-width: 1024px) 160px, (min-width: 768px) 295px, (min-width: 640px) 231px, calc(47.22vw - 81px)"
                     priority
                     style={{ objectFit: "cover" }}
-                    className="rounded-sm rounded-b-none aspect-video"
+                    className="rounded-sm aspect-[3/2]"
                   />
                 </CardContent>
               </Card>
@@ -58,6 +55,6 @@ export function Patronages({ patronages }: Props) {
           ))}
         </CarouselContent>
       </Carousel>
-    </section>
+    </Section>
   );
 }

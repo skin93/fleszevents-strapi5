@@ -2,6 +2,7 @@ import Link from "next/link";
 import BaseCard from "@/components//ui/custom/base-card";
 import { ReadMoreLink } from "@/components//ui/custom/button-link";
 import { Article } from "@/lib/interfaces";
+import Section from "../ui/custom/section";
 
 type Props = {
   articles: Article[];
@@ -11,11 +12,8 @@ type Props = {
 
 export default function CategoryBlock({ articles, name, categorySlug }: Props) {
   return (
-    <section
-      aria-label={`Latest ${name}`}
-      className="flex flex-col justify-center items-center my-6"
-    >
-      <h1 className="my-8 text-center">{categorySlug.toUpperCase()}</h1>
+    <Section ariaLabel={`Latest ${name}`}>
+      <h1 className="mt-0 mb-6">{categorySlug.toUpperCase()}</h1>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {articles?.map((article) => (
           <div key={article.documentId}>
@@ -26,6 +24,6 @@ export default function CategoryBlock({ articles, name, categorySlug }: Props) {
         ))}
       </div>
       <ReadMoreLink href={`/${categorySlug}`} />
-    </section>
+    </Section>
   );
 }
