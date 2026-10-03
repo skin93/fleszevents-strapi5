@@ -44,7 +44,7 @@ export function Patronages({ patronages }: Props) {
                   <Image
                     src={patronage.cover}
                     alt={patronage.cover.alternativeText}
-                    sizes="(min-width: 1536px) 256px, (min-width: 1280px) 212px, (min-width: 1024px) 160px, (min-width: 768px) 295px, (min-width: 640px) 231px, calc(47.22vw - 81px)"
+                    sizes="(min-width: 1280px) 212px, (min-width: 1024px) 160px, (min-width: 768px) 295px, (min-width: 640px) 231px, calc(47.22vw - 81px)"
                     priority
                     style={{ objectFit: "cover" }}
                     className="rounded-sm aspect-[3/2]"

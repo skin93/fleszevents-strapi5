@@ -15,7 +15,7 @@ export default function BaseCard({ article }: Props) {
       <Image
         src={article.cover}
         alt={article.cover.alternativeText}
-        sizes="(min-width: 1536px) 512px, (min-width: 1280px) 384px, (min-width: 768px) 320px, (min-width: 640px) 267px, calc(99.69vw - 78px)"
+        sizes="(min-width: 1280px) 384px, (min-width: 768px) 320px, (min-width: 640px) 267px, calc(99.69vw - 78px)"
         priority
         className="absolute inset-0 h-full w-full object-cover "
       />

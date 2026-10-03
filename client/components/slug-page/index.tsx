@@ -110,7 +110,7 @@ export default function SlugPageComponent({ article, categorySlug }: Props) {
               <Image
                 src={article.cover}
                 alt={article.cover.alternativeText}
-                sizes="(min-width: 1536px) 874px, (min-width: 1280px) 720px, (min-width: 1024px) 950px, (min-width: 768px) 688px, (min-width: 640px) 560px, calc(94.17vw - 62px)"
+                sizes="(min-width: 1280px) 720px, (min-width: 1024px) 950px, (min-width: 768px) 688px, (min-width: 640px) 560px, calc(94.17vw - 62px)"
                 priority
                 style={{ objectFit: "cover" }}
                 className="rounded-sm aspect-[3/2]"
