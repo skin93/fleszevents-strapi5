@@ -18,7 +18,7 @@ type Props = {
 export default function CustomPagination({ currentPage, pageCount, q }: Props) {
   const allPages = generatePagination(currentPage, pageCount);
   return (
-    <Pagination className="my-6">
+    <Pagination className="mt-6">
       <PaginationContent>
         <PaginationPrevious
           href={
