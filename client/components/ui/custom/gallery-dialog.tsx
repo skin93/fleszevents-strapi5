@@ -131,7 +131,7 @@ export default function GalleryDialog({ gallery }: Props) {
                 fill
                 sizes="(min-width: 1560px) 1440px, 100vw"
                 priority
-                className="rounded-sm  aspect-video object-contain"
+                className="rounded-sm  aspect-[3/2] object-contain"
               />
             </div>
           )}
