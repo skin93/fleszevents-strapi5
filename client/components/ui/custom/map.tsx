@@ -181,7 +181,7 @@ export default function Map({ markers }: { markers: MarkerType[] }) {
                   sizes="(min-width: 1280px) 1280px, 100vw"
                   priority
                   style={{ objectFit: "cover" }}
-                  className="rounded-sm  aspect-video"
+                  className="rounded-sm  aspect-[3/2]"
                 />
                 <DialogTitle className="my-0 text-primary">
                   {marker.alt}
