@@ -110,10 +110,10 @@ export default function SlugPageComponent({ article, categorySlug }: Props) {
               <Image
                 src={article.cover}
                 alt={article.cover.alternativeText}
-                sizes="(min-width: 1280px) 720px, (min-width: 1024px) 950px, (min-width: 768px) 688px, (min-width: 640px) 560px, calc(94.17vw - 62px)"
+                sizes="(min-width: 1280px) 750px, (min-width: 1024px) 950px, (min-width: 768px) 688px, (min-width: 640px) 560px, calc(94.17vw - 62px)"
                 priority
                 style={{ objectFit: "cover" }}
-                className="rounded-sm aspect-[3/2]"
+                className="rounded-sm aspect-[3/2] w-full"
               />
               <div className="absolute bottom-0 left-0 translate-0 bg-[rgba(0,0,0,0.8)] rounded-sm rounded-tl-none rounded-br-none">
                 <p
