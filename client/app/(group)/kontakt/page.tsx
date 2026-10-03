@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/breadcrumb";
 import Link from "next/link";
 import { Home } from "lucide-react";
+import Section from "@/components/ui/custom/section";
 
 export const metadata: Metadata = {
   title: "Kontakt",
@@ -106,26 +107,26 @@ export default function ContactPage() {
         }}
       />
       <main>
-        <section>
-          <div className="my-6">
-            <Breadcrumb>
-              <BreadcrumbList>
-                <BreadcrumbItem>
-                  <BreadcrumbLink asChild>
-                    <Link href="/">
-                      <Home />
-                    </Link>
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbPage>KONTAKT</BreadcrumbPage>
-                </BreadcrumbItem>
-              </BreadcrumbList>
-            </Breadcrumb>
-          </div>
-          <div className="flex flex-col items-center justify-start h-screen ">
-            <h1 className="my-8 text-center uppercase">KONTAKT</h1>
+        <div className="my-6">
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link href="/">
+                    <Home />
+                  </Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>KONTAKT</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+        </div>
+        <Section ariaLabel="Kontakt">
+          <h1 className="mt-0 mb-6 text-center uppercase">KONTAKT</h1>
+          <div className="flex flex-col items-center justify-start">
             <p className="my-0">
               Organizujesz festiwal albo w Twojej okolicy odbywa się ciekawe
               wydarzenie? Masz zespół, wydajecie album/singiel albo gracie
@@ -134,7 +135,7 @@ export default function ContactPage() {
               <strong>kontakt@fleszevents.pl</strong>
             </p>
           </div>
-        </section>
+        </Section>
       </main>
     </Fragment>
   );
