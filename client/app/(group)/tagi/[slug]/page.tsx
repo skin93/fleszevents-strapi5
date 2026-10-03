@@ -111,7 +111,10 @@ export default async function TagPage({ params, searchParams }: Props) {
         }}
       />
       <main>
-        <section aria-label={`${slug} content`}>
+        <section
+          className="my-6 p-6 border border-black/10 bg-white/85 dark:border-white/5 dark:bg-[var(--color-foreground)]/5  backdrop-blur-md rounded-sm shadow-md"
+          aria-label={`${slug} content`}
+        >
           <div className="my-6">
             <Breadcrumb>
               <BreadcrumbList>
@@ -148,7 +151,6 @@ export default async function TagPage({ params, searchParams }: Props) {
                 </div>
               ))}
             </div>
-            <div className="m-8" />
             <CustomPagination
               currentPage={currentPage}
               pageCount={pageInfo.pageCount}
