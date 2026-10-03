@@ -109,25 +109,30 @@ export default async function TagsPage({ searchParams }: Props) {
         }}
       />
       <main>
-        <section aria-label="Tags">
-          <div className="my-6">
-            <Breadcrumb>
-              <BreadcrumbList>
-                <BreadcrumbItem>
-                  <BreadcrumbLink asChild>
-                    <Link href="/">
-                      <Home />
-                    </Link>
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbPage>TAGI</BreadcrumbPage>
-                </BreadcrumbItem>
-              </BreadcrumbList>
-            </Breadcrumb>
-          </div>
-          <h1 className="my-8 text-center uppercase">TAGI</h1>
+        <div className="mt-6">
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link href="/">
+                    <Home />
+                  </Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>TAGI</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+        </div>
+        <section
+          aria-label="Tags"
+          className="my-6 p-6 border 
+      border-black/10 bg-white/85     
+      dark:border-white/5 dark:bg-[var(--color-foreground)]/5  backdrop-blur-md rounded-sm shadow-md"
+        >
+          <h1 className="mt-0 mb-6 text-center uppercase">TAGI</h1>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 ">
             {tags.map((tag) => (
               <ButtonLink

@@ -107,7 +107,7 @@ export default function ContactPage() {
         }}
       />
       <main>
-        <div className="my-6">
+        <div className="mt-6">
           <Breadcrumb>
             <BreadcrumbList>
               <BreadcrumbItem>

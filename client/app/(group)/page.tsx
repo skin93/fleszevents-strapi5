@@ -121,31 +121,29 @@ export default async function HomePage() {
         }}
       />
       <main>
-        <section className="my-6 p-0 rounded-sm">
-          <Promo promos={promos} />
-          <CategoryBlock
-            articles={festivals}
-            name="festivals"
-            categorySlug="festiwale"
-          />
-          <CategoryBlock
-            articles={concerts}
-            name="concerts"
-            categorySlug="koncerty"
-          />
-          <Patronages patronages={patronages} />
-          <CategoryBlock articles={news} name="news" categorySlug="newsy" />
-          <CategoryBlock
-            articles={premiers}
-            name="premiers"
-            categorySlug="premiery"
-          />
-          <CategoryBlock
-            articles={relations}
-            name="relations"
-            categorySlug="relacje"
-          />
-        </section>
+        <Promo promos={promos} />
+        <CategoryBlock
+          articles={festivals}
+          name="festivals"
+          categorySlug="festiwale"
+        />
+        <CategoryBlock
+          articles={concerts}
+          name="concerts"
+          categorySlug="koncerty"
+        />
+        <Patronages patronages={patronages} />
+        <CategoryBlock articles={news} name="news" categorySlug="newsy" />
+        <CategoryBlock
+          articles={premiers}
+          name="premiers"
+          categorySlug="premiery"
+        />
+        <CategoryBlock
+          articles={relations}
+          name="relations"
+          categorySlug="relacje"
+        />
       </main>
     </Fragment>
   );

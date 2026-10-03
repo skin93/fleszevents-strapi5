@@ -16,6 +16,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { Home } from "lucide-react";
+import Section from "@/components/ui/custom/section";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -111,35 +112,32 @@ export default async function TagPage({ params, searchParams }: Props) {
         }}
       />
       <main>
-        <section
-          className="my-6 p-6 border border-black/10 bg-white/85 dark:border-white/5 dark:bg-[var(--color-foreground)]/5  backdrop-blur-md rounded-sm shadow-md"
-          aria-label={`${slug} content`}
-        >
-          <div className="my-6">
-            <Breadcrumb>
-              <BreadcrumbList>
-                <BreadcrumbItem>
-                  <BreadcrumbLink asChild>
-                    <Link href="/">
-                      <Home />
-                    </Link>
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink asChild>
-                    <Link href="/tagi">TAGI</Link>
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbPage>{tag.name}</BreadcrumbPage>
-                </BreadcrumbItem>
-              </BreadcrumbList>
-            </Breadcrumb>
-          </div>
+        <div className="mt-6">
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link href="/">
+                    <Home />
+                  </Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link href="/tagi">TAGI</Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>{tag.name}</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+        </div>
+        <Section ariaLabel={`${slug} content`}>
           <div className="flex flex-col justify-center items-center">
-            <h1 className="my-8 text-center uppercase">
+            <h1 className="mt-0 mb-6 text-center uppercase">
               {tag.name.toUpperCase()}
             </h1>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
@@ -156,7 +154,7 @@ export default async function TagPage({ params, searchParams }: Props) {
               pageCount={pageInfo.pageCount}
             />
           </div>
-        </section>
+        </Section>
       </main>
     </Fragment>
   );

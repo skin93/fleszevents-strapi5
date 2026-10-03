@@ -78,13 +78,7 @@ export default async function GallerySlugPage({
         }}
       />
       <main>
-        <section
-          aria-label={`${gallery.name}`}
-          className="my-6 p-6 border 
-      border-black/10 bg-white/85
-      
-      dark:border-white/5 dark:bg-[var(--color-foreground)]/5 backdrop-blur-md rounded-sm shadow-md"
-        >
+        <div className="mt-6">
           <Breadcrumb>
             <BreadcrumbList>
               <BreadcrumbItem>
@@ -106,9 +100,16 @@ export default async function GallerySlugPage({
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
-
+        </div>
+        <section
+          aria-label={`${gallery.name}`}
+          className="mt-6 p-6 border 
+      border-black/10 bg-white/85
+      
+      dark:border-white/5 dark:bg-[var(--color-foreground)]/5 backdrop-blur-md rounded-sm shadow-md"
+        >
           <div className="flex flex-col">
-            <h1 className="my-8 text-4xl uppercase">{gallery.name}</h1>
+            <h1 className="mt-0 mb-6 text-4xl uppercase">{gallery.name}</h1>
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
               <GalleryDialog gallery={gallery} />
             </div>

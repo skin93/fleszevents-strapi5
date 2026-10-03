@@ -130,10 +130,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
         }}
       />
       <main>
-        <section
-          className="my-6 p-6 border border-black/10 bg-white/85 dark:border-white/5 dark:bg-[var(--color-foreground)]/5  backdrop-blur-md rounded-sm shadow-md"
-          aria-label={`${categorySlug} content`}
-        >
+        <div className="mt-6">
           <Breadcrumb>
             <BreadcrumbList>
               <BreadcrumbItem>
@@ -149,8 +146,13 @@ export default async function CategoryPage({ params, searchParams }: Props) {
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
+        </div>
+        <section
+          className="mt-6 p-6 border border-black/10 bg-white/85 dark:border-white/5 dark:bg-[var(--color-foreground)]/5  backdrop-blur-md rounded-sm shadow-md"
+          aria-label={`${categorySlug} content`}
+        >
           <div className="flex flex-col justify-center items-center">
-            <h1 className="my-6 text-center uppercase">
+            <h1 className="mt-0 mb-6 text-center uppercase">
               {categorySlug.toUpperCase()}
             </h1>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
