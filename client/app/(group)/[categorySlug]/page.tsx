@@ -148,7 +148,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
           </Breadcrumb>
         </div>
         <section
-          className="mt-6 p-6 border border-black/10 bg-white/85 dark:border-white/5 dark:bg-[var(--color-foreground)]/5  backdrop-blur-md rounded-sm shadow-md"
+          className="my-6 p-6 border border-black/10 bg-white/85 dark:border-white/5 dark:bg-[var(--color-foreground)]/5  backdrop-blur-md rounded-sm shadow-md"
           aria-label={`${categorySlug} content`}
         >
           <div className="flex flex-col justify-center items-center">
