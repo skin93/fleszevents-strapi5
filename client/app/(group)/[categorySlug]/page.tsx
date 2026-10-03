@@ -130,26 +130,30 @@ export default async function CategoryPage({ params, searchParams }: Props) {
         }}
       />
       <main>
-        <section aria-label={`${categorySlug} content`}>
-          <div className="my-6">
-            <Breadcrumb>
-              <BreadcrumbList>
-                <BreadcrumbItem>
-                  <BreadcrumbLink asChild>
-                    <Link href="/">
-                      <Home />
-                    </Link>
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbPage>{categorySlug.toUpperCase()}</BreadcrumbPage>
-                </BreadcrumbItem>
-              </BreadcrumbList>
-            </Breadcrumb>
-          </div>
+        <section
+          className="my-6 p-6 border 
+      border-black/10 bg-white/85
+      
+      dark:border-white/5 dark:bg-[var(--color-foreground)]/5  backdrop-blur-md rounded-sm shadow-md"
+          aria-label={`${categorySlug} content`}
+        >
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link href="/">
+                    <Home />
+                  </Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>{categorySlug.toUpperCase()}</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
           <div className="flex flex-col justify-center items-center">
-            <h1 className="my-8 text-center uppercase">
+            <h1 className="my-6 text-center uppercase">
               {categorySlug.toUpperCase()}
             </h1>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
@@ -161,7 +165,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
                 </div>
               ))}
             </div>
-            <div className="m-8" />
+            <div className="my-6" />
             <CustomPagination
               currentPage={currentPage}
               pageCount={pageInfo.pageCount}

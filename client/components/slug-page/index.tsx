@@ -37,7 +37,10 @@ export default function SlugPageComponent({ article, categorySlug }: Props) {
   return (
     <main>
       <section
-        className="my-6 p-6 bg-card rounded-sm"
+        className="my-6 p-6 border 
+      border-black/10 bg-white/85
+      
+      dark:border-white/5 dark:bg-[var(--color-foreground)]/5  backdrop-blur-md rounded-sm shadow-md"
         aria-label="article-page"
       >
         <div className="mb-6">
@@ -101,7 +104,7 @@ export default function SlugPageComponent({ article, categorySlug }: Props) {
         </div>
         <h1 aria-label="article-title">{article.title}</h1>
 
-        <div className="grid grid-cols-1 xl:grid-cols-[60%_35%] justify-between">
+        <div className="grid grid-cols-1 xl:grid-cols-[60%_35%] xl:justify-between">
           <article aria-label="left-column">
             <div className="relative " aria-label="image-wrapper">
               <Image
@@ -110,9 +113,9 @@ export default function SlugPageComponent({ article, categorySlug }: Props) {
                 sizes="(min-width: 1536px) 874px, (min-width: 1280px) 720px, (min-width: 1024px) 950px, (min-width: 768px) 688px, (min-width: 640px) 560px, calc(94.17vw - 62px)"
                 priority
                 style={{ objectFit: "cover" }}
-                className="rounded-sm aspect-video"
+                className="rounded-sm aspect-[3/2]"
               />
-              <div className="absolute bottom-0 left-0 translate-0 bg-[rgba(0,0,0,0.7)] rounded-bl-sm">
+              <div className="absolute bottom-0 left-0 translate-0 bg-[rgba(0,0,0,0.8)] rounded-sm rounded-tl-none rounded-br-none">
                 <p
                   aria-label="article-image-caption"
                   className="font-bold text-[#fff]! my-0 px-4 text-xs"
@@ -156,7 +159,7 @@ export default function SlugPageComponent({ article, categorySlug }: Props) {
             </div>
           </article>
           <aside
-            className="container justify-center p-0"
+            className="xl:container justify-center p-0"
             aria-label="right-column"
           >
             {article.relatedArticles && (

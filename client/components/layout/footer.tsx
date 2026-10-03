@@ -29,10 +29,10 @@ export default function Footer() {
         <FooterLinksContainer links={links} text={"współpraca"} />
 
         <div className="flex flex-col items-start">
-          <p className="px-4 py-2 m-0 uppercase dark:text-accent text-muted">
+          <p className="px-4 py-2 m-0 uppercase dark:text-accent text-background">
             sociale
           </p>
-          <div className="flex flex-row">
+          <div className="flex flex-row ">
             <ButtonLink href="https://facebook.com/flesz.events">
               <Facebook />
             </ButtonLink>

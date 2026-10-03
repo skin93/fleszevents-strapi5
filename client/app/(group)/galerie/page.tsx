@@ -114,25 +114,29 @@ export default async function GalleriesPage({ searchParams }: Props) {
         }}
       />
       <main>
-        <section aria-label="Galleries" className="my-6 p-6 bg-card rounded-sm">
-          <div className="my-6">
-            <Breadcrumb>
-              <BreadcrumbList>
-                <BreadcrumbItem>
-                  <BreadcrumbLink asChild>
-                    <Link href="/">
-                      <Home />
-                    </Link>
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbPage>GALERIE</BreadcrumbPage>
-                </BreadcrumbItem>
-              </BreadcrumbList>
-            </Breadcrumb>
-          </div>
-          <h1 className="my-8 text-center uppercase">GALERIE</h1>
+        <section
+          aria-label="Galleries"
+          className="my-6 p-6 border 
+      border-black/10 bg-white/85
+      
+      dark:border-white/5 dark:bg-[var(--color-foreground)]/5 backdrop-blur-md rounded-sm shadow-md"
+        >
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link href="/">
+                    <Home />
+                  </Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>GALERIE</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+          <h1 className="my-6 text-center uppercase">GALERIE</h1>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 ">
             {galleries.map((gallery) => (
               <div key={gallery.documentId}>
