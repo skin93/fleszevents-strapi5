@@ -171,17 +171,17 @@ export default function Map({ markers }: { markers: MarkerType[] }) {
                   </div>
                 </Popup>
               </Marker>
-              <DialogContent className="border-none flex flex-col justify-between items-center max-w-7xl max-h-full overflow-y-auto">
+              <DialogContent className="border-none flex flex-col justify-between items-center max-w-3xl max-h-full overflow-y-auto">
                 <Image
                   src={marker.imageSrc}
                   alt={marker.imageAlt}
                   blurDataURL={marker.imageBlurDataURL}
                   width={marker.imageWidth}
                   height={marker.imageHeight}
-                  sizes="(min-width: 1280px) 1280px, 100vw"
+                  sizes="(min-width: 768px) 720px, 100vw"
                   priority
                   style={{ objectFit: "cover" }}
-                  className="rounded-sm  aspect-[3/2]"
+                  className="rounded-sm aspect-[3/2] w-full"
                 />
                 <DialogTitle className="my-0 text-primary">
                   {marker.alt}
