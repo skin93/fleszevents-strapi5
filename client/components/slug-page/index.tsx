@@ -158,10 +158,7 @@ export default function SlugPageComponent({ article, categorySlug }: Props) {
               ))}
             </div>
           </article>
-          <aside
-            className="xl:container justify-center p-0"
-            aria-label="right-column"
-          >
+          <aside className="p-0" aria-label="right-column">
             {article.relatedArticles && (
               <RelatedArticles articles={article.relatedArticles.articles} />
             )}

@@ -121,7 +121,7 @@ export default async function HomePage() {
         }}
       />
       <main>
-        <section className="my-6 py-6 rounded-sm">
+        <section className="my-6 p-0 rounded-sm">
           <Promo promos={promos} />
           <CategoryBlock
             articles={festivals}

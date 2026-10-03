@@ -13,7 +13,7 @@ export default function RelatedArticles({ articles }: Props) {
       className="w-full flex-col justify-between items-start xl:sticky xl:top-[200px]"
       aria-label="related-articles"
     >
-      <h2 className="my-8 font-extrabold uppercase">Sprawdź również</h2>
+      <h2 className="my-6 font-extrabold uppercase">Sprawdź również</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-1 justify-center gap-4 mx-auto">
         {articles?.map((article) => (
           <div key={article.documentId}>

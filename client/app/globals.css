@@ -56,10 +56,6 @@
   --color-sidebar: var(--sidebar);
 }
 
-@utility container {
-  margin-inline: auto;
-}
-
 @layer base {
   *,
   ::after,
@@ -128,9 +124,8 @@
     }
   }
 
-  main,
-  footer {
-    @apply container px-4 max-w-7xl w-full;
+  main {
+    @apply mx-auto max-w-7xl p-0;
   }
 
   h1,

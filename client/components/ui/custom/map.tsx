@@ -264,7 +264,7 @@ export default function Map({ markers }: { markers: MarkerType[] }) {
               Filtruj
             </Button>
           </DrawerTrigger>
-          <DrawerContent className="container z-900 border-none flex flex-col justify-center items-center w-full">
+          <DrawerContent className="mx-auto max-w-7xl z-900 border-none flex flex-col justify-center items-center w-full">
             <DrawerHeader className="mt-0">
               <DrawerTitle className=" py-0 my-0 bg-[var(--color-background)] text-[contrast-color(var(--color-background))]/80">
                 Filtry

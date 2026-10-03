@@ -22,8 +22,8 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="max-w-screen h-full bg-stone-950 p-4">
-      <div className="container max-w-7xl grid grid-cols-2 md:grid-cols-4 h-full my-6">
+    <footer className="max-w-screen h-full bg-stone-950 p-6">
+      <div className="mx-auto max-w-7xl grid grid-cols-2 md:grid-cols-4 h-full my-6">
         <FooterLinksContainer links={festivalsNavLinks} text={"festiwale"} />
         <FooterLinksContainer links={concertsNavLinks} text={"koncerty"} />
         <FooterLinksContainer links={links} text={"współpraca"} />
