@@ -21,7 +21,7 @@ export default function RelatedCard({ article }: Props) {
         <Image
           src={article.cover}
           alt={article.cover.alternativeText}
-          sizes="(min-width: 780px) 128px, 80px"
+          sizes="(min-width: 780px) 170px, 80px"
           priority
           style={{ objectFit: "cover" }}
           className="rounded-sm aspect-[3/2] w-[5em] md:w-[15em] p-0"
