@@ -6,6 +6,8 @@ import {
   festivalsSearchParams,
   calendarSearchParams,
   calendarSearchParamsSchema,
+  gallerySearchParams,
+  gallerySearchParamsSchema,
 } from "@/lib/validation";
 import { format, parseISO } from "date-fns";
 
@@ -153,6 +155,32 @@ export function useCalendarFilters() {
     setLocation,
     setDate,
     setType,
+    setTerm,
+  };
+}
+
+const zodParserForGallery = (key: keyof gallerySearchParams) =>
+  createParser({
+    parse: (value) => {
+      const result = gallerySearchParamsSchema.shape[key].safeParse(value);
+      return result.success ? result.data : "";
+    },
+    serialize: (value) => value.toString(),
+  });
+
+export function useGalleryFilters() {
+  const [term, setTerm] = useQueryState(
+    "term",
+    zodParserForGallery("term")
+      .withOptions({
+        shallow: false,
+        history: "push",
+      })
+      .withDefault(""),
+  );
+
+  return {
+    filters: { term },
     setTerm,
   };
 }

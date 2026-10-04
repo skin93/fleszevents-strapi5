@@ -60,3 +60,9 @@ export const calendarSearchParamsSchema = z.object({
 });
 
 export type calendarSearchParams = z.infer<typeof calendarSearchParamsSchema>;
+
+export const gallerySearchParamsSchema = z.object({
+  term: z.string().trim().max(50).catch(""),
+});
+
+export type gallerySearchParams = z.infer<typeof gallerySearchParamsSchema>;
