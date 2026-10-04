@@ -4,6 +4,7 @@ import {
   GalleriesConnection,
   GalleriesSitemap,
 } from "../interfaces";
+import { GALLERIES_BY_TERM_QUERY } from "../queries/galleries/galleriesByTermQuery";
 import { GALLERIES_QUERY } from "../queries/galleries/galleriesQuery";
 import { GALLERIES_SITEMAP_QUERY } from "../queries/galleries/galleriesSitemap";
 import { GALLERY_BY_SLUG_QUERY } from "../queries/galleries/galleryBySlugQuery";
@@ -42,4 +43,24 @@ export async function getGalleryMeta(slug: string) {
 export async function getGalleriesSitemap() {
   const res = await grafbase.request<GalleriesSitemap>(GALLERIES_SITEMAP_QUERY);
   return { galleries: res.galleries };
+}
+
+export async function getGalleriesByTerm(
+  term: string,
+  page: number,
+  pageSize: number,
+) {
+  const res = await grafbase.request<GalleriesConnection>(
+    GALLERIES_BY_TERM_QUERY,
+    {
+      term,
+      page,
+      pageSize,
+    },
+  );
+
+  return {
+    galleries: res.galleries_connection.nodes,
+    pageInfo: res.galleries_connection.pageInfo,
+  };
 }
