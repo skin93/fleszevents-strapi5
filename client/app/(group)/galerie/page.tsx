@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { getGalleries } from "@/lib/data/galleries";
+import { getGalleriesByTerm } from "@/lib/data/galleries";
 import CustomPagination from "@/components/ui/custom/pagination";
 import { notFound } from "next/navigation";
 import Link from "next/link";
@@ -16,6 +16,8 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { Home } from "lucide-react";
+import GalleryFilters from "@/components/gallery/gallery-filters";
+import Section from "@/components/ui/custom/section";
 
 export const metadata: Metadata = {
   title: "Galerie",
@@ -51,7 +53,7 @@ export const metadata: Metadata = {
 };
 
 type Props = {
-  searchParams: Promise<{ page: string }>;
+  searchParams: Promise<{ page: string; term: string }>;
 };
 
 export default async function GalleriesPage({ searchParams }: Props) {
@@ -97,9 +99,13 @@ export default async function GalleriesPage({ searchParams }: Props) {
     },
   };
 
-  const { page } = await searchParams;
+  const { page, term = "" } = await searchParams;
   const currentPage = Number(page) || 1;
-  const { galleries, pageInfo } = await getGalleries(currentPage, 12);
+  const { galleries, pageInfo } = await getGalleriesByTerm(
+    term,
+    currentPage,
+    12,
+  );
 
   if (!galleries || galleries.length == 0) {
     notFound();
@@ -131,14 +137,8 @@ export default async function GalleriesPage({ searchParams }: Props) {
             </BreadcrumbList>
           </Breadcrumb>
         </div>
-        <section
-          aria-label="Galleries"
-          className="mt-6 p-6 border 
-      border-black/10 bg-white/85
-      
-      dark:border-white/5 dark:bg-[var(--color-foreground)]/5 backdrop-blur-md rounded-sm shadow-md"
-        >
-          <h1 className="mt-0 mb-6 text-center uppercase">GALERIE</h1>
+        <GalleryFilters />
+        <Section ariaLabel="Galerie">
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 ">
             {galleries.map((gallery) => (
               <div key={gallery.documentId}>
@@ -148,12 +148,11 @@ export default async function GalleriesPage({ searchParams }: Props) {
               </div>
             ))}
           </div>
-          <div className="my-8" />
           <CustomPagination
             currentPage={currentPage}
             pageCount={pageInfo.pageCount}
           />
-        </section>
+        </Section>
       </main>
     </Fragment>
   );
