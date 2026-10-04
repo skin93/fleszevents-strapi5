@@ -8,6 +8,8 @@ import {
   calendarSearchParamsSchema,
   gallerySearchParams,
   gallerySearchParamsSchema,
+  paginationParams,
+  paginationParamsSchema,
 } from "@/lib/validation";
 import { format, parseISO } from "date-fns";
 
@@ -169,9 +171,9 @@ const zodParserForGallery = (key: keyof gallerySearchParams) =>
   });
 
 export function useGalleryFilters() {
-  const [term, setTerm] = useQueryState(
-    "term",
-    zodParserForGallery("term")
+  const [q, setQ] = useQueryState(
+    "q",
+    zodParserForGallery("q")
       .withOptions({
         shallow: false,
         history: "push",
@@ -180,7 +182,33 @@ export function useGalleryFilters() {
   );
 
   return {
-    filters: { term },
-    setTerm,
+    filters: { q },
+    setQ,
+  };
+}
+
+const zodParserForPagination = (key: keyof paginationParams) =>
+  createParser({
+    parse: (value) => {
+      const result = paginationParamsSchema.shape[key].safeParse(value);
+      return result.success ? result.data : "";
+    },
+    serialize: (value) => value.toString(),
+  });
+
+export function usePaginationFilters() {
+  const [page, setPage] = useQueryState(
+    "page",
+    zodParserForPagination("page")
+      .withOptions({
+        shallow: false,
+        history: "push",
+      })
+      .withDefault(""),
+  );
+
+  return {
+    filters: { page },
+    setPage,
   };
 }

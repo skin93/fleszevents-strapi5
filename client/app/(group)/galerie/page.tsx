@@ -53,7 +53,7 @@ export const metadata: Metadata = {
 };
 
 type Props = {
-  searchParams: Promise<{ page: string; term: string }>;
+  searchParams: Promise<{ page: string; q: string }>;
 };
 
 export default async function GalleriesPage({ searchParams }: Props) {
@@ -99,13 +99,9 @@ export default async function GalleriesPage({ searchParams }: Props) {
     },
   };
 
-  const { page, term = "" } = await searchParams;
+  const { page, q = "" } = await searchParams;
   const currentPage = Number(page) || 1;
-  const { galleries, pageInfo } = await getGalleriesByTerm(
-    term,
-    currentPage,
-    12,
-  );
+  const { galleries, pageInfo } = await getGalleriesByTerm(q, currentPage, 12);
 
   if (!galleries || galleries.length == 0) {
     notFound();
@@ -151,6 +147,7 @@ export default async function GalleriesPage({ searchParams }: Props) {
           <CustomPagination
             currentPage={currentPage}
             pageCount={pageInfo.pageCount}
+            q={q}
           />
         </Section>
       </main>

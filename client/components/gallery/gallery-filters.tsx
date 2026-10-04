@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 
 import { Command, CommandInput } from "@/components/ui/command";
 
-import { useGalleryFilters } from "@/hooks/use-filters";
+import { useGalleryFilters, usePaginationFilters } from "@/hooks/use-filters";
 import { debounce } from "nuqs";
 import { Button } from "../ui/button";
 
@@ -11,16 +11,19 @@ export default function GalleryFilters() {
   const router = useRouter();
 
   const {
-    filters: { term },
-    setTerm,
+    filters: { q },
+    setQ,
   } = useGalleryFilters();
 
-  const handleTermChange = (val: string) => {
-    setTerm(val, { limitUrlUpdates: val === "" ? undefined : debounce(500) });
+  const { setPage } = usePaginationFilters();
+
+  const handleQChange = (val: string) => {
+    setQ(val, { limitUrlUpdates: val === "" ? undefined : debounce(1000) });
   };
 
   const handleReset = () => {
-    setTerm(null);
+    setQ(null);
+    setPage(1);
     router.push("/galerie");
   };
   return (
@@ -28,9 +31,9 @@ export default function GalleryFilters() {
       <Command className="max-w-[300px]">
         <CommandInput
           placeholder="Szukaj frazy..."
-          value={term as string}
+          value={q as string}
           onValueChange={(val) => {
-            handleTermChange(val);
+            handleQChange(val);
           }}
         />
       </Command>

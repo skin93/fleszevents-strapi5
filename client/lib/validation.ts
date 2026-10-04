@@ -62,7 +62,13 @@ export const calendarSearchParamsSchema = z.object({
 export type calendarSearchParams = z.infer<typeof calendarSearchParamsSchema>;
 
 export const gallerySearchParamsSchema = z.object({
-  term: z.string().trim().max(50).catch(""),
+  q: z.string().trim().max(50).catch(""),
 });
 
 export type gallerySearchParams = z.infer<typeof gallerySearchParamsSchema>;
+
+export const paginationParamsSchema = z.object({
+  page: z.number().catch(1),
+});
+
+export type paginationParams = z.infer<typeof paginationParamsSchema>;
