@@ -438,7 +438,7 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
           {filteredEvents.length > 0 ? (
             <div>
               <h1 className="p-4 pl-0 text-xl font-bold">{filterTitle}</h1>
-              <div className="flex flex-col gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2  gap-6">
                 {filteredEvents.map((event, index) => (
                   <div
                     key={event.documentId}
