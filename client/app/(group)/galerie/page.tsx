@@ -103,10 +103,6 @@ export default async function GalleriesPage({ searchParams }: Props) {
   const currentPage = Number(page) || 1;
   const { galleries, pageInfo } = await getGalleriesByTerm(q, currentPage, 12);
 
-  if (!galleries || galleries.length == 0) {
-    notFound();
-  }
-
   return (
     <Fragment>
       <script
@@ -135,20 +131,28 @@ export default async function GalleriesPage({ searchParams }: Props) {
         </div>
         <GalleryFilters />
         <Section ariaLabel="Galerie">
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 ">
-            {galleries.map((gallery) => (
-              <div key={gallery.documentId}>
-                <Link href={`/galerie/${gallery.slug}`}>
-                  <GalleryCard gallery={gallery} />
-                </Link>
+          {galleries && galleries.length > 0 ? (
+            <>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 ">
+                {galleries.map((gallery) => (
+                  <div key={gallery.documentId}>
+                    <Link href={`/galerie/${gallery.slug}`}>
+                      <GalleryCard gallery={gallery} />
+                    </Link>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-          <CustomPagination
-            currentPage={currentPage}
-            pageCount={pageInfo.pageCount}
-            q={q}
-          />
+              <CustomPagination
+                currentPage={currentPage}
+                pageCount={pageInfo.pageCount}
+                q={q}
+              />
+            </>
+          ) : (
+            <div className="flex justify-center items-center">
+              <h1 className="p-4 pl-0">Brak albumów</h1>
+            </div>
+          )}
         </Section>
       </main>
     </Fragment>
