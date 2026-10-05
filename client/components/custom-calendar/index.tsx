@@ -132,10 +132,10 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
           </BreadcrumbList>
         </Breadcrumb>
       </div>
-      <div className="grid md:grid-cols-[20%_70%] md:justify-between items-start">
+      <div className="grid md:grid-cols-[30%_60%] md:justify-around items-start">
         <div
           aria-label="filters-desktop"
-          className="hidden md:flex md:flex-col md:flex-1/4 gap-6 sticky top-[112px]"
+          className="hidden md:flex md:flex-col md:flex-1/4 gap-6 sticky top-[112px] border border-black/10 bg-white/85 dark:border-white/5 dark:bg-[var(--color-foreground)]/5  backdrop-blur-md rounded-sm shadow-md m-4 p-4"
         >
           <Popover>
             <PopoverTrigger asChild>
@@ -716,7 +716,7 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
               </div>
             </div>
           ) : (
-            <h1 className="p-4 pl-0">Brak wydarzeń dla wybranej daty</h1>
+            <h1 className="p-4 pl-0">Brak wydarzeń</h1>
           )}
         </div>
       </div>
