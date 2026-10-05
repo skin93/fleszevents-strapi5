@@ -18,7 +18,7 @@ export default function GalleryFilters() {
   const { setPage } = usePaginationFilters();
 
   const handleQChange = (val: string) => {
-    setQ(val, { limitUrlUpdates: val === "" ? undefined : debounce(1000) });
+    setQ(val, { limitUrlUpdates: val === "" ? undefined : debounce(500) });
   };
 
   const handleReset = () => {
