@@ -378,7 +378,7 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
         </div>
         <div
           aria-label="filters-mobile"
-          className="md:hidden flex flex-col sticky top-[112px] z-100"
+          className="md:hidden flex flex-col sticky top-[112px] z-100 "
         >
           <Drawer
             open={drawerOpen}
@@ -388,7 +388,7 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
             <DrawerTrigger asChild>
               <Button variant={"outline"}>Filtruj</Button>
             </DrawerTrigger>
-            <DrawerContent>
+            <DrawerContent className="max-w-[250px] p-6">
               <DrawerHeader className="hidden">
                 <DrawerTitle>Filtry</DrawerTitle>
                 <DrawerDescription>Lista filtrów</DrawerDescription>
@@ -403,7 +403,7 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
                     <Button
                       variant={"outline"}
                       data-empty={!date}
-                      className="w-[200px] justify-between text-left font-normal data-[empty=true]:text-muted-foreground"
+                      className="w-full justify-between text-left font-normal data-[empty=true]:text-muted-foreground"
                     >
                       {date
                         ? formatDateToLocal(date.toString())
@@ -431,7 +431,7 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
                     />
                   </PopoverContent>
                 </Popover>
-                <Command className="w-[200px] h-auto">
+                <Command className="w-full h-auto">
                   <CommandInput
                     placeholder="Szukaj frazy..."
                     value={term as string}
@@ -446,13 +446,13 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
                       variant="outline"
                       role="combobox"
                       aria-expanded={regionPopOpen}
-                      className="w-[200px] justify-between"
+                      className="w-full justify-between"
                     >
                       {region ? String(region) : "Województwo"}
                       <ChevronsUpDown className="opacity-50" />
                     </Button>
                   </PopoverTrigger>
-                  <PopoverContent className="w-[200px] p-0 pointer-events-auto">
+                  <PopoverContent className="w-full p-0 pointer-events-auto">
                     <Command>
                       <CommandInput placeholder="Wybierz województwo..." />
                       <CommandList className="h-50">
@@ -499,13 +499,13 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
                       variant="outline"
                       role="combobox"
                       aria-expanded={cityPopOpen}
-                      className="w-[200px] justify-between"
+                      className="w-full justify-between"
                     >
                       {city ? String(city) : "Miejscowość"}
                       <ChevronsUpDown className="opacity-50" />
                     </Button>
                   </PopoverTrigger>
-                  <PopoverContent className="w-[200px] p-0 pointer-events-auto">
+                  <PopoverContent className="w-full p-0 pointer-events-auto">
                     <Command>
                       <CommandInput placeholder="Wybierz miejscowość..." />
                       <CommandList className="h-50">
@@ -547,13 +547,13 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
                       variant="outline"
                       role="combobox"
                       aria-expanded={cityPopOpen}
-                      className="w-[200px] justify-between"
+                      className="w-full justify-between"
                     >
                       {location ? String(location) : "Miejsce"}
                       <ChevronsUpDown className="opacity-50" />
                     </Button>
                   </PopoverTrigger>
-                  <PopoverContent className="w-[200px] p-0 pointer-events-auto">
+                  <PopoverContent className="w-full p-0 pointer-events-auto">
                     <Command>
                       <CommandInput placeholder="Wybierz miejsce..." />
                       <CommandList className="h-50">
@@ -597,13 +597,13 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
                       variant="outline"
                       role="combobox"
                       aria-expanded={cityPopOpen}
-                      className="w-[200px] justify-between"
+                      className="w-full justify-between"
                     >
                       {type ? String(type) : "Typ"}
                       <ChevronsUpDown className="opacity-50" />
                     </Button>
                   </PopoverTrigger>
-                  <PopoverContent className="w-[200px] p-0 pointer-events-auto">
+                  <PopoverContent className="w-full p-0 pointer-events-auto">
                     <Command>
                       <CommandInput placeholder="Wybierz typ eventu..." />
                       <CommandList className="h-50">
@@ -639,7 +639,7 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
                     </Command>
                   </PopoverContent>
                 </Popover>
-                <Button className="w-fit" onClick={handleReset}>
+                <Button className="w-full" onClick={handleReset}>
                   Reset
                 </Button>
               </div>
