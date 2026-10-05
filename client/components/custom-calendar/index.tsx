@@ -1,14 +1,11 @@
 "use client";
-import { SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
-
-import { Sidebar, SidebarContent, SidebarRail } from "@/components/ui/sidebar";
-
 import { Calendar } from "@/components/ui/calendar";
-import { SidebarGroup, SidebarGroupContent } from "@/components/ui/sidebar";
 import { Fragment, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Event } from "@/lib/interfaces";
 import { pl } from "date-fns/locale";
+import { formatDateToLocal } from "@/lib/utils";
+
 import { Event as EventComponent } from "../ui/custom/event";
 import {
   Command,
@@ -37,6 +34,17 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+
+import {
+  Drawer,
+  DrawerContent,
+  DrawerDescription,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "../../components/ui/drawer";
+
+import { ChevronDownIcon } from "lucide-react";
 import Link from "next/link";
 
 type Props = {
@@ -61,6 +69,7 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
   const [cityPopOpen, setCityPopOpen] = useState<boolean>(false);
   const [locationPopOpen, setLocationPopOpen] = useState<boolean>(false);
   const [typePopOpen, setTypePopOpen] = useState<boolean>(false);
+  const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
 
   const regions = new Set(events.map((event) => event.place?.region));
   const cities = new Set(events.map((event) => event.place?.city));
@@ -100,15 +109,46 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
     setType(null);
     setRegion(null);
     setTerm(null);
+    setDrawerOpen(false);
     router.push("/calendar");
   };
 
   return (
     <Fragment>
-      <Sidebar>
-        <SidebarContent>
-          <SidebarGroup className="mt-[112px]">
-            <SidebarGroupContent>
+      <div className="my-6">
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink asChild>
+                <Link href="/">
+                  <Home />
+                </Link>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>KALENDARZ</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
+      </div>
+      <div className="grid md:grid-cols-[20%_70%] md:justify-between items-start">
+        <div
+          aria-label="filters-desktop"
+          className="hidden md:flex md:flex-col md:flex-1/4 gap-6 sticky top-[112px]"
+        >
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                variant={"outline"}
+                data-empty={!date}
+                className="w-full justify-between text-left font-normal data-[empty=true]:text-muted-foreground"
+              >
+                {date ? formatDateToLocal(date.toString()) : "Wybierz datę"}
+                <ChevronDownIcon data-icon="inline-end" />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-0" align="start">
               <Calendar
                 locale={pl}
                 timeZone="Europe/Berlin"
@@ -124,253 +164,548 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
                   booked: "my-booked-class",
                 }}
                 disabled={{ before: new Date() }}
-                className="[&_[role=gridcell].bg-primary]:bg-sidebar-primary [&_[role=gridcell].bg-accent]:text-sidebar-primary-foreground [&_[role=gridcell]]:w-fit bg-card"
+                className="[&_[role=gridcell].bg-primary]:bg-sidebar-primary [&_[role=gridcell].bg-accent]:text-sidebar-primary-foreground [&_[role=gridcell]]:w-fit bg-card h-[330px]"
               />
-            </SidebarGroupContent>
-          </SidebarGroup>
-          <SidebarGroup className="flex flex-col gap-4 bg-card rounded-sm p-4 my-6">
-            <Command>
-              <CommandInput
-                placeholder="Szukaj frazy..."
-                value={term as string}
-                onValueChange={(val) => {
-                  handleTermChange(val);
-                }}
-              />
-            </Command>
-            <Popover open={regionPopOpen} onOpenChange={setRegionPopOpen}>
-              <PopoverTrigger asChild>
-                <Button
-                  variant="outline"
-                  role="combobox"
-                  aria-expanded={regionPopOpen}
-                  className="xl:w-[200px] justify-between"
-                >
-                  {String(region) || "Województwo"}
-                  <ChevronsUpDown className="opacity-50" />
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="xl:w-[200px] p-0 pointer-events-auto">
-                <Command>
-                  <CommandInput placeholder="Wybierz województwo..." />
-                  <CommandList className="h-50">
-                    <CommandEmpty>Brak województwa</CommandEmpty>
-                    <CommandGroup>
+            </PopoverContent>
+          </Popover>
+          <Command className="w-full h-auto">
+            <CommandInput
+              placeholder="Szukaj frazy..."
+              value={term as string}
+              onValueChange={(val) => {
+                handleTermChange(val);
+              }}
+            />
+          </Command>
+          <Popover open={regionPopOpen} onOpenChange={setRegionPopOpen}>
+            <PopoverTrigger asChild>
+              <Button
+                variant="outline"
+                role="combobox"
+                aria-expanded={regionPopOpen}
+                className="w-full justify-between"
+              >
+                {region ? String(region) : "Województwo"}
+                <ChevronsUpDown className="opacity-50" />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-full p-0 pointer-events-auto">
+              <Command>
+                <CommandInput placeholder="Wybierz województwo..." />
+                <CommandList className="h-50">
+                  <CommandEmpty>Brak województwa</CommandEmpty>
+                  <CommandGroup>
+                    <CommandItem
+                      value={"Wszystko"}
+                      onSelect={() => {
+                        handleRegionChange("");
+                      }}
+                    >
+                      {"Wszystko"}
+                    </CommandItem>
+                    {[...regions].sort().map(
+                      (val) =>
+                        val && (
+                          <CommandItem
+                            key={val}
+                            value={val}
+                            onSelect={(currentValue) => {
+                              handleRegionChange(currentValue);
+                            }}
+                          >
+                            {val}
+                            <Check
+                              className={cn(
+                                "ml-auto",
+                                region === val ? "opacity-100" : "opacity-0",
+                              )}
+                            />
+                          </CommandItem>
+                        ),
+                    )}
+                  </CommandGroup>
+                </CommandList>
+              </Command>
+            </PopoverContent>
+          </Popover>
+          <Popover open={cityPopOpen} onOpenChange={setCityPopOpen}>
+            <PopoverTrigger asChild>
+              <Button
+                variant="outline"
+                role="combobox"
+                aria-expanded={cityPopOpen}
+                className="w-full justify-between"
+              >
+                {city ? String(city) : "Miejscowość"}
+                <ChevronsUpDown className="opacity-50" />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-full p-0 pointer-events-auto">
+              <Command>
+                <CommandInput placeholder="Wybierz miejscowość..." />
+                <CommandList className="h-50">
+                  <CommandEmpty>Brak miasta</CommandEmpty>
+                  <CommandGroup>
+                    <CommandItem
+                      value={"Wszystko"}
+                      onSelect={() => {
+                        handleCityChange("");
+                      }}
+                    >
+                      {"Wszystko"}
+                    </CommandItem>
+                    {[...cities].sort().map((val) => (
                       <CommandItem
-                        value={"Wszystko"}
-                        onSelect={() => {
-                          handleRegionChange("");
+                        key={val}
+                        value={val}
+                        onSelect={(currentValue) => {
+                          handleCityChange(currentValue);
                         }}
                       >
-                        {"Wszystko"}
+                        {val}
+                        <Check
+                          className={cn(
+                            "ml-auto",
+                            city === val ? "opacity-100" : "opacity-0",
+                          )}
+                        />
                       </CommandItem>
-                      {[...regions].sort().map(
-                        (val) =>
-                          val && (
+                    ))}
+                  </CommandGroup>
+                </CommandList>
+              </Command>
+            </PopoverContent>
+          </Popover>
+          <Popover open={locationPopOpen} onOpenChange={setLocationPopOpen}>
+            <PopoverTrigger asChild>
+              <Button
+                variant="outline"
+                role="combobox"
+                aria-expanded={cityPopOpen}
+                className="w-full justify-between"
+              >
+                {location ? String(location) : "Miejsce"}
+                <ChevronsUpDown className="opacity-50" />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-full p-0 pointer-events-auto">
+              <Command>
+                <CommandInput placeholder="Wybierz miejsce..." />
+                <CommandList className="h-50">
+                  <CommandEmpty>Brak miejsca</CommandEmpty>
+                  <CommandGroup>
+                    <CommandItem
+                      value={"Wszystko"}
+                      onSelect={() => {
+                        handleLocationChange("");
+                      }}
+                    >
+                      {"Wszystko"}
+                    </CommandItem>
+                    {[...locations].sort().map((val) => (
+                      <CommandItem
+                        key={val}
+                        value={val}
+                        onSelect={(currentValue) => {
+                          handleLocationChange(currentValue);
+                        }}
+                      >
+                        {val}
+                        <Check
+                          className={cn(
+                            "ml-auto",
+                            location === val ? "opacity-100" : "opacity-0",
+                          )}
+                        />
+                      </CommandItem>
+                    ))}
+                  </CommandGroup>
+                </CommandList>
+              </Command>
+            </PopoverContent>
+          </Popover>
+          <Popover open={typePopOpen} onOpenChange={setTypePopOpen}>
+            <PopoverTrigger asChild>
+              <Button
+                variant="outline"
+                role="combobox"
+                aria-expanded={cityPopOpen}
+                className="w-full justify-between"
+              >
+                {type ? String(type) : "Typ"}
+                <ChevronsUpDown className="opacity-50" />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-full p-0 pointer-events-auto">
+              <Command>
+                <CommandInput placeholder="Wybierz typ eventu..." />
+                <CommandList className="h-50">
+                  <CommandEmpty>Brak typu</CommandEmpty>
+                  <CommandGroup>
+                    <CommandItem
+                      value={"Wszystko"}
+                      onSelect={() => {
+                        handleTypeChange("");
+                      }}
+                    >
+                      {"Wszystko"}
+                    </CommandItem>
+                    {[...types].sort().map((val) => (
+                      <CommandItem
+                        key={val}
+                        value={val as string}
+                        onSelect={(currentValue) => {
+                          handleTypeChange(currentValue);
+                        }}
+                      >
+                        {val}
+                        <Check
+                          className={cn(
+                            "ml-auto",
+                            type === val ? "opacity-100" : "opacity-0",
+                          )}
+                        />
+                      </CommandItem>
+                    ))}
+                  </CommandGroup>
+                </CommandList>
+              </Command>
+            </PopoverContent>
+          </Popover>
+          <Button className="w-fit" onClick={handleReset}>
+            Reset
+          </Button>
+        </div>
+        <div
+          aria-label="filters-mobile"
+          className="md:hidden flex flex-col sticky top-[112px] z-100"
+        >
+          <Drawer
+            open={drawerOpen}
+            onOpenChange={setDrawerOpen}
+            direction="left"
+          >
+            <DrawerTrigger asChild>
+              <Button variant={"outline"}>Filtruj</Button>
+            </DrawerTrigger>
+            <DrawerContent>
+              <DrawerHeader className="hidden">
+                <DrawerTitle>Filtry</DrawerTitle>
+                <DrawerDescription>Lista filtrów</DrawerDescription>
+              </DrawerHeader>
+
+              <div
+                aria-label="filters"
+                className="lg:hidden flex flex-col gap-6"
+              >
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button
+                      variant={"outline"}
+                      data-empty={!date}
+                      className="w-[200px] justify-between text-left font-normal data-[empty=true]:text-muted-foreground"
+                    >
+                      {date
+                        ? formatDateToLocal(date.toString())
+                        : "Wybierz datę"}
+                      <ChevronDownIcon data-icon="inline-end" />
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0" align="start">
+                    <Calendar
+                      locale={pl}
+                      timeZone="Europe/Berlin"
+                      mode="single"
+                      selected={date ?? undefined}
+                      onSelect={(newDate) => {
+                        if (newDate) setDate(newDate);
+                      }}
+                      modifiers={{
+                        booked: booked,
+                      }}
+                      modifiersClassNames={{
+                        booked: "my-booked-class",
+                      }}
+                      disabled={{ before: new Date() }}
+                      className="[&_[role=gridcell].bg-primary]:bg-sidebar-primary [&_[role=gridcell].bg-accent]:text-sidebar-primary-foreground [&_[role=gridcell]]:w-fit bg-card h-[330px]"
+                    />
+                  </PopoverContent>
+                </Popover>
+                <Command className="w-[200px] h-auto">
+                  <CommandInput
+                    placeholder="Szukaj frazy..."
+                    value={term as string}
+                    onValueChange={(val) => {
+                      handleTermChange(val);
+                    }}
+                  />
+                </Command>
+                <Popover onOpenChange={setRegionPopOpen}>
+                  <PopoverTrigger asChild>
+                    <Button
+                      variant="outline"
+                      role="combobox"
+                      aria-expanded={regionPopOpen}
+                      className="w-[200px] justify-between"
+                    >
+                      {region ? String(region) : "Województwo"}
+                      <ChevronsUpDown className="opacity-50" />
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-[200px] p-0 pointer-events-auto">
+                    <Command>
+                      <CommandInput placeholder="Wybierz województwo..." />
+                      <CommandList className="h-50">
+                        <CommandEmpty>Brak województwa</CommandEmpty>
+                        <CommandGroup>
+                          <CommandItem
+                            value={"Wszystko"}
+                            onSelect={() => {
+                              handleRegionChange("");
+                            }}
+                          >
+                            {"Wszystko"}
+                          </CommandItem>
+                          {[...regions].sort().map(
+                            (val) =>
+                              val && (
+                                <CommandItem
+                                  key={val}
+                                  value={val}
+                                  onSelect={(currentValue) => {
+                                    handleRegionChange(currentValue);
+                                  }}
+                                >
+                                  {val}
+                                  <Check
+                                    className={cn(
+                                      "ml-auto",
+                                      region === val
+                                        ? "opacity-100"
+                                        : "opacity-0",
+                                    )}
+                                  />
+                                </CommandItem>
+                              ),
+                          )}
+                        </CommandGroup>
+                      </CommandList>
+                    </Command>
+                  </PopoverContent>
+                </Popover>
+                <Popover onOpenChange={setCityPopOpen}>
+                  <PopoverTrigger asChild>
+                    <Button
+                      variant="outline"
+                      role="combobox"
+                      aria-expanded={cityPopOpen}
+                      className="w-[200px] justify-between"
+                    >
+                      {city ? String(city) : "Miejscowość"}
+                      <ChevronsUpDown className="opacity-50" />
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-[200px] p-0 pointer-events-auto">
+                    <Command>
+                      <CommandInput placeholder="Wybierz miejscowość..." />
+                      <CommandList className="h-50">
+                        <CommandEmpty>Brak miasta</CommandEmpty>
+                        <CommandGroup>
+                          <CommandItem
+                            value={"Wszystko"}
+                            onSelect={() => {
+                              handleCityChange("");
+                            }}
+                          >
+                            {"Wszystko"}
+                          </CommandItem>
+                          {[...cities].sort().map((val) => (
                             <CommandItem
                               key={val}
                               value={val}
                               onSelect={(currentValue) => {
-                                handleRegionChange(currentValue);
+                                handleCityChange(currentValue);
                               }}
                             >
                               {val}
                               <Check
                                 className={cn(
                                   "ml-auto",
-                                  region === val ? "opacity-100" : "opacity-0",
+                                  city === val ? "opacity-100" : "opacity-0",
                                 )}
                               />
                             </CommandItem>
-                          ),
-                      )}
-                    </CommandGroup>
-                  </CommandList>
-                </Command>
-              </PopoverContent>
-            </Popover>
-            <Popover open={cityPopOpen} onOpenChange={setCityPopOpen}>
-              <PopoverTrigger asChild>
-                <Button
-                  variant="outline"
-                  role="combobox"
-                  aria-expanded={cityPopOpen}
-                  className="xl:w-[200px] justify-between"
-                >
-                  {String(city) || "Miejscowość"}
-                  <ChevronsUpDown className="opacity-50" />
+                          ))}
+                        </CommandGroup>
+                      </CommandList>
+                    </Command>
+                  </PopoverContent>
+                </Popover>
+                <Popover onOpenChange={setLocationPopOpen}>
+                  <PopoverTrigger asChild>
+                    <Button
+                      variant="outline"
+                      role="combobox"
+                      aria-expanded={cityPopOpen}
+                      className="w-[200px] justify-between"
+                    >
+                      {location ? String(location) : "Miejsce"}
+                      <ChevronsUpDown className="opacity-50" />
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-[200px] p-0 pointer-events-auto">
+                    <Command>
+                      <CommandInput placeholder="Wybierz miejsce..." />
+                      <CommandList className="h-50">
+                        <CommandEmpty>Brak miejsca</CommandEmpty>
+                        <CommandGroup>
+                          <CommandItem
+                            value={"Wszystko"}
+                            onSelect={() => {
+                              handleLocationChange("");
+                            }}
+                          >
+                            {"Wszystko"}
+                          </CommandItem>
+                          {[...locations].sort().map((val) => (
+                            <CommandItem
+                              key={val}
+                              value={val}
+                              onSelect={(currentValue) => {
+                                handleLocationChange(currentValue);
+                              }}
+                            >
+                              {val}
+                              <Check
+                                className={cn(
+                                  "ml-auto",
+                                  location === val
+                                    ? "opacity-100"
+                                    : "opacity-0",
+                                )}
+                              />
+                            </CommandItem>
+                          ))}
+                        </CommandGroup>
+                      </CommandList>
+                    </Command>
+                  </PopoverContent>
+                </Popover>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button
+                      variant="outline"
+                      role="combobox"
+                      aria-expanded={cityPopOpen}
+                      className="w-[200px] justify-between"
+                    >
+                      {type ? String(type) : "Typ"}
+                      <ChevronsUpDown className="opacity-50" />
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-[200px] p-0 pointer-events-auto">
+                    <Command>
+                      <CommandInput placeholder="Wybierz typ eventu..." />
+                      <CommandList className="h-50">
+                        <CommandEmpty>Brak typu</CommandEmpty>
+                        <CommandGroup>
+                          <CommandItem
+                            value={"Wszystko"}
+                            onSelect={() => {
+                              handleTypeChange("");
+                            }}
+                          >
+                            {"Wszystko"}
+                          </CommandItem>
+                          {[...types].sort().map((val) => (
+                            <CommandItem
+                              key={val}
+                              value={val as string}
+                              onSelect={(currentValue) => {
+                                handleTypeChange(currentValue);
+                              }}
+                            >
+                              {val}
+                              <Check
+                                className={cn(
+                                  "ml-auto",
+                                  type === val ? "opacity-100" : "opacity-0",
+                                )}
+                              />
+                            </CommandItem>
+                          ))}
+                        </CommandGroup>
+                      </CommandList>
+                    </Command>
+                  </PopoverContent>
+                </Popover>
+                <Button className="w-fit" onClick={handleReset}>
+                  Reset
                 </Button>
-              </PopoverTrigger>
-              <PopoverContent className="xl:w-[200px] p-0 pointer-events-auto">
-                <Command>
-                  <CommandInput placeholder="Wybierz miejscowość..." />
-                  <CommandList className="h-50">
-                    <CommandEmpty>Brak miasta</CommandEmpty>
-                    <CommandGroup>
-                      <CommandItem
-                        value={"Wszystko"}
-                        onSelect={() => {
-                          handleCityChange("");
-                        }}
-                      >
-                        {"Wszystko"}
-                      </CommandItem>
-                      {[...cities].sort().map((val) => (
-                        <CommandItem
-                          key={val}
-                          value={val}
-                          onSelect={(currentValue) => {
-                            handleCityChange(currentValue);
-                          }}
-                        >
-                          {val}
-                          <Check
-                            className={cn(
-                              "ml-auto",
-                              city === val ? "opacity-100" : "opacity-0",
-                            )}
-                          />
-                        </CommandItem>
-                      ))}
-                    </CommandGroup>
-                  </CommandList>
-                </Command>
-              </PopoverContent>
-            </Popover>
-            <Popover open={locationPopOpen} onOpenChange={setLocationPopOpen}>
-              <PopoverTrigger asChild>
-                <Button
-                  variant="outline"
-                  role="combobox"
-                  aria-expanded={cityPopOpen}
-                  className="xl:w-[200px] justify-between"
-                >
-                  {String(location) || "Miejsce"}
-                  <ChevronsUpDown className="opacity-50" />
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="xl:w-[200px] p-0 pointer-events-auto">
-                <Command>
-                  <CommandInput placeholder="Wybierz miejsce..." />
-                  <CommandList className="h-50">
-                    <CommandEmpty>Brak miejsca</CommandEmpty>
-                    <CommandGroup>
-                      <CommandItem
-                        value={"Wszystko"}
-                        onSelect={() => {
-                          handleLocationChange("");
-                        }}
-                      >
-                        {"Wszystko"}
-                      </CommandItem>
-                      {[...locations].sort().map((val) => (
-                        <CommandItem
-                          key={val}
-                          value={val}
-                          onSelect={(currentValue) => {
-                            handleLocationChange(currentValue);
-                          }}
-                        >
-                          {val}
-                          <Check
-                            className={cn(
-                              "ml-auto",
-                              location === val ? "opacity-100" : "opacity-0",
-                            )}
-                          />
-                        </CommandItem>
-                      ))}
-                    </CommandGroup>
-                  </CommandList>
-                </Command>
-              </PopoverContent>
-            </Popover>
-            <Popover open={typePopOpen} onOpenChange={setTypePopOpen}>
-              <PopoverTrigger asChild>
-                <Button
-                  variant="outline"
-                  role="combobox"
-                  aria-expanded={cityPopOpen}
-                  className="xl:w-[200px] justify-between"
-                >
-                  {String(type) || "Typ"}
-                  <ChevronsUpDown className="opacity-50" />
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="xl:w-[200px] p-0 pointer-events-auto">
-                <Command>
-                  <CommandInput placeholder="Wybierz typ eventu..." />
-                  <CommandList className="h-50">
-                    <CommandEmpty>Brak typu</CommandEmpty>
-                    <CommandGroup>
-                      <CommandItem
-                        value={"Wszystko"}
-                        onSelect={() => {
-                          handleTypeChange("");
-                        }}
-                      >
-                        {"Wszystko"}
-                      </CommandItem>
-                      {[...types].sort().map((val) => (
-                        <CommandItem
-                          key={val}
-                          value={val as string}
-                          onSelect={(currentValue) => {
-                            handleTypeChange(currentValue);
-                          }}
-                        >
-                          {val}
-                          <Check
-                            className={cn(
-                              "ml-auto",
-                              type === val ? "opacity-100" : "opacity-0",
-                            )}
-                          />
-                        </CommandItem>
-                      ))}
-                    </CommandGroup>
-                  </CommandList>
-                </Command>
-              </PopoverContent>
-            </Popover>
-            <Button className="w-fit" onClick={handleReset}>
-              Resetuj filtry
-            </Button>
-          </SidebarGroup>
-        </SidebarContent>
-        <SidebarRail />
-      </Sidebar>
-      <SidebarInset>
-        <div className="my-6">
-          <Breadcrumb>
-            <BreadcrumbList>
-              <BreadcrumbItem>
-                <BreadcrumbLink asChild>
-                  <Link href="/">
-                    <Home />
-                  </Link>
-                </BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator />
-              <BreadcrumbItem>
-                <BreadcrumbPage>KALENDARZ</BreadcrumbPage>
-              </BreadcrumbItem>
-            </BreadcrumbList>
-          </Breadcrumb>
+              </div>
+            </DrawerContent>
+          </Drawer>
         </div>
-        <header className="sticky top-0 flex h-16 shrink-0 items-center gap-2 border-b bg-background px-4">
-          <SidebarTrigger className="-ml-1" />
-        </header>
-
-        {city && events.length > 0 ? (
-          <div>
-            <h1 className="p-4 pl-0">
-              Nadchodzące wydarzenia w: {String(city)}
-            </h1>
-            <div className="flex flex-col gap-6">
-              {events
-                .filter((event) => event.place?.city === city)
-                .map((event, index) => (
+        <div aria-label="results" className="flex flex-col">
+          {city && events.length > 0 ? (
+            <div>
+              <h1 className="p-4 pl-0">
+                Nadchodzące wydarzenia w: {String(city)}
+              </h1>
+              <div className="flex flex-col gap-6">
+                {events
+                  .filter((event) => event.place?.city === city)
+                  .map((event, index) => (
+                    <div
+                      key={event.documentId}
+                      className="group border-none relative shadow-md translate-y-0  hover:-translate-y-2 transition-all duration-300 bg-card rounded-sm p-4"
+                    >
+                      <EventComponent index={index} event={event} />
+                    </div>
+                  ))}
+              </div>
+            </div>
+          ) : location && events.length > 0 ? (
+            <div>
+              <h1 className="p-4 pl-0">
+                Nadchodzące wydarzenia w: {String(location)}
+              </h1>
+              <div className="flex flex-col gap-6">
+                {events
+                  .filter((event) => event.place?.location === location)
+                  .map((event, index) => (
+                    <div
+                      key={event.documentId}
+                      className="group border-none relative shadow-md translate-y-0  hover:-translate-y-2 transition-all duration-300 bg-card rounded-sm p-4"
+                    >
+                      <EventComponent index={index} event={event} />
+                    </div>
+                  ))}
+              </div>
+            </div>
+          ) : region && events.length > 0 ? (
+            <div>
+              <h1 className="p-4 pl-0">
+                Nadchodzące wydarzenia w: {String(region)}
+              </h1>
+              <div className="flex flex-col gap-6">
+                {events
+                  .filter((event) => event.place?.region === region)
+                  .map((event, index) => (
+                    <div
+                      key={event.documentId}
+                      className="group border-none relative shadow-md translate-y-0  hover:-translate-y-2 transition-all duration-300 bg-card rounded-sm p-4"
+                    >
+                      <EventComponent index={index} event={event} />
+                    </div>
+                  ))}
+              </div>
+            </div>
+          ) : events.length > 0 ? (
+            <div>
+              <h1 className="p-4 pl-0">Nadchodzące wydarzenia:</h1>
+              <div className="flex flex-col gap-6">
+                {events.map((event, index) => (
                   <div
                     key={event.documentId}
                     className="group border-none relative shadow-md translate-y-0  hover:-translate-y-2 transition-all duration-300 bg-card rounded-sm p-4"
@@ -378,62 +713,13 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
                     <EventComponent index={index} event={event} />
                   </div>
                 ))}
+              </div>
             </div>
-          </div>
-        ) : location && events.length > 0 ? (
-          <div>
-            <h1 className="p-4 pl-0">
-              Nadchodzące wydarzenia w: {String(location)}
-            </h1>
-            <div className="flex flex-col gap-6">
-              {events
-                .filter((event) => event.place?.location === location)
-                .map((event, index) => (
-                  <div
-                    key={event.documentId}
-                    className="group border-none relative shadow-md translate-y-0  hover:-translate-y-2 transition-all duration-300 bg-card rounded-sm p-4"
-                  >
-                    <EventComponent index={index} event={event} />
-                  </div>
-                ))}
-            </div>
-          </div>
-        ) : region && events.length > 0 ? (
-          <div>
-            <h1 className="p-4 pl-0">
-              Nadchodzące wydarzenia w: {String(region)}
-            </h1>
-            <div className="flex flex-col gap-6">
-              {events
-                .filter((event) => event.place?.region === region)
-                .map((event, index) => (
-                  <div
-                    key={event.documentId}
-                    className="group border-none relative shadow-md translate-y-0  hover:-translate-y-2 transition-all duration-300 bg-card rounded-sm p-4"
-                  >
-                    <EventComponent index={index} event={event} />
-                  </div>
-                ))}
-            </div>
-          </div>
-        ) : events.length > 0 ? (
-          <div>
-            <h1 className="p-4 pl-0">Nadchodzące wydarzenia:</h1>
-            <div className="flex flex-col gap-6">
-              {events.map((event, index) => (
-                <div
-                  key={event.documentId}
-                  className="group border-none relative shadow-md translate-y-0  hover:-translate-y-2 transition-all duration-300 bg-card rounded-sm p-4"
-                >
-                  <EventComponent index={index} event={event} />
-                </div>
-              ))}
-            </div>
-          </div>
-        ) : (
-          <h1 className="p-4 pl-0">Brak wydarzeń dla wybranej daty</h1>
-        )}
-      </SidebarInset>
+          ) : (
+            <h1 className="p-4 pl-0">Brak wydarzeń dla wybranej daty</h1>
+          )}
+        </div>
+      </div>
     </Fragment>
   );
 }

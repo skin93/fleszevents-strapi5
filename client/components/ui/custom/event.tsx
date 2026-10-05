@@ -14,8 +14,8 @@ export function Event({ event, index }: Props) {
   const outdated =
     format(event.date, "yyyy/MM/dd") < format(new Date(), "yyyy/MM/dd");
   return (
-    <>
-      <div className="text-sm bg-foreground text-background p-2 absolute top-[-10] left-[-10] translate-[-10] font-extrabold">
+    <div className="relative">
+      <div className="text-sm bg-foreground text-background p-2 absolute top-[-50] left-[-10] font-extrabold">
         {index + 1}
       </div>
       <Link href={`/articles/${event.article?.slug}`}>
@@ -44,6 +44,6 @@ export function Event({ event, index }: Props) {
           </p>
         </div>
       </Link>
-    </>
+    </div>
   );
 }

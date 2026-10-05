@@ -1,8 +1,6 @@
 import CustomCalendar from "@/components/custom-calendar";
-import { SidebarProvider } from "@/components/ui/sidebar";
 import { getBookedDays, getEvents } from "@/lib/data/events";
 import { Event, Place } from "@/lib/interfaces";
-import { Fragment } from "react";
 import { WebPage, WithContext } from "schema-dts";
 export const dynamic = "force-dynamic";
 
@@ -97,17 +95,17 @@ export default async function CalendarPage({ searchParams }: Props) {
   ]);
 
   return (
-    <Fragment>
+    <div>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
         }}
       />
-      <SidebarProvider>
+      <main>
         <CustomCalendar events={events} allBookedDates={allBookedDates} />
-        <div className="m-8" />
-      </SidebarProvider>
-    </Fragment>
+        <div className="my-6" />
+      </main>
+    </div>
   );
 }
