@@ -372,7 +372,7 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
               </Command>
             </PopoverContent>
           </Popover>
-          <Button className="w-fit" onClick={handleReset}>
+          <Button className="w-full" onClick={handleReset}>
             Reset
           </Button>
         </div>
