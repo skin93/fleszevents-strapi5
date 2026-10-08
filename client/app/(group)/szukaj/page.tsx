@@ -113,20 +113,19 @@ export default async function SearchPage({ searchParams }: Props) {
                   </div>
                 ))}
               </div>
+              <CustomPagination
+                currentPage={currentPage}
+                pageCount={pageInfo.pageCount}
+                q={q}
+              />
             </>
           ) : (
-            <div>
-              <h1 className="uppercase">
+            <>
+              <h1 className="uppercase text-center">
                 Brak wyników dla frazy <q>{term}</q>
               </h1>
-            </div>
+            </>
           )}
-
-          <CustomPagination
-            currentPage={currentPage}
-            pageCount={pageInfo.pageCount}
-            q={q}
-          />
         </section>
       </main>
     </Fragment>
