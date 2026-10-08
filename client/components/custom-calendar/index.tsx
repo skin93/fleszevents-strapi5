@@ -1,4 +1,5 @@
 "use client";
+
 import { Calendar } from "@/components/ui/calendar";
 import { Fragment, useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
@@ -8,20 +9,13 @@ import { formatDateToLocal } from "@/lib/utils";
 
 import { Event as EventComponent } from "../ui/custom/event";
 import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { Button } from "../ui/button";
-import { Check, ChevronsUpDown, Home, ChevronDownIcon } from "lucide-react";
+import { Check, Home, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useCalendarFilters } from "@/hooks/use-filters";
 import { debounce } from "nuqs";
@@ -38,12 +32,13 @@ import {
 
 import {
   Drawer,
-  DrawerContent,
-  DrawerDescription,
-  DrawerHeader,
   DrawerTitle,
+  DrawerHeader,
+  DrawerDescription,
+  DrawerContent,
   DrawerTrigger,
 } from "../../components/ui/drawer";
+import { Input } from "../ui/input";
 
 type Props = {
   events: Event[];
@@ -63,14 +58,22 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
     setTerm,
   } = useCalendarFilters();
 
-  const [regionPopOpen, setRegionPopOpen] = useState<boolean>(false);
-  const [cityPopOpen, setCityPopOpen] = useState<boolean>(false);
-  const [locationPopOpen, setLocationPopOpen] = useState<boolean>(false);
-  const [typePopOpen, setTypePopOpen] = useState<boolean>(false);
   const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
 
-  // OPTYMALIZACJA 1: Zapamiętywanie unikalnych wartości filtrów (useMemo)
-  // Przeliczanie wykona się tylko wtedy, gdy zmieni się tablica `events`
+  const [filterSearch, setFilterSearch] = useState({
+    region: "",
+    city: "",
+    location: "",
+    type: "",
+  });
+
+  const handleSearchChange = (
+    key: keyof typeof filterSearch,
+    value: string,
+  ) => {
+    setFilterSearch((prev) => ({ ...prev, [key]: value }));
+  };
+
   const { regions, cities, locations, types } = useMemo(() => {
     const regSet = new Set<string>();
     const citySet = new Set<string>();
@@ -92,12 +95,10 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
     };
   }, [events]);
 
-  // OPTYMALIZACJA 2: Zapamiętywanie wygenerowanych obiektów Date
   const booked = useMemo(() => {
     return allBookedDates.map((d) => new Date(d));
   }, [allBookedDates]);
 
-  // OPTYMALIZACJA 3: Przefiltrowanie listy wydarzeń przed renderowaniem JSX
   const filteredEvents = useMemo(() => {
     if (city) return events.filter((e) => e.place?.city === city);
     if (location) return events.filter((e) => e.place?.location === location);
@@ -105,25 +106,10 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
     return events;
   }, [events, city, location, region]);
 
-  const handleRegionChange = (val: string) => {
-    setRegion(val);
-    setRegionPopOpen(false);
-  };
-
-  const handleCityChange = (val: string) => {
-    setCity(val);
-    setCityPopOpen(false);
-  };
-
-  const handleLocationChange = (val: string) => {
-    setLocation(val);
-    setLocationPopOpen(false);
-  };
-
-  const handleTypeChange = (val: string) => {
-    setType(val);
-    setTypePopOpen(false);
-  };
+  const handleRegionChange = (val: string) => setRegion(val);
+  const handleCityChange = (val: string) => setCity(val);
+  const handleLocationChange = (val: string) => setLocation(val);
+  const handleTypeChange = (val: string) => setType(val);
 
   const handleTermChange = (val: string) => {
     setTerm(val, { limitUrlUpdates: val === "" ? undefined : debounce(500) });
@@ -136,238 +122,235 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
     setType(null);
     setRegion(null);
     setTerm(null);
+    setFilterSearch({ region: "", city: "", location: "", type: "" });
     setDrawerOpen(false);
     router.push("/calendar");
   };
+  const renderFilterForm = () => {
+    const filteredRegions = regions.filter((r) =>
+      r.toLowerCase().includes(filterSearch.region.toLowerCase()),
+    );
+    const filteredCities = cities.filter((c) =>
+      c.toLowerCase().includes(filterSearch.city.toLowerCase()),
+    );
+    const filteredLocations = locations.filter((l) =>
+      l.toLowerCase().includes(filterSearch.location.toLowerCase()),
+    );
+    const filteredTypes = types.filter((t) =>
+      t.toLowerCase().includes(filterSearch.type.toLowerCase()),
+    );
 
-  // Sekcja filtrów przeniesiona do osobnej funkcji pod kątem ponownego użycia
-  const renderFilterForm = () => (
-    <div className="flex flex-col gap-6">
-      <Popover>
-        <PopoverTrigger asChild>
-          <Button
-            variant={"outline"}
-            data-empty={!date}
-            className="w-full justify-between text-left font-normal data-[empty=true]:text-muted-foreground"
-          >
-            {date ? formatDateToLocal(date.toString()) : "Wybierz datę"}
-            <ChevronDownIcon data-icon="inline-end" />
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent className="w-auto p-0" align="start">
-          <Calendar
-            locale={pl}
-            timeZone="Europe/Berlin"
-            mode="single"
-            selected={date ?? undefined}
-            onSelect={(newDate) => {
-              if (newDate) setDate(newDate);
-            }}
-            modifiers={{ booked }}
-            modifiersClassNames={{ booked: "my-booked-class" }}
-            disabled={{ before: new Date() }}
-            className="[&_[role=gridcell].bg-primary]:bg-sidebar-primary [&_[role=gridcell].bg-accent]:text-sidebar-primary-foreground [&_[role=gridcell]]:w-fit bg-card h-[330px]"
+    return (
+      <div className="flex flex-col gap-4 pb-4">
+        <div className="flex flex-col gap-1">
+          <h2 className="text-lg font-semibold tracking-tight">Filtry</h2>
+          <p className="text-sm text-muted-foreground">
+            Dostosuj wyniki wyszukiwania
+          </p>
+        </div>
+        <div className="relative">
+          <Search className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
+          <Input
+            type="text"
+            placeholder="Szukaj frazy..."
+            value={(term as string) ?? ""}
+            onChange={(e) => handleTermChange(e.target.value)}
+            className="w-full pl-9 pr-3 py-2 text-sm rounded-md border border-Input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           />
-        </PopoverContent>
-      </Popover>
-
-      <Command className="w-full h-auto">
-        <CommandInput
-          placeholder="Szukaj frazy..."
-          value={(term as string) ?? ""}
-          onValueChange={handleTermChange}
-        />
-      </Command>
-
-      {/* Województwo */}
-      <Popover open={regionPopOpen} onOpenChange={setRegionPopOpen}>
-        <PopoverTrigger asChild>
-          <Button
-            variant="outline"
-            role="combobox"
-            aria-expanded={regionPopOpen}
-            className="w-full justify-between"
-          >
-            {region ? String(region) : "Województwo"}
-            <ChevronsUpDown className="opacity-50" />
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent className="w-full p-0 pointer-events-auto">
-          <Command>
-            <CommandInput placeholder="Wybierz województwo..." />
-            <CommandList className="h-50">
-              <CommandEmpty>Brak województwa</CommandEmpty>
-              <CommandGroup>
-                <CommandItem
-                  value="Wszystko"
-                  onSelect={() => handleRegionChange("")}
+        </div>
+        <Accordion type="single" collapsible className="w-full">
+          <AccordionItem value="calendar">
+            <AccordionTrigger className="cursor-pointer">
+              {date ? formatDateToLocal(date.toString()) : "Wybierz datę"}
+            </AccordionTrigger>
+            <AccordionContent className="flex justify-center pt-2">
+              <Calendar
+                locale={pl}
+                timeZone="Europe/Berlin"
+                mode="single"
+                selected={date ?? undefined}
+                onSelect={(newDate) => {
+                  if (newDate) setDate(newDate);
+                }}
+                modifiers={{ booked }}
+                modifiersClassNames={{ booked: "my-booked-class" }}
+                disabled={{ before: new Date() }}
+                className="rounded-md border bg-card"
+              />
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="region">
+            <AccordionTrigger className="cursor-pointer">
+              {region ? `Województwo: ${region}` : "Województwo"}
+            </AccordionTrigger>
+            <AccordionContent className="flex flex-col gap-2 pt-2">
+              <Input
+                type="text"
+                placeholder="Filtruj województwa..."
+                value={filterSearch.region}
+                onChange={(e) => handleSearchChange("region", e.target.value)}
+                className="w-full px-3 py-1.5 text-xs rounded-md border border-Input bg-background"
+              />
+              <div className="max-h-48 overflow-y-auto flex flex-col gap-1 pr-1">
+                <button
+                  type="button"
+                  onClick={() => handleRegionChange("")}
+                  className={cn(
+                    "flex items-center justify-between w-full px-3 py-2 text-sm rounded-md text-left transition-colors hover:bg-accent",
+                    !region && "bg-accent font-medium",
+                  )}
                 >
                   Wszystko
-                </CommandItem>
-                {regions.map((val) => (
-                  <CommandItem
+                  {!region && <Check className="h-4 w-4" />}
+                </button>
+                {filteredRegions.map((val) => (
+                  <button
                     key={val}
-                    value={val}
-                    onSelect={handleRegionChange}
+                    type="button"
+                    onClick={() => handleRegionChange(val)}
+                    className={cn(
+                      "flex items-center justify-between w-full px-3 py-2 text-sm rounded-md text-left transition-colors hover:bg-accent",
+                      region === val && "bg-accent font-medium",
+                    )}
                   >
                     {val}
-                    <Check
-                      className={cn(
-                        "ml-auto",
-                        region === val ? "opacity-100" : "opacity-0",
-                      )}
-                    />
-                  </CommandItem>
+                    {region === val && <Check className="h-4 w-4" />}
+                  </button>
                 ))}
-              </CommandGroup>
-            </CommandList>
-          </Command>
-        </PopoverContent>
-      </Popover>
-
-      {/* Miejscowość */}
-      <Popover open={cityPopOpen} onOpenChange={setCityPopOpen}>
-        <PopoverTrigger asChild>
-          <Button
-            variant="outline"
-            role="combobox"
-            aria-expanded={cityPopOpen}
-            className="w-full justify-between"
-          >
-            {city ? String(city) : "Miejscowość"}
-            <ChevronsUpDown className="opacity-50" />
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent className="w-full p-0 pointer-events-auto">
-          <Command>
-            <CommandInput placeholder="Wybierz miejscowość..." />
-            <CommandList className="h-50">
-              <CommandEmpty>Brak miasta</CommandEmpty>
-              <CommandGroup>
-                <CommandItem
-                  value="Wszystko"
-                  onSelect={() => handleCityChange("")}
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="city">
+            <AccordionTrigger className="cursor-pointer">
+              {city ? `Miejscowość: ${city}` : "Miejscowość"}
+            </AccordionTrigger>
+            <AccordionContent className="flex flex-col gap-2 pt-2">
+              <Input
+                type="text"
+                placeholder="Filtruj miejscowości..."
+                value={filterSearch.city}
+                onChange={(e) => handleSearchChange("city", e.target.value)}
+                className="w-full px-3 py-1.5 text-xs rounded-md border border-Input bg-background"
+              />
+              <div className="max-h-48 overflow-y-auto flex flex-col gap-1 pr-1">
+                <button
+                  type="button"
+                  onClick={() => handleCityChange("")}
+                  className={cn(
+                    "flex items-center justify-between w-full px-3 py-2 text-sm rounded-md text-left transition-colors hover:bg-accent",
+                    !city && "bg-accent font-medium",
+                  )}
                 >
                   Wszystko
-                </CommandItem>
-                {cities.map((val) => (
-                  <CommandItem
+                  {!city && <Check className="h-4 w-4" />}
+                </button>
+                {filteredCities.map((val) => (
+                  <button
                     key={val}
-                    value={val}
-                    onSelect={handleCityChange}
+                    type="button"
+                    onClick={() => handleCityChange(val)}
+                    className={cn(
+                      "flex items-center justify-between w-full px-3 py-2 text-sm rounded-md text-left transition-colors hover:bg-accent",
+                      city === val && "bg-accent font-medium",
+                    )}
                   >
                     {val}
-                    <Check
-                      className={cn(
-                        "ml-auto",
-                        city === val ? "opacity-100" : "opacity-0",
-                      )}
-                    />
-                  </CommandItem>
+                    {city === val && <Check className="h-4 w-4" />}
+                  </button>
                 ))}
-              </CommandGroup>
-            </CommandList>
-          </Command>
-        </PopoverContent>
-      </Popover>
-
-      {/* Miejsce */}
-      <Popover open={locationPopOpen} onOpenChange={setLocationPopOpen}>
-        <PopoverTrigger asChild>
-          <Button
-            variant="outline"
-            role="combobox"
-            aria-expanded={locationPopOpen}
-            className="w-full justify-between"
-          >
-            {location ? String(location) : "Miejsce"}
-            <ChevronsUpDown className="opacity-50" />
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent className="w-full p-0 pointer-events-auto">
-          <Command>
-            <CommandInput placeholder="Wybierz miejsce..." />
-            <CommandList className="h-50">
-              <CommandEmpty>Brak miejsca</CommandEmpty>
-              <CommandGroup>
-                <CommandItem
-                  value="Wszystko"
-                  onSelect={() => handleLocationChange("")}
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="location">
+            <AccordionTrigger className="cursor-pointer">
+              {location ? `Miejsce: ${location}` : "Miejsce"}
+            </AccordionTrigger>
+            <AccordionContent className="flex flex-col gap-2 pt-2">
+              <Input
+                type="text"
+                placeholder="Filtruj miejsca..."
+                value={filterSearch.location}
+                onChange={(e) => handleSearchChange("location", e.target.value)}
+                className="w-full px-3 py-1.5 text-xs rounded-md border border-Input bg-background"
+              />
+              <div className="max-h-48 overflow-y-auto flex flex-col gap-1 pr-1">
+                <button
+                  type="button"
+                  onClick={() => handleLocationChange("")}
+                  className={cn(
+                    "flex items-center justify-between w-full px-3 py-2 text-sm rounded-md text-left transition-colors hover:bg-accent",
+                    !location && "bg-accent font-medium",
+                  )}
                 >
                   Wszystko
-                </CommandItem>
-                {locations.map((val) => (
-                  <CommandItem
+                  {!location && <Check className="h-4 w-4" />}
+                </button>
+                {filteredLocations.map((val) => (
+                  <button
                     key={val}
-                    value={val}
-                    onSelect={handleLocationChange}
+                    type="button"
+                    onClick={() => handleLocationChange(val)}
+                    className={cn(
+                      "flex items-center justify-between w-full px-3 py-2 text-sm rounded-md text-left transition-colors hover:bg-accent",
+                      location === val && "bg-accent font-medium",
+                    )}
                   >
                     {val}
-                    <Check
-                      className={cn(
-                        "ml-auto",
-                        location === val ? "opacity-100" : "opacity-0",
-                      )}
-                    />
-                  </CommandItem>
+                    {location === val && <Check className="h-4 w-4" />}
+                  </button>
                 ))}
-              </CommandGroup>
-            </CommandList>
-          </Command>
-        </PopoverContent>
-      </Popover>
-
-      {/* Typ */}
-      <Popover open={typePopOpen} onOpenChange={setTypePopOpen}>
-        <PopoverTrigger asChild>
-          <Button
-            variant="outline"
-            role="combobox"
-            aria-expanded={typePopOpen}
-            className="w-full justify-between"
-          >
-            {type ? String(type) : "Typ"}
-            <ChevronsUpDown className="opacity-50" />
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent className="w-full p-0 pointer-events-auto">
-          <Command>
-            <CommandInput placeholder="Wybierz typ eventu..." />
-            <CommandList className="h-50">
-              <CommandEmpty>Brak typu</CommandEmpty>
-              <CommandGroup>
-                <CommandItem
-                  value="Wszystko"
-                  onSelect={() => handleTypeChange("")}
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="type">
+            <AccordionTrigger className="cursor-pointer">
+              {type ? `Typ: ${type}` : "Typ"}
+            </AccordionTrigger>
+            <AccordionContent className="flex flex-col gap-2 pt-2">
+              <Input
+                type="text"
+                placeholder="Filtruj typy..."
+                value={filterSearch.type}
+                onChange={(e) => handleSearchChange("type", e.target.value)}
+                className="w-full px-3 py-1.5 text-xs rounded-md border border-Input bg-background"
+              />
+              <div className="max-h-48 overflow-y-auto flex flex-col gap-1 pr-1">
+                <button
+                  type="button"
+                  onClick={() => handleTypeChange("")}
+                  className={cn(
+                    "flex items-center justify-between w-full px-3 py-2 text-sm rounded-md text-left transition-colors hover:bg-accent",
+                    !type && "bg-accent font-medium",
+                  )}
                 >
                   Wszystko
-                </CommandItem>
-                {types.map((val) => (
-                  <CommandItem
+                  {!type && <Check className="h-4 w-4" />}
+                </button>
+                {filteredTypes.map((val) => (
+                  <button
                     key={val}
-                    value={val}
-                    onSelect={handleTypeChange}
+                    type="button"
+                    onClick={() => handleTypeChange(val)}
+                    className={cn(
+                      "flex items-center justify-between w-full px-3 py-2 text-sm rounded-md text-left transition-colors hover:bg-accent",
+                      type === val && "bg-accent font-medium",
+                    )}
                   >
                     {val}
-                    <Check
-                      className={cn(
-                        "ml-auto",
-                        type === val ? "opacity-100" : "opacity-0",
-                      )}
-                    />
-                  </CommandItem>
+                    {type === val && <Check className="h-4 w-4" />}
+                  </button>
                 ))}
-              </CommandGroup>
-            </CommandList>
-          </Command>
-        </PopoverContent>
-      </Popover>
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
 
-      <Button className="w-full" onClick={handleReset}>
-        Reset
-      </Button>
-    </div>
-  );
+        <Button className="w-full mt-2" onClick={handleReset}>
+          Resetuj filtry
+        </Button>
+      </div>
+    );
+  };
 
   const filterTitle = city
     ? `Nadchodzące wydarzenia w: ${city}`
@@ -398,15 +381,12 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
       </div>
 
       <div className="grid md:grid-cols-[30%_60%] md:justify-around items-start">
-        {/* Filtry - Wersja Desktop (Usunięto rozmycie backdrop-blur ze względu na wydajność) */}
         <div
           aria-label="filters-desktop"
-          className="hidden md:flex md:flex-col md:flex-1/4 gap-6 sticky top-[112px] border border-black/10 bg-white dark:border-white/5 dark:bg-card rounded-sm shadow-md m-4 p-4"
+          className="hidden md:flex md:flex-col md:flex-1/4 sticky top-[112px] border border-black/10 bg-white dark:border-white/5 dark:bg-card rounded-sm shadow-md m-4 p-4"
         >
           {renderFilterForm()}
         </div>
-
-        {/* Filtry - Wersja Mobile */}
         <div
           aria-label="filters-mobile"
           className="md:hidden flex flex-col my-4"
@@ -421,10 +401,10 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
                 Filtruj
               </Button>
             </DrawerTrigger>
-            <DrawerContent className="max-w-[300px] p-6 overflow-y-auto">
-              <DrawerHeader className="text-left px-0 pt-0">
-                <DrawerTitle>Filtry</DrawerTitle>
-                <DrawerDescription>
+            <DrawerContent className="max-w-[320px] p-6 overflow-y-auto">
+              <DrawerHeader className="sr-only">
+                <DrawerTitle className="sr-only">Filtry</DrawerTitle>
+                <DrawerDescription className="sr-only">
                   Dostosuj wyniki wyszukiwania
                 </DrawerDescription>
               </DrawerHeader>
@@ -433,12 +413,11 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
           </Drawer>
         </div>
 
-        {/* Wyniki Wyszukiwania */}
         <div aria-label="results" className="flex flex-col">
           {filteredEvents.length > 0 ? (
             <div>
               <h1 className="p-4 pl-0 text-xl font-bold">{filterTitle}</h1>
-              <div className="grid grid-cols-1 sm:grid-cols-2  gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 {filteredEvents.map((event, index) => (
                   <div
                     key={event.documentId}
