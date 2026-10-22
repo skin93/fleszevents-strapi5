@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/breadcrumb";
 
 import { Home } from "lucide-react";
+import Section from "@/components/ui/custom/section";
 
 type Props = {
   params: Promise<{ categorySlug: string }>;
@@ -129,32 +130,26 @@ export default async function CategoryPage({ params, searchParams }: Props) {
           __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
         }}
       />
-      <main>
-        <div className="mt-6">
-          <Breadcrumb>
-            <BreadcrumbList>
-              <BreadcrumbItem>
-                <BreadcrumbLink asChild>
-                  <Link href="/">
-                    <Home />
-                  </Link>
-                </BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator />
-              <BreadcrumbItem>
-                <BreadcrumbPage>{categorySlug.toUpperCase()}</BreadcrumbPage>
-              </BreadcrumbItem>
-            </BreadcrumbList>
-          </Breadcrumb>
-        </div>
-        <section
-          className="my-6 p-6 border border-black/10 bg-white/85 dark:border-white/5 dark:bg-[var(--color-foreground)]/5  backdrop-blur-md rounded-sm shadow-md"
-          aria-label={`${categorySlug} content`}
-        >
+      <main className="bg-foreground/5">
+        <Section ariaLabel={`${categorySlug} content`}>
+          <div className="mb-6">
+            <Breadcrumb>
+              <BreadcrumbList>
+                <BreadcrumbItem>
+                  <BreadcrumbLink asChild>
+                    <Link href="/">
+                      <Home />
+                    </Link>
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbPage>{categorySlug.toUpperCase()}</BreadcrumbPage>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
+          </div>
           <div className="flex flex-col justify-center items-center">
-            <h1 className="mt-0 mb-6 text-center uppercase">
-              {categorySlug.toUpperCase()}
-            </h1>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
               {articles.map((article) => (
                 <div key={article.documentId}>
@@ -169,7 +164,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
               pageCount={pageInfo.pageCount}
             />
           </div>
-        </section>
+        </Section>
       </main>
     </Fragment>
   );

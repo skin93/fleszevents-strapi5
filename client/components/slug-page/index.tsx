@@ -18,6 +18,7 @@ import {
 import { Home } from "lucide-react";
 
 import Image from "strapi-next-image";
+import Section from "../ui/custom/section";
 
 type Props = {
   article: Article;
@@ -35,42 +36,38 @@ export default function SlugPageComponent({ article, categorySlug }: Props) {
     });
   }, []);
   return (
-    <main>
-      <div className="mt-6">
-        <Breadcrumb>
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink asChild>
-                <Link href="/">
-                  <Home />
-                </Link>
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbLink asChild>
-                <Link href={`/${categorySlug}`}>
-                  {categorySlug.toUpperCase()}
-                </Link>
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbPage>{article.title}</BreadcrumbPage>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
-      </div>
-      <section
-        className="my-6 p-6 border 
-      border-black/10 bg-white/85 dark:border-white/5 dark:bg-[var(--color-foreground)]/5  backdrop-blur-md rounded-sm shadow-md"
-        aria-label={`Artykuł ${article.title}`}
-      >
+    <main className="bg-foreground/5">
+      <Section ariaLabel={`Artykuł ${article.title}`}>
+        <div className="mb-6">
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link href="/">
+                    <Home />
+                  </Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link href={`/${categorySlug}`}>
+                    {categorySlug.toUpperCase()}
+                  </Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>{article.title}</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+        </div>
         <div className="inline-table">
           {article.categories?.map((category) => (
             <Link key={category.documentId} href={`/${category.slug}`}>
               <Badge
-                className="bg-foreground hover:bg-foreground/70 dark:bg-accent/70 dark:hover:bg-accent/90 dark:text-foreground mr-2 p-2 rounded-sm uppercase"
+                className="custom-backdrop mr-2 p-2 rounded-sm uppercase"
                 variant="default"
               >
                 {category.name}
@@ -80,7 +77,7 @@ export default function SlugPageComponent({ article, categorySlug }: Props) {
           {article.isFestival && article.festival?.slug && (
             <Link href={`/festiwalowa-mapa?festival=${article.festival?.name}`}>
               <Badge
-                className="my-6 sm:my-0 bg-foreground hover:bg-foreground/70 dark:bg-accent/70 dark:hover:bg-accent/90 dark:text-foreground mr-2 p-2 rounded-sm uppercase"
+                className="my-6 sm:my-0 custom-backdrop mr-2 p-2 rounded-sm uppercase"
                 variant="default"
               >
                 Pokaż na mapie
@@ -101,8 +98,9 @@ export default function SlugPageComponent({ article, categorySlug }: Props) {
           </Badge>
         </div>
         <h1 aria-label="article-title">{article.title}</h1>
+        <p className="text-muted-foreground">{article.excerpt}</p>
 
-        <div className="grid grid-cols-1 xl:grid-cols-[60%_35%] xl:justify-between">
+        <div className="grid grid-cols-1 xl:grid-cols-[50%_45%] xl:justify-between">
           <article aria-label="left-column">
             <div className="relative " aria-label="image-wrapper">
               <Image
@@ -162,7 +160,7 @@ export default function SlugPageComponent({ article, categorySlug }: Props) {
             )}
           </aside>
         </div>
-      </section>
+      </Section>
     </main>
   );
 }
