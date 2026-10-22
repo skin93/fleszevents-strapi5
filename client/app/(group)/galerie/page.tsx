@@ -1,7 +1,6 @@
 import { Metadata } from "next";
 import { getGalleriesByTerm } from "@/lib/data/galleries";
 import CustomPagination from "@/components/ui/custom/pagination";
-import { notFound } from "next/navigation";
 import Link from "next/link";
 import GalleryCard from "@/components/ui/custom/gallery-card";
 import { CollectionPage, WithContext } from "schema-dts";
@@ -111,26 +110,26 @@ export default async function GalleriesPage({ searchParams }: Props) {
           __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
         }}
       />
-      <main>
-        <div className="mt-6">
-          <Breadcrumb>
-            <BreadcrumbList>
-              <BreadcrumbItem>
-                <BreadcrumbLink asChild>
-                  <Link href="/">
-                    <Home />
-                  </Link>
-                </BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator />
-              <BreadcrumbItem>
-                <BreadcrumbPage>GALERIE</BreadcrumbPage>
-              </BreadcrumbItem>
-            </BreadcrumbList>
-          </Breadcrumb>
-        </div>
-        <GalleryFilters />
+      <main className="bg-foreground/5">
         <Section ariaLabel="Galerie">
+          <div className="mb-6">
+            <Breadcrumb>
+              <BreadcrumbList>
+                <BreadcrumbItem>
+                  <BreadcrumbLink asChild>
+                    <Link href="/">
+                      <Home />
+                    </Link>
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbPage>GALERIE</BreadcrumbPage>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
+          </div>
+          <GalleryFilters />
           {galleries && galleries.length > 0 ? (
             <>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 ">
