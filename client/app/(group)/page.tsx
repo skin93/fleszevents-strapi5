@@ -1,11 +1,13 @@
 import { notFound } from "next/navigation";
-import Promo from "@/components/homepage/promo";
 import CategoryBlock from "@/components/homepage/category-block";
 import { getLatestArticles, getPromoArticles } from "@/lib/data/articles";
 import { WebSite, WithContext } from "schema-dts";
 import { Fragment } from "react";
 import { Patronages } from "@/components/homepage/patronages";
 import { getPatronages } from "@/lib/data/patronages";
+import LatestArticles from "@/components/ui/custom/latest-articles.";
+import { getUpcomingConcerts, getUpcomingFestivals } from "@/lib/data/events";
+import EventsCarousel from "@/components/homepage/events-carousel";
 
 export const dynamic = "force-dynamic";
 
@@ -104,11 +106,21 @@ export default async function HomePage() {
   };
 
   const { promos } = await getPromoArticles();
-  const { concerts, festivals, premiers, news, relations } =
+  const { latest, concerts, festivals, premiers, news, relations } =
     await getLatestArticles(0, 6);
   const { patronages } = await getPatronages();
+  const { upcomingConcerts } = await getUpcomingConcerts();
+  const { upcomingFestivals } = await getUpcomingFestivals();
 
-  if (!concerts || !festivals || !premiers || !news || !promos || !patronages) {
+  if (
+    !concerts ||
+    !festivals ||
+    !premiers ||
+    !news ||
+    !promos ||
+    !patronages ||
+    !upcomingConcerts
+  ) {
     notFound();
   }
 
@@ -120,30 +132,57 @@ export default async function HomePage() {
           __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
         }}
       />
-      <main>
-        <Promo promos={promos} />
-        <CategoryBlock
-          articles={festivals}
-          name="festivals"
-          categorySlug="festiwale"
-        />
-        <CategoryBlock
-          articles={concerts}
-          name="concerts"
-          categorySlug="koncerty"
-        />
-        <Patronages patronages={patronages} />
-        <CategoryBlock articles={news} name="news" categorySlug="newsy" />
-        <CategoryBlock
-          articles={premiers}
-          name="premiers"
-          categorySlug="premiery"
-        />
-        <CategoryBlock
-          articles={relations}
-          name="relations"
-          categorySlug="relacje"
-        />
+      <main className="bg-foreground/5">
+        <div className="grid grid-cols-1 xl:grid-cols-[33.33%_33.33%_33.33%] container mx-auto">
+          <EventsCarousel
+            label="polecamy"
+            category="polecamy"
+            promos={promos}
+          />
+          <EventsCarousel
+            label="najblisze koncerty"
+            category="koncerty"
+            events={upcomingConcerts}
+          />
+          <EventsCarousel
+            label="najblisze festiwale"
+            category="festiwale"
+            events={upcomingFestivals}
+          />
+        </div>
+
+        <div className="grid grid-cols-1 xl:grid-cols-[70%_30%] container mx-auto">
+          <div aria-label="category-blocks">
+            <CategoryBlock
+              articles={festivals}
+              name="festivals"
+              categorySlug="festiwale"
+            />
+            <CategoryBlock
+              articles={concerts}
+              name="concerts"
+              categorySlug="koncerty"
+            />
+            <Patronages patronages={patronages} />
+            <CategoryBlock articles={news} name="news" categorySlug="newsy" />
+            <CategoryBlock
+              articles={premiers}
+              name="premiers"
+              categorySlug="premiery"
+            />
+            <CategoryBlock
+              articles={relations}
+              name="relations"
+              categorySlug="relacje"
+            />
+          </div>
+          <aside
+            aria-label="latest-articles"
+            className="flex flex-col container mx-auto"
+          >
+            <LatestArticles articles={latest} />
+          </aside>
+        </div>
       </main>
     </Fragment>
   );
