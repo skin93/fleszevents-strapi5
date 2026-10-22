@@ -24,7 +24,9 @@ export function Patronages({ patronages }: Props) {
 
   return (
     <Section ariaLabel="Promo events">
-      <h1 className=" text-center mt-0 mb-6">PATRONAT I WSPÓŁPRACA</h1>
+      <h2 className="scroll-m-20 text-2xl font-extrabold tracking-tight lg:text-3xl mt-0 mb-6 uppercase">
+        PATRONAT I WSPÓŁPRACA
+      </h2>
       <Carousel
         plugins={[plugin.current]}
         className="w-full"
@@ -40,7 +42,7 @@ export function Patronages({ patronages }: Props) {
               className="basis basis-1/2 lg:basis-1/5"
             >
               <Card className="border-none">
-                <CardContent className="flex  items-center justify-center p-0">
+                <CardContent className="flex items-center justify-center p-0">
                   <Image
                     src={patronage.cover}
                     alt={patronage.cover.alternativeText}
