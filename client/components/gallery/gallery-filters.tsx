@@ -27,7 +27,7 @@ export default function GalleryFilters() {
     router.push("/galerie");
   };
   return (
-    <div className="flex flex-row justify-center items-center gap-4 mt-6 p-6 border border-black/10 bg-white/85 dark:border-white/5 dark:bg-[var(--color-foreground)]/5 backdrop-blur-md rounded-sm shadow-md">
+    <div className="flex flex-row justify-start items-center gap-4 my-6 ">
       <Command className="max-w-[300px]">
         <CommandInput
           placeholder="Szukaj frazy..."
