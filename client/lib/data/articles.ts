@@ -21,6 +21,7 @@ export async function getLatestArticles(start: number, limit: number) {
   });
 
   return {
+    latest: res.latest.nodes,
     news: res.news.nodes,
     concerts: res.concerts.nodes,
     festivals: res.festivals.nodes,

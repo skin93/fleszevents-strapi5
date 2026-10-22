@@ -95,6 +95,7 @@ export interface GalleriesSitemap {
 }
 
 export interface LatestArticles {
+  latest: { nodes: Article[] };
   news: { nodes: Article[] };
   festivals: { nodes: Article[] };
   concerts: { nodes: Article[] };
@@ -419,6 +420,10 @@ export interface Event {
   article?: Article | null;
   place?: Place | null;
   type: "Koncert" | "Festiwal";
+}
+
+export interface UpcomingConcerts {
+  events: Event[];
 }
 
 export interface Events {
