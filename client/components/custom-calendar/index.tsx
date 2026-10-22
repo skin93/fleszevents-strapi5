@@ -1,7 +1,7 @@
 "use client";
 
 import { Calendar } from "@/components/ui/calendar";
-import { Fragment, useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { Event } from "@/lib/interfaces";
 import { pl } from "date-fns/locale";
@@ -39,6 +39,7 @@ import {
   DrawerTrigger,
 } from "../../components/ui/drawer";
 import { Input } from "../ui/input";
+import Section from "../ui/custom/section";
 
 type Props = {
   events: Event[];
@@ -143,8 +144,10 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
     return (
       <div className="flex flex-col gap-3 pb-2">
         <div className="flex flex-col gap-0.5">
-          <h2 className="text-base font-semibold tracking-tight">Filtry</h2>
-          <p className="text-xs text-muted-foreground">
+          <h2 className="text-base font-semibold tracking-tight mt-0">
+            Filtry
+          </h2>
+          <p className="text-lg text-muted-foreground">
             Dostosuj wyniki wyszukiwania
           </p>
         </div>
@@ -156,13 +159,13 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
             placeholder="Szukaj frazy..."
             value={(term as string) ?? ""}
             onChange={(e) => handleTermChange(e.target.value)}
-            className="w-full pl-8 pr-2.5 py-1.5 text-xs rounded-md border border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            className="w-full pl-8 pr-2.5 py-1.5 text-lg rounded-md border border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           />
         </div>
 
         <Accordion type="single" collapsible className="w-full">
           <AccordionItem value="calendar" className="border-b-0">
-            <AccordionTrigger className="py-2 text-xs font-medium hover:no-underline cursor-pointer">
+            <AccordionTrigger className="py-2 text-lg font-medium hover:no-underline cursor-pointer">
               {date ? formatDateToLocal(date.toString()) : "Wybierz datę"}
             </AccordionTrigger>
             <AccordionContent className="flex justify-center pt-1 pb-2">
@@ -183,7 +186,7 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
           </AccordionItem>
 
           <AccordionItem value="region">
-            <AccordionTrigger className="py-2 text-xs font-medium hover:no-underline cursor-pointer">
+            <AccordionTrigger className="py-2 text-lg font-medium hover:no-underline cursor-pointer">
               {region ? `Województwo: ${region}` : "Województwo"}
             </AccordionTrigger>
             <AccordionContent className="flex flex-col gap-1.5 pt-1">
@@ -192,14 +195,14 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
                 placeholder="Filtruj województwa..."
                 value={filterSearch.region}
                 onChange={(e) => handleSearchChange("region", e.target.value)}
-                className="w-full px-2.5 py-1 text-xs rounded-md border border-input bg-background"
+                className="w-full px-2.5 py-1 text-lg rounded-md border border-input bg-background"
               />
               <div className="max-h-40 overflow-y-auto flex flex-col gap-0.5 pr-1">
                 <button
                   type="button"
                   onClick={() => handleRegionChange("")}
                   className={cn(
-                    "flex items-center justify-between w-full px-2 py-1 text-xs rounded-md text-left transition-colors hover:bg-accent",
+                    "flex items-center justify-between w-full px-2 py-1 text-lg rounded-md text-left transition-colors hover:bg-accent",
                     !region && "bg-accent font-medium",
                   )}
                 >
@@ -212,7 +215,7 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
                     type="button"
                     onClick={() => handleRegionChange(val)}
                     className={cn(
-                      "flex items-center justify-between w-full px-2 py-1 text-xs rounded-md text-left transition-colors hover:bg-accent",
+                      "flex items-center justify-between w-full px-2 py-1 text-lg rounded-md text-left transition-colors hover:bg-accent",
                       region === val && "bg-accent font-medium",
                     )}
                   >
@@ -225,7 +228,7 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
           </AccordionItem>
 
           <AccordionItem value="city">
-            <AccordionTrigger className="py-2 text-xs font-medium hover:no-underline cursor-pointer">
+            <AccordionTrigger className="py-2 text-lg font-medium hover:no-underline cursor-pointer">
               {city ? `Miejscowość: ${city}` : "Miejscowość"}
             </AccordionTrigger>
             <AccordionContent className="flex flex-col gap-1.5 pt-1">
@@ -234,14 +237,14 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
                 placeholder="Filtruj miejscowości..."
                 value={filterSearch.city}
                 onChange={(e) => handleSearchChange("city", e.target.value)}
-                className="w-full px-2.5 py-1 text-xs rounded-md border border-input bg-background"
+                className="w-full px-2.5 py-1 text-lg rounded-md border border-input bg-background"
               />
               <div className="max-h-40 overflow-y-auto flex flex-col gap-0.5 pr-1">
                 <button
                   type="button"
                   onClick={() => handleCityChange("")}
                   className={cn(
-                    "flex items-center justify-between w-full px-2 py-1 text-xs rounded-md text-left transition-colors hover:bg-accent",
+                    "flex items-center justify-between w-full px-2 py-1 text-lg rounded-md text-left transition-colors hover:bg-accent",
                     !city && "bg-accent font-medium",
                   )}
                 >
@@ -254,7 +257,7 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
                     type="button"
                     onClick={() => handleCityChange(val)}
                     className={cn(
-                      "flex items-center justify-between w-full px-2 py-1 text-xs rounded-md text-left transition-colors hover:bg-accent",
+                      "flex items-center justify-between w-full px-2 py-1 text-lg rounded-md text-left transition-colors hover:bg-accent",
                       city === val && "bg-accent font-medium",
                     )}
                   >
@@ -267,7 +270,7 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
           </AccordionItem>
 
           <AccordionItem value="location">
-            <AccordionTrigger className="py-2 text-xs font-medium hover:no-underline cursor-pointer">
+            <AccordionTrigger className="py-2 text-lg font-medium hover:no-underline cursor-pointer">
               {location ? `Miejsce: ${location}` : "Miejsce"}
             </AccordionTrigger>
             <AccordionContent className="flex flex-col gap-1.5 pt-1">
@@ -276,14 +279,14 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
                 placeholder="Filtruj miejsca..."
                 value={filterSearch.location}
                 onChange={(e) => handleSearchChange("location", e.target.value)}
-                className="w-full px-2.5 py-1 text-xs rounded-md border border-input bg-background"
+                className="w-full px-2.5 py-1 text-lg rounded-md border border-input bg-background"
               />
               <div className="max-h-40 overflow-y-auto flex flex-col gap-0.5 pr-1">
                 <button
                   type="button"
                   onClick={() => handleLocationChange("")}
                   className={cn(
-                    "flex items-center justify-between w-full px-2 py-1 text-xs rounded-md text-left transition-colors hover:bg-accent",
+                    "flex items-center justify-between w-full px-2 py-1 text-lg rounded-md text-left transition-colors hover:bg-accent",
                     !location && "bg-accent font-medium",
                   )}
                 >
@@ -296,7 +299,7 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
                     type="button"
                     onClick={() => handleLocationChange(val)}
                     className={cn(
-                      "flex items-center justify-between w-full px-2 py-1 text-xs rounded-md text-left transition-colors hover:bg-accent",
+                      "flex items-center justify-between w-full px-2 py-1 text-lg rounded-md text-left transition-colors hover:bg-accent",
                       location === val && "bg-accent font-medium",
                     )}
                   >
@@ -309,7 +312,7 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
           </AccordionItem>
 
           <AccordionItem value="type">
-            <AccordionTrigger className="py-2 text-xs font-medium hover:no-underline cursor-pointer">
+            <AccordionTrigger className="py-2 text-lg font-medium hover:no-underline cursor-pointer">
               {type ? `Typ: ${type}` : "Typ"}
             </AccordionTrigger>
             <AccordionContent className="flex flex-col gap-1.5 pt-1">
@@ -318,14 +321,14 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
                 placeholder="Filtruj typy..."
                 value={filterSearch.type}
                 onChange={(e) => handleSearchChange("type", e.target.value)}
-                className="w-full px-2.5 py-1 text-xs rounded-md border border-input bg-background"
+                className="w-full px-2.5 py-1 text-lg rounded-md border border-input bg-background"
               />
               <div className="max-h-40 overflow-y-auto flex flex-col gap-0.5 pr-1">
                 <button
                   type="button"
                   onClick={() => handleTypeChange("")}
                   className={cn(
-                    "flex items-center justify-between w-full px-2 py-1 text-xs rounded-md text-left transition-colors hover:bg-accent",
+                    "flex items-center justify-between w-full px-2 py-1 text-lg rounded-md text-left transition-colors hover:bg-accent",
                     !type && "bg-accent font-medium",
                   )}
                 >
@@ -338,7 +341,7 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
                     type="button"
                     onClick={() => handleTypeChange(val)}
                     className={cn(
-                      "flex items-center justify-between w-full px-2 py-1 text-xs rounded-md text-left transition-colors hover:bg-accent",
+                      "flex items-center justify-between w-full px-2 py-1 text-lg rounded-md text-left transition-colors hover:bg-accent",
                       type === val && "bg-accent font-medium",
                     )}
                   >
@@ -353,7 +356,7 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
 
         <Button
           size="sm"
-          className="w-full mt-1 h-8 text-xs"
+          className="w-full mt-1 h-8 text-lg"
           onClick={handleReset}
         >
           Resetuj filtry
@@ -371,8 +374,8 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
         : "Nadchodzące wydarzenia:";
 
   return (
-    <Fragment>
-      <div className="my-6">
+    <Section ariaLabel="calendar">
+      <div className="mb-6">
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
@@ -390,16 +393,16 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
         </Breadcrumb>
       </div>
 
-      <div className="grid md:grid-cols-[30%_60%] md:justify-around items-start">
+      <div className="grid lg:grid-cols-[30%_60%] md:justify-between items-start">
         <div
           aria-label="filters-desktop"
-          className="hidden md:flex md:flex-col md:flex-1/4 sticky top-[112px] border border-black/10 bg-white dark:border-white/5 dark:bg-card rounded-sm shadow-md m-4 p-4"
+          className="hidden lg:flex md:flex-col md:flex-1/4 sticky top-[112px] border border-black/10 bg-white dark:border-white/5 dark:bg-card rounded-sm shadow-md p-4"
         >
           {renderFilterForm()}
         </div>
         <div
           aria-label="filters-mobile"
-          className="md:hidden flex flex-col my-4 sticky top-[112px] z-10 bg-background/95 backdrop-blur py-2"
+          className="lg:hidden flex flex-col my-4 sticky top-[112px] z-10 bg-background/95 backdrop-blur py-2"
         >
           <Drawer
             open={drawerOpen}
@@ -427,11 +430,11 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
           {filteredEvents.length > 0 ? (
             <div>
               <h1 className="p-4 pl-0 text-xl font-bold">{filterTitle}</h1>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
                 {filteredEvents.map((event, index) => (
                   <div
                     key={event.documentId}
-                    className="group border-none relative shadow-md bg-card rounded-sm p-4"
+                    className="group scale-100 hover:scale-105 transition-all duration-300 custom-backdrop relative custom-backdrop p-4"
                   >
                     <EventComponent index={index} event={event} />
                   </div>
@@ -443,6 +446,6 @@ export default function CustomCalendar({ events, allBookedDates }: Props) {
           )}
         </div>
       </div>
-    </Fragment>
+    </Section>
   );
 }
