@@ -1,5 +1,6 @@
 import BaseCard from "@/components/ui/custom/base-card";
 import CustomPagination from "@/components/ui/custom/pagination";
+import Section from "@/components/ui/custom/section";
 import { getArticlesByTerm } from "@/lib/data/articles";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -90,13 +91,8 @@ export default async function SearchPage({ searchParams }: Props) {
           __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
         }}
       />
-      <main>
-        <section
-          aria-label="Search articles"
-          className="my-6 p-6 border 
-      border-black/10 bg-white/85     
-      dark:border-white/5 dark:bg-[var(--color-foreground)]/5  backdrop-blur-md rounded-sm shadow-md"
-        >
+      <main className="bg-foreground/5">
+        <Section ariaLabel="Search articles">
           {articles && articles.length > 0 ? (
             <>
               <h1 className="mb-6 mt-0 text-center uppercase">
@@ -126,7 +122,7 @@ export default async function SearchPage({ searchParams }: Props) {
               </h1>
             </>
           )}
-        </section>
+        </Section>
       </main>
     </Fragment>
   );
