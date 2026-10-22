@@ -15,11 +15,12 @@ export function Event({ event, index }: Props) {
     format(event.date, "yyyy/MM/dd") < format(new Date(), "yyyy/MM/dd");
   return (
     <div className="relative">
-      <div className="text-sm bg-foreground text-background p-2 absolute top-[-50] left-[-10] font-extrabold">
+      <div className="text-sm bg-foreground text-background p-2 absolute top-[-30] left-[-20] font-extrabold">
         {index + 1}
       </div>
       <Link href={`/articles/${event.article?.slug}`}>
-        <div>
+        <div className="flex flex-col">
+          <small className="mt-4">{event.type}</small>
           <h3
             className={cn(
               "dark:no-underline dark:group-hover:text-teal-400 group-hover:underline transition-all duration-300 pl-0",
@@ -28,18 +29,17 @@ export function Event({ event, index }: Props) {
           >
             {event.name}
           </h3>
-
           {event?.endDate ? (
-            <p className="text-foreground">
+            <p className="text-muted-foreground mt-0">
               {format(event.date, "dd MMMM yyy", { locale: pl })} -{" "}
               {format(event.endDate, "dd MMMM yyy", { locale: pl })}
             </p>
           ) : (
-            <p className="text-foreground">
+            <p className="text-muted-foreground mt-0">
               {format(event.date, "dd MMMM yyy", { locale: pl })}
             </p>
           )}
-          <p>
+          <p className="mt-0 text-muted-foreground">
             {event?.place?.city} - {event?.place?.location}
           </p>
         </div>
