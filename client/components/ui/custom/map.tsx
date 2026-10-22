@@ -123,9 +123,9 @@ export default function Map({ markers }: { markers: MarkerType[] }) {
 
   const createClusterCustomIcon = function (cluster: any) {
     return L.divIcon({
-      html: `<p class="text-neutral-100">${cluster.getChildCount()}</p>`,
+      html: `<div>${cluster.getChildCount()}</dvi>`,
       className:
-        "flex! justify-center! items-center! bg-teal-600 rounded-[50%] text-[#fff] font-bold w-full h-full",
+        "!flex !justify-center !items-center bg-teal-600 rounded-full text-white w-full h-full",
       iconSize: L.point(30, 30, true),
     });
   };
@@ -164,14 +164,17 @@ export default function Map({ markers }: { markers: MarkerType[] }) {
                       {marker.popup}
                     </h4>
                     <DialogTrigger asChild>
-                      <Button className="cursor-pointer bg-teal-600 hover:bg-teal-600/80">
+                      <Button
+                        variant={"outline"}
+                        className="cursor-pointer hover:bg-muted text-foreground"
+                      >
                         Szczegóły
                       </Button>
                     </DialogTrigger>
                   </div>
                 </Popup>
               </Marker>
-              <DialogContent className="border-none flex flex-col justify-between items-center max-w-3xl max-h-full overflow-y-auto">
+              <DialogContent className="border-none flex flex-col justify-between items-center max-w-3xl max-h-full overflow-y-auto custom-backdrop">
                 <Image
                   src={marker.imageSrc}
                   alt={marker.imageAlt}
@@ -183,27 +186,27 @@ export default function Map({ markers }: { markers: MarkerType[] }) {
                   style={{ objectFit: "cover" }}
                   className="rounded-sm aspect-[3/2] w-full"
                 />
-                <DialogTitle className="my-0 text-primary">
+                <DialogTitle className="my-0 text-white text-2xl kalam">
                   {marker.alt}
                 </DialogTitle>
 
                 <div className="flex flex-col items-center justify-center">
-                  <p className="text-teal-400 m-0">
+                  <p className="text-muted-foreground m-0">
                     {marker.city} - {marker.location}
                   </p>
                   {marker.date && marker.endDate ? (
-                    <p className="m-0 text-teal-400">
+                    <p className="m-0 text-muted-foreground">
                       {formatDateToLocal(marker.date.toString())} -{" "}
                       {formatDateToLocal(marker.endDate.toString())}
                     </p>
                   ) : marker.date && !marker.endDate ? (
-                    <p className="m-0">
+                    <p className="m-0 text-muted-foreground">
                       {formatDateToLocal(marker.date.toString())}
                     </p>
                   ) : (
-                    <p className="font-bold text-white">Brak daty</p>
+                    <p className="text-muted-foreground">Brak daty</p>
                   )}
-                  {marker.date && !isValidUrl(marker.tickets as string) && (
+                  {!isValidUrl(marker.tickets as string) && (
                     <p
                       className={cn(
                         "font-bold text-white",
@@ -215,7 +218,7 @@ export default function Map({ markers }: { markers: MarkerType[] }) {
                   )}
                 </div>
                 <div className="flex flex-row items-center gap-4">
-                  <Button variant={"outline"}>
+                  <Button variant={"outline"} className="hover:bg-muted">
                     <Link
                       target="_blank"
                       className="font-bold"
@@ -229,7 +232,7 @@ export default function Map({ markers }: { markers: MarkerType[] }) {
                     </Link>
                   </Button>
                   {marker.date && isValidUrl(marker.tickets as string) && (
-                    <Button variant={"outline"}>
+                    <Button variant={"outline"} className="hover:bg-muted">
                       <Link
                         target="_blank"
                         className="font-bold"
@@ -240,7 +243,7 @@ export default function Map({ markers }: { markers: MarkerType[] }) {
                       </Link>
                     </Button>
                   )}
-                  <Button variant={"outline"}>
+                  <Button variant={"outline"} className="hover:bg-muted">
                     <Link
                       href={`https://www.google.com/maps?q=${marker.position[0]},${marker.position[1]}`}
                       className="font-bold"
