@@ -22,14 +22,14 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="max-w-screen h-full bg-stone-950 p-6">
-      <div className="mx-auto max-w-7xl grid grid-cols-2 md:grid-cols-4 h-full my-6">
+    <footer className="max-w-screen h-full bg-background text-foreground p-6">
+      <div className="mx-auto container grid grid-cols-2 md:grid-cols-4 h-full my-6">
         <FooterLinksContainer links={festivalsNavLinks} text={"festiwale"} />
         <FooterLinksContainer links={concertsNavLinks} text={"koncerty"} />
         <FooterLinksContainer links={links} text={"współpraca"} />
 
         <div className="flex flex-col items-start">
-          <p className="px-4 py-2 m-0 uppercase dark:text-accent text-background">
+          <p className="px-4 py-2 m-0 uppercase kalam text-muted-foreground">
             sociale
           </p>
           <div className="flex flex-row ">
@@ -42,7 +42,7 @@ export default function Footer() {
           </div>
         </div>
       </div>
-      <div className="text-primary text-center font-extrabold">
+      <div className="text-primary text-center font-extrabold kalam">
         &copy; 2021 - {JSON.stringify(new Date().getFullYear())}, FleszEvents
       </div>
     </footer>

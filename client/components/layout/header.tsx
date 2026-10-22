@@ -44,18 +44,25 @@ const navLinks2: Array<{ title: string; path: string }> = [
 
 export default function Header() {
   return (
-    <header className="p-4 sticky top-0 z-50 bg-stone-950 ">
-      <div className="mx-auto max-w-7xl flex h-20 justify-between">
+    <header className="p-4 sticky top-0 z-50 shadow-md bg-background text-foreground">
+      <div className="container mx-auto flex justify-between h-20  ">
         <div>
           <Link
             href="/"
-            className="flex shrink-0 justify-start items-center relative w-[100px] h-full mr-4"
+            className="p-0 shrink-0  flex justify-start items-center relative w-[100px] h-full"
           >
             <Image
               loading={"eager"}
               fill
+              src="/FE_2_baner.svg"
+              className="cursor-pointer w-full h-full m-0 block dark:hidden"
+              alt="logo"
+            />
+            <Image
+              loading={"eager"}
+              fill
               src="/FE_1_baner.svg"
-              className="cursor-pointer w-full h-full"
+              className="cursor-pointer w-full h-full m-0 hidden dark:block"
               alt="logo"
             />
           </Link>
@@ -66,14 +73,14 @@ export default function Header() {
           className="hidden lg:flex justify-start items-center gap-2 "
         >
           <DropdownMenu>
-            <DropdownMenuTrigger className="inline-flex items-center justify-center whitespace-nowrap rounded-sm text-sm  ring-offset-background focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:cursor-pointer text-primary uppercase underline-offset-4 hover:underline py-2 px-4 font-bold sale-100 hover:scale-105 transition-all duration-300">
-              WPISY
+            <DropdownMenuTrigger className="inline-flex items-center justify-center whitespace-nowrap rounded-sm text-sm  ring-offset-background focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:cursor-pointer uppercase underline-offset-4 hover:underline py-2 px-4 font-bold sale-100 hover:scale-105 transition-all duration-300 kalam">
+              KATEGORIE
             </DropdownMenuTrigger>
 
             <DropdownMenuContent className="z-1000">
               {navLinks1.map(({ title, path }) => (
                 <DropdownMenuItem
-                  className="h-10 uppercase font-bold sale-100 hover:scale-105 transition-all duration-300"
+                  className="h-10 uppercase font-bold sale-100 hover:scale-105 transition-all duration-300 kalam"
                   key={title}
                 >
                   <Link href={path}>{title}</Link>
@@ -102,7 +109,7 @@ export default function Header() {
           <div className="lg:hidden flex flex-col justify-center">
             <Drawer direction="right">
               <DrawerTrigger>
-                <Menu aria-label="menu-button" className="text-primary" />
+                <Menu aria-label="menu-button" />
               </DrawerTrigger>
               <DrawerContent>
                 <DrawerHeader className="hidden">
@@ -110,21 +117,13 @@ export default function Header() {
                   <DrawerDescription>Menu with nav links</DrawerDescription>
                 </DrawerHeader>
                 {navLinks1.map(({ title, path }) => (
-                  <ButtonLink
-                    className="text-md !text-foreground"
-                    key={title}
-                    href={path}
-                  >
+                  <ButtonLink key={title} href={path}>
                     {title}
                   </ButtonLink>
                 ))}
                 <hr />
                 {navLinks2.map(({ title, path }) => (
-                  <ButtonLink
-                    className="text-md !text-foreground"
-                    key={title}
-                    href={path}
-                  >
+                  <ButtonLink key={title} href={path}>
                     {title}
                   </ButtonLink>
                 ))}

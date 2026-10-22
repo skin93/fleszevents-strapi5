@@ -12,7 +12,7 @@ type Props = {
 export default function FooterLinksContainer({ text, links }: Props) {
   return (
     <div className="flex flex-col items-start">
-      <p className="px-4 py-2 m-0 uppercase dark:text-accent text-background">
+      <p className="px-4 py-2 m-0 uppercase kalam text-muted-foreground">
         {text}
       </p>
       {links.map(({ title, path }) => (
