@@ -1,30 +1,52 @@
 "use client";
-import React from "react";
-import { Card, CardHeader, CardTitle } from "../card";
-import { Article } from "@/lib/interfaces";
+import { Article, Event, Media } from "@/lib/interfaces";
+import { Fragment } from "react";
+import { format } from "date-fns";
+import { pl } from "date-fns/locale";
 
 import Image from "strapi-next-image";
 
 type Props = {
-  article: Article;
+  article?: Article;
+  event?: Event;
 };
 
-export default function PromoCard({ article }: Props) {
+export default function PromoCard({ article, event }: Props) {
   return (
-    <Card className="group relative overflow-hidden border-none text-white flex flex-col justify-end max-w-full aspect-square">
-      <Image
-        src={article.cover}
-        alt={article.cover.alternativeText}
-        sizes="256px"
-        priority
-        className="absolute inset-0 h-full w-full object-cover "
-      />
-      <div className=" absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent" />
-      <CardHeader className="pb-1 sm:pb-4 relative z-10">
-        <CardTitle className="text-white text-[10px] sm:text-sm text-center group-hover:text-teal-400 transition-all duration-300">
-          {article.title}
-        </CardTitle>
-      </CardHeader>
-    </Card>
+    <Fragment>
+      {article ? (
+        <div className="flex flex-row justify-start items-end w-full h-[200px] bg-transparent shadow-md relative">
+          <Image
+            src={article.cover}
+            alt={article.cover.alternativeText}
+            priority
+            className="object-cover w-full h-full"
+          />
+          <div className=" absolute inset-0 bg-gradient-to-t from-black/90 via-black/80 to-transparent " />
+          <p className="scroll-m-20 tracking-tight p-4 text-white absolute font-(family-name:--font-kalam)">
+            {article.title}
+          </p>
+        </div>
+      ) : (
+        <div className="flex flex-row justify-start items-end w-full h-[200px] bg-transparent shadow-md relative">
+          <Image
+            src={event?.article?.cover as Media}
+            alt={event?.article?.cover.alternativeText as string}
+            priority
+            className="object-cover w-full h-full"
+          />
+          <div className=" absolute inset-0 bg-gradient-to-t from-black/90 via-black/80 to-transparent " />
+          <div className="scroll-m-20 text-md tracking-tight lg:text-2xl p-4 text-white absolute bottom-5 font-(family-name:--font-kalam)">
+            <p className="m-0"> {event?.name}</p>
+            <p className="m-0">
+              {format(event?.date as string, "dd MMMM yyy", { locale: pl })}
+            </p>
+            <p className="m-0">
+              {event?.place?.city} - {event?.place?.location}
+            </p>
+          </div>
+        </div>
+      )}
+    </Fragment>
   );
 }
