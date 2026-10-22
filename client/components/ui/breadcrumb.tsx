@@ -13,7 +13,7 @@ function BreadcrumbList({ className, ...props }: React.ComponentProps<"ol">) {
     <ol
       data-slot="breadcrumb-list"
       className={cn(
-        "text-muted-foreground flex flex-wrap items-center gap-1.5 text-sm break-words sm:gap-2.5 border border-black/10 bg-white/85 dark:border-white/5 dark:bg-[var(--color-foreground)]/5 backdrop-blur-md rounded-sm shadow-md p-6",
+        "text-muted-foreground flex flex-wrap items-center gap-1.5 text-sm break-words sm:gap-2.5 custom-backdrop p-6",
         className,
       )}
       {...props}
@@ -26,7 +26,7 @@ function BreadcrumbItem({ className, ...props }: React.ComponentProps<"li">) {
     <li
       data-slot="breadcrumb-item"
       className={cn(
-        "inline-flex items-center gap-1.5 text-[contrast-color(var(--color-background))]/85",
+        "inline-flex items-center gap-1.5 text-[contrast-color(var(--color-background))]/85 kalam",
         className,
       )}
       {...props}
