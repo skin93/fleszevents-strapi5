@@ -258,35 +258,36 @@ export default function Map({ markers }: { markers: MarkerType[] }) {
             </Dialog>
           ))}
         </MarkerClusterGroup>
-        <Drawer direction="top">
+        <Drawer direction="left">
           <DrawerTrigger asChild>
-            <Button className="cursor-pointer z-800 absolute left-[50%] translate-x-[-50%] top-10  w-[200px] bg-teal-600 hover:bg-teal-600/80">
+            <Button
+              variant={"outline"}
+              className="cursor-pointer z-800 absolute left-[50%] translate-x-[-50%] top-10  w-[200px] hover:bg-muted"
+            >
               Filtruj
             </Button>
           </DrawerTrigger>
-          <DrawerContent className="mx-auto max-w-7xl z-900 border-none flex flex-col justify-center items-center w-full">
+          <DrawerContent className="mx-auto z-900 border-none flex flex-col justify-center items-start w-[300px]">
             <DrawerHeader className="mt-0">
-              <DrawerTitle className=" py-0 my-0 bg-[var(--color-background)] text-[contrast-color(var(--color-background))]/80">
-                Filtry
-              </DrawerTitle>
+              <DrawerTitle className=" py-0 my-0 ">Filtry</DrawerTitle>
             </DrawerHeader>
-            <DrawerDescription className="hidden">
+            <DrawerDescription className="m-4">
               Wybierz jeden z poniszych filtrów
             </DrawerDescription>
-            <div className="flex flex-col lg:flex-row gap-4 m-4">
+            <div className="flex flex-col gap-4 m-4 w-[300px]">
               <Popover open={regionPopOpen} onOpenChange={setRegionPopOpen}>
                 <PopoverTrigger asChild>
                   <Button
-                    variant="outline"
+                    variant={"outline"}
                     role="combobox"
                     aria-expanded={regionPopOpen}
-                    className="xl:w-[200px] justify-between"
+                    className="w-full justify-between hover:bg-muted"
                   >
                     {region || "Województwo"}
                     <ChevronsUpDown className="opacity-50" />
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent className="xl:w-[200px] p-0 pointer-events-auto">
+                <PopoverContent className="w-full p-0 pointer-events-auto">
                   <Command>
                     <CommandInput
                       placeholder="Wybierz województwo..."
@@ -333,16 +334,16 @@ export default function Map({ markers }: { markers: MarkerType[] }) {
               <Popover open={cityPopOpen} onOpenChange={setCityPopOpen}>
                 <PopoverTrigger asChild>
                   <Button
-                    variant="outline"
+                    variant={"outline"}
                     role="combobox"
                     aria-expanded={cityPopOpen}
-                    className="xl:w-[200px] justify-between"
+                    className="w-full justify-between hover:bg-muted"
                   >
                     {city || "Miejscowość"}
                     <ChevronsUpDown className="opacity-50" />
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent className="xl:w-[200px] p-0 pointer-events-auto">
+                <PopoverContent className="w-full p-0 pointer-events-auto">
                   <Command>
                     <CommandInput
                       placeholder="Wybierz miejscowość..."
@@ -384,16 +385,16 @@ export default function Map({ markers }: { markers: MarkerType[] }) {
               <Popover open={locationPopOpen} onOpenChange={setLocationPopOpen}>
                 <PopoverTrigger asChild>
                   <Button
-                    variant="outline"
+                    variant={"outline"}
                     role="combobox"
                     aria-expanded={locationPopOpen}
-                    className="xl:w-[200px] justify-between"
+                    className="w-full justify-between hover:bg-muted"
                   >
                     {location || "Miejsce"}
                     <ChevronsUpDown className="opacity-50" />
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent className="xl:w-[200px] p-0 pointer-events-auto">
+                <PopoverContent className="w-full p-0 pointer-events-auto">
                   <Command>
                     <CommandInput
                       placeholder="Wybierz miejsce..."
@@ -435,16 +436,16 @@ export default function Map({ markers }: { markers: MarkerType[] }) {
               <Popover open={festPopOpen} onOpenChange={setFestPopOpen}>
                 <PopoverTrigger asChild>
                   <Button
-                    variant="outline"
+                    variant={"outline"}
                     role="combobox"
                     aria-expanded={festPopOpen}
-                    className="xl:w-[200px] justify-between"
+                    className="w-full justify-between hover:bg-muted"
                   >
                     {fest || "Festiwal"}
                     <ChevronsUpDown className="opacity-50" />
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent className="xl:w-[200px] p-0 pointer-events-auto">
+                <PopoverContent className="w-full p-0 pointer-events-auto">
                   <Command>
                     <CommandInput
                       placeholder="Wybierz festiwal..."
@@ -486,16 +487,16 @@ export default function Map({ markers }: { markers: MarkerType[] }) {
               <Popover open={genrePopOpen} onOpenChange={setGenrePopOpen}>
                 <PopoverTrigger asChild>
                   <Button
-                    variant="outline"
+                    variant={"outline"}
                     role="combobox"
                     aria-expanded={genrePopOpen}
-                    className="xl:w-[200px] justify-between"
+                    className="w-full justify-between hover:bg-muted"
                   >
                     {genre || "Gatunek"}
                     <ChevronsUpDown className="opacity-50" />
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent className="xl:w-[200px] p-0 pointer-events-auto">
+                <PopoverContent className="w-full p-0 pointer-events-auto">
                   <Command>
                     <CommandInput
                       placeholder="Wybierz gatunek..."
@@ -535,7 +536,8 @@ export default function Map({ markers }: { markers: MarkerType[] }) {
                 </PopoverContent>
               </Popover>
               <Button
-                className="bg-teal-600 hover:bg-teal-600/80"
+                variant={"default"}
+                className="hover:bg-muted-foreground"
                 onClick={() => {
                   handleReset();
                 }}
