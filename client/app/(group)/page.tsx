@@ -140,12 +140,12 @@ export default async function HomePage() {
             promos={promos}
           />
           <EventsCarousel
-            label="najblisze koncerty"
+            label="przed nami: koncerty"
             category="koncerty"
             events={upcomingConcerts}
           />
           <EventsCarousel
-            label="najblisze festiwale"
+            label="przed nami: festiwale"
             category="festiwale"
             events={upcomingFestivals}
           />
