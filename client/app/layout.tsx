@@ -1,11 +1,21 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Kalam, Lora } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import NextTopLoader from "nextjs-toploader";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 
-const playpen = Inter({ subsets: ["latin"] });
+const kalam = Kalam({
+  subsets: ["latin"],
+  variable: "--font-kalam",
+  weight: "700",
+});
+
+const roboto = Lora({
+  subsets: ["latin"],
+  variable: "--font-lora",
+  weight: ["400"],
+});
 
 export const metadata: Metadata = {
   generator: "Next.js",
@@ -59,11 +69,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pl" suppressHydrationWarning>
+    <html
+      lang="pl"
+      suppressHydrationWarning
+      className={`${roboto.variable} ${kalam.variable}`}
+    >
       <head>
         <meta name="apple-mobile-web-app-title" content="FleszEvents" />
       </head>
-      <body className={`${playpen.className} antialiased`}>
+      <body className="typeset typeset-article">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

@@ -1,5 +1,15 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import "./typeset.css";
+
+.typeset-article {
+  --typeset-font-body: var(--font-lora);
+  --typeset-font-heading: var(--font-kalam);
+  --typeset-font-mono: var(--font-lora);
+  --typeset-size: 18px;
+  --typeset-leading: 1.75;
+  --typeset-flow: 1.25em;
+}
 
 @custom-variant dark (&:is(.dark *));
 
@@ -64,53 +74,72 @@
   ::file-selector-button {
     border-color: var(--color-gray-200, currentColor);
   }
+
   :root {
-    --background: 0 0% 80;
-    --foreground: 0 0% 9%;
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 9%;
+    --card-foreground: 240 10% 3.9%;
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 9%;
-    --primary: 0 0% 98%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 240 5.9% 10%;
     --primary-foreground: 0 0% 98%;
-    --secondary: 60 4.8% 95.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 60 4.8% 95.9%;
-    --muted-foreground: 25 5.3% 44.7%;
-    --accent: 0 0% 9%;
-    --accent-foreground: 0 0% 98%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 20 5.9% 90%;
-    --input: 20 5.9% 90%;
-    --ring: 0 0% 9%;
-    --radius: 1rem;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 240 5.9% 10%;
+    --radius: 0.75rem;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
   }
 
   .dark {
-    --background: 0 0% 10%;
+    --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
-    --card: 0 0% 15%;
+    --card: 240 10% 3.9%;
     --card-foreground: 0 0% 98%;
-    --popover: 0 0% 9%;
+    --popover: 240 10% 3.9%;
     --popover-foreground: 0 0% 98%;
     --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 12 6.5% 15.1%;
+    --primary-foreground: 240 5.9% 10%;
+    --secondary: 240 3.7% 15.9%;
     --secondary-foreground: 0 0% 98%;
-    --muted: 12 6.5% 15.1%;
-    --muted-foreground: 0 0% 62%;
-    --accent: 174.7, 83.9%, 31.6%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 3.7% 15.9%;
     --accent-foreground: 0 0% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-    --border: 174.7, 83.9%, 31.6%;
-    --input: 12 6.5% 15.1%;
-    --ring: 174.7, 83.9%, 31.6%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 240 4.9% 83.9%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
   }
 
   .my-booked-class {
     @apply bg-foreground text-background rounded-2xl;
+  }
+
+  .custom-backdrop {
+    @apply border border-black/10 bg-white/85 dark:border-white/5 dark:bg-[var(--color-foreground)]/5 backdrop-blur-md rounded-sm shadow-md;
+  }
+
+  .kalam {
+    @apply font-(family-name:--font-kalam);
   }
 
   body {
@@ -124,30 +153,11 @@
     }
   }
 
-  main {
-    @apply mx-auto max-w-7xl px-6 py-0;
-  }
-
   h1,
   h2,
   h3,
   h4 {
-    @apply font-extrabold scroll-m-20 tracking-normal my-6 text-[contrast-color(var(--color-background))];
-  }
-
-  h1 {
-    @apply text-2xl md:text-3xl text-balance;
-  }
-
-  h2 {
-    @apply text-xl md:text-2xl;
-  }
-  h3 {
-    @apply text-lg md:text-xl;
-  }
-
-  h4 {
-    @apply text-base  md:text-lg;
+    @apply my-6 text-[contrast-color(var(--color-background))];
   }
 
   strong {
@@ -193,27 +203,23 @@
   }
 
   blockquote {
-    @apply relative my-6 p-8 border border-white/10 bg-[var(--color-foreground)]/5 backdrop-blur-md rounded-sm shadow-md before:content-['“'] before:text-7xl before:text-[var(--color-accent)] before:absolute before:top-0 before:left-2 before:font-serif;
+    @apply relative my-6 p-8 border border-white/10 bg-[var(--color-foreground)]/5 backdrop-blur-md rounded-sm shadow-md before:content-['“'] before:text-7xl before:text-[var(--color-accent)] before:absolute before:top-0 before:left-2 before:font-serif font-bold;
 
     p {
       @apply text-xl italic text-[contrast-color([var(--color-foreground)])]/90;
     }
   }
 
-  /* blockquote ~ blockquote {
-    @apply my-6;
-  } */
-
   figure {
     @apply block text-center my-6 mx-0;
   }
 
   img {
-    @apply max-w-full rounded-sm;
+    @apply max-w-full;
   }
 
   figcaption {
-    @apply font-bold text-sm my-8;
+    @apply font-bold text-sm my-6;
   }
 
   .embeded-iframe {
