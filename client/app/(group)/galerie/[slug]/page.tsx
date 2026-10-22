@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/breadcrumb";
 import Link from "next/link";
 import { Home } from "lucide-react";
+import Section from "@/components/ui/custom/section";
 
 export async function generateMetadata({
   params,
@@ -77,44 +78,37 @@ export default async function GallerySlugPage({
           ),
         }}
       />
-      <main>
-        <div className="mt-6">
-          <Breadcrumb>
-            <BreadcrumbList>
-              <BreadcrumbItem>
-                <BreadcrumbLink asChild>
-                  <Link href="/">
-                    <Home />
-                  </Link>
-                </BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator />
-              <BreadcrumbItem>
-                <BreadcrumbLink asChild>
-                  <Link href="/galleries">GALERIE</Link>
-                </BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator />
-              <BreadcrumbItem>
-                <BreadcrumbPage>{gallery.name}</BreadcrumbPage>
-              </BreadcrumbItem>
-            </BreadcrumbList>
-          </Breadcrumb>
-        </div>
-        <section
-          aria-label={`${gallery.name}`}
-          className="mt-6 p-6 border 
-      border-black/10 bg-white/85
-      
-      dark:border-white/5 dark:bg-[var(--color-foreground)]/5 backdrop-blur-md rounded-sm shadow-md"
-        >
-          <div className="flex flex-col">
-            <h1 className="mt-0 mb-6 text-4xl uppercase">{gallery.name}</h1>
+      <main className="bg-foreground/5">
+        <Section ariaLabel={`${gallery.name}`}>
+          <div className="mb-6">
+            <Breadcrumb>
+              <BreadcrumbList>
+                <BreadcrumbItem>
+                  <BreadcrumbLink asChild>
+                    <Link href="/">
+                      <Home />
+                    </Link>
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink asChild>
+                    <Link href="/galleries">GALERIE</Link>
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbPage>{gallery.name}</BreadcrumbPage>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
+          </div>
+          <div className="flex flex-col my-6 p-6">
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
               <GalleryDialog gallery={gallery} />
             </div>
           </div>
-        </section>
+        </Section>
       </main>
     </Fragment>
   );
