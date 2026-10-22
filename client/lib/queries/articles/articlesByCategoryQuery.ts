@@ -20,6 +20,7 @@ export const ARTICLES_BY_CATEGORY_QUERY = gql`
       nodes {
         documentId
         title
+        excerpt
         slug
         content
         publishedAt
