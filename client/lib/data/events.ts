@@ -27,8 +27,8 @@ export const getEvents = async ({ rawParams }: Props) => {
       type: validated.type || undefined,
       region: validated.region || undefined,
       term: validated.term || undefined,
+      limit: -1,
     });
-    console.log(validated.date);
     return res.events;
   } catch (error) {
     console.error("Błąd pobierania wszystkich wydarzeń...", error);
@@ -42,11 +42,39 @@ export const getBookedDays = async () => {
       ALL_DATES_QUERY,
       {
         date: format(new Date(), "yyyy-MM-dd"),
-      }
+      },
     );
     return res.events.map((e) => e.date);
   } catch (error) {
     console.error("Błąd pobierania wszystkich dat...", error);
     return [];
   }
+};
+
+export const getUpcomingConcerts = async () => {
+  const now = format(new Date(), "yyyy-MM-dd");
+  const res = await grafbase.request<Events>(UPCOMING_EVENTS_QUERY, {
+    dateFilter: { gte: now },
+    city: undefined,
+    location: undefined,
+    type: "Koncert",
+    region: undefined,
+    term: undefined,
+    limit: 10,
+  });
+  return { upcomingConcerts: res.events };
+};
+
+export const getUpcomingFestivals = async () => {
+  const now = format(new Date(), "yyyy-MM-dd");
+  const res = await grafbase.request<Events>(UPCOMING_EVENTS_QUERY, {
+    dateFilter: { gte: now },
+    city: undefined,
+    location: undefined,
+    type: "Festiwal",
+    region: undefined,
+    term: undefined,
+    limit: 10,
+  });
+  return { upcomingFestivals: res.events };
 };

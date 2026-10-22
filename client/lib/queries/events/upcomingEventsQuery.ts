@@ -7,9 +7,10 @@ export const UPCOMING_EVENTS_QUERY = gql`
     $type: String
     $region: String
     $term: String
+    $limit: Int!
   ) {
     events(
-      pagination: { limit: -1 }
+      pagination: { start: 0, limit: $limit }
       sort: "date:asc"
       filters: {
         date: $dateFilter
@@ -29,6 +30,13 @@ export const UPCOMING_EVENTS_QUERY = gql`
       type
       article {
         slug
+        cover {
+          alternativeText
+          url
+          width
+          height
+          blurDataURL
+        }
       }
       place {
         city
