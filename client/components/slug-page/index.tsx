@@ -98,7 +98,7 @@ export default function SlugPageComponent({ article, categorySlug }: Props) {
           </Badge>
         </div>
         <h1 aria-label="article-title">{article.title}</h1>
-        <p className="text-muted-foreground">{article.excerpt}</p>
+        <p className="text-foreground/70 font-bold">{article.excerpt}</p>
 
         <div className="grid grid-cols-1 xl:grid-cols-[50%_45%] xl:justify-between">
           <article aria-label="left-column">
