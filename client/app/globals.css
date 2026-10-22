@@ -145,11 +145,11 @@
   body {
     @apply bg-[var(--color-background)] text-[contrast-color(var(--color-background))]/85 font-medium relative overflow-x-hidden;
     ::selection {
-      @apply bg-[var(--color-accent)] text-[contrast-color(var(--color-accent))];
+      @apply bg-[var(--color-primary)] text-[contrast-color(var(--color-primary))];
     }
 
     ::marker {
-      @apply text-[var(--color-accent)];
+      @apply text-[var(--color-primary)];
     }
   }
 
@@ -203,7 +203,7 @@
   }
 
   blockquote {
-    @apply relative my-6 p-8 border border-white/10 bg-[var(--color-foreground)]/5 backdrop-blur-md rounded-sm shadow-md before:content-['“'] before:text-7xl before:text-[var(--color-accent)] before:absolute before:top-0 before:left-2 before:font-serif font-bold;
+    @apply relative my-6 p-8 border border-white/10 bg-[var(--color-foreground)]/5 backdrop-blur-md rounded-sm shadow-md before:content-['“'] before:text-7xl before:text-[var(--color-primary)] before:absolute before:top-0 before:left-2 before:font-serif font-bold;
 
     p {
       @apply text-xl italic text-[contrast-color([var(--color-foreground)])]/90;
