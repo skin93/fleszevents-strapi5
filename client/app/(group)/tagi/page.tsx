@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/breadcrumb";
 import Link from "next/link";
 import { Home } from "lucide-react";
+import Section from "@/components/ui/custom/section";
 
 export async function generateMetadata() {
   return {
@@ -108,32 +109,26 @@ export default async function TagsPage({ searchParams }: Props) {
           __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
         }}
       />
-      <main>
-        <div className="mt-6">
-          <Breadcrumb>
-            <BreadcrumbList>
-              <BreadcrumbItem>
-                <BreadcrumbLink asChild>
-                  <Link href="/">
-                    <Home />
-                  </Link>
-                </BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator />
-              <BreadcrumbItem>
-                <BreadcrumbPage>TAGI</BreadcrumbPage>
-              </BreadcrumbItem>
-            </BreadcrumbList>
-          </Breadcrumb>
-        </div>
-        <section
-          aria-label="Tags"
-          className="my-6 p-6 border 
-      border-black/10 bg-white/85     
-      dark:border-white/5 dark:bg-[var(--color-foreground)]/5  backdrop-blur-md rounded-sm shadow-md"
-        >
-          <h1 className="mt-0 mb-6 text-center uppercase">TAGI</h1>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 ">
+      <main className="bg-foreground/5">
+        <Section ariaLabel="Tags">
+          <div className="mb-6">
+            <Breadcrumb>
+              <BreadcrumbList>
+                <BreadcrumbItem>
+                  <BreadcrumbLink asChild>
+                    <Link href="/">
+                      <Home />
+                    </Link>
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbPage>TAGI</BreadcrumbPage>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
+          </div>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 my-6">
             {tags.map((tag) => (
               <ButtonLink
                 className="!text-foreground"
@@ -144,12 +139,12 @@ export default async function TagsPage({ searchParams }: Props) {
               </ButtonLink>
             ))}
           </div>
-          <div className="my-8" />
+          <div className="6" />
           <CustomPagination
             currentPage={currentPage}
             pageCount={pageInfo.pageCount}
           />
-        </section>
+        </Section>
       </main>
     </Fragment>
   );
