@@ -16,6 +16,7 @@ export const ARTICLES_BY_TAG_QUERY = gql`
       nodes {
         documentId
         title
+        excerpt
         slug
         content
         publishedAt
