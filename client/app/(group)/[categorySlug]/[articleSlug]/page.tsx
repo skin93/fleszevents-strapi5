@@ -65,11 +65,11 @@ export async function generateMetadata({
         },
       },
       alternates: {
-        canonical: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/${categorySlug}/${articleSlug}`,
+        canonical: seo.canonicalURL,
       },
       openGraph: {
         type: "article",
-        url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/${categorySlug}}/${articleSlug}`,
+        url: seo.openGraph?.ogUrl,
         title: seo.openGraph?.ogTitle,
         description: seo.openGraph?.ogDescription,
         images: [

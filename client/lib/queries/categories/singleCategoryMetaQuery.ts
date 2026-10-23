@@ -19,6 +19,7 @@ export const SINGLE_CATEGORY_META_QUERY = gql`
             height
           }
         }
+        canonicalURL
         googleFollow
         robotsFollow
         googleIndex

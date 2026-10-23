@@ -44,7 +44,7 @@ export async function generateMetadata({
       },
     },
     alternates: {
-      canonical: `/tags/${tag.slug}`,
+      canonical: `/tagi/${tag.slug}`,
     },
     openGraph: null,
   };

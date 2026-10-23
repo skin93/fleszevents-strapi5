@@ -27,12 +27,12 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: "/contact",
+    canonical: "/kontakt",
   },
   openGraph: {
     type: "website",
     locale: "pl_PL",
-    url: process.env.NEXT_PUBLIC_APP_DOMAIN,
+    url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/kontakt`,
     title: process.env.NEXT_PUBLIC_APP_NAME,
     description: "Sprawdź, w jaki sposób możesz nawiązać kontakt!",
     siteName: process.env.NEXT_PUBLIC_APP_NAME,

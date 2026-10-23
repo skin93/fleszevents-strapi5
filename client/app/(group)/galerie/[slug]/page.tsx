@@ -40,7 +40,7 @@ export async function generateMetadata({
       canonical: seo?.canonicalURL,
     },
     openGraph: {
-      url: seo?.canonicalURL,
+      url: seo?.openGraph?.ogUrl,
       title: seo?.openGraph?.ogTitle,
       description: seo?.openGraph?.ogDescription,
       images: [

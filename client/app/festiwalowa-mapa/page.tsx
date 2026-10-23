@@ -29,12 +29,12 @@ export const metadata = {
     },
   },
   alternates: {
-    canonical: "/festival-map",
+    canonical: "/festiwalowa-mapa",
   },
   openGraph: {
     type: "website",
     locale: "pl_PL",
-    url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/festival-map`,
+    url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/festiwalowa-mapa`,
     title: "Festiwalowa Mapa",
     description:
       "Interaktywna mapa festiwali rockowych i metalowych w Polsce. Znajdź wydarzenia muzyczne w Twojej okolicy, sprawdź lokalizacje i zaplanuj swój festiwalowy sezon.",

@@ -29,12 +29,12 @@ export async function generateMetadata() {
       },
     },
     alternates: {
-      canonical: "/tags",
+      canonical: "/tagi",
     },
     openGraph: {
       type: "website",
       locale: "pl_PL",
-      url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/tags`,
+      url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/tagi`,
       title: "Tagi",
       description:
         "Indeks tematyczny serwisu FleszEvents. Znajdź wszystkie wiadomości, koncerty i relacje dotyczące Twoich ulubionych zespołów oraz festiwali.",
