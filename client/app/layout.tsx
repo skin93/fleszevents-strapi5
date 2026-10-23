@@ -14,7 +14,7 @@ const kalam = Kalam({
 const roboto = Lora({
   subsets: ["latin"],
   variable: "--font-lora",
-  weight: ["400"],
+  weight: ["400", "700"],
 });
 
 export const metadata: Metadata = {
