@@ -130,7 +130,7 @@ export default function SlugPageComponent({ article, categorySlug }: Props) {
             />
             {article.gallery && (
               <>
-                <div className="grid grid-cols-3 gap-4 my-6">
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 ">
                   <SmallGalleryDialog images={article.gallery.images} />
                 </div>
               </>
