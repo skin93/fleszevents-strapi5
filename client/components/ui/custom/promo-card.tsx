@@ -22,8 +22,11 @@ export default function PromoCard({ article, event }: Props) {
             priority
             className="object-cover w-full h-full"
           />
-          <div className=" absolute inset-0 bg-gradient-to-t from-black/90 via-black/80 to-transparent " />
-          <p className="scroll-m-20 tracking-tight p-4 text-white absolute font-(family-name:--font-kalam)">
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/80 to-transparent " />
+          <p
+            className="p-4 absolute font-(family-name:--font-kalam) text-white
+"
+          >
             {article.title}
           </p>
         </div>
@@ -35,8 +38,8 @@ export default function PromoCard({ article, event }: Props) {
             priority
             className="object-cover w-full h-full"
           />
-          <div className=" absolute inset-0 bg-gradient-to-t from-black/90 via-black/80 to-transparent " />
-          <div className="scroll-m-20 text-md tracking-tight lg:text-2xl p-4 text-white absolute bottom-5 font-(family-name:--font-kalam)">
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/80 to-transparent " />
+          <div className="p-4 absolute bottom-5 font-(family-name:--font-kalam) text-white">
             <p className="m-0"> {event?.name}</p>
             <p className="m-0">
               {format(event?.date as string, "dd MMMM yyy", { locale: pl })}
