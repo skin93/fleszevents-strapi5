@@ -145,7 +145,7 @@ export default function SlugPageComponent({ article, categorySlug }: Props) {
                 <Link key={tag.documentId} href={`/tags/${tag.slug}`}>
                   <Badge
                     className="uppercase ml-0 mr-6 p-0
-                    border-none scale-100 hover:underline hover:scale-105 transition-all duration-300 text-[contrast-color(var(--color-background))]"
+                    border-none scale-100 hover:underline hover:scale-105 transition-all duration-300 text-foreground/70 "
                     variant="outline"
                   >
                     {tag.name}
