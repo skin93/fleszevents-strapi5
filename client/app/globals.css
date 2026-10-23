@@ -169,7 +169,7 @@
   }
 
   p {
-    @apply leading-9 my-4 text-base md:text-lg font-medium;
+    @apply my-4;
   }
 
   article {
@@ -198,10 +198,10 @@
   }
 
   blockquote {
-    @apply relative my-6 p-8 border border-white/10 bg-[var(--color-foreground)]/5 backdrop-blur-md rounded-sm shadow-md before:content-['“'] before:text-7xl before:text-[var(--color-primary)] before:absolute before:top-0 before:left-2 before:font-serif font-bold;
+    @apply relative my-6 p-8 border border-black/10 bg-white/85 dark:border-white/5 dark:bg-[var(--color-foreground)]/5 backdrop-blur-md rounded-sm shadow-md before:content-['“'] before:text-5xl before:text-[var(--color-primary)] before:absolute before:top-0 before:left-2 before:font-serif;
 
     p {
-      @apply text-xl italic text-[contrast-color([var(--color-foreground)])]/90;
+      @apply italic text-[contrast-color([var(--color-foreground)])]/90;
     }
   }
 
