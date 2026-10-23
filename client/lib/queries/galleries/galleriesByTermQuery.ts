@@ -9,6 +9,7 @@ export const GALLERIES_BY_TERM_QUERY = gql`
       nodes {
         documentId
         name
+        description
         slug
         createdAt
         cover {
