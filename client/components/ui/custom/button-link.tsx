@@ -12,7 +12,7 @@ export function ButtonLink({ href, children, className }: Props) {
   return (
     <Button
       aria-label="button-link"
-      className={cn(className, "uppercase font-bold kalam")}
+      className={cn(className, "uppercase font-bold")}
       variant={"link"}
     >
       <Link aria-label={`Link to ${href}`} href={href}>

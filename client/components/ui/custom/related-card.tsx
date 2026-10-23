@@ -21,7 +21,7 @@ export default function RelatedCard({ article }: Props) {
           style={{ objectFit: "cover" }}
           className="rounded-sm aspect-[3/2] w-[5em] md:w-[15em] p-0"
         />
-        <CardTitle className="text-sm text-[16px] text-left p-2 text-foreground dark:no-underline rounded-b-lg transition-all duration-300 w-full kalam">
+        <CardTitle className="text-sm text-[16px] text-left p-2 text-foreground dark:no-underline rounded-b-lg transition-all duration-300 w-full font-[700]">
           {article.title}
         </CardTitle>
       </CardContent>
