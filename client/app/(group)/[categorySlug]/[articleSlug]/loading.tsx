@@ -3,7 +3,7 @@ import React from "react";
 
 export default function Loading() {
   return (
-    <main className="max-w-5xl  mx-auto">
+    <main className="container  mx-auto">
       <section className="my-6">
         <Skeleton className="w-full h-[50px] my-6 rounded-none" />
         <div className="flex flex-row gap-4 my-6">
