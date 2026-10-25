@@ -67,12 +67,12 @@
       margin-block-start: var(--typeset-flow);
     }
     &:where(h2) {
-      font-size: 1.25em;
+      font-size: 1.5em;
       line-height: 1.4;
       margin-block-start: calc(var(--typeset-flow) * 1.4);
     }
     &:where(h3) {
-      font-size: 1.125em;
+      font-size: 1.25em;
       line-height: 1.45;
       margin-block-start: var(--typeset-flow);
     }
