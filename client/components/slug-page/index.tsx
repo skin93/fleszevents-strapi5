@@ -137,7 +137,6 @@ export default function SlugPageComponent({ article, categorySlug }: Props) {
             )}
 
             <p className="m-0 font-bold text-[contrast-color(var(--color-background))]">
-              {" "}
               Tagi:
             </p>
             <div className="inline-table mt-4">
