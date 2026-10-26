@@ -133,7 +133,7 @@ export default async function HomePage() {
         }}
       />
       <main className="bg-foreground/5">
-        <div className="grid grid-cols-1 xl:grid-cols-[33.33%_33.33%_33.33%] container mx-auto">
+        <div className="grid grid-cols-1 xl:grid-cols-[33.33%_33.33%_33.33%] max-w-7xl mx-auto">
           <EventsCarousel
             label="polecamy"
             category="polecamy"
@@ -151,7 +151,7 @@ export default async function HomePage() {
           />
         </div>
 
-        <div className="grid grid-cols-1 xl:grid-cols-[70%_30%] container mx-auto">
+        <div className="grid grid-cols-1 xl:grid-cols-[70%_30%] max-w-7xl mx-auto">
           <div aria-label="category-blocks">
             <CategoryBlock
               articles={festivals}
@@ -176,10 +176,7 @@ export default async function HomePage() {
               categorySlug="relacje"
             />
           </div>
-          <aside
-            aria-label="latest-articles"
-            className="flex flex-col container mx-auto"
-          >
+          <aside aria-label="latest-articles" className="flex flex-col">
             <LatestArticles articles={latest} />
           </aside>
         </div>

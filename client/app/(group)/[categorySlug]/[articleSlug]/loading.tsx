@@ -3,9 +3,9 @@ import React from "react";
 
 export default function Loading() {
   return (
-    <main className="container  mx-auto">
-      <section className="m-6">
-        <Skeleton className="w-full h-[74px] my-6 rounded-none" />
+    <main className="max-w-7xl  mx-auto">
+      <section className="p-6">
+        <Skeleton className="w-full h-[74px] mb-6 rounded-none" />
         <div className="flex flex-row gap-4">
           <Skeleton className="w-[50px] sm:w-[75px] md:w-[100px] xl:w-[165px] h-[33px] rounded-none" />
           <Skeleton className="w-[50px] sm:w-[75px] md:w-[100px] xl:w-[165px] h-[33px] rounded-none" />
@@ -21,7 +21,7 @@ export default function Loading() {
             <Skeleton className="w-full h-[100px] my-4 rounded-none" />
           </div>
           <div className="w-full flex-col justify-between items-start">
-            <Skeleton className="w-[50px] sm:w-[75px] md:w-[100px] xl:w-[165px] h-[33px] rounded-none m-6" />
+            <Skeleton className="w-[50px] sm:w-[75px] md:w-[100px] xl:w-[165px] h-[33px] rounded-none my-6" />
             <div className="grid grid-cols-1 justify-center mx-auto">
               <Skeleton className="aspect-video w-full h-[130px] my-2 rounded-sm" />
               <Skeleton className="aspect-video w-full h-[130px] my-2 rounded-sm" />

@@ -3,8 +3,8 @@ import React from "react";
 
 export default function Loading() {
   return (
-    <main className="container mx-auto">
-      <section className="m-6 grid grid-cols-1 xl:grid-cols-[33.33%_33.33%_33.33%] container mx-auto gap-10">
+    <main className="max-w-7xl mx-auto">
+      <section className="m-6 grid grid-cols-1 xl:grid-cols-[33.33%_33.33%_33.33%] max-w-7xl mx-auto gap-10">
         <div className="m-6">
           <Skeleton className="w-[250px] h-[40px] mb-6" />
           <Skeleton className="w-full h-[200px] aspect-video" />
@@ -18,7 +18,7 @@ export default function Loading() {
           <Skeleton className="w-full h-[200px] aspect-video" />
         </div>
       </section>
-      <section className="m-6 grid grid-cols-1 xl:grid-cols-[70%_30%] container mx-auto gap-10">
+      <section className="m-6 grid grid-cols-1 xl:grid-cols-[70%_30%] max-w-7xl mx-auto gap-10">
         <div>
           <div>
             <Skeleton className="w-[250px] h-[40px] m-6" />

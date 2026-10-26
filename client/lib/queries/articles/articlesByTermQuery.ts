@@ -12,6 +12,7 @@ export const ARTICLES_BY_TERM_QUERY = gql`
       nodes {
         documentId
         title
+        excerpt
         slug
         createdAt
         cover {

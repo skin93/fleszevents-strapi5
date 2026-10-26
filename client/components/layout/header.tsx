@@ -45,7 +45,7 @@ const navLinks2: Array<{ title: string; path: string }> = [
 export default function Header() {
   return (
     <header className="p-4 sticky top-0 z-50 shadow-md bg-background text-foreground">
-      <div className="container mx-auto flex justify-between h-20  ">
+      <div className="max-w-7xl mx-auto flex justify-between h-20  ">
         <div>
           <Link
             href="/"

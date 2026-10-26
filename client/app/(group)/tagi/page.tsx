@@ -130,16 +130,11 @@ export default async function TagsPage({ searchParams }: Props) {
           </div>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 my-6">
             {tags.map((tag) => (
-              <ButtonLink
-                className="!text-foreground"
-                key={tag.documentId}
-                href={`/tagi/${tag.slug}`}
-              >
+              <ButtonLink key={tag.documentId} href={`/tagi/${tag.slug}`}>
                 #{tag.name}
               </ButtonLink>
             ))}
           </div>
-          <div className="6" />
           <CustomPagination
             currentPage={currentPage}
             pageCount={pageInfo.pageCount}

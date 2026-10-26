@@ -10,7 +10,7 @@ type Props = {
 export default function LatestArticles({ articles }: Props) {
   return (
     <div
-      className="w-full flex-col justify-between items-start xl:sticky xl:top-[200px] p-6 "
+      className="w-full flex-col justify-between items-start xl:sticky xl:top-[100px] p-6 "
       aria-label="related-articles"
     >
       <h2 className="scroll-m-20 text-2xl font-extrabold tracking-tight lg:text-3xl mt-0 mb-6 uppercase">

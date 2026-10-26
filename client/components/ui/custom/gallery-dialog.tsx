@@ -14,7 +14,7 @@ type Props = {
 
 export default function GalleryDialog({ gallery }: Props) {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
-  const [columnsCount, setColumnsCount] = useState<number>(3);
+  const [columnsCount, setColumnsCount] = useState<number>(4);
 
   const { photos } = gallery;
 
@@ -43,8 +43,10 @@ export default function GalleryDialog({ gallery }: Props) {
         setColumnsCount(1);
       } else if (window.innerWidth < 768) {
         setColumnsCount(2);
-      } else {
+      } else if (window.innerWidth < 1280) {
         setColumnsCount(3);
+      } else {
+        setColumnsCount(4);
       }
     };
     updateColumns();

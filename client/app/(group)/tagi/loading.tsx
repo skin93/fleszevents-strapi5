@@ -1,24 +1,23 @@
+import Section from "@/components/ui/custom/section";
 import { Skeleton } from "@/components/ui/skeleton";
 import React from "react";
 
 export default function Loading() {
   return (
-    <main>
-      <Skeleton className="mx-auto w-[25%] h-[100px] my-6" />
-      <section className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        <Skeleton className="w-full h-[40px] aspect-video" />
-        <Skeleton className="w-full h-[40px] aspect-video" />
-        <Skeleton className="w-full h-[40px] aspect-video" />
-        <Skeleton className="w-full h-[40px] aspect-video" />
-        <Skeleton className="w-full h-[40px] aspect-video" />
-        <Skeleton className="w-full h-[40px] aspect-video" />
-        <Skeleton className="w-full h-[40px] aspect-video" />
-        <Skeleton className="w-full h-[40px] aspect-video" />
-        <Skeleton className="w-full h-[40px] aspect-video" />
-        <Skeleton className="w-full h-[40px] aspect-video" />
-        <Skeleton className="w-full h-[40px] aspect-video" />
-        <Skeleton className="w-full h-[40px] aspect-video" />
-      </section>
+    <main className="max-w-7xl  mx-auto">
+      <Section ariaLabel="wrapper">
+        <Skeleton className="w-full h-[74px] mb-6 rounded-none" />
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <Skeleton className="w-[218px] h-[40px] aspect-video" />
+          <Skeleton className="w-[218px] h-[40px] aspect-video" />
+          <Skeleton className="w-[218px] h-[40px] aspect-video" />
+          <Skeleton className="w-[218px] h-[40px] aspect-video" />
+          <Skeleton className="w-[218px] h-[40px] aspect-video" />
+          <Skeleton className="w-[218px] h-[40px] aspect-video" />
+          <Skeleton className="w-[218px] h-[40px] aspect-video" />
+          <Skeleton className="w-[218px] h-[40px] aspect-video" />
+        </div>
+      </Section>
     </main>
   );
 }
