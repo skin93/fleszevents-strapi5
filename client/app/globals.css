@@ -198,7 +198,7 @@
   }
 
   blockquote {
-    @apply relative my-6 p-8 border border-black/10 bg-white/85 dark:border-white/5 dark:bg-[var(--color-foreground)]/5 backdrop-blur-md rounded-sm  shadow-md dark:shadow-stone-100 before:content-['“'] before:text-5xl before:text-[var(--color-primary)] before:absolute before:top-0 before:left-2 before:font-serif;
+    @apply relative my-6 p-8 border border-black/10 bg-white/85 dark:border-white/5 dark:bg-[var(--color-foreground)]/5 backdrop-blur-md rounded-sm  shadow-md  before:content-['“'] before:text-5xl before:text-[var(--color-primary)] before:absolute before:top-0 before:left-2 before:font-serif;
 
     p {
       @apply italic;
