@@ -11,7 +11,7 @@ type Props = {
 
 export default function RelatedCard({ article }: Props) {
   return (
-    <Card className="group relative scale-100  hover:scale-105 transition-all duration-300 max-w-full custom-backdrop">
+    <Card className="group relative scale-100  hover:scale-105 transition-all duration-300 max-w-full custom-backdrop shadow-md">
       <CardContent className="p-0 rounded-sm flex flex-row items-center">
         <Image
           src={article.cover}
@@ -21,7 +21,7 @@ export default function RelatedCard({ article }: Props) {
           style={{ objectFit: "cover" }}
           className="rounded-sm aspect-[1/1] w-[5em] p-0 rounded-tr-none rounded-br-none"
         />
-        <CardTitle className="text-sm text-left p-2 text-foreground dark:no-underline rounded-b-lg transition-all duration-300 w-full font-[700]">
+        <CardTitle className="text-base text-left p-2 text-foreground dark:no-underline rounded-b-lg transition-all duration-300 w-full font-[700]">
           {article.title}
         </CardTitle>
       </CardContent>

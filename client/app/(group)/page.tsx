@@ -132,8 +132,8 @@ export default async function HomePage() {
           __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
         }}
       />
-      <main className="bg-foreground/5">
-        <div className="grid grid-cols-1 xl:grid-cols-[33.33%_33.33%_33.33%] max-w-7xl mx-auto">
+      <main className="bg-foreground/5 flex flex-col items-center">
+        <div className="grid grid-cols-1 xl:grid-cols-[30%_30%_30%] container justify-between">
           <EventsCarousel
             label="polecamy"
             category="polecamy"
@@ -151,7 +151,7 @@ export default async function HomePage() {
           />
         </div>
 
-        <div className="grid grid-cols-1 xl:grid-cols-[70%_30%] max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 xl:grid-cols-[70%_30%] container mx-auto">
           <div aria-label="category-blocks">
             <CategoryBlock
               articles={festivals}

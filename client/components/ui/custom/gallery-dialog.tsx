@@ -128,12 +128,10 @@ export default function GalleryDialog({ gallery }: Props) {
                 src={getMediaUrl(selectedPhoto)}
                 alt={selectedPhoto.alternativeText}
                 blurDataURL={selectedPhoto.blurDataURL}
-                // width={selectedPhoto.width}
-                // height={selectedPhoto.height}
                 fill
                 sizes="(min-width: 1560px) 1440px, 100vw"
                 priority
-                className="rounded-sm  aspect-[3/2] object-contain"
+                className="rounded-sm  aspect-[3/2] object-contain "
               />
             </div>
           )}

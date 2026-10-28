@@ -11,7 +11,7 @@ type Props = {
 
 export default function GalleryCard({ gallery }: Props) {
   return (
-    <Card className="group relative overflow-hidden flex flex-col w-full h-full max-h-[500px] scale-100 hover:scale-105 transition-all duration-300 custom-backdrop">
+    <Card className="group relative overflow-hidden flex flex-col w-full h-full max-h-[500px] scale-100 hover:scale-105 transition-all duration-300 custom-backdrop shadow-md">
       <Image
         src={gallery.cover}
         alt={gallery.cover.alternativeText}

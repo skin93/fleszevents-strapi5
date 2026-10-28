@@ -39,7 +39,7 @@ export function Patronages({ patronages }: Props) {
           {patronages?.map((patronage) => (
             <CarouselItem
               key={patronage.documentId}
-              className="basis basis-1/2 lg:basis-1/5"
+              className="basis basis-1/3 md:basis-1/4 lg:basis-1/5"
             >
               <Card className="border-none">
                 <CardContent className="flex items-center justify-center p-0">

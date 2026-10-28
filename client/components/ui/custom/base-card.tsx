@@ -11,7 +11,7 @@ type Props = {
 
 export default function BaseCard({ article }: Props) {
   return (
-    <Card className="group relative overflow-hidden flex flex-col w-full h-full scale-100 hover:scale-105 transition-all duration-300 custom-backdrop">
+    <Card className="group relative overflow-hidden flex flex-col w-full h-full scale-100 hover:scale-105 transition-all duration-300 custom-backdrop shadow-md">
       <Image
         src={article.cover}
         alt={article.cover.alternativeText}
