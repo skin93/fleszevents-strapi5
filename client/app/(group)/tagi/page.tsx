@@ -109,7 +109,7 @@ export default async function TagsPage({ searchParams }: Props) {
           __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
         }}
       />
-      <main className="bg-foreground/5">
+      <main className="bg-foreground/3 dark:bg-foreground/8">
         <Section ariaLabel="Tags">
           <div className="mb-6">
             <Breadcrumb>

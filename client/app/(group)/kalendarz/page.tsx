@@ -102,7 +102,7 @@ export default async function CalendarPage({ searchParams }: Props) {
           __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
         }}
       />
-      <main className="bg-foreground/5">
+      <main className="bg-foreground/3 dark:bg-foreground/8">
         <CustomCalendar events={events} allBookedDates={allBookedDates} />
         <div className="my-6" />
       </main>

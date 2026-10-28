@@ -111,7 +111,7 @@ export default async function TagPage({ params, searchParams }: Props) {
           __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
         }}
       />
-      <main className="bg-foreground/5">
+      <main className="bg-foreground/3 dark:bg-foreground/8">
         <Section ariaLabel={`${slug} content`}>
           <div className="mb-6">
             <Breadcrumb>

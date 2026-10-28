@@ -78,7 +78,7 @@ export default async function GallerySlugPage({
           ),
         }}
       />
-      <main className="bg-foreground/5">
+      <main className="bg-foreground/3 dark:bg-foreground/8">
         <Section ariaLabel={`${gallery.name}`}>
           <div className="mb-6">
             <Breadcrumb>

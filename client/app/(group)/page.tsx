@@ -132,7 +132,7 @@ export default async function HomePage() {
           __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
         }}
       />
-      <main className="bg-foreground/5 flex flex-col items-center">
+      <main className="bg-foreground/3 dark:bg-foreground/8 flex flex-col items-center">
         <div className="grid grid-cols-1 xl:grid-cols-[30%_30%_30%] container justify-between">
           <EventsCarousel
             label="polecamy"
