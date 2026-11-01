@@ -1,7 +1,4 @@
 export default ({ env }) => ({
-  seo: {
-    enabled: true,
-  },
   "gen-types": {
     enabled: true,
     config: {
