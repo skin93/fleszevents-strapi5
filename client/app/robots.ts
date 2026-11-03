@@ -1,10 +1,25 @@
-export default function robots() {
+import type { MetadataRoute } from "next";
+
+export default function robots(): MetadataRoute.Robots {
+  const baseUrl =
+    process.env.NEXT_PUBLIC_APP_DOMAIN || "https://twojadomena.com";
+
   return {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: ["/tagi/", "/tags/", "/szukaj", "/search", "/uploads/"],
+      disallow: [
+        "/_next/",
+        "/api/",
+        "/polecamy/",
+        "/patronat/",
+        "/tagi/",
+        "/tags/",
+        "/szukaj",
+        "/search",
+        "/uploads/",
+      ],
     },
-    sitemap: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/sitemap.xml`,
+    sitemap: `${baseUrl}/sitemap.xml`,
   };
 }
